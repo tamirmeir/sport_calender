@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "append_styles",
+			"type": "shell",
+			"command": "cat >>",
+			"args": [
+				"/Users/tamirmei/dev/gitHubTamir/sport_calender/public/css_v2/styles.css",
+				"\n/* Fixtures Table */\n.controls-bar {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    margin-bottom: 20px;\n    padding: 10px;\n    background-color: #f1f5f9;\n    border-radius: 8px;\n    border: 1px solid var(--border-color);\n}\n\n.selection-controls {\n    display: flex;\n    gap: 10px;\n}\n\n.control-btn {\n    padding: 8px 16px;\n    border: 1px solid var(--border-color);\n    border-radius: 6px;\n    background: white;\n    cursor: pointer;\n    font-size: 0.9rem;\n    transition: all 0.2s;\n}\n\n.control-btn:hover {\n    background: #f8fafc;\n    border-color: var(--secondary-color);\n}\n\n.btn-primary-lg {\n    background: var(--primary-color);\n    color: white;\n    border: none;\n    font-weight: 600;\n    padding: 10px 20px;\n    font-size: 1rem;\n    box-shadow: var(--shadow);\n}\n\n.btn-primary-lg:hover {\n    background: var(--secondary-color);\n    transform: translateY(-2px);\n    box-shadow: var(--shadow-lg);\n}\n\n.btn-primary-lg:disabled {\n    background: #ccc;\n    cursor: not-allowed;\n    transform: none;\n    box-shadow: none;\n}\n\n.fixtures-table {\n    width: 100%;\n    border-collapse: collapse;\n    background: white;\n    border-radius: 8px;\n    overflow: hidden;\n    box-shadow: var(--shadow);\n}\n\n.fixtures-table th,\n.fixtures-table td {\n    padding: 12px 16px;\n    text-align: left;\n    border-bottom: 1px solid var(--border-color);\n}\n\n.fixtures-table th {\n    background-color: #f8fafc;\n    font-weight: 600;\n    color: var(--text-color);\n}\n\n.fixtures-table tr:hover {\n    background-color: #f1f5f9;\n}\n\n.fixtures-table .checkbox-col {\n    width: 40px;\n    text-align: center;\n}\n\n.fixtures-table .time-col {\n    font-family: monospace;\n    font-weight: 600;\n}\n\n.fixtures-table .team-col {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n}\n\n.fixtures-table .team-col img {\n    width: 24px;\n    height: 24px;\n    object-fit: contain;\n}\n\n.fixtures-table .vs-col, .fixtures-table .score-col {\n    text-align: center;\n    font-weight: bold;\n    color: #9ca3af;\n}\n\n.fixtures-table input[type=\"checkbox\"] {\n    width: 18px;\n    height: 18px;\n    cursor: pointer;\n}\n"
+			],
+			"isBackground": false,
+			"group": "copy"
+		}
+	]
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Calendar App</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css_v2/styles.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="auth-controls" id="authControls"></div>
+            <div class="header-content">
+                <h1>⚽ Sport Calendar</h1>
+                <p>Track your favorite football fixtures</p>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="quick-select">
+                <h3>My Favorites</h3>
+                <div id="quickFavoritesContainer" class="team-buttons">
+                    <p class="placeholder-text">Login to see your favorite teams here</p>
+                </div>
+            </div>
+
+            <div class="explorer-section">
+                <h3>Find Your Team</h3>
+                
+                <!-- Step 1: Select Country -->
+                <div class="explorer-step" id="stepCountry">
+                    <label>Step 1: Select Country</label>
+                    <input type="text" id="countrySearch" placeholder="Search country..." class="filter-input">
+                    <div id="countriesGrid" class="cards-grid"></div>
+                </div>
+
+                <!-- Step 2: Select League -->
+                <div class="explorer-step hidden" id="stepLeague">
+                    <div class="step-header">
+                        <label>Step 2: Select League</label>
+                        <button class="back-btn" onclick="resetToCountry()">← Back</button>
+                    </div>
+                    <div id="leaguesGrid" class="cards-grid"></div>
+                </div>
+
+                <!-- Step 3: Select Team -->
+                <div class="explorer-step hidden" id="stepTeam">
+                    <div class="step-header">
+                        <label>Step 3: Select Team</label>
+                        <button class="back-btn" onclick="resetToLeagues()">← Back</button>
+                    </div>
+                    <input type="text" id="teamQuickFilter" placeholder="Filter teams..." class="filter-input">
+                    <div id="teamsGrid" class="cards-grid"></div>
+                </div>
+            </div>
+            
+            <!-- Hidden inputs to keep existing logic working simpler -->
+            <input type="hidden" id="teamId">
+            <input type="hidden" id="nextFixtures" value="10">
+            <div id="searchStatus" class="status-message"></div>
+        </section>
+
+        <!-- Legacy elements hidden -->
+        <div style="display: none;">
+             <button id="searchBtn">Search</button>
+             <div class="filters-section"> <!-- filters removed --> </div>
+        </div>
+
+        <section class="filters-section" style="justify-content: flex-end;">
+            <div style="display: flex; gap: 10px;">
+                <button id="downloadAllBtn" class="btn btn-success hidden" style="display: none;" title="Download .ics file to import into Google/Apple/Outlook Calendar">
+                    📅 Add All (Import)
+                </button>
+                <button id="removeAllBtn" class="btn btn-danger hidden" style="display: none; background-color: #dc3545; border-color: #dc3545;" title="Download cancellation .ics file">
+                    🗑️ Remove All
+                </button>
+            </div>
+        </section>
+
+        <!-- Fixtures Grid -->
+        <section class="fixtures-section">
+            <div id="fixturesContainer" class="fixtures-grid">
+                <div class="empty-state">
+                    <p>Search for a team above to see upcoming matches</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by API-Sports Football API</p>
+        </footer>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAuthModal()">&times;</span>
+            <div id="loginFormContainer">
+                <h2 class="modal-title">Login</h2>
+                <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-input" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Login</button>
+                    <div class="auth-switch">
+                        Don't have an account? <a onclick="toggleAuthMode('register')">Register</a>
+                    </div>
+                </form>
+            </div>
+
+            <div id="registerFormContainer" style="display: none;">
+                <h2 class="modal-title">Register</h2>
+                <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-input" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Register</button>
+                    <div class="auth-switch">
+                        Already have an account? <a onclick="toggleAuthMode('login')">Login</a>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="favoritesContainer" style="display: none;">
+                <h2 class="modal-title">My Favorite Teams</h2>
+                <div id="favoritesList" class="favorites-list">
+                    <!-- Loaded via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app_v2.js"></script>
+</body>
+</html>
