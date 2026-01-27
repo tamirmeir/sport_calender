@@ -48,3 +48,17 @@ class FavoriteTeam(db.Model):
             'team_logo': self.team_logo,
             'added_at': self.added_at.isoformat()
         }
+
+class SavedFixture(db.Model):
+    """SavedFixture model - stores specific matches for calendar export"""
+    __tablename__ = 'saved_fixtures'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    fixture_id = db.Column(db.Integer, nullable=False)
+    fixture_data = db.Column(db.Text, nullable=False) # JSON string of match details
+    added_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Backref from User
+    user = db.relationship('User', backref=db.backref('saved_fixtures', lazy=True))
+

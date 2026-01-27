@@ -299,9 +299,12 @@ function renderFixtures() {
                 <button class="control-btn" onclick="handleSelectAll()">Select All</button>
                 <button class="control-btn" onclick="handleClearAll()">Clear All</button>
             </div>
-            <button id="addSelectedBtn" class="btn-primary-lg" onclick="addSelectedToCalendar()" disabled>
-                Add to Calendar (0)
-            </button>
+            <div style="display:flex; gap:10px">
+                <button id="syncBtn" class="control-btn" onclick="getSyncLink()" disabled title="Login required for Sync">🔗 Get Sync Link</button>
+                <button id="addSelectedBtn" class="btn-primary-lg" onclick="addSelectedToCalendar()" disabled>
+                    Add to Calendar (0)
+                </button>
+            </div>
         </div>
     `;
 
@@ -429,9 +432,19 @@ window.handleSelectionChange = function(checkbox) {
 
 function updateAddButton() {
     const btn = document.getElementById('addSelectedBtn');
+    const syncBtn = document.getElementById('syncBtn');
     const count = selectedFixtures.size;
-    btn.textContent = `Add to Calendar (${count})`;
-    btn.disabled = count === 0;
+    
+    if(btn) {
+        btn.textContent = `Add to Calendar (${count})`;
+        btn.disabled = count === 0;
+    }
+    
+    if(syncBtn) {
+        const token = localStorage.getItem('token');
+        syncBtn.disabled = count === 0 || !token;
+        syncBtn.title = !token ? "Login required" : "Get Subscription URL";
+    }
 }
 
 window.addSelectedToCalendar = function() {
@@ -517,6 +530,71 @@ if(downloadAllBtn) downloadAllBtn.onclick = () => {
     downloadBlob(content, 'my_fixtures.ics');
 };
 
+// --- Calendar Sync ---
+window.getSyncLink = async function() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+         openAuthModal('login');
+         return;
+    }
+    
+    if (selectedFixtures.size === 0) {
+        alert("Please select at least one fixture first.");
+        return;
+    }
+    
+    // Prepare data
+    const fixtures = [];
+    selectedFixtures.forEach(fid => {
+        if (fixtureData[`fixture_${fid}`]) fixtures.push(fixtureData[`fixture_${fid}`]);
+    });
+    
+    try {
+        const btn = document.getElementById('syncBtn');
+        if(btn) btn.textContent = 'Generating...';
+        
+        const res = await fetch('http://127.0.0.1:8000/calendar/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ fixtures: fixtures })
+        });
+        
+        if (!res.ok) throw new Error('Failed to create calendar link');
+        
+        const data = await res.json();
+        
+        // Show the link in a modal or prompt
+        const link = data.sync_url; 
+        showSyncModal(link);
+        
+    } catch (e) {
+        alert(e.message);
+    } finally {
+        const btn = document.getElementById('syncBtn');
+        if(btn) btn.textContent = '🔗 Get Sync Link';
+    }
+};
+
+function showSyncModal(link) {
+    const html = `
+        <div id="syncModal" class="modal active" style="z-index: 2000;">
+            <div class="modal-content" style="max-width: 500px">
+                <span class="modal-close" onclick="document.getElementById('syncModal').remove()">&times;</span>
+                <h2 style="margin-bottom:15px">📅 Calendar Sync Link</h2>
+                <p style="margin-bottom:10px">Use this URL to subscribe in Google Calendar, Outlook, or Apple Calendar:</p>
+                <input type="text" value="${link}" readonly style="width:100%; padding:10px; margin-bottom:15px; background:#f1f5f9; border:1px solid #ddd;">
+                <button class="btn-primary-lg" onclick="navigator.clipboard.writeText('${link}'); this.textContent='Copied!';">Copy Link</button>
+                <p style="font-size:0.8rem; color:#666; margin-top:15px">
+                    * This link updates automatically when you add new matches to your account.
+                </p>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+}
 // --- Auth & Favorites ---
 
 window.checkAuth = function() {

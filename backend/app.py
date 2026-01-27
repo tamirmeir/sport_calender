@@ -43,10 +43,12 @@ def create_app():
         from routes.auth import auth_bp
         from routes.favorites import favorites_bp
         from routes.fixtures import fixtures_bp
+        from routes.calendar import calendar_bp
         
         app.register_blueprint(auth_bp, url_prefix='/api/auth')
         app.register_blueprint(favorites_bp, url_prefix='/api/favorites')
         app.register_blueprint(fixtures_bp, url_prefix='/api/fixtures')
+        app.register_blueprint(calendar_bp, url_prefix='/') # Mount logic at root for /sync/...
         
         # Create tables
         db.create_all()
