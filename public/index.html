@@ -99,53 +99,143 @@
 
     <!-- Auth Modal -->
     <div id="authModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content auth-modal-layout">
             <span class="modal-close" onclick="closeAuthModal()">&times;</span>
-            <div id="loginFormContainer">
-                <h2 class="modal-title">Login</h2>
-                <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-input" required>
-                    </div>
-                    <button type="submit" class="auth-submit-btn">Login</button>
-                    <div class="auth-switch">
-                        Don't have an account? <a onclick="toggleAuthMode('register')">Register</a>
-                    </div>
-                </form>
+            
+            <!-- Side Banner (Benefits) -->
+            <div class="auth-benefits">
+                <h3>Unlock Pro Features</h3>
+                <ul class="benefits-list">
+                    <li>
+                        <span class="icon">⭐</span>
+                        <div class="benefit-text">
+                            <strong>Save Favorites</strong>
+                            <small>Track your top teams easily</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="icon">📅</span>
+                        <div class="benefit-text">
+                            <strong>Calendar Sync</strong>
+                            <small>Auto-sync matches to your phone</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="icon">🔄</span>
+                        <div class="benefit-text">
+                            <strong>Always Updated</strong>
+                            <small>Access your preferences anywhere</small>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
-            <div id="registerFormContainer" style="display: none;">
-                <h2 class="modal-title">Register</h2>
-                <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
-                    <div class="form-group">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-input" required>
+            <!-- Forms Container -->
+            <div class="auth-forms-wrapper">
+                <div id="loginFormContainer" class="auth-view active">
+                    <h2 class="modal-title">Welcome Back</h2>
+                    <p class="auth-subtitle">Login to manage your calendar</p>
+                    <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">👤</span>
+                                <input type="text" name="username" class="form-input" placeholder="Enter your username" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" name="password" class="form-input" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">Login</button>
+                        <div class="auth-switch">
+                            New here? <a onclick="toggleAuthMode('register')">Create Account</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="registerFormContainer" class="auth-view" style="display: none;">
+                    <h2 class="modal-title">Create Account</h2>
+                    <p class="auth-subtitle">Join us to personalize your experience</p>
+                    <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">👤</span>
+                                <input type="text" name="username" class="form-input" placeholder="Choose a username" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">✉️</span>
+                                <input type="email" name="email" class="form-input" placeholder="name@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" name="password" class="form-input" placeholder="Create a password" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">Sign Up</button>
+                        <div class="auth-switch">
+                            Already have an account? <a onclick="toggleAuthMode('login')">Login</a>
+                        </div>
+                    </form>
+                </div>
+                
+                <div id="favoritesContainer" class="auth-view" style="display: none;">
+                    <h2 class="modal-title">My Favorite Teams</h2>
+                    <div id="favoritesList" class="favorites-list">
+                        <!-- Loaded via JS -->
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-input" required>
-                    </div>
-                    <button type="submit" class="auth-submit-btn">Register</button>
-                    <div class="auth-switch">
-                        Already have an account? <a onclick="toggleAuthMode('login')">Login</a>
-                    </div>
-                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content help-modal-layout">
+            <span class="modal-close" onclick="closeHelpModal()">&times;</span>
+            <div class="help-header">
+                <h2>📚 How to use Sport Calendar</h2>
+                <p>Follow these simple steps to manage your football schedule</p>
             </div>
             
-            <div id="favoritesContainer" style="display: none;">
-                <h2 class="modal-title">My Favorite Teams</h2>
-                <div id="favoritesList" class="favorites-list">
-                    <!-- Loaded via JS -->
+            <div class="help-steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">🌍</div>
+                    <h3>1. Select Country</h3>
+                    <p>Start by choosing the country of your favorite league from the main list.</p>
                 </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">🏆</div>
+                    <h3>2. Choose League</h3>
+                    <p>Select the specific league or competition you want to track.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">🛡️</div>
+                    <h3>3. Pick Team</h3>
+                    <p>Find your team to see their upcoming fixtures and schedule.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">📅</div>
+                    <h3>4. Sync Calendar</h3>
+                    <p>Select matches and click "Generate Sync Link" to verify your schedule updates automatically on your phone!</p>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <strong>💡 Pro Tip:</strong> <a onclick="closeHelpModal(); openAuthModal('login')">Login</a> to save your favorite teams for one-click access next time!
             </div>
         </div>
     </div>

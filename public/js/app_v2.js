@@ -1,7 +1,8 @@
 // Global Constants
-const API_BASE = 'http://127.0.0.1:8000/api/fixtures';
-const AUTH_API = 'http://127.0.0.1:8000/api/auth';
-const FAV_API = 'http://127.0.0.1:8000/api/favorites';
+// Use relative paths so it works on Localhost (via Proxy) AND Production (via Nginx)
+const API_BASE = '/api/fixtures';
+const AUTH_API = '/api/auth';
+const FAV_API = '/api/favorites';
 
 // State
 let currentState = {
@@ -553,7 +554,7 @@ window.getSyncLink = async function() {
         const btn = document.getElementById('syncBtn');
         if(btn) btn.textContent = 'Generating...';
         
-        const res = await fetch('http://127.0.0.1:8000/calendar/add', {
+        const res = await fetch('/calendar/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -586,7 +587,13 @@ function showSyncModal(link) {
                 <h2 style="margin-bottom:15px">📅 Calendar Sync Link</h2>
                 <p style="margin-bottom:10px">Use this URL to subscribe in Google Calendar, Outlook, or Apple Calendar:</p>
                 <input type="text" value="${link}" readonly style="width:100%; padding:10px; margin-bottom:15px; background:#f1f5f9; border:1px solid #ddd;">
-                <button class="btn-primary-lg" onclick="navigator.clipboard.writeText('${link}'); this.textContent='Copied!';">Copy Link</button>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-primary-lg" onclick="navigator.clipboard.writeText('${link}'); this.textContent='Copied!';">Copy Link</button>
+                    <a href="${link}" class="btn-primary-lg" style="text-decoration:none; background:#334155;">Download .ics</a>
+                </div>
+                <div style="background:#fffbeb; color:#92400e; padding:10px; margin-top:15px; border-radius:6px; font-size:0.85rem;">
+                    <strong>⚠️ Note for Localhost:</strong> Google Calendar cannot sync with '127.0.0.1'. Please download the .ics file and import it manually, or use Apple/Outlook desktop apps.
+                </div>
                 <p style="font-size:0.8rem; color:#666; margin-top:15px">
                     * This link updates automatically when you add new matches to your account.
                 </p>
@@ -699,16 +706,31 @@ window.toggleFavorite = async function(teamId, teamName, teamLogo) {
 function updateAuthUI(user) {
     const c = document.getElementById('authControls');
     if (!c) return;
+    
+    // Help Button (Always visible)
+    const helpBtn = `<button class="auth-btn" style="margin-right:10px" onclick="openHelpModal()">❓ Help</button>`;
+
     if (user) {
-        c.innerHTML = `<div style="display:flex; align-items:center; gap:10px;">
-                       <span style="color:white; font-weight:bold">Hi, ${user.username}</span> 
-                       <button class="auth-btn" onclick="openAuthModal('favorites')">⭐ Favorites</button>
-                       <button class="auth-btn" onclick="logout()" style="background:rgba(239, 68, 68, 0.4)">Logout</button>
-                       </div>`;
+        c.innerHTML = `
+            <div style="display:flex; align-items:center; gap:10px;">
+                ${helpBtn}
+                <span style="color:white; font-weight:bold">Hi, ${user.username}</span> 
+                <button class="auth-btn" onclick="openAuthModal('favorites')">⭐ Favorites</button>
+                <button class="auth-btn" onclick="logout()" style="background:rgba(239, 68, 68, 0.4)">Logout</button>
+            </div>`;
     } else {
-        c.innerHTML = `<button class="auth-btn" onclick="openAuthModal('login')">Login</button>`;
+        c.innerHTML = `
+            <div style="display:flex; align-items:center; gap:10px;">
+                ${helpBtn}
+                <button class="auth-btn" onclick="openAuthModal('login')">Login</button>
+            </div>`;
     }
 }
+
+// Help Modal Functions
+window.openHelpModal = () => document.getElementById('helpModal').classList.add('active');
+window.closeHelpModal = () => document.getElementById('helpModal').classList.remove('active');
+
 
 window.logout = function() {
     localStorage.removeItem('token');

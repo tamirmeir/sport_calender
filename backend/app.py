@@ -22,7 +22,8 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     jwt.init_app(app)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # Allow CORS for all routes (API + Calendar logic)
+    CORS(app, resources={r"/*": {"origins": "*"}})
     
     # Error handlers
     @app.errorhandler(404)
