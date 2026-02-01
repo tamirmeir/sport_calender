@@ -36,6 +36,24 @@ const removeAllBtn = document.getElementById('removeAllBtn');
 
 // --- Initialization ---
 
+// Navigation Helper
+const navBackBtn = document.getElementById('mainBackBtn');
+const navStepLabel = document.getElementById('stepIndicator');
+
+function updateNavigation(step, label, backAction) {
+    if (navStepLabel) navStepLabel.textContent = label;
+    
+    if (navBackBtn) {
+        if (backAction) {
+            navBackBtn.style.visibility = 'visible';
+            navBackBtn.onclick = backAction;
+        } else {
+            navBackBtn.style.visibility = 'hidden';
+            navBackBtn.onclick = null;
+        }
+    }
+}
+
 window.addEventListener('load', () => {
     console.log('Sport Calendar App V2 Loaded');
     checkAuth();
@@ -45,13 +63,19 @@ window.addEventListener('load', () => {
 // --- Explorer Logic ---
 
 async function loadCountries() {
+    // Update Navigation for Step 1
+    updateNavigation(1, "Step 1: Select Country", null);
+    
     try {
         const response = await fetch(`${API_BASE}/countries`);
         const data = await response.json();
         
-        if (data.response) {
+        // Handle unwrapped array or API-Sports wrapped response
+        const countryList = Array.isArray(data) ? data : (data.response || []);
+
+        if (countryList.length > 0) {
             // Sort countries by name
-            const allCountries = data.response.sort((a, b) => a.name.localeCompare(b.name));
+            const allCountries = countryList.sort((a, b) => a.name.localeCompare(b.name));
             
             // Priority countries first
             const priorityNames = ['England', 'Spain', 'Italy', 'Germany', 'France', 'Israel', 'Portugal', 'Netherlands', 'Brazil', 'Argentina'];
@@ -95,7 +119,7 @@ function renderCountries(list) {
     displayList.forEach(c => {
         const card = document.createElement('div');
         card.className = 'grid-card';
-        card.onclick = () => selectCountry(c.name);
+        card.onclick = () => selectCountry(c.name, c.flag);
         
         card.innerHTML = `
             <img src="${c.flag || 'https://media.api-sports.io/flags/' + c.code.toLowerCase() + '.svg'}" 
@@ -107,8 +131,17 @@ function renderCountries(list) {
     });
 }
 
-function selectCountry(country) {
+function selectCountry(country, flag) {
     currentState.country = country;
+    currentState.flag = flag; // Store flag for the next screen
+    
+    // Clear fixtures (e.g. from previous Favorites selection)
+    if (fixturesContainer) {
+        fixturesContainer.innerHTML = '<div class="empty-state"><p>Select a league and team to view fixtures.</p></div>';
+    }
+    allFixtures = [];
+    toggleDownloadButtons(false);
+
     loadLeagues();
 }
 
@@ -120,6 +153,9 @@ async function loadLeagues() {
     stepCountry.classList.add('hidden');
     stepLeague.classList.remove('hidden');
     
+    // Update Navigation for Step 2
+    updateNavigation(2, `Step 2: Select ${country} League / National Team`, resetToCountry);
+    
     leaguesGrid.innerHTML = '<div class="loading">Loading leagues...</div>';
 
     try {
@@ -128,9 +164,11 @@ async function loadLeagues() {
         
         leaguesGrid.innerHTML = '';
         
-        if (data.response && data.response.length > 0) {
+        const leagueList = Array.isArray(data) ? data : (data.response || []);
+
+        if (leagueList.length > 0) {
             // Filter: Type 'League' only, remove Women/U21, take top 2
-            let leagues = data.response
+            let leagues = leagueList
                 .map(item => item.league)
                 .filter(l => l.type === 'League')
                 .filter(l => !l.name.includes('Women') && !l.name.includes('U21') && !l.name.includes('Reserves'));
@@ -143,13 +181,30 @@ async function loadLeagues() {
 
             if (leagues.length === 0) {
                  // Fallback if filtering removed everything (e.g. only cups returned?)
-                 leagues = data.response.map(i => i.league).slice(0, 2);
+                 leagues = leagueList.map(i => i.league).slice(0, 2);
             }
+
+            // --- NEW: National Team Option ---
+            const nationalCard = document.createElement('div');
+            nationalCard.className = 'grid-card national-card'; 
+            // nationalCard.style.border = '2px solid #2563eb'; // Moved to CSS class
+            nationalCard.onclick = () => selectLeague('NATIONAL', 'National Team'); 
+            
+            // Use the stored flag from previous step
+            const flagUrl = currentState.flag || 'https://media.api-sports.io/flags/xw.svg'; // Default World flag
+
+            nationalCard.innerHTML = `
+                <img src="${flagUrl}" alt="${country} National Team" style="border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <span style="font-weight: bold;">National Team</span>
+            `;
+            leaguesGrid.appendChild(nationalCard);
+            // ---------------------------------
+
 
             leagues.forEach(league => {
                 const card = document.createElement('div');
                 card.className = 'grid-card';
-                card.onclick = () => selectLeague(league.id);
+                card.onclick = () => selectLeague(league.id, league.name);
                 
                 card.innerHTML = `
                     <img src="${league.logo}" alt="${league.name}" onerror="this.src='https://media.api-sports.io/football/leagues/1.png'">
@@ -161,63 +216,136 @@ async function loadLeagues() {
             leaguesGrid.innerHTML = '<p>No leagues found for this country.</p>';
         }
     } catch (e) {
+
         console.error(e);
         leaguesGrid.innerHTML = '<p class="error">Error loading leagues.</p>';
     }
 }
 
-async function selectLeague(leagueId) {
-    currentState.league = leagueId;
+async function selectLeague(leagueId, leagueName) {
+    currentState.league = leagueId; // Can be 'NATIONAL' or an Integer ID
     
     stepLeague.classList.add('hidden');
     stepTeam.classList.remove('hidden');
     
+    // Update Navigation for Step 3
+    const stepTitle = leagueId === 'NATIONAL' 
+        ? `Step 3: Select ${currentState.country} National Team` 
+        : `Step 3: Select ${leagueName} Team`;
+        
+    updateNavigation(3, stepTitle, resetToLeagues);
+    
     teamsGrid.innerHTML = '<div class="loading">Loading teams...</div>';
     
     try {
-        // Calculate current season
-        // If before July (Month < 6), use previous year. Otherwise current year.
-        const date = new Date();
-        const season = date.getMonth() < 6 ? date.getFullYear() - 1 : date.getFullYear();
-        
-        console.log(`Fetching teams for league ${leagueId}, season ${season}`);
-        const response = await fetch(`${API_BASE}/teams?league=${leagueId}&season=${season}`);
+        let url = '';
+        if (leagueId === 'NATIONAL') {
+            const countryName = currentState.country; // This is actually the country object from loadCountries selection logic? 
+            // WAIT - selectCountry(c) saves the whole object or just ID/Name?
+            // Checking selectCountry implementation might be needed. 
+            // Assuming currentState.country holds the country name string as seen in loadLeagues(country).
+            console.log(`Fetching National Team for ${countryName}`);
+            url = `${API_BASE}/teams?country=${countryName}&national=true`;
+        } else {
+            // Calculate current season
+            const date = new Date();
+            const season = date.getMonth() < 6 ? date.getFullYear() - 1 : date.getFullYear();
+            console.log(`Fetching teams for league ${leagueId}, season ${season}`);
+            url = `${API_BASE}/teams?league=${leagueId}&season=${season}`;
+        }
+
+        const response = await fetch(url);
         const data = await response.json();
         
         teamsGrid.innerHTML = '';
         
-        if (data.response && data.response.length > 0) {
+        const teamList = Array.isArray(data) ? data : (data.response || []);
+
+        if (teamList.length > 0) {
+            // Remove grid mode, enable list mode
+            teamsGrid.classList.remove('cards-grid');
+            teamsGrid.classList.add('teams-list-view');
+
             // Sort teams
-            const teams = data.response.sort((a, b) => a.team.name.localeCompare(b.team.name));
+            const teams = teamList.sort((a, b) => a.team.name.localeCompare(b.team.name));
             
-            teams.forEach(item => {
+            // Generate Table Header
+            const isNationalContext = currentState.league === 'NATIONAL';
+            const tableHeader = `
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">Logo</th>
+                        <th>Team Name</th>
+                        ${isNationalContext ? '<th>Type</th>' : ''}
+                        <th>Founded</th>
+                        <th>Venue</th>
+                    </tr>
+                </thead>
+            `;
+
+            const rows = teams.map(item => {
                 const team = item.team;
-                const card = document.createElement('div');
-                card.className = 'grid-card';
-                card.onclick = () => selectTeam(team.id);
+                const venue = item.venue;
                 
-                card.innerHTML = `
-                    <img src="${team.logo}" alt="${team.name}" onerror="this.src='/favicon.svg'">
-                    <span>${team.name}</span>
+                // Detect Team Type
+                let badgeHtml = '<span class="badge badge-senior" style="background:#f1f5f9; color:#64748b; border:1px solid #e2e8f0;">Standard</span>'; 
+                // Default tag
+                
+                const name = team.name.toLowerCase();
+                let isNational = team.national;
+
+                if (name.includes('women') || displayNameIsWomen(team.name)) {
+                    badgeHtml = '<span class="badge badge-women">Women</span>';
+                } else if (name.match(/u\d/)) { // matches u19, u20, u21 etc
+                    badgeHtml = '<span class="badge badge-youth">Youth</span>';
+                } else if (isNational) {
+                    badgeHtml = '<span class="badge badge-senior">Men\'s Senior</span>';
+                }
+
+                return `
+                    <tr onclick="selectTeam(${team.id})">
+                        <td>
+                            <img src="${team.logo}" alt="${team.name}" onerror="this.src='/favicon.svg'">
+                        </td>
+                        <td class="team-info">${team.name}</td>
+                        ${isNationalContext ? `<td>${badgeHtml}</td>` : ''}
+                        <td>${team.founded || '-'}</td>
+                        <td>
+                            ${venue.name ? `${venue.name}, ${venue.city}` : '-'}
+                        </td>
+                    </tr>
                 `;
-                teamsGrid.appendChild(card);
-            });
+            }).join('');
+
+            teamsGrid.innerHTML = `
+                <table class="teams-table">
+                    ${tableHeader}
+                    <tbody>
+                        ${rows}
+                    </tbody>
+                </table>
+            `;
+
+            // Helper for ambiguous "W" suffix (e.g. "Chelsea W" vs just "W")
+            function displayNameIsWomen(str) {
+                return str.endsWith(' W') || str.endsWith(' Ladies');
+            }
             
-            // Setup Quick Filter for teams
+            // Setup Quick Filter for teams (UPDATED for Table)
             const filterInput = document.getElementById('teamQuickFilter');
             if (filterInput) {
                 filterInput.oninput = (e) => {
                     const val = e.target.value.toLowerCase();
-                    const cards = teamsGrid.getElementsByClassName('grid-card');
-                    Array.from(cards).forEach(c => {
-                        const name = c.querySelector('span').textContent.toLowerCase();
-                        c.style.display = name.includes(val) ? 'flex' : 'none';
+                    const rows = teamsGrid.querySelectorAll('tbody tr');
+                    rows.forEach(row => {
+                        const name = row.querySelector('.team-info').textContent.toLowerCase();
+                        row.style.display = name.includes(val) ? '' : 'none';
                     });
                 };
             }
             
         } else {
-            teamsGrid.innerHTML = '<p>No teams found for this league/season.</p>';
+             teamsGrid.innerHTML = '<p>No teams found for this league/season.</p>';
         }
     } catch (e) {
         console.error(e);
@@ -236,12 +364,23 @@ window.resetToCountry = function() {
     stepLeague.classList.add('hidden');
     stepCountry.classList.remove('hidden');
     currentState.country = null;
+    
+    // Clear downstream data
+    fixturesContainer.innerHTML = '<div class="empty-state"><p>Select a league and team to view fixtures.</p></div>';
+    
     loadCountries(); // Refresh options just in case
 };
 
 window.resetToLeagues = function() {
     stepTeam.classList.add('hidden');
     stepLeague.classList.remove('hidden');
+
+    // Update Navigation for Step 2
+    updateNavigation(2, `Step 2: Select ${currentState.country} League / National Team`, resetToCountry);
+    
+    // Clear downstream data
+    fixturesContainer.innerHTML = '<div class="empty-state"><p>Select a league and team to view fixtures.</p></div>';
+    teamsGrid.innerHTML = '';
 };
 
 
@@ -262,15 +401,24 @@ async function searchFixtures() {
         
         const data = await response.json();
         
-        if (data.response && Array.isArray(data.response)) {
-            allFixtures = data.response;
+        // Handle unwrapped array (from Node helper) or wrapped object (direct API-Sports)
+        const fixtureList = Array.isArray(data) ? data : (data.response || []);
+
+        if (fixtureList.length > 0) {
+            allFixtures = fixtureList;
             showStatus(`✅ Found ${allFixtures.length} upcoming fixtures!`, 'success');
             renderFixtures();
             
             // Scroll to results
             fixturesContainer.scrollIntoView({ behavior: 'smooth' });
         } else {
-            throw new Error('Invalid response format');
+            // Check if it was an empty array (valid) or error
+            if (Array.isArray(fixtureList)) {
+                 showStatus('No upcoming fixtures found.', 'warning');
+                 fixturesContainer.innerHTML = '<div class="empty-state"><p>No upcoming matches scheduled.</p></div>';
+            } else {
+                 throw new Error('Invalid response format');
+            }
         }
     } catch (error) {
         console.error('Error:', error);
@@ -646,18 +794,33 @@ async function loadFavorites() {
 
 function renderQuickFavorites(favs) {
     const container = document.getElementById('quickFavoritesContainer');
-    if (!container) return;
-    
-    if (favs.length === 0) {
-        container.innerHTML = '<p class="placeholder-text">No favorites yet</p>';
-        return;
+    const wrapper = container ? container.closest('.quick-select') : null;
+
+    if (container && wrapper) {
+        if (favs.length === 0) {
+            wrapper.style.display = 'none';
+            wrapper.classList.remove('active');
+            container.innerHTML = '';
+        } else {
+            wrapper.style.display = 'block';
+            wrapper.classList.add('active');
+
+            // Add Header if missing
+            if (!wrapper.querySelector('h3')) {
+                const h3 = document.createElement('h3');
+                h3.textContent = 'Your Favorites';
+                wrapper.insertBefore(h3, container);
+            }
+
+            // Render Elegant Chips
+            container.innerHTML = favs.map(f => `
+                <div class="fav-chip" onclick="selectTeam(${f.team_id});" title="Show fixtures for ${f.team_name}">
+                    <img src="${f.team_logo || '/favicon.svg'}" alt="${f.team_name}">
+                    <span>${f.team_name}</span>
+                </div>
+            `).join('');
+        }
     }
-    
-    container.innerHTML = favs.map(f => `
-        <div class="team-circle" onclick="selectTeam(${f.team_id})" title="${f.team_name}">
-            <img src="${f.team_logo || '/favicon.svg'}" alt="${f.team_name}">
-        </div>
-    `).join('');
 }
 
 function renderFavoritesList(favs) {
@@ -705,25 +868,37 @@ window.toggleFavorite = async function(teamId, teamName, teamLogo) {
 
 function updateAuthUI(user) {
     const c = document.getElementById('authControls');
-    if (!c) return;
-    
-    // Help Button (Always visible)
-    const helpBtn = `<button class="auth-btn" style="margin-right:10px" onclick="openHelpModal()">❓ Help</button>`;
+    const fAction = document.getElementById('favoritesHeaderAction'); // Center button container
 
     if (user) {
-        c.innerHTML = `
-            <div style="display:flex; align-items:center; gap:10px;">
-                ${helpBtn}
-                <span style="color:white; font-weight:bold">Hi, ${user.username}</span> 
-                <button class="auth-btn" onclick="openAuthModal('favorites')">⭐ Favorites</button>
-                <button class="auth-btn" onclick="logout()" style="background:rgba(239, 68, 68, 0.4)">Logout</button>
-            </div>`;
+        // Main Auth Controls (Top Right) -> Only Logout now (name removed)
+        if(c) {
+            c.innerHTML = `
+                <div style="display:flex; flex-direction: column; align-items: center; gap:5px;">
+                    <button class="auth-btn" onclick="logout()" style="background:rgba(239, 68, 68, 0.4)">Logout</button>
+                </div>`;
+        }
+        
+        // Favorites Button (Center, under sub-header)
+        if(fAction) {
+            fAction.innerHTML = `
+                <button class="auth-btn" style="background: rgba(255, 255, 255, 0.25); border: 2px solid rgba(255,255,255,0.6); padding: 8px 24px; font-size: 1rem;" 
+                        onclick="openAuthModal('favorites')">
+                    ⭐ Manage Favorites
+                </button>
+            `;
+        }
+
     } else {
-        c.innerHTML = `
-            <div style="display:flex; align-items:center; gap:10px;">
-                ${helpBtn}
-                <button class="auth-btn" onclick="openAuthModal('login')">Login</button>
-            </div>`;
+        // Logged Out State
+        if(c) {
+            c.innerHTML = `
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button class="auth-btn" onclick="openAuthModal('login')" title="Login to see your favorite teams">Login</button>
+                </div>`;
+        }
+        // If not logged in, maybe show a "Login to Favorites" CTA or nothing? 
+        if(fAction) fAction.innerHTML = ''; 
     }
 }
 
@@ -786,3 +961,35 @@ window.toggleAuthMode = (mode) => {
     if(mode === 'register' && r) r.style.display = 'block';
     if(mode === 'favorites' && f) f.style.display = 'block';
 };
+
+// --- PWA Install Logic ---
+let deferredPrompt;
+const installBtn = document.getElementById('pwaInstallBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67+ automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Update UI to notify the user they can add to home screen
+    if (installBtn) {
+        installBtn.style.display = 'block';
+        
+        installBtn.addEventListener('click', () => {
+            // Hide our user interface that shows our A2HS button
+            installBtn.style.display = 'none';
+            // Show the prompt
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+            });
+        });
+    }
+});
+

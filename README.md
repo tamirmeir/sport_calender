@@ -13,6 +13,14 @@ A responsive sports calendar application to display upcoming football fixtures f
 - 📱 **Responsive design** - works on all devices
 - ⚡ **Fast API integration** with API-Sports Football API
 
+## 📚 Documentation
+
+Detailed documentation is available in the `docs/` directory:
+- [**Architecture & Database Schema**](docs/ARCHITECTURE.md) - DB tables, data models, and system design.
+- [**API Data Flow**](docs/API_DATA_FLOW.md) - How requests travel between Frontend, Node.js, Python, and External APIs.
+- [**Deployment Guide**](docs/DEPLOYMENT.md) - **Dev vs Prod** differences and helper scripts.
+- [**Session Summary**](docs/SESSION_SUMMARY.md) - Recent development logs and fixes.
+
 ## 🏗️ Architecture
 
 This is a **Dual-Stack Application**:

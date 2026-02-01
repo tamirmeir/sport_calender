@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
     <title>Sport Calendar App</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/favicon.svg">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/css_v2/styles.css">
     <link rel="stylesheet" href="/css/auth.css">
@@ -12,47 +15,48 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
+            <button class="auth-btn help-corner-btn" onclick="openHelpModal()">❓ Help</button>
             <div class="auth-controls" id="authControls"></div>
+            <button id="pwaInstallBtn" class="btn-primary" style="display: none; margin-bottom: 10px;">📲 Install App</button>
             <div class="header-content">
-                <h1>⚽ Sport Calendar</h1>
-                <p>Track your favorite football fixtures</p>
+                <h1>⚽ Match Calendar 📆</h1>
+                <p>Track every game on your schedule</p>
+                <p class="sub-header">Save favorite matches directly to your calendar</p>
+                
+                <!-- Favorites Action Area -->
+                <div id="favoritesHeaderAction" style="margin-top: 15px; min-height: 40px;"></div>
             </div>
         </header>
 
         <!-- Search Section -->
         <section class="search-section">
-            <div class="quick-select">
-                <h3>My Favorites</h3>
-                <div id="quickFavoritesContainer" class="team-buttons">
-                    <p class="placeholder-text">Login to see your favorite teams here</p>
-                </div>
+            
+            <!-- Favorites Area (Moved above Navigation/Step Header) -->
+            <div class="quick-select" style="display:none">
+                <div id="quickFavoritesContainer" class="team-buttons"></div>
+            </div>
+
+            <!-- Navigation Header -->
+            <div class="navigation-header">
+                <button id="mainBackBtn" class="back-btn" style="visibility: hidden;">← Back</button>
+                <span id="stepIndicator" style="font-weight: bold; color: #666; font-family: Monospace;">Step 1: Select Country</span>
             </div>
 
             <div class="explorer-section">
-                <h3>Find Your Team</h3>
                 
                 <!-- Step 1: Select Country -->
                 <div class="explorer-step" id="stepCountry">
-                    <label>Step 1: Select Country</label>
                     <input type="text" id="countrySearch" placeholder="Search country..." class="filter-input">
                     <div id="countriesGrid" class="cards-grid"></div>
                 </div>
 
                 <!-- Step 2: Select League -->
                 <div class="explorer-step hidden" id="stepLeague">
-                    <div class="step-header">
-                        <label>Step 2: Select League</label>
-                        <button class="back-btn" onclick="resetToCountry()">← Back</button>
-                    </div>
                     <div id="leaguesGrid" class="cards-grid"></div>
                 </div>
 
                 <!-- Step 3: Select Team -->
                 <div class="explorer-step hidden" id="stepTeam">
-                    <div class="step-header">
-                        <label>Step 3: Select Team</label>
-                        <button class="back-btn" onclick="resetToLeagues()">← Back</button>
-                    </div>
                     <input type="text" id="teamQuickFilter" placeholder="Filter teams..." class="filter-input">
                     <div id="teamsGrid" class="cards-grid"></div>
                 </div>
@@ -241,5 +245,18 @@
     </div>
 
     <script src="/js/app_v2.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* Auth Styles - V2 Professional */
 
-/* Auth Controls in Header */
+/* Auth Controls in Header - Commented out to use styles.css (IBM Clone)
 .auth-controls {
     position: absolute;
     top: 20px;
@@ -13,7 +13,7 @@
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 8px 18px;
-    border-radius: 20px; /* Pill shape */
+    border-radius: 20px;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 500;
@@ -25,6 +25,7 @@
     background: rgba(255, 255, 255, 0.25);
     transform: translateY(-1px);
 }
+*/
 
 /* Modal Overlay */
 .modal {
@@ -80,7 +81,8 @@
 /* Left Side: Benefits Banner */
 .auth-benefits {
     flex: 2;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    /* Updated to match IBM Project Gradient */
+    background: linear-gradient(135deg, #006994 0%, #0288d1 100%);
     padding: 40px;
     color: white;
     display: flex;

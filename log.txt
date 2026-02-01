@@ -1,0 +1,11 @@
+
+> sport-calendar@1.0.0 start
+> node src/index.js
+
+Server running on port 3000
+Fetched leagues for Israel: 6
+Fetching National Team for: Israel
+Found 3 national teams. Returning top match.
+Fetched leagues for Portugal: 19
+Fetching National Team for: Portugal
+Found 6 national teams. Returning top match.

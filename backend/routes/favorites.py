@@ -6,20 +6,26 @@ from services.football_service import football_api
 
 favorites_bp = Blueprint('favorites', __name__)
 
-@favorites_bp.route('', methods=['GET'])
+@favorites_bp.route('/', methods=['GET'], strict_slashes=False)
 @jwt_required()
 def get_favorites():
     """Get all favorite teams for the current user"""
-    user_id = int(get_jwt_identity())
-    user = User.query.get(user_id)
-    
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-    
-    favorites = [fav.to_dict() for fav in user.favorite_teams]
-    return jsonify({'favorites': favorites}), 200
+    try:
+        current_identity = get_jwt_identity()
+        user_id = int(current_identity)
+        user = User.query.get(user_id)
+        
+        if not user:
+            # If token is valid but user deleted
+            return jsonify({'error': 'User not found', 'favorites': []}), 404
+        
+        favorites = [fav.to_dict() for fav in user.favorite_teams]
+        return jsonify({'favorites': favorites}), 200
+    except Exception as e:
+        print(f"Error in get_favorites: {e}")
+        return jsonify({'error': 'Server error fetching favorites'}), 500
 
-@favorites_bp.route('', methods=['POST'])
+@favorites_bp.route('/', methods=['POST'], strict_slashes=False)
 @jwt_required()
 def add_favorite():
     """Add a team to favorites"""

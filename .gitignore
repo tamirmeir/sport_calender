@@ -18,6 +18,8 @@ __pycache__/
 src/data/database.json
 *.sqlite
 *.sqlite3
+*.db
+backend/instance/
 
 # Logs and OS files
 npm-debug.log*

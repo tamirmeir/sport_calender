@@ -11,6 +11,44 @@
 			],
 			"isBackground": false,
 			"group": "copy"
+		},
+		{
+			"label": "Run Python Backend",
+			"type": "shell",
+			"command": "source backend/venv/bin/activate && python3 backend/app.py",
+			"isBackground": true,
+			"group": "test"
+		},
+		{
+			"label": "Kill Ports",
+			"type": "shell",
+			"command": "bash kill_ports.sh",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Run Backend Service",
+			"type": "shell",
+			"command": "source backend/venv/bin/activate && python3 backend/app.py",
+			"isBackground": true,
+			"group": "test"
+		},
+		{
+			"label": "Run Frontend Service",
+			"type": "shell",
+			"command": "npm start",
+			"isBackground": true,
+			"group": "test"
+		},
+		{
+			"label": "append_styles_v2",
+			"type": "shell",
+			"command": "cat >>",
+			"args": [
+				"/Users/tamirmei/dev/gitHubTamir/sport_calender/public/css_v2/styles.css",
+				"\n/* Favorites Bar */\n.quick-select {\n    /* Hidden by default, JS controls visibility */\n    background: white;\n    padding: 15px 20px;\n    margin: 0px 0 20px 0; /* Tight to header */\n    border-radius: 12px;\n    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);\n    text-align: center;\n    border: 1px solid #f1f5f9;\n}\n\n.quick-select h3 {\n    margin: 0 0 12px 0;\n    font-size: 0.9rem;\n    color: #64748b;\n    text-transform: uppercase;\n    letter-spacing: 1px;\n}\n\n.team-buttons {\n    display: flex;\n    justify-content: center;\n    gap: 12px;\n    flex-wrap: wrap;\n}\n\n.fav-chip {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    background: #f8fafc;\n    border: 1px solid #e2e8f0;\n    padding: 8px 16px;\n    border-radius: 30px;\n    cursor: pointer;\n    transition: all 0.2s ease;\n    user-select: none;\n}\n\n.fav-chip:hover {\n    background: #eff6ff;\n    border-color: #60a5fa;\n    transform: translateY(-2px);\n    box-shadow: 0 4px 6px -2px rgba(59, 130, 246, 0.1);\n}\n\n.fav-chip img {\n    width: 24px;\n    height: 24px;\n    object-fit: contain;\n}\n\n.fav-chip span {\n    font-weight: 600;\n    color: #334155;\n    font-size: 0.95rem;\n}\n\n.fav-chip.empty-msg {\n    cursor: default;\n    background: transparent;\n    border: none;\n    color: #94a3b8;\n}\n"
+			],
+			"group": "copy"
 		}
 	]
 }
