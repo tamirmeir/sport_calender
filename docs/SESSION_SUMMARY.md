@@ -1,43 +1,42 @@
-# Session Summary - Authentication Implementation
-**Date:** January 27, 2026
+# Session Summary - Forgot Password Implementation
+**Date:** February 2, 2026
 
 ## 🎯 Objectives Completed
-1.  **Frontend Authentication UI:**
-    *   Designed and implemented a Modal-based Login/Register interface.
-    *   Added styles to `public/css/auth.css` for a clean, responsive look.
-    *   Added explicit "Login / Register" buttons to the header that toggle to show the username upon login.
+1.  **Forgot Password System Implemented:**
+    *   **Backend Support**: Created `/request-reset` (send email) and `/reset-password` (update password) endpoints.
+    *   **Email Infrastructure**: Configured `Flask-Mail` with **Brevo (SMTP)** settings.
+    *   **Domain Verification**: Successfully authenticated `matchdaybytm.com` domain with Cloudflare (DKIM, SPF, DMARC) to enable professional email deliverables.
+    *   **Frontend UI**: Added a "Forgot Password" link to the login modal and a dedicated `reset-password.html` page for setting the new password.
 
-2.  **Frontend Logic (`public/js/app.js`):**
-    *   Implemented `checkAuth()` to persist user sessions via `localStorage` (JWT tokens).
-    *   Created `toggleFavorite()` system to allow users to add/remove teams to their list.
-    *   Connected frontend forms to backend API endpoints (`/api/auth/login`, `/api/auth/register`).
-
-3.  **Backend Architecture Fixes:**
-    *   Resolved a critical **Circular Dependency Error** in the Flask application.
-    *   Refactored the database and JWT initialization into a new `extensions.py` file.
-    *   Successfully tested `POST /api/auth/login` to confirm the fix.
+2.  **DevOps & Cleanup:**
+    *   **Environment Config**: Updated `.env` structure to support `MAIL_*` variables.
+    *   **Script Organization**: Created a `dev_scripts/` folder and moved all temporary migration/test scripts (`debug_email.py`, etc.) into it to keep the project root clean.
+    *   **Dependency Fix**: Installed missing `Flask-Mail` package and updated `backend/requirements.txt`.
+    *   **Admin Console**: Verified admin tools are working after the dependency fix.
 
 ## 📂 Key Files Modified
 
 | File | Change |
 | :--- | :--- |
-| `public/index.html` | Added `<div id="authModal">` and header login buttons. |
-| `public/css/auth.css` | **[New]** Styles for authentication forms and favorites list. |
-| `public/js/app.js` | Added all auth logic (fetch calls, token management, UI updates). |
-| `backend/app.py` | Refactored imports to use `extensions.py`. |
-| `backend/extensions.py` | **[New]** Created to host `db` and `jwt` instances safely. |
-| `backend/routes/*.py` | Updated imports to reference `extensions.db`. |
+| `backend/.env` | Added `MAIL_SERVER`, `MAIL_PASSWORD`, `MAIL_SENDER_EMAIL` configs. |
+| `backend/routes/auth.py` | Added `reset_request()` (Email flow) and `reset_password()` (Token verification). |
+| `backend/extensions.py` | Initialized `Mail(app)` extension. |
+| `public/reset-password.html` | **[New]** Dedicated page for users to enter new password from email link. |
+| `public/js/app_v2.js` | Added `openForgotModal()` and `handleForgotSubmit()` logic. |
+| `dev_scripts/*` | **[New]** Hub for all utility/migration python scripts. |
 
-## 🛠️ How to Test
-1.  Ensure **Python Backend** is running (`cd backend && python3 app.py`).
-2.  Ensure **Frontend** is running (`npm start` or `npm run dev`).
-3.  Open `http://localhost:3000`.
-4.  Click **"Login / Register"**.
-5.  Use credentials: `testuser` / `password`.
-6.  Search for a team (e.g., ID `33`) and click the Star icon (☆) to favorite it.
-7.  Check "My Favorites" to see the saved team.
+## 🛠️ How to Test (Forgot Password)
+1.  Open `http://localhost:3000`.
+2.  Click **Login** -> **Forgot Password?**.
+3.  Enter your registered email address.
+4.  Check your inbox for an email from "Matchday Team".
+5.  Click the link -> Enter a new password.
+6.  Login with the new password.
+
+## ⚠️ Critical Config Note
+For emails to work in Production, the Server Environment variables must include the **Brevo SMTP credentials**.
+Ensure `MAIL_SENDER_EMAIL` is set to `support@matchdaybytm.com` so it matches the authenticated domain records.
 
 ## 🔜 Next Steps
-- Implement "Forgot Password" flow.
-- Add "Private" fixtures visible only to logged-in users.
-- Add user profile settings (change email/password).
+- Implement "Private/Premium Fixtures" (Hide some content for non-users).
+- User Profile Page (Update email, change password while logged in).

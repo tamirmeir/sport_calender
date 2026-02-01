@@ -24,7 +24,12 @@ This application behaves differently based on the environment it runs in.
 | `API_BASE_URL` | Node & Python | **Must be exactly this name.** <br>❌ `FOOTBALL_API_URL` (Invalid) <br>✅ `API_BASE_URL` (Correct) |
 | `DATABASE_URL` | Python | Connection string (SQLAlchemy) |
 | `FLASK_ENV` | Python | `production` or `development` |
+
 | `SECRET_KEY` | Python | Required for Session security |
+| `MAIL_SERVER` | Python | SMTP Server (e.g., smtp-relay.brevo.com) |
+| `MAIL_PORT` | Python | SMTP Port (587) |
+| `MAIL_USERNAME` | Python | SMTP Login Email |
+| `MAIL_PASSWORD` | Python | SMTP API Key |
 
 ### ⚠️ Fix Required for Production `.env`
 Your production `.env` currently uses `FOOTBALL_API_URL`. The code in `backend/config.py` looks for `API_BASE_URL`.
