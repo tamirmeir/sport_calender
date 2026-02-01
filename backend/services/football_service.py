@@ -94,6 +94,33 @@ class FootballAPI:
             print(f'Error fetching teams: {str(e)}')
             return self._get_demo_teams(league_id)
 
+    def get_fixtures_by_ids(self, ids_list):
+        """Get fixtures by list of IDs (chunked to avoid URL limits)"""
+        if not ids_list: return []
+        if self.api_key == 'demo_key_12345': return [] # No mock for specific IDs yet
+
+        try:
+            all_fixtures = []
+            chunk_size = 20  # API-Sports recommendation
+            
+            for i in range(0, len(ids_list), chunk_size):
+                chunk = ids_list[i:i + chunk_size]
+                ids_str = '-'.join(map(str, chunk))
+                
+                url = f'{self.base_url}/fixtures'
+                params = {'ids': ids_str}
+                
+                response = requests.get(url, headers=self.headers, params=params)
+                response.raise_for_status()
+                data = response.json()
+                if 'response' in data:
+                    all_fixtures.extend(data['response'])
+            
+            return all_fixtures
+        except Exception as e:
+            print(f'Error fetching fixture IDs: {str(e)}')
+            return []
+
     def search_teams(self, query):
         """Search teams by name"""
         try:

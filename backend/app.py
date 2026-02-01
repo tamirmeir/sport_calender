@@ -6,7 +6,7 @@ import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-from extensions import db, jwt
+from extensions import db, jwt, mail
 
 load_dotenv()
 
@@ -18,10 +18,22 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///sport_calendar.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your-secret-key-change-this')
+
+    # Mail Configuration
+    app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+    app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
+    app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'True') == 'True'
+    app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+    
+    # improved Sender ID: (Display Name, Email Address)
+    sender_address = os.getenv('MAIL_SENDER_EMAIL', os.getenv('MAIL_USERNAME'))
+    app.config['MAIL_DEFAULT_SENDER'] = ("Matchday Team", sender_address)
     
     # Initialize extensions
     db.init_app(app)
     jwt.init_app(app)
+    mail.init_app(app)
     # Allow CORS for all routes (API + Calendar logic)
     CORS(app, resources={r"/*": {"origins": "*"}})
     

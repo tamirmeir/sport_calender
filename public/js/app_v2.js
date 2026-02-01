@@ -591,7 +591,8 @@ function updateAddButton() {
     
     if(syncBtn) {
         const token = localStorage.getItem('token');
-        syncBtn.disabled = count === 0 || !token;
+        // Allow sync even if selection is 0 (for Favorites sync)
+        syncBtn.disabled = !token;
         syncBtn.title = !token ? "Login required" : "Get Subscription URL";
     }
 }
@@ -656,7 +657,7 @@ function generateICS(f) {
     const now = new Date().toISOString().replace(/-|:|\.\d{3}/g, '');
     const start = new Date(f.fixture.date).toISOString().replace(/-|:|\.\d{3}/g, '');
     const end = new Date(new Date(f.fixture.date).getTime() + 7200000).toISOString().replace(/-|:|\.\d{3}/g, '');
-    return `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:${f.fixture.id}@sportcal\nDTSTAMP:${now}\nDTSTART:${start}\nDTEND:${end}\nSUMMARY:⚽ ${f.teams.home.name} vs ${f.teams.away.name}\nDESCRIPTION:${f.league.name}\nEND:VEVENT\nEND:VCALENDAR`;
+    return `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:${f.fixture.id}@matchdaybytm\nDTSTAMP:${now}\nDTSTART:${start}\nDTEND:${end}\nSUMMARY:⚽ ${f.teams.home.name} vs ${f.teams.away.name}\nDESCRIPTION:${f.league.name}\nEND:VEVENT\nEND:VCALENDAR`;
 }
 
 function downloadBlob(content, filename) {
@@ -682,69 +683,96 @@ if(downloadAllBtn) downloadAllBtn.onclick = () => {
 // --- Calendar Sync ---
 window.getSyncLink = async function() {
     const token = localStorage.getItem('token');
-    if (!token) {
+    const userStr = localStorage.getItem('user');
+
+    if (!token || !userStr) {
          openAuthModal('login');
          return;
     }
     
-    if (selectedFixtures.size === 0) {
-        alert("Please select at least one fixture first.");
-        return;
-    }
+    const user = JSON.parse(userStr);
     
-    // Prepare data
-    const fixtures = [];
-    selectedFixtures.forEach(fid => {
-        if (fixtureData[`fixture_${fid}`]) fixtures.push(fixtureData[`fixture_${fid}`]);
-    });
-    
-    try {
-        const btn = document.getElementById('syncBtn');
-        if(btn) btn.textContent = 'Generating...';
-        
-        const res = await fetch('/calendar/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ fixtures: fixtures })
+    // 1. If we have selected items, save them first
+    if (selectedFixtures.size > 0) {
+        const fixtures = [];
+        selectedFixtures.forEach(fid => {
+            if (fixtureData[`fixture_${fid}`]) fixtures.push(fixtureData[`fixture_${fid}`]);
         });
-        
-        if (!res.ok) throw new Error('Failed to create calendar link');
-        
-        const data = await res.json();
-        
-        // Show the link in a modal or prompt
-        const link = data.sync_url; 
-        showSyncModal(link);
-        
-    } catch (e) {
-        alert(e.message);
-    } finally {
-        const btn = document.getElementById('syncBtn');
-        if(btn) btn.textContent = '🔗 Get Sync Link';
+
+        try {
+            const btn = document.getElementById('syncBtn');
+            if(btn) btn.textContent = 'Saving...';
+            
+            const res = await fetch('/calendar/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ fixtures: fixtures })
+            });
+            
+            if (!res.ok) throw new Error('Failed to save fixtures');
+        } catch (e) {
+            alert(e.message);
+            if(btn) btn.textContent = '🔗 Get Sync Link';
+            return; 
+        } finally {
+            const btn = document.getElementById('syncBtn');
+            if(btn) btn.textContent = '🔗 Get Sync Link';
+        }
     }
+    
+    // 2. Generate Link (Client-side construction based on username)
+    // The backend serves at /sync/MatchDayByTM/<username>.ics which is proxied by Node
+    const link = `${window.location.origin}/sync/MatchDayByTM/${user.username}.ics`;
+    showSyncModal(link);
 };
 
 function showSyncModal(link) {
+    // Determine specialized links
+    // 1. WebCal Protocol for Apple/Outlook (replace https:// or http:// with webcal://)
+    const webcalLink = link.replace(/^https?:\/\//, 'webcal://');
+    
+    // 2. Google Calendar CID format (Must be HTTPS)
+    // Note: Google requires the link to be accessible over the internet (won't work on localhost)
+    const googleLink = `https://www.google.com/calendar/render?cid=${encodeURIComponent(link)}`;
+
     const html = `
         <div id="syncModal" class="modal active" style="z-index: 2000;">
-            <div class="modal-content" style="max-width: 500px">
+            <div class="modal-content" style="max-width: 500px; text-align:center;">
                 <span class="modal-close" onclick="document.getElementById('syncModal').remove()">&times;</span>
-                <h2 style="margin-bottom:15px">📅 Calendar Sync Link</h2>
-                <p style="margin-bottom:10px">Use this URL to subscribe in Google Calendar, Outlook, or Apple Calendar:</p>
-                <input type="text" value="${link}" readonly style="width:100%; padding:10px; margin-bottom:15px; background:#f1f5f9; border:1px solid #ddd;">
-                <div style="display:flex; gap:10px;">
-                    <button class="btn-primary-lg" onclick="navigator.clipboard.writeText('${link}'); this.textContent='Copied!';">Copy Link</button>
-                    <a href="${link}" class="btn-primary-lg" style="text-decoration:none; background:#334155;">Download .ics</a>
-                </div>
-                <div style="background:#fffbeb; color:#92400e; padding:10px; margin-top:15px; border-radius:6px; font-size:0.85rem;">
-                    <strong>⚠️ Note for Localhost:</strong> Google Calendar cannot sync with '127.0.0.1'. Please download the .ics file and import it manually, or use Apple/Outlook desktop apps.
-                </div>
-                <p style="font-size:0.8rem; color:#666; margin-top:15px">
-                    * This link updates automatically when you add new matches to your account.
+                <h2 style="margin-bottom:10px">📅 Sync to Your Calendar</h2>
+                <p style="color:#64748b; margin-bottom:20px; font-size:0.95rem;">
+                    Choose your calendar app to subscribe instantly. <br>
+                    Future updates will appear automatically.
                 </p>
+
+                <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+                    <!-- Apple / Outlook / Mobile -->
+                    <a href="${webcalLink}" class="btn-sync apple">
+                         🍏 Apple Calendar / Outlook (Mobile)
+                    </a>
+
+                    <!-- Google Calendar -->
+                    <a href="${googleLink}" target="_blank" class="btn-sync google">
+                         G Google Calendar
+                    </a>
+
+                    <!-- Copy Link Fallback -->
+                    <div style="position:relative;">
+                        <input type="text" value="${link}" readonly 
+                            style="width:100%; padding:12px; padding-right:90px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; color:#64748b;">
+                        <button onclick="navigator.clipboard.writeText('${link}'); this.textContent='Copied!';" 
+                            style="position:absolute; right:5px; top:5px; bottom:5px; px; padding:0 15px; background:white; border:1px solid #e2e8f0; border-radius:6px; cursor:pointer;">
+                            Copy
+                        </button>
+                    </div>
+                </div>
+
+                <div style="background:#fffbeb; color:#92400e; padding:10px; border-radius:6px; font-size:0.8rem; text-align:left;">
+                    <strong>⚠️ Note for Localhost:</strong> The Google button will only work when the site is live. For now, use the Apple/Outlook button or download the file.
+                </div>
             </div>
         </div>
     `;
@@ -841,30 +869,149 @@ window.toggleFavorite = async function(teamId, teamName, teamLogo) {
         return;
     }
     
-    const isFav = userFavorites.has(teamId);
-    const method = isFav ? 'DELETE' : 'POST';
-    const url = isFav ? `${FAV_API}/${teamId}` : FAV_API;
+    // If already favorite, remove it
+    if (userFavorites.has(teamId)) {
+        await submitFavoriteRemove(teamId);
+    } else {
+        // If adding, open preferences
+        openSubscriptionPreferences(teamId, teamName, teamLogo);
+    }
+};
+
+window.openSubscriptionPreferences = function(teamId, teamName, teamLogo) {
+    const html = `
+        <div id="subPrefModal" class="modal active" style="z-index: 2500;">
+            <div class="modal-content" style="max-width: 450px;">
+                <span class="modal-close" onclick="document.getElementById('subPrefModal').remove()">&times;</span>
+                <div style="text-align:center; margin-bottom:20px;">
+                    <img src="${teamLogo}" style="height:50px; margin-bottom:10px;">
+                    <h2 style="margin:0;">Track ${teamName}</h2>
+                </div>
+                
+                <p style="color:#64748b; margin-bottom:15px; font-size:0.95rem;">
+                    Select which matches you want to sync to your calendar automatically:
+                </p>
+
+                <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:25px;">
+                    <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                        <input type="checkbox" name="compFilter" value="All" checked onchange="toggleFilterAll(this)">
+                        <div>
+                            <strong>All Matches</strong>
+                            <div style="font-size:0.8rem; color:#64748b;">Sync everything including friendlies</div>
+                        </div>
+                    </label>
+
+                    <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                        <input type="checkbox" name="compFilter" value="League" class="sub-filter">
+                        <div>
+                            <strong>Domestic League</strong>
+                            <div style="font-size:0.8rem; color:#64748b;">Premier League, La Liga, etc.</div>
+                        </div>
+                    </label>
+
+                    <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                        <input type="checkbox" name="compFilter" value="Cup" class="sub-filter">
+                        <div>
+                            <strong>Cups</strong>
+                            <div style="font-size:0.8rem; color:#64748b;">FA Cup, Carabao Cup, etc.</div>
+                        </div>
+                    </label>
+
+                    <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                        <input type="checkbox" name="compFilter" value="UEFA" class="sub-filter">
+                        <div>
+                            <strong>International / European</strong>
+                            <div style="font-size:0.8rem; color:#64748b;">Champions League, Europa, etc.</div>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="btn-primary-lg" style="width:100%" onclick="collectAndSubmitFavorite(${teamId}, '${teamName.replace(/'/g, "\\'")}', '${teamLogo}')">
+                    Add to Favorites
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
     
-    // For remove, body should be empty? check API
-    const body = isFav ? undefined : JSON.stringify({ team_id: teamId, team_name: teamName, team_logo: teamLogo });
+    // Auto-uncheck specific filters if All is checked logic handled in toggleFilterAll
+};
+
+window.toggleFilterAll = function(cb) {
+    const others = document.querySelectorAll('.sub-filter');
+    if (cb.checked) {
+        others.forEach(c => { c.checked = false; c.disabled = true; });
+    } else {
+        others.forEach(c => c.disabled = false);
+    }
+}
+
+window.collectAndSubmitFavorite = function(teamId, teamName, teamLogo) {
+    // Collect filters
+    const all = document.querySelector('input[value="All"]').checked;
+    let filters = [];
     
+    if (all) {
+        filters = ['All'];
+    } else {
+        const checked = document.querySelectorAll('.sub-filter:checked');
+        checked.forEach(c => filters.push(c.value));
+        if (filters.length === 0) {
+            // Default to All if nothing selected? Or prevent?
+            // Let's default to All to be safe
+            filters = ['All'];
+        }
+    }
+    
+    document.getElementById('subPrefModal').remove();
+    submitFavoriteAdd(teamId, teamName, teamLogo, filters);
+}
+
+async function submitFavoriteAdd(teamId, teamName, teamLogo, filters) {
+    const token = localStorage.getItem('token');
     try {
-        const res = await fetch(url, {
-            method: method,
+        const res = await fetch(FAV_API, {
+            method: 'POST',
             headers: { 
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: body
+            body: JSON.stringify({ 
+                team_id: teamId, 
+                team_name: teamName, 
+                team_logo: teamLogo,
+                filters: filters
+            })
         });
         
         if (res.ok) {
-            if (isFav) userFavorites.delete(teamId);
-            else userFavorites.add(teamId);
-            loadFavorites(); 
+            userFavorites.add(teamId);
+            loadFavorites();
+            checkSubscriptionPrompt(); // Still show prompt to upsell the Sync feature itself
+        } else {
+            const d = await res.json();
+            showErrorModal('Error', d.error || 'Failed to add favorite');
         }
-    } catch (e) { alert('Error updating favorite'); }
-};
+    } catch (e) { showErrorModal('Error', 'Network error'); }
+}
+
+async function submitFavoriteRemove(teamId) {
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch(`${FAV_API}/${teamId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (res.ok) {
+            userFavorites.delete(teamId);
+            loadFavorites(); 
+        } else {
+             showErrorModal('Error', 'Failed to remove favorite');
+        }
+    } catch (e) { showErrorModal('Error', 'Network error'); }
+}
+
 
 function updateAuthUI(user) {
     const c = document.getElementById('authControls');
@@ -882,10 +1029,16 @@ function updateAuthUI(user) {
         // Favorites Button (Center, under sub-header)
         if(fAction) {
             fAction.innerHTML = `
-                <button class="auth-btn" style="background: rgba(255, 255, 255, 0.25); border: 2px solid rgba(255,255,255,0.6); padding: 8px 24px; font-size: 1rem;" 
-                        onclick="openAuthModal('favorites')">
-                    ⭐ Manage Favorites
-                </button>
+                <div style="display:flex; gap:10px; justify-content:center;">
+                    <button class="auth-btn" style="background: rgba(255, 255, 255, 0.25); border: 2px solid rgba(255,255,255,0.6); padding: 8px 20px; font-size: 0.95rem;" 
+                            onclick="openAuthModal('favorites')">
+                        ⭐ Favorites
+                    </button>
+                    <button class="auth-btn" style="background: rgba(255, 255, 255, 0.9); color: var(--primary-color); border: none; padding: 8px 20px; font-size: 0.95rem; font-weight:bold;" 
+                            onclick="openManageCalendar()">
+                        📅 My Calendar
+                    </button>
+                </div>
             `;
         }
 
@@ -921,12 +1074,12 @@ window.handleLogin = async (e) => {
     try {
         const res = await fetch(`${AUTH_API}/login`, { method:'POST', headers:{'Content-Type':'application/json'}, body });
         const data = await res.json();
-        if(!res.ok) throw new Error(data.error);
+        if(!res.ok) throw new Error(data.error || 'Login failed');
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
         closeAuthModal();
         checkAuth();
-    } catch(err) { alert(err.message); }
+    } catch(err) { showErrorModal('Login Failed', getFriendlyErrorMessage(err.message)); }
 };
 
 window.handleRegister = async (e) => {
@@ -936,12 +1089,12 @@ window.handleRegister = async (e) => {
     try {
         const res = await fetch(`${AUTH_API}/register`, { method:'POST', headers:{'Content-Type':'application/json'}, body });
         const data = await res.json();
-        if(!res.ok) throw new Error(data.error);
+        if(!res.ok) throw new Error(data.error || 'Registration failed');
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
         closeAuthModal();
         checkAuth();
-    } catch(err) { alert(err.message); }
+    } catch(err) { showErrorModal('Registration Failed', getFriendlyErrorMessage(err.message)); }
 };
 
 window.openAuthModal = (mode) => {
@@ -992,4 +1145,276 @@ window.addEventListener('beforeinstallprompt', (e) => {
         });
     }
 });
+
+// --- Modal Helpers ---
+
+function showConfirmModal(title, msg, onConfirm) {
+    const html = `
+        <div id="confirmModal" class="modal active" style="z-index: 3000;">
+            <div class="modal-content" style="max-width: 400px; text-align: center;">
+                <h3 style="margin-bottom: 15px;">${title}</h3>
+                <p style="margin-bottom: 25px; color: #64748b;">${msg}</p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button class="control-btn" onclick="document.getElementById('confirmModal').remove()">Cancel</button>
+                    <button class="btn-primary-lg" style="background: #ef4444;" id="confirmBtnAction">Confirm</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+    document.getElementById('confirmBtnAction').onclick = () => {
+        document.getElementById('confirmModal').remove();
+        onConfirm();
+    };
+}
+
+function showErrorModal(title, msg) {
+    const html = `
+        <div id="errorModal" class="modal active" style="z-index: 4000;">
+            <div class="modal-content" style="max-width: 400px; text-align: center;">
+                <h3 style="margin-bottom: 10px; color: #dc2626;">${title || 'Error'}</h3>
+                <p style="margin-bottom: 20px; color: #64748b;">${msg}</p>
+                <button class="btn-primary-lg" onclick="document.getElementById('errorModal').remove()">OK</button>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function getFriendlyErrorMessage(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes('internal server error')) {
+        return "Our servers are experiencing a temporary issue. Please try again in a few minutes.";
+    }
+    if (m.includes('network error') || m.includes('failed to fetch')) {
+        return "Unable to connect to the server. Please check your internet connection and try again.";
+    }
+    return msg;
+}
+
+window.openForgotModal = function() {
+    closeAuthModal();
+    const html = `
+        <div id="forgotModal" class="modal active" style="z-index: 3000;">
+            <div class="modal-content" style="max-width: 400px; text-align: center;">
+                <span class="modal-close" onclick="document.getElementById('forgotModal').remove()">&times;</span>
+                <h2 style="margin-bottom:15px">Reset Password</h2>
+                <p style="margin-bottom:20px; color:#64748b; font-size:0.9rem;">
+                    Enter your username and email to verify your account.
+                </p>
+                <form onsubmit="handleForgotSubmit(event)">
+                    <input type="text" id="forgotUsername" class="form-input" placeholder="Username" required style="margin-bottom:10px; width:100%; box-sizing:border-box;">
+                    <input type="email" id="forgotEmail" class="form-input" placeholder="Email Address" required style="margin-bottom:15px; width:100%; box-sizing:border-box;">
+                    <button type="submit" class="btn-primary-lg" style="width:100%">Verify & Send Link</button>
+                </form>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+};
+
+window.handleForgotSubmit = async function(e) {
+    e.preventDefault();
+    const username = document.getElementById('forgotUsername').value;
+    const email = document.getElementById('forgotEmail').value;
+    
+    if(!username || !email) return;
+
+    // Show loading state
+    const btn = e.target.querySelector('button');
+    const originalText = btn.textContent;
+    btn.textContent = 'Verifying...';
+    btn.disabled = true;
+
+    try {
+        const res = await fetch(`${AUTH_API}/reset-request`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ username, email })
+        });
+        
+        const data = await res.json();
+        
+        document.getElementById('forgotModal').remove();
+        
+        if (res.ok) {
+            showErrorModal('Check your Email', `✅ ${data.message}`);
+        } else {
+             showErrorModal('Verification Failed', data.error || 'Details do not match our records.');
+        }
+    } catch (err) {
+        document.getElementById('forgotModal').remove();
+        showErrorModal('Error', getFriendlyErrorMessage(err.message));
+    }
+};
+
+// --- Manage Calendar Features ---
+
+window.openManageCalendar = async function() {
+    const token = localStorage.getItem('token');
+    if (!token) { openAuthModal('login'); return; }
+
+    const popupHtml = `
+        <div id="manageModal" class="modal active" style="z-index: 2000;">
+            <div class="modal-content" style="max-width: 500px; text-align:center;">
+                <span class="modal-close" onclick="document.getElementById('manageModal').remove()">&times;</span>
+                <h2 style="margin-bottom:10px">📅 Manage Your Calendar</h2>
+                <div id="manageList" class="manage-list">
+                    <div class="loading">Loading saved matches...</div>
+                </div>
+                <button class="btn-clear-all" onclick="clearCalendar()">🗑️ Clear Entire Calendar</button>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+    
+    // Fetch Data
+    try {
+        const res = await fetch('/calendar/events', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        
+        if (data.events) {
+            renderManageList(data.events);
+        }
+    } catch (e) {
+        document.getElementById('manageList').innerHTML = '<p class="error">Failed to load events.</p>';
+    }
+};
+
+function renderManageList(events) {
+    const container = document.getElementById('manageList');
+    if (!container) return;
+    
+    if (events.length === 0) {
+        container.innerHTML = '<div style="padding:20px; color:#94a3b8;">No saved matches found.</div>';
+        return;
+    }
+    
+    // Group by Date for better readability, or just list
+    container.innerHTML = events.map(e => {
+        // Date formatting safety
+        let dateStr = "Date Unknown";
+        try {
+            const d = new Date(e.date);
+            dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+        } catch(err) {}
+
+        return `
+        <div class="manage-item" id="cal-event-${e.id}">
+            <div class="manage-info">
+                <div class="manage-date">${dateStr}</div>
+                <div class="manage-match">${e.teams.home.name} vs ${e.teams.away.name}</div>
+                <div style="font-size:0.8rem; color:#64748b;">${e.league}</div>
+            </div>
+            <button class="btn-delete" onclick="deleteCalendarEvent(${e.id}, '${e.teams.home.name} vs ${e.teams.away.name}')">Remove</button>
+        </div>
+    `}).join('');
+}
+
+window.deleteCalendarEvent = async function(dbId, matchTitle) {
+    showConfirmModal(
+        'Remove Match', 
+        `Are you sure you want to remove <strong>${matchTitle}</strong> from your calendar?`, 
+        async () => {
+            const token = localStorage.getItem('token');
+            try {
+                await fetch(`/calendar/events/${dbId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const el = document.getElementById(`cal-event-${dbId}`);
+                if(el) el.remove();
+                
+                if (document.querySelectorAll('.manage-item').length === 0) {
+                     document.getElementById('manageList').innerHTML = '<div style="padding:20px; color:#94a3b8;">No saved matches found.</div>';
+                }
+            } catch(e) { alert('Error deleting event'); }
+        }
+    );
+};
+
+window.clearCalendar = async function() {
+    showConfirmModal(
+        'Clear Calendar',
+        '⚠️ Are you sure? This will remove <strong>ALL</strong> games from your synced calendar.',
+        async () => {
+            const token = localStorage.getItem('token');
+            try {
+                await fetch(`/calendar/clear`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                document.getElementById('manageModal').remove();
+                // alert('Calendar cleared successfully.'); // Optional, or generic status
+                showStatus('Calendar cleared successfully', 'success');
+            } catch(e) { alert('Error clearing calendar'); }
+        }
+    );
+};
+
+// --- Subscription Promo Logic ---
+
+window.checkSubscriptionPrompt = function() {
+    // Don't show if user already clicked "Maybe Later" or synced previously
+    if (localStorage.getItem('subscriptionPromoted') === 'true') return;
+    
+    // Don't show if user has no favorites (sanity check)
+    if (userFavorites.size === 0) return;
+
+    const html = `
+        <div id="subPromoModal" class="modal active" style="z-index: 2100;">
+            <div class="modal-content sub-promo-modal">
+                 <div class="sub-promo-header">
+                    <h2>🎉 Team Added to Favorites!</h2>
+                 </div>
+                 <div class="sub-promo-content">
+                    <p>
+                        Do you want your favorite teams matches to appear <br>
+                        <strong>automatically</strong> in your phone's calendar?
+                    </p>
+                    
+                    <div class="sub-features">
+                        <div class="sub-feature">
+                            <i>🔄</i>
+                            <span>Auto Sync</span>
+                        </div>
+                        <div class="sub-feature">
+                            <i>📱</i>
+                            <span>Live Updates</span>
+                        </div>
+                        <div class="sub-feature">
+                            <i>⚡</i>
+                            <span>No Spam</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-actions">
+                        <button class="btn-sub-primary" onclick="window.acceptSubscription()">
+                            Yes, Sync Calendar
+                        </button>
+                        <button class="btn-sub-secondary" onclick="window.dismissSubscription()">
+                            Maybe Later
+                        </button>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+};
+
+window.dismissSubscription = function() {
+    const el = document.getElementById('subPromoModal');
+    if (el) el.remove();
+    localStorage.setItem('subscriptionPromoted', 'true');
+};
+
+window.acceptSubscription = function() {
+    window.dismissSubscription();
+    window.getSyncLink(); // Trigger the sync flow
+};
+
 
