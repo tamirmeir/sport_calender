@@ -4,9 +4,15 @@ import time
 import subprocess
 import shutil
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+
+# Load .env before anything else
+load_dotenv()
+
 from app import create_app
 from extensions import db
 from models import User, FavoriteTeam, SavedFixture, LoginLog
+from config import FOOTBALL_API_KEY
 from werkzeug.security import generate_password_hash
 from sqlalchemy import func, case
 
@@ -41,6 +47,14 @@ def system_monitor():
     
     print(f"Frontend (:3000): {'✅ Online' if frontend else '❌ Offline'}")
     print(f"Backend  (:8000): {'✅ Online' if backend else '❌ Offline'}")
+    
+    # HTTP Health Check
+    import urllib.request
+    try:
+        with urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3) as r:
+            print(f"Health Check:    ✅ {r.read().decode()[:50]}")
+    except Exception as e:
+        print(f"Health Check:    ❌ Failed ({str(e)[:30]})")
     
     # DB Stats
     try:
@@ -257,6 +271,90 @@ def analyze_logs():
         
     input("\nPress Enter to continue...")
 
+# --- 6. Full Diagnostics ---
+def run_full_diagnostics():
+    import urllib.request
+    import json
+    
+    clear_screen()
+    print("--- 🔧 Full Diagnostics ---\n")
+    
+    # 1. Port checks
+    def check_port(port):
+        try:
+            result = subprocess.run(f"lsof -i :{port} | grep LISTEN", shell=True, stdout=subprocess.PIPE)
+            return result.returncode == 0
+        except:
+            return False
+    
+    print("📡 Server Status:")
+    frontend = check_port(3000)
+    backend = check_port(8000)
+    print(f"  Frontend (:3000): {'✅ Online' if frontend else '❌ Offline'}")
+    print(f"  Backend  (:8000): {'✅ Online' if backend else '❌ Offline'}")
+    
+    # 2. HTTP Health Checks
+    print("\n🌐 HTTP Health Checks:")
+    endpoints = [
+        ('http://127.0.0.1:8000/health', 'Backend /health'),
+        ('http://127.0.0.1:3000/api/health', 'Frontend -> Backend (proxy)'),
+        ('http://127.0.0.1:3000/api/fixtures/countries', 'Fixtures API'),
+    ]
+    
+    for url, name in endpoints:
+        try:
+            with urllib.request.urlopen(url, timeout=5) as r:
+                status = r.status
+                print(f"  {name}: ✅ {status}")
+        except Exception as e:
+            print(f"  {name}: ❌ {str(e)[:40]}")
+    
+    # 3. Database Stats
+    print("\n📊 Database Stats:")
+    try:
+        users = User.query.count()
+        favs = FavoriteTeam.query.count()
+        fixtures = SavedFixture.query.count()
+        print(f"  Users: {users}")
+        print(f"  Favorite Teams: {favs}")
+        print(f"  Saved Fixtures: {fixtures}")
+    except Exception as e:
+        print(f"  ❌ DB Error: {e}")
+    
+    # 4. External API Check
+    print("\n⚽ External API Check:")
+    if FOOTBALL_API_KEY and FOOTBALL_API_KEY != 'demo_key_12345':
+        try:
+            import requests
+            resp = requests.get(
+                'https://v3.football.api-sports.io/status',
+                headers={'x-apisports-key': FOOTBALL_API_KEY},
+                timeout=10
+            )
+            data = resp.json()
+            account = data.get('response', {}).get('account', {})
+            requests_info = data.get('response', {}).get('requests', {})
+            print(f"  ✅ Key: {FOOTBALL_API_KEY[:8]}...{FOOTBALL_API_KEY[-4:]}")
+            print(f"  Account: {account.get('firstname', 'N/A')} ({account.get('email', 'N/A')})")
+            print(f"  Requests Today: {requests_info.get('current', '?')}/{requests_info.get('limit_day', '?')}")
+        except Exception as e:
+            print(f"  ⚠️ Key loaded ({FOOTBALL_API_KEY[:8]}...) but API check failed: {str(e)[:40]}")
+    else:
+        print("  ⚠️ FOOTBALL_API_KEY not set (using demo mode)")
+    
+    # 5. Cache Status
+    print("\n📁 Cache Status:")
+    if os.path.exists(CACHE_DIR):
+        files = os.listdir(CACHE_DIR)
+        size = sum(os.path.getsize(os.path.join(CACHE_DIR, f)) for f in files) / 1024
+        print(f"  Files: {len(files)}, Size: {size:.2f} KB")
+    else:
+        print("  Cache directory empty/missing")
+    
+    print("\n" + "─" * 40)
+    print("✅ Diagnostics complete")
+    input("\nPress Enter to continue...")
+
 # --- Main Loop ---
 def main():
     app = create_app()
@@ -269,7 +367,8 @@ def main():
             print("3. 📈 Log Analysis")
             print("4. 🧹 Cleanup & Maintenance")
             print("5. ⚡ Server Operations")
-            print("6. Exit")
+            print("6. 🔧 Full Diagnostics")
+            print("7. Exit")
             
             choice = input("\nSelect Option: ")
             
@@ -284,6 +383,8 @@ def main():
             elif choice == '5':
                 server_ops()
             elif choice == '6':
+                run_full_diagnostics()
+            elif choice == '7':
                 sys.exit()
 
 if __name__ == "__main__":

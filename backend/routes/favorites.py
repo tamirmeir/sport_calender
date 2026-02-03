@@ -11,6 +11,39 @@ favorites_bp = Blueprint('favorites', __name__)
 # Cache Configuration (Must match calendar.py)
 CACHE_DIR = os.path.join(os.getcwd(), 'instance', 'cache')
 
+def _should_include_fixture(fixture, filters):
+    """
+    Determine if a fixture should be included based on user's filter preferences.
+    
+    Args:
+        fixture: API fixture object with 'league' containing 'type' and 'name'
+        filters: List of filter strings like ['League', 'Cup', 'Champions League'] or None
+    
+    Returns:
+        bool: True if fixture should be included
+    """
+    if not filters:
+        return True  # No filters = include all
+    
+    if 'All' in filters:
+        return True
+    
+    league_type = fixture['league']['type']  # "League" or "Cup"
+    league_name = fixture['league']['name']
+    
+    # Check type matches
+    if 'League' in filters and league_type == 'League':
+        return True
+    if 'Cup' in filters and league_type == 'Cup':
+        return True
+    
+    # Check specific league name matches (e.g., "Champions League")
+    for keyword in filters:
+        if keyword not in ('League', 'Cup', 'All') and keyword in league_name:
+            return True
+    
+    return False
+
 @favorites_bp.route('/', methods=['GET'], strict_slashes=False)
 @jwt_required()
 def get_favorites():
@@ -44,18 +77,25 @@ def add_favorite():
     if not user:
         return jsonify({'error': 'User not found'}), 404
     
-    # Check if already favorited
+    # Check if already favorited - UPDATE if exists (upsert)
     existing = FavoriteTeam.query.filter_by(
         user_id=user_id,
         team_id=data['team_id']
     ).first()
     
-    if existing:
-        return jsonify({'error': 'Team already in favorites'}), 400
-    
-    # 1. Add to Favorites
     filters = data.get('filters') # List of allowed strings e.g. ['League', 'Cup', 'UEFA']
     
+    if existing:
+        # Update existing subscription
+        existing.filters = json.dumps(filters) if filters else None
+        existing.team_name = data['team_name']  # Update name if changed
+        existing.team_logo = data.get('team_logo', existing.team_logo)
+        db.session.commit()
+        
+        # TODO: Could re-sync fixtures here based on new filters
+        return jsonify({'message': 'Subscription updated', 'favorite': existing.to_dict()}), 200
+    
+    # 1. Add to Favorites (new subscription)
     favorite = FavoriteTeam(
         user_id=user_id,
         team_id=data['team_id'],
@@ -74,31 +114,9 @@ def add_favorite():
         fixtures = api_res.get('response', []) if isinstance(api_res, dict) else []
         
         for f in fixtures:
-            # Filter Logic
-            if filters:
-                l_type = f['league']['type'] # "League" or "Cup"
-                l_name = f['league']['name']
-                is_allowed = False
-                
-                # Logic: 
-                # 1. If 'All' in filters, allow.
-                # 2. If 'League' selected, allow type=="League"
-                # 3. If 'Cup' selected, allow type=="Cup" (Domestic mainly)
-                # 4. If 'International' or specific name selected, check name.
-                
-                if 'All' in filters:
-                    is_allowed = True
-                else:
-                    if 'League' in filters and l_type == 'League': is_allowed = True
-                    if 'Cup' in filters and l_type == 'Cup': is_allowed = True
-                    
-                    # Specific Name Matching (e.g. "Champions League")
-                    for keyword in filters:
-                        if keyword != 'League' and keyword != 'Cup' and keyword in l_name:
-                            is_allowed = True
-                            
-                if not is_allowed:
-                    continue
+            # Filter Logic - use shared helper
+            if not _should_include_fixture(f, filters):
+                continue
 
             fid = f['fixture']['id']
             # Check for duplicates
@@ -191,14 +209,31 @@ def get_favorite_matches():
     
     all_matches = []
     
+    import json as _json
     for fav_team in user.favorite_teams:
+        filters = fav_team.filters
+        league_filter = None
+        if filters:
+            try:
+                filters_list = _json.loads(filters)
+                # If filters is a dict, support {league: ...}
+                if isinstance(filters_list, dict) and 'league' in filters_list:
+                    league_filter = filters_list['league']
+                elif isinstance(filters_list, list):
+                    # If filters is a list, look for league name
+                    for f in filters_list:
+                        if f.lower().startswith('ligat') or f.lower() in ['state cup', 'cup']:
+                            league_filter = f
+            except Exception:
+                pass
         fixtures = football_api.get_fixtures_by_team(fav_team.team_id, next_n=10)
-        if fixtures.get('response'):
-            all_matches.extend(fixtures['response'])
-    
+        matches = fixtures.get('response', []) if isinstance(fixtures, dict) else []
+        # If league_filter is set, filter matches
+        if league_filter:
+            matches = [m for m in matches if m.get('league', {}).get('name') == league_filter]
+        all_matches.extend(matches)
     # Sort by date
     all_matches.sort(key=lambda x: x['fixture']['date'])
-    
     return jsonify({'matches': all_matches}), 200
 
 @favorites_bp.route('/sync', methods=['POST'])
@@ -224,28 +259,8 @@ def sync_favorites():
             fixtures = api_res.get('response', []) if isinstance(api_res, dict) else []
             
             for f in fixtures:
-                # Reuse Filter Logic (Simplification of add_favorite logic)
-                skip = False
-                if filters:
-                    l_type = f['league']['type']
-                    l_name = f['league']['name']
-                    
-                    # Check if league matches any filter (simple containment check usually)
-                    # We assume filters are simple strings like "League" or "Cup" or specific names
-                    # Based on favorites.py filter logic, usually it's just checking if filter matches
-                    # If any filter matches, we KEEP it. If NO filters match, we SKIP it.
-                    # Wait, if filters list is empty, we keep all. 
-                    
-                    match_found = False
-                    for flt in filters:
-                         if flt in l_type or flt in l_name:
-                             match_found = True
-                             break
-                    
-                    if not match_found:
-                        skip = True
-                
-                if skip:
+                # Use shared filter logic
+                if not _should_include_fixture(f, filters):
                     continue
 
                 # Check if exists

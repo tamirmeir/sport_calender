@@ -1,4 +1,5 @@
 const express = require('express');
+
 const footballApi = require('../api/footballApi');
 
 const router = express.Router();
@@ -49,6 +50,68 @@ router.get('/teams', async (req, res) => {
     }
 });
 
+// Get standings (for strict filtering of participants)
+router.get('/standings', async (req, res) => {
+    try {
+        const { league, season } = req.query;
+        if (!league) return res.status(400).json({ error: 'League parameter required' });
+        
+        const seasonYear = season || new Date().getFullYear();
+        const standings = await footballApi.getStandings(league, seasonYear);
+        res.json({ response: standings }); // Wrap in response object to match API-Sports format
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get fixtures by league (Heuristic for active teams)
+router.get('/fixtures', async (req, res) => {
+    console.log('[API] Hit /fixtures endpoint with query:', req.query);
+    try {
+        const { league, season, next, last, status } = req.query;
+        if (!league) return res.status(400).json({ error: 'League parameter required' });
+
+        const seasonYear = season || new Date().getFullYear();
+        // nextCount logic moved inside API helper which handles priority
+        
+        const fixtures = await footballApi.getFixturesByLeague(league, seasonYear, next, last, status);
+        res.json(fixtures);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// --- NEW: Universal Active Teams Logic (The Funnel) ---
+router.get('/active-teams', async (req, res) => {
+    try {
+        const { league, season } = req.query;
+        if (!league) return res.status(400).json({ error: 'League ID required' });
+        
+        let seasonYear = season || new Date().getFullYear();
+        
+        // First attempt with provided/default season
+        let activeTeams = await footballApi.getActiveTournamentTeams(league, seasonYear);
+        
+        // If no teams found, try to get the league's actual current season
+        if (activeTeams.length === 0 && seasonYear) {
+            console.log(`[Route] No teams found for season ${seasonYear}, checking league's current season...`);
+            const currentSeason = await footballApi.getCurrentSeasonForLeague(league);
+            
+            if (currentSeason && currentSeason != seasonYear) {
+                console.log(`[Route] Retrying with league's current season: ${currentSeason}`);
+                activeTeams = await footballApi.getActiveTournamentTeams(league, currentSeason);
+            }
+        }
+        
+        res.json(activeTeams);
+        
+    } catch (error) {
+        console.error("Active Teams Error:", error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 
 // --- Standard Fixture Routes ---
 
@@ -56,9 +119,10 @@ router.get('/teams', async (req, res) => {
 router.get('/team/:teamId', async (req, res) => {
   try {
     const { teamId } = req.params;
-    const { next = 10 } = req.query;
+    const { next = 10, league } = req.query;
     
-    const fixtures = await footballApi.getFixturesByTeam(teamId, next);
+    // Pass league filter if provided (e.g. for Continent -> Competition view)
+    const fixtures = await footballApi.getFixturesByTeam(teamId, next, league);
     res.json(fixtures);
   } catch (error) {
     res.status(500).json({ error: error.message });

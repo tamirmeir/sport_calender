@@ -1,193 +1,119 @@
-# Sport Calendar App
+# ⚽ Match Calendar
 
-A responsive sports calendar application to display upcoming football fixtures from the API-Sports Football API.
+A modern web app to track football matches and sync them to your personal calendar. Browse teams by country or continent, subscribe to your favorites, and get automatic calendar updates.
 
 ## ✨ Features
 
-- 🔐 **User Authentication** - Secure Login and Registration
-- 🏆 **View upcoming fixtures** for any team
-- 📅 **Display match details** (teams, dates, times, venues)
-- 🔴 **Real-time status** (Live, Finished, Upcoming)
-- ⭐ **Manage Favorites** - Save teams to your account and sync across devices
-- 🎯 **Filter fixtures** by status
-- 📱 **Responsive design** - works on all devices
-- ⚡ **Fast API integration** with API-Sports Football API
+### 🔍 Browse Teams
+- **By Country**: Select a country → choose league → pick team
+- **By Continent**: Europe, South America, Asia, Africa, North America
+  - Club Competitions (Champions League, Libertadores, etc.)
+  - National Team Tournaments (World Cup, Euro, Copa America, etc.)
+  - Country-specific leagues
 
-## 📚 Documentation
+### ⭐ Subscriptions
+- Subscribe to any team with one click (star button in team list)
+- **Filter your subscription**: Choose which matches to sync
+  - All Matches
+  - League Only
+  - Cup Only
+  - League + Cup
+- **Edit subscriptions**: Click your subscribed team chip to modify filters or unsubscribe
+- **Preview matches**: See upcoming fixtures before subscribing
 
-Detailed documentation is available in the `docs/` directory:
-- [**Architecture & Database Schema**](docs/ARCHITECTURE.md) - DB tables, data models, and system design.
-- [**API Data Flow**](docs/API_DATA_FLOW.md) - How requests travel between Frontend, Node.js, Python, and External APIs.
-- [**Deployment Guide**](docs/DEPLOYMENT.md) - **Dev vs Prod** differences and helper scripts.
-- [**Session Summary**](docs/SESSION_SUMMARY.md) - Recent development logs and fixes.
+### 🗓️ Calendar Sync
+- **Auto-Sync** (Registered users): Get a subscription URL that updates automatically
+  - Works with Apple Calendar, Google Calendar, Outlook
+- **Manual Download**: Export .ics file for any matches
+- **My Calendar**: View all your synced matches, trigger manual sync
 
-## 🏗️ Architecture
-
-This is a **Dual-Stack Application**:
-- **Frontend Server (Node.js/Express):** Serves the UI app and handles static assets. Running on Port `3000`.
-- **Backend API (Python/Flask):** Handles User Authentication, Database interactions (SQLite), and proxies requests to the Football API. Running on Port `8000`.
+### 👤 User Accounts
+- Register/Login with email
+- Password reset via email
+- Subscriptions persist across devices
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+**Both servers must run simultaneously:**
 
-**Frontend:**
 ```bash
+# Terminal 1: Frontend (Node.js)
 npm install
-```
+npm run dev   # Port 3000
 
-**Backend:**
-```bash
+# Terminal 2: Backend (Python)
 cd backend
-python3 -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+source venv/bin/activate
 pip install -r requirements.txt
-cd ..
+python app.py  # Port 8000
 ```
 
-### 2. Set Up Environment Variables
+Open `http://localhost:3000`
 
-**Frontend (`.env`):**
-```env
-FOOTBALL_API_KEY=your_apisports_key
-API_BASE_URL=https://v3.football.api-sports.io
-PORT=3000
-```
+## 🏗️ Architecture
 
-**Backend (`backend/.env`):**
-```env
-FLASK_APP=app.py
-FLASK_ENV=development
-JWT_SECRET_KEY=your_super_secret_jwt_key
-DATABASE_URL=sqlite:///instance/sport_calendar.db
-FOOTBALL_API_KEY=your_apisports_key
-```
+| Component | Tech | Port | Purpose |
+|-----------|------|------|---------|
+| Frontend | Node.js/Express | 3000 | UI, static files, API-Sports proxy |
+| Backend | Python/Flask | 8000 | Auth, subscriptions, calendar export |
+| Database | SQLite | - | Users, favorites, saved fixtures |
+| External API | API-Sports | - | Football data |
 
-### 3. Start the Application
-
-You need to run **both** servers.
-
-**Terminal 1 (Backend):**
-```bash
-cd backend
-python3 app.py
-```
-
-**Terminal 2 (Frontend):**
-```bash
-# Production
-npm start
-
-# Development with auto-reload
-npm run dev
-```
-
-The app will be available at `http://localhost:3000`. Authentication requests will be proxied to the Python backend at `http://localhost:8000`.
-
-## 📚 API Endpoints
-
-### Fixtures
-- `GET /api/fixtures/team/:teamId?next=10` - Get next fixtures for a team
-- `GET /api/fixtures/:fixtureId` - Get specific fixture details
-- `GET /api/fixtures/date/:date` - Get fixtures by date
-
-### Preferences
-- `GET /api/preferences/favorites` - Get favorite fixtures
-- `POST /api/preferences/favorites` - Add favorite
-- `DELETE /api/preferences/favorites/:fixtureId` - Remove favorite
-- `GET /api/preferences/teams` - Get tracked teams
-- `POST /api/preferences/teams` - Add tracked team
-- `DELETE /api/preferences/teams/:teamId` - Remove tracked team
+### Request Routing
+| Path | Handler |
+|------|---------|
+| `/api/fixtures/*` | Node.js |
+| `/api/auth/*` | Python (proxied) |
+| `/api/favorites/*` | Python (proxied) |
+| `/calendar/*`, `/sync` | Python (proxied) |
 
 ## 📁 Project Structure
 
 ```
 sport-calendar/
-├── public/
-│   ├── index.html        # Main HTML
-│   ├── css/
-│   │   └── styles.css    # Styling
-│   └── js/
-│       └── app.js        # Frontend logic
-├── src/
-│   ├── index.js          # Server entry point
-│   ├── api/
-│   │   └── footballApi.js # API service
-│   ├── routes/
-│   │   ├── fixtures.js   # Fixtures routes
-│   │   └── preferences.js# Preferences routes
-│   └── utils/
-│       ├── config.js     # Configuration
-│       └── database.js   # Local database
-├── data/
-│   └── database.json     # Stored favorites & preferences
-├── package.json
-└── README.md
+├── public/                 # Frontend
+│   ├── index.html
+│   ├── css_v2/styles.css
+│   └── js/app_v2.js
+├── src/                    # Node.js server
+│   ├── index.js
+│   ├── api/footballApi.js
+│   └── routes/fixtures.js
+├── backend/                # Python server
+│   ├── app.py
+│   ├── models.py
+│   └── routes/
+│       ├── auth.py
+│       ├── favorites.py
+│       └── calendar.py
+└── docs/                   # Documentation
 ```
 
-## 🔧 Technologies Used
+## 🔧 Environment Variables
 
-- **Backend**: Node.js, Express.js
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **API**: API-Sports Football API
-- **Database**: JSON file storage (local)
-
-## 📊 Example Usage
-
-### Search for Team 604 (Next 10 Fixtures)
-1. Go to `http://localhost:3000`
-2. Enter Team ID: `604`
-3. Enter Number of Fixtures: `10`
-4. Click "Search Fixtures"
-
-### Popular Team IDs
-- **604** - Manchester United
-- **33** - Manchester City
-- **42** - Arsenal
-- **49** - Chelsea
-- **47** - Liverpool
-
-## 🎨 Features
-
-### Status Indicators
-- 🔵 **Upcoming** - Blue badge
-- 🔴 **Live** - Red badge with animation
-- ✅ **Finished** - Green badge
-
-### Filters
-- All - Show all fixtures
-- Upcoming - Not yet played
-- Live - Currently playing
-- Finished - Already completed
-
-## 📝 Notes
-
-- Data is stored locally in `data/database.json`
-- API requests are rate-limited; check API documentation
-- Team IDs can be found at [api-football.com](https://www.api-football.com/)
-
-## 🛠️ Development
-
-### Run in Development Mode
-```bash
-npm run dev
+### `.env` (root)
 ```
-Uses nodemon to auto-restart on file changes
-
-### Run Tests
-```bash
-npm test
+FOOTBALL_API_KEY=your_api_key
+PORT=3000
+BACKEND_URL=http://127.0.0.1:8000
 ```
 
-## 📄 License
+### `backend/.env`
+```
+FOOTBALL_API_KEY=your_api_key
+JWT_SECRET_KEY=your_secret
+DATABASE_URL=sqlite:///instance/sport_calendar.db
+```
 
-MIT License - feel free to use this project for learning and personal use!
+## 🧪 Demo Mode
 
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to fork and submit pull requests.
+Set `FOOTBALL_API_KEY=demo_key_12345` for mock data without API calls.
 
 ## 📞 Support
 
-For issues with the API, visit [api-football.com](https://www.api-football.com/)
-For bugs in this app, please open an issue.
+- API issues: [api-football.com](https://www.api-football.com/)
+- App bugs: Open an issue
+
+## 📄 License
+
+MIT License

@@ -1,5 +1,5 @@
 """
-Database Models for Sport Calendar
+Database Models for Match Calendar
 User and FavoriteTeam models
 """
 from extensions import db
@@ -44,11 +44,13 @@ class FavoriteTeam(db.Model):
     
     def to_dict(self):
         """Convert favorite team to dictionary"""
+        import json as _json
         return {
             'id': self.id,
             'team_id': self.team_id,
             'team_name': self.team_name,
             'team_logo': self.team_logo,
+            'filters': _json.loads(self.filters) if self.filters else None,
             'added_at': self.added_at.isoformat()
         }
 

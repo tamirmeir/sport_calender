@@ -387,7 +387,7 @@ function createFixtureCard(fixture) {
                 ` : ''}
                 <div class="calendar-buttons" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
                     <button class="btn btn-calendar btn-google" onclick="addToGoogleCalendar('${fixtureId}')">
-                        📅 Google
+                        🗓 Google
                     </button>
                     <button class="btn btn-calendar btn-apple" onclick="addToMobileCalendar('${fixtureId}')">
                         📱 Apple/Outlook

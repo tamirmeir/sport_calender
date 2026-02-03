@@ -159,7 +159,7 @@ def get_ics_feed(username):
     ics_content = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//Sport Calendar//MatchDayByTM//EN",
+        "PRODID:-//Match Calendar//MatchDayByTM//EN",
         "X-WR-CALNAME:MatchDayByTM",
         "CALSCALE:GREGORIAN", 
         "METHOD:PUBLISH"
@@ -190,11 +190,21 @@ def get_ics_feed(username):
             # Add Status to summary if LIVE or FT
             status = f['fixture']['status']['short']
             score = ""
-            if status in ['FT', '1H', '2H', 'HT']:
+            status_prefix = ""
+
+            if status == 'PST':
+                status_prefix = "⚠️ POSTPONED: "
+            elif status in ['FT', '1H', '2H', 'HT']:
                 score = f" [{f['goals']['home']}-{f['goals']['away']}]"
             
-            summary = f"⚽ {f['teams']['home']['name']} vs {f['teams']['away']['name']}{score}"
-            description = f"{f['league']['name']} - {f['fixture']['venue'].get('name', 'TBA')}"
+            summary = f"{status_prefix}⚽ {f['teams']['home']['name']} vs {f['teams']['away']['name']}{score}"
+            
+            # Location Logic (Venue + City)
+            venue = f['fixture']['venue'].get('name') or "TBA"
+            city = f['fixture']['venue'].get('city')
+            location = f"{venue}, {city}" if city and venue != "TBA" else venue
+
+            description = f"{f['league']['name']} - {location}"
             
             ics_content.extend([
                 "BEGIN:VEVENT",
@@ -204,6 +214,8 @@ def get_ics_feed(username):
                 f"DTEND:{end_str}",
                 f"SUMMARY:{summary}",
                 f"DESCRIPTION:{description}",
+                f"LOCATION:{location}",
+                f"STATUS:{'CANCELLED' if status == 'PST' else 'CONFIRMED'}",
                 "END:VEVENT"
             ])
             

@@ -1,3 +1,43 @@
+/* Vacation Card Style */
+.vacation-card {
+    background: #f8fafc !important;
+    border: 1px dashed #cbd5e1 !important;
+    cursor: default !important;
+    box-shadow: none !important;
+    pointer-events: none;
+    position: relative;
+}
+
+.vacation-card .card-content {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+.vacation-card .vacation-badge {
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+/* Team Table Star Button */
+.fav-star-btn {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: transform 0.2s, color 0.2s;
+    color: #cbd5e1;
+}
+
+.fav-star-btn:hover {
+    transform: scale(1.2);
+    color: #fbbf24;
+}
+
+.fav-star-btn.favorited {
+    color: #fbbf24;
+}
+
 :root {
     --primary-color: #2563eb;
     --secondary-color: #1e40af;
@@ -274,6 +314,19 @@ th, td {
     /* responsive font size that scales with viewport, clamped between 12px and 18px */
     font-size: clamp(0.75rem, 1.5vw, 1.1rem);
     border-bottom: 1px solid #e8e8e8;
+}
+
+/* Clickable table rows */
+.teams-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.teams-table tbody tr:hover {
+    background-color: #eff6ff !important;
+}
+
+.teams-table tbody tr:active {
+    background-color: #dbeafe !important;
 }
 
 /* Explicitly target images inside tables (Team Logo / Flags) to be smaller */
@@ -652,22 +705,45 @@ tbody tr:hover {
     z-index: 2;
 }
 
-/* Header Help Button */
-.help-corner-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+/* Floating Help Button */
+.help-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Mobile Header Adjustment */
+.help-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.help-fab:active {
+    transform: scale(0.95);
+}
+
+/* Mobile: Smaller and closer to edge */
 @media (max-width: 768px) {
-    .help-corner-btn {
-        position: relative;
-        top: auto;
-        left: auto;
-        margin-bottom: 10px;
-        align-self: flex-start; /* Align left */
-        order: -2;
+    .help-fab {
+        width: 42px;
+        height: 42px;
+        bottom: 16px;
+        right: 16px;
+        font-size: 1.2rem;
     }
 }
 
@@ -1010,4 +1086,172 @@ tbody tr:hover {
 .btn-clear-all:hover {
     background: #e11d48;
     color: white;
+}
+
+/* Generic Modal Content (Fix for Error/Confirm Modals) */
+.modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    position: relative;
+    margin: auto;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Tabs Navigation */
+.tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0; /* Tab shape */
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px; /* Overlap border */
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+    background: #f8fafc;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-bottom: 2px solid var(--primary-color); /* Active line */
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tabs Navigation - Applied */
+.tabs-nav {
+    display: flex;
+    justify-content: flex-start; /* Left aligned */
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    min-width: 140px; /* Wider for better click area */
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+    background: #f1f5f9;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 0 -2px 3px rgba(0,0,0,0.02); /* Subtle lift */
+}
+
+/* Hide tabs when not relevant (e.g. step 3) */
+.tabs-nav.hidden {
+    display: none;
+}
+
+/* Generic Empty Message */
+.empty-msg {
+    padding: 20px;
+    color: #64748b;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+}
+
+/* League Status Styling */
+.league-active {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.league-active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #3b82f6;
+}
+
+/* vacation-card styles moved to top of file */
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.league-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.league-name {
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.status-badge.vacation {
+    background: #e2e8f0;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+
+.status-badge.active {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
 }

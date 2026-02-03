@@ -63,3 +63,39 @@ Your production `.env` currently uses `FOOTBALL_API_URL`. The code in `backend/c
 4.  **Helper Script**
     refer to `deploy_droplet.sh` in the root directory for a full automation script.
 
+
+
+---
+
+## 4. Maintenance & Operations
+
+### A. Manual Server Restart
+If the application becomes unresponsive or "NetworkError" appears frequently, perform a full restart.
+
+**1. Stop All Services (Cleanup)**
+Run this script to kill any lingering processes on ports 3000 (Node) and 8000 (Python).
+```bash
+# In project root
+bash kill_ports.sh
+```
+
+**2. Start Backend (Terminal 1)**
+```bash
+cd backend
+source venv/bin/activate
+python app.py
+```
+
+**3. Start Frontend (Terminal 2)**
+```bash
+# In project root
+npm start
+```
+
+### B. Email Troubleshooting
+If "Forgot Password" emails are not arriving:
+1.  **Check `.env`**: Ensure `backend/.env` has the correct `MAIL_PASSWORD` (Brevo API Key).
+2.  **Verify Domain**: Check Brevo dashboard -> Senders & IP. `support@matchdaybytm.com` must be "Verified".
+3.  **Check Logs**:
+    *   Run `python dev_scripts/backend_debug_email.py` to isolate SMTP issues.
+    *   Check `backend_log.txt` for `smtplib` errors.

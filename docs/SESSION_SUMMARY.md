@@ -40,3 +40,21 @@ Ensure `MAIL_SENDER_EMAIL` is set to `support@matchdaybytm.com` so it matches th
 ## 🔜 Next Steps
 - Implement "Private/Premium Fixtures" (Hide some content for non-users).
 - User Profile Page (Update email, change password while logged in).
+
+
+---
+
+### Update (Round 2) - Optimization & Troubleshooting
+**Date:** February 2, 2026
+
+1.  **Server Stability**:
+    *   Diagnosed and resolved "NetworkError" caused by port conflicts (Node: 3000, Python: 8000).
+    *   Created `kill_ports.sh` script to reliably stop all server processes before restart.
+    
+2.  **UI Enhancements**:
+    *   **Calendar Sync**: Updated "Manage Calendar" modal to explicitly display the `.ics` subscription link for easy copying.
+    *   **Help Section**: Clarified Guest vs. Registered User benefits in the UI.
+
+3.  **Documentation**:
+    *   Updated `ARCHITECTURE.md` with detailed Database Schema and Data Flows.
+    *   Updated `DEPLOYMENT.md` with "Manual Restart" instructions and Email Troubleshooting.

@@ -14,6 +14,14 @@ import textwrap
 
 auth_bp = Blueprint('auth', __name__)
 
+MIN_PASSWORD_LENGTH = 8
+
+def _validate_password(password):
+    """Validate password meets minimum requirements"""
+    if not password or len(password) < MIN_PASSWORD_LENGTH:
+        return False, f'Password must be at least {MIN_PASSWORD_LENGTH} characters'
+    return True, None
+
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """
@@ -33,6 +41,11 @@ def register():
     # Validate input
     if not data or not data.get('username') or not data.get('email') or not data.get('password'):
         return jsonify({'error': 'Missing required fields: username, email, password'}), 400
+    
+    # Validate password strength
+    is_valid, error_msg = _validate_password(data['password'])
+    if not is_valid:
+        return jsonify({'error': error_msg}), 400
     
     # Check if user exists
     if User.query.filter_by(username=data['username']).first():
@@ -79,7 +92,8 @@ def login():
         return jsonify({'error': 'Missing username or password'}), 400
     
     # Find user and verify password
-    user = User.query.filter_by(username=data['username']).first()
+    # Support login by Username OR Email
+    user = User.query.filter((User.username == data['username']) | (User.email == data['username'])).first()
     
     ip = request.remote_addr
     
@@ -199,6 +213,11 @@ def reset_password():
     data = request.get_json()
     if not data or not data.get('password'):
         return jsonify({'error': 'Missing new password'}), 400
+    
+    # Validate password strength
+    is_valid, error_msg = _validate_password(data['password'])
+    if not is_valid:
+        return jsonify({'error': error_msg}), 400
         
     user = User.query.get(int(user_id))
     if not user:

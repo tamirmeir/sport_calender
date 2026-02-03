@@ -1,0 +1,71 @@
+
+/* League Status Styling */
+.league-active {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.league-active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #3b82f6;
+}
+
+.vacation-card {
+    opacity: 0.7;
+    pointer-events: none; /* Disable clicking */
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    position: relative;
+}
+
+/* Grayscale only the content, not the emoji badge */
+.vacation-card .card-content,
+.vacation-card > div:not(.vacation-badge) {
+    filter: grayscale(100%);
+}
+
+/* Keep emoji colorful */
+.vacation-badge {
+    filter: none !important;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.league-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.league-name {
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.status-badge.vacation {
+    background: #e2e8f0;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+
+.status-badge.active {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}

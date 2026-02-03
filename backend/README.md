@@ -1,104 +1,94 @@
-# Sport Calendar Backend - Python Flask API
+# Match Calendar Backend (Python/Flask)
 
-Professional backend server for Sport Calendar application.
+## Overview
+Backend service handling authentication, subscriptions, and calendar sync for the Match Calendar app.
 
-## 📋 Project Structure
+## Features
+- JWT-based authentication (register, login, password reset)
+- Team subscriptions with match filters
+- Calendar export (ICS) with auto-sync support
+- SQLite database for persistence
 
-```
-backend/
-├── app.py                    # Main Flask application
-├── config.py                 # Configuration settings
-├── extensions.py             # Database (db) and JWT extensions
-├── models.py                 # Database models (User, FavoriteTeam)
-├── requirements.txt          # Python dependencies
-├── .env.example              # Environment variables template
-├── .gitignore                # Git ignore rules
-├── run.sh                    # Start script (Mac/Linux)
-├── run.bat                   # Start script (Windows)
-├── routes/                   # API route handlers
-│   ├── __init__.py
-│   ├── auth.py               # User registration & login
-│   ├── favorites.py          # Favorite teams management
-│   └── fixtures.py           # Football fixtures endpoints
-└── services/                 # Business logic
-    ├── __init__.py
-    └── football_service.py   # API-Sports integration
-```
-
-## 🚀 Quick Start
-
-### **Option 1: Using Shell Script (Mac/Linux)**
-
+## Quick Start
 ```bash
 cd backend
-chmod +x run.sh
-./run.sh
-```
-
-### **Option 2: Using Batch File (Windows)**
-
-```batch
-cd backend
-run.bat
-```
-
-### **Option 3: Manual Setup**
-
-**1. Create Virtual Environment:**
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate  # Mac/Linux
-# or
-venv\Scripts\activate     # Windows
-```
-
-**2. Install Dependencies:**
-```bash
+source venv/bin/activate
 pip install -r requirements.txt
+python app.py  # Port 8000
 ```
 
-**3. Setup Environment:**
-```bash
-cp .env.example .env
-# Edit .env with your settings
+## API Endpoints
+
+### Authentication (`/api/auth`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/register` | Create account |
+| POST | `/login` | Login (username or email) |
+| POST | `/logout` | Logout (clears token) |
+| POST | `/reset-request` | Request password reset email |
+| POST | `/reset-password` | Set new password with token |
+| GET | `/me` | Get current user info |
+
+### Subscriptions (`/api/favorites`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | List user's subscriptions |
+| POST | `/` | Add/update subscription (upsert) |
+| DELETE | `/<team_id>` | Remove subscription |
+| POST | `/sync` | Refresh fixtures for all subscriptions |
+| GET | `/matches` | Get filtered matches for subscribed teams |
+
+**Subscription Filters:**
+```json
+// All matches
+{ "filters": null }
+
+// League only
+{ "filters": { "type": "League" } }
+
+// Cup only  
+{ "filters": { "type": "Cup" } }
+
+// League + Cup
+{ "filters": { "type": ["League", "Cup"] } }
 ```
 
-**4. Run Server:**
-```bash
-python app.py
+### Calendar (`/calendar`, `/sync`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/calendar/add` | Save fixtures to calendar |
+| GET | `/calendar/events` | List saved events |
+| DELETE | `/calendar/events/<id>` | Remove saved event |
+| GET | `/sync/MatchDayByTM/<username>.ics` | Auto-sync ICS feed |
+
+## Database Schema
+
+```sql
+-- Users
+users(id, username, email, password_hash, has_seen_sync_promo, created_at)
+
+-- Subscriptions
+favorite_teams(id, user_id, team_id, team_name, team_logo, filters, added_at)
+
+-- Saved Calendar Events
+saved_fixtures(id, user_id, fixture_id, fixture_data, added_at)
+
+-- Login History
+login_logs(id, user_id, login_time, ip_address, user_agent)
 ```
 
-Server will start on **http://localhost:8000**
-
-## 🔑 API Endpoints
-
-### **Health Check**
-- `GET /health` - Check server status
-
-### **Authentication** (No token required)
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-
-**Example:**
-```bash
-curl -X POST http://localhost:8000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "john",
-    "email": "john@example.com",
-    "password": "password123"
-  }'
+## Environment Variables
+```
+FOOTBALL_API_KEY=your_key
+JWT_SECRET_KEY=your_secret
+DATABASE_URL=sqlite:///instance/sport_calendar.db
+MAIL_SERVER=smtp.example.com
+MAIL_USERNAME=...
+MAIL_PASSWORD=...
 ```
 
-### **Fixtures** (No token required)
-- `GET /api/fixtures/team/<team_id>?next=10` - Get team fixtures
-- `GET /api/fixtures/team/<team_id>/info` - Get team info
-
-**Example:**
-```bash
-curl http://localhost:8000/api/fixtures/team/604?next=10
-```
+## Demo Mode
+Set `FOOTBALL_API_KEY=demo_key_12345` for mock data without API calls.
 
 ### **Favorites** (Requires JWT Token)
 - `GET /api/favorites` - Get user's favorite teams

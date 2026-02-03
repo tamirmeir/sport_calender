@@ -7,12 +7,12 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 // Proxy rules for Backend (Python)
-// Handles /api/auth, /api/favorites, /calendar, /sync
+// Handles /api/auth, /api/favorites, /api/health, /calendar, /sync
 // Must be defined BEFORE body-parser (express.json) to avoid stream issues
 const backendProxy = createProxyMiddleware({
     target: BACKEND_URL, 
     changeOrigin: true,
-    pathFilter: ['/api/auth', '/api/favorites', '/calendar', '/sync'],
+    pathFilter: ['/api/auth', '/api/favorites', '/api/health', '/calendar', '/sync'],
     onError: (err, req, res) => {
         console.error('Proxy Error:', err);
         res.status(500).json({ error: 'Backend is unreachable' });
