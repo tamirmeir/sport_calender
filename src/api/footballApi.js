@@ -56,10 +56,57 @@ class FootballApi {
                 // API-Sports doesn't support team+league+next together
                 // Use season-based query and filter for future games
                 const { getSeasonYear } = require('../utils/config');
-                const season = getSeasonYear('academic'); // Use academic for most domestic cups
+                
+                // Calendar-year leagues (Jan-Dec seasons) vs Academic-year leagues (Jul-Jun)
+                // Most domestic European leagues use academic year
+                // International/Continental tournaments + Americas/Asia use calendar year
+                const CALENDAR_YEAR_LEAGUES = [
+                    // Global
+                    1,    // World Cup
+                    10,   // Friendlies
+                    15,   // FIFA Club World Cup
+                    8,    // Women's World Cup
+                    
+                    // Continental - Europe (summer tournaments)
+                    4,    // Euro Championship
+                    5,    // UEFA Nations League
+                    32,   // World Cup - Qualification Europe
+                    
+                    // Continental - South America (calendar year)
+                    9,    // Copa America
+                    13,   // CONMEBOL Libertadores
+                    11,   // CONMEBOL Sudamericana
+                    541,  // CONMEBOL Recopa
+                    34,   // World Cup - Qualification South America
+                    
+                    // Continental - Asia (calendar year)
+                    7,    // Asian Cup
+                    17,   // AFC Champions League
+                    18,   // AFC Cup
+                    30,   // World Cup - Qualification Asia
+                    1140, // AFC Women's Champions League
+                    
+                    // Continental - Africa (calendar year)
+                    6,    // Africa Cup of Nations
+                    12,   // CAF Champions League
+                    20,   // CAF Confederation Cup
+                    533,  // CAF Super Cup
+                    29,   // World Cup - Qualification Africa
+                    1164, // CAF Women's Champions League
+                    
+                    // Continental - North/Central America (calendar year)
+                    16,   // CONCACAF Champions League
+                    767,  // CONCACAF League
+                    22,   // CONCACAF Gold Cup
+                    536,  // CONCACAF Nations League
+                    31,   // World Cup - Qualification CONCACAF
+                    1136, // CONCACAF W Champions Cup
+                ];
+                const isCalendarLeague = CALENDAR_YEAR_LEAGUES.includes(parseInt(leagueId));
+                const season = getSeasonYear(isCalendarLeague ? 'calendar' : 'academic');
                 
                 params = { team: teamId, league: leagueId, season };
-                console.log(`[Fixtures] Fetching team ${teamId} in league ${leagueId} for season ${season}`);
+                console.log(`[Fixtures] Fetching team ${teamId} in league ${leagueId} for season ${season} (${isCalendarLeague ? 'calendar' : 'academic'})`);
             } else {
                 // Standard next N fixtures across all competitions
                 params = { team: teamId, next };
@@ -538,6 +585,159 @@ class FootballApi {
 
     getMockFixtures() {
         return [{ fixture: { id: 1, date: new Date().toISOString() }, teams: { home: { name: 'Demo FC' }, away: { name: 'Mock City' } } }];
+    }
+
+    /**
+     * Get all leagues/competitions a team is currently participating in
+     * Returns categorized data: { leagues: [], cups: [], continental: [] }
+     * Works globally for all confederations (UEFA, CONMEBOL, AFC, CAF, CONCACAF, OFC)
+     * Only includes competitions where the team has upcoming fixtures (hides eliminated teams)
+     */
+    async getLeaguesByTeam(teamId, isNational = false) {
+        if (IS_DEMO_MODE) return { leagues: [], cups: [], continental: [], raw: [] };
+
+        const cacheKey = `team_leagues_active_${teamId}`;
+        const cached = getCache(cacheKey);
+        if (cached) {
+            console.log('Serving team leagues from Cache:', cacheKey);
+            return cached;
+        }
+
+        try {
+            // Step 1: Get upcoming fixtures for the team
+            // Using next=50 to catch competitions with sparse fixtures (like Champions League)
+            const fixturesResponse = await axios.get(`${API_BASE_URL}/fixtures`, {
+                params: { team: teamId, next: 50 },
+                headers: this.headers
+            });
+            const upcomingFixtures = fixturesResponse.data.response || [];
+            
+            // Build a Set of league IDs that have upcoming fixtures
+            const activeLeagueIds = new Set();
+            for (const fixture of upcomingFixtures) {
+                if (fixture.league?.id) {
+                    activeLeagueIds.add(fixture.league.id);
+                }
+            }
+            console.log(`[API] Team ${teamId} has upcoming fixtures in ${upcomingFixtures.length} games, leagues:`, [...activeLeagueIds]);
+
+            // Step 2: Get all registered leagues for context (names, logos, types)
+            const leaguesResponse = await axios.get(`${API_BASE_URL}/leagues`, {
+                params: { team: teamId, current: 'true' },
+                headers: this.headers
+            });
+            const rawLeagues = leaguesResponse.data.response || [];
+            
+            // Categorize leagues - only include those with upcoming fixtures
+            const result = {
+                leagues: [],
+                cups: [],
+                continental: [],
+                national: {
+                    major: [],
+                    qualifiers: [],
+                    friendlies: [],
+                    nationsLeague: []
+                },
+                raw: rawLeagues
+            };
+
+            // Helper: Check if competition name indicates continental/international
+            const isContinentalByName = (name) => {
+                const continentalKeywords = [
+                    // UEFA
+                    'Champions League', 'Europa League', 'Conference League', 'UEFA', 'Super Cup',
+                    // CONMEBOL
+                    'Libertadores', 'Sudamericana', 'Recopa', 'CONMEBOL',
+                    // AFC
+                    'AFC Champions', 'AFC Cup', 'A-League',
+                    // CAF
+                    'CAF Champions', 'CAF Confederation', 'CAF Super',
+                    // CONCACAF
+                    'CONCACAF Champions', 'Leagues Cup', 'Campeones Cup',
+                    // General
+                    'Club World', 'Intercontinental'
+                ];
+                return continentalKeywords.some(kw => name.includes(kw));
+            };
+
+            // Helper: Check if it's a major international tournament for national teams
+            const isMajorTournament = (name, id) => {
+                const majorKeywords = ['World Cup', 'Euro 20', 'Copa America', 'AFCON', 'Africa Cup', 
+                    'Asian Cup', 'Gold Cup', 'Nations Cup', 'Confederations'];
+                const majorIds = [1, 4, 9, 6, 33, 37, 8, 29]; // Known major tournament IDs
+                return majorIds.includes(id) || majorKeywords.some(kw => name.includes(kw));
+            };
+
+            // Helper: Check if it's a qualifier
+            const isQualifier = (name) => {
+                return name.toLowerCase().includes('qualif') || name.toLowerCase().includes('qualification');
+            };
+
+            // Helper: Check if it's friendlies
+            const isFriendly = (name, id) => {
+                return id === 10 || name.toLowerCase().includes('friendl');
+            };
+
+            // Helper: Check if it's Nations League type competition
+            const isNationsLeague = (name) => {
+                return name.includes('Nations League') || name.includes('Nations Cup');
+            };
+
+            for (const item of rawLeagues) {
+                const league = item.league;
+                
+                // Skip competitions without upcoming fixtures (team eliminated)
+                if (!activeLeagueIds.has(league.id)) {
+                    console.log(`[API] Skipping ${league.name} (ID: ${league.id}) - no upcoming fixtures`);
+                    continue;
+                }
+                
+                const leagueInfo = {
+                    id: league.id,
+                    name: league.name,
+                    type: league.type,
+                    logo: league.logo,
+                    country: item.country?.name || 'International'
+                };
+
+                if (isNational) {
+                    // National team categorization
+                    if (isMajorTournament(league.name, league.id)) {
+                        result.national.major.push(leagueInfo);
+                    } else if (isQualifier(league.name)) {
+                        result.national.qualifiers.push(leagueInfo);
+                    } else if (isFriendly(league.name, league.id)) {
+                        result.national.friendlies.push(leagueInfo);
+                    } else if (isNationsLeague(league.name)) {
+                        result.national.nationsLeague.push(leagueInfo);
+                    } else if (league.type === 'Cup') {
+                        // Other national team tournaments go to major
+                        result.national.major.push(leagueInfo);
+                    }
+                } else {
+                    // Club team categorization - use name detection for global compatibility
+                    if (isContinentalByName(league.name)) {
+                        result.continental.push(leagueInfo);
+                    } else if (league.type === 'League') {
+                        result.leagues.push(leagueInfo);
+                    } else if (league.type === 'Cup') {
+                        result.cups.push(leagueInfo);
+                    }
+                }
+            }
+
+            setCache(cacheKey, result, 'fixtures'); // Cache for 6 hours (fixtures change more often)
+            console.log(`[API] Team ${teamId} ACTIVE competitions:`, {
+                leagues: result.leagues.length,
+                cups: result.cups.length,
+                continental: result.continental.length
+            });
+            return result;
+        } catch (error) {
+            console.error(`[API] Error fetching leagues for team ${teamId}:`, error.message);
+            return { leagues: [], cups: [], continental: [], national: { major: [], qualifiers: [], friendlies: [], nationsLeague: [] }, raw: [] };
+        }
     }
 }
 

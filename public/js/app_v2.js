@@ -13,9 +13,10 @@ let currentState = {
 };
 
 let allFixtures = [];
-let userFavorites = new Set();
+let userFavorites = new Map(); // Map of teamId -> {filters: [], isNational: bool}
 let selectedFixtures = new Set(); // New state for checked items
 let fixtureData = {}; // For calendar events
+let teamCompetitionsCache = new Map(); // Cache for team competitions data
 
 // Elements
 const stepCountry = document.getElementById('stepCountry');
@@ -72,6 +73,43 @@ window.addEventListener('load', () => {
     loadCountries();
 });
 
+// --- Helper: Update empty state message based on current step ---
+function updateEmptyStateMessage() {
+    if (!fixturesContainer) return;
+    
+    let message = '';
+    const mode = currentState.mode;
+    
+    if (!currentState.country) {
+        // Step 1
+        if (mode === 'country') {
+            message = '👆 Select a country above to get started';
+        } else if (mode === 'continent') {
+            message = '👆 Select a continent above to explore';
+        } else if (mode === 'global') {
+            message = '👆 Select a competition above to view teams';
+        } else {
+            message = '👆 Select a country or continent to get started';
+        }
+    } else if (!currentState.league) {
+        // Step 2 - Country/Region selected
+        if (mode === 'continent') {
+            // In continent hub - could be viewing countries, clubs, or national tabs
+            message = `👆 Select a country or competition from ${currentState.country} to continue`;
+        } else {
+            message = `👆 Select a competition from ${currentState.country} to continue`;
+        }
+    } else if (!currentState.team) {
+        // Step 3 - League selected
+        const leagueName = currentState.leagueName || 'this competition';
+        message = `👆 Select a team from ${leagueName} to view match schedule`;
+    } else {
+        message = 'Loading match schedule...';
+    }
+    
+    fixturesContainer.innerHTML = `<div class="empty-state"><p>${message}</p></div>`;
+}
+
 // --- Explorer Logic ---
 
 let cachedCountries = []; // Store countries to avoid re-fetching on mode switch
@@ -104,8 +142,24 @@ function updateTabState(activeMode) {
 
 function showContinentSelection() {
     currentState.mode = 'continent'; // Set Mode
+    currentState.country = null;
+    currentState.league = null;
+    currentState.team = null;
+    
     updateNavigation(1, "Select Continent", null); // Root level
     updateTabState('continent');
+    
+    // Reset step visibility - show Step 1, hide Steps 2 & 3
+    stepCountry.classList.remove('hidden');
+    stepLeague.classList.add('hidden');
+    stepTeam.classList.add('hidden');
+    
+    // Show mode tabs
+    const tabs = document.getElementById('modeTabs');
+    if (tabs) tabs.classList.remove('hidden');
+    
+    // Update empty state message
+    updateEmptyStateMessage();
     
     if (countrySearchInput) countrySearchInput.style.display = 'none';
 
@@ -124,15 +178,13 @@ function showContinentSelection() {
 
     continents.forEach(c => {
         const card = document.createElement('div');
-        card.className = 'grid-card region-card';
-        card.style.border = '2px solid #2563eb';
-        card.style.background = '#eff6ff';
+        card.className = 'grid-card';
         // Go to Continent Hub (Step 2)
         card.onclick = () => selectCountry(c.name, c.flag, c.regionFilter);
         
         card.innerHTML = `
             <img src="${c.flag}" alt="${c.name}" style="width:40px; height:40px;">
-            <span style="font-weight: 700; color:#1e40af;">${c.name}</span>
+            <span>${c.name}</span>
         `;
         countriesGrid.appendChild(card);
     });
@@ -145,9 +197,24 @@ function filterCountriesByRegion(regionKey, regionName, activeFlag) {
 
 function showGlobalSelection() {
     currentState.mode = 'global';
+    currentState.country = null;
+    currentState.league = null;
+    currentState.team = null;
+    
     updateNavigation(1, "Global Competitions", null);
     updateTabState('global');
-    currentState.country = 'Global'; // Set context for "Step 2" consistency if needed
+    
+    // Reset step visibility - show Step 1, hide Steps 2 & 3
+    stepCountry.classList.remove('hidden');
+    stepLeague.classList.add('hidden');
+    stepTeam.classList.add('hidden');
+    
+    // Show mode tabs
+    const tabs = document.getElementById('modeTabs');
+    if (tabs) tabs.classList.remove('hidden');
+    
+    // Update empty state message
+    updateEmptyStateMessage();
     
     if (countrySearchInput) countrySearchInput.style.display = 'none';
 
@@ -157,10 +224,10 @@ function showGlobalSelection() {
 
     // Render Global Competitions directly
     const globals = [
-        {id: 1, name: 'World Cup'}, 
-        {id: 10, name: 'Friendlies'},
-        {id: 15, name: 'FIFA Club World Cup', status: 'vacation'},
-        {id: 8, name: "Women's World Cup", status: 'vacation'}
+        {id: 1, name: 'World Cup', logo: 'https://media.api-sports.io/football/leagues/1.png'}, 
+        {id: 10, name: 'Friendlies', logo: 'https://media.api-sports.io/football/leagues/10.png'},
+        {id: 15, name: 'FIFA Club World Cup', logo: 'https://media.api-sports.io/football/leagues/15.png', status: 'vacation'},
+        {id: 8, name: "Women's World Cup", logo: 'https://media.api-sports.io/football/leagues/8.png', status: 'vacation'}
     ];
 
     globals.forEach(c => {
@@ -174,7 +241,7 @@ function showGlobalSelection() {
             card.innerHTML = `
                 <span class="vacation-badge" style="position:absolute;top:8px;left:8px;font-size:1.5rem;z-index:10;">🏖️</span>
                 <div class="card-content" style="filter:grayscale(1);opacity:0.6;">
-                    <img src="${getLeagueLogo(c.id)}" alt="${c.name}" onerror="this.src='/favicon.svg'">
+                    <img src="${c.logo}" alt="${c.name}" onerror="this.src='/favicon.svg'" style="width:40px; height:40px;">
                     <span>${c.name}</span>
                 </div>
             `;
@@ -185,7 +252,7 @@ function showGlobalSelection() {
                  selectLeague(c.id, c.name, true);
             };
             card.innerHTML = `
-                    <img src="${getLeagueLogo(c.id)}" alt="${c.name}" onerror="this.src='/favicon.svg'">
+                    <img src="${c.logo}" alt="${c.name}" onerror="this.src='/favicon.svg'" style="width:40px; height:40px;">
                     <span>${c.name}</span>
             `;
         }
@@ -195,8 +262,24 @@ function showGlobalSelection() {
 
 async function showCountrySelection() {
     currentState.mode = 'country'; // Set Mode
+    currentState.country = null;
+    currentState.league = null;
+    currentState.team = null;
+    
     updateNavigation(1, "Select Country", null); // Root level
     updateTabState('country');
+    
+    // Reset step visibility - show Step 1, hide Steps 2 & 3
+    stepCountry.classList.remove('hidden');
+    stepLeague.classList.add('hidden');
+    stepTeam.classList.add('hidden');
+    
+    // Show mode tabs
+    const tabs = document.getElementById('modeTabs');
+    if (tabs) tabs.classList.remove('hidden');
+    
+    // Update empty state message
+    updateEmptyStateMessage();
     
     if (countrySearchInput) countrySearchInput.style.display = 'block';
 
@@ -272,11 +355,11 @@ function selectCountry(country, flag, regionFilter = null) {
     currentState.country = country;
     currentState.flag = flag; 
     currentState.regionFilter = regionFilter; // Store special filter
+    currentState.league = null; // Reset
+    currentState.team = null; // Reset
     
     // Clear fixtures (e.g. from previous Favorites selection)
-    if (fixturesContainer) {
-        fixturesContainer.innerHTML = '<div class="empty-state"><p>Select a league and team to view fixtures.</p></div>';
-    }
+    updateEmptyStateMessage();
     allFixtures = [];
     toggleDownloadButtons(false);
 
@@ -803,6 +886,7 @@ async function selectLeague(leagueId, leagueName, isCompetitionContext = false, 
     currentState.leagueName = leagueName;
     currentState.leagueType = leagueType;
     currentState.isCompetitionContext = isCompetitionContext; // New Flag
+    currentState.team = null; // Reset team
     
     stepLeague.classList.add('hidden');
     stepTeam.classList.remove('hidden');
@@ -813,6 +897,9 @@ async function selectLeague(leagueId, leagueName, isCompetitionContext = false, 
         : `Step 3: Select ${leagueName} Team`;
         
     updateNavigation(3, stepTitle, resetToLeagues);
+    
+    // Update empty state message
+    updateEmptyStateMessage();
     
     teamsGrid.innerHTML = '<div class="loading">Loading teams...</div>';
     
@@ -975,10 +1062,11 @@ async function loadTeams(leagueId) {
                 }
 
                 // Favorite star button - data attributes for the handler
-                const teamData = JSON.stringify({id: team.id, name: team.name, logo: team.logo}).replace(/"/g, '&quot;');
-                const isFavorited = userFavorites.has(team.id);
-                const starClass = isFavorited ? 'fav-star-btn favorited' : 'fav-star-btn';
-                const starSymbol = isFavorited ? '★' : '☆';
+                const teamData = JSON.stringify({id: team.id, name: team.name, logo: team.logo, isNational: isNational || false}).replace(/"/g, '&quot;');
+                const isFavorited = isSubscriptionRelevant(team.id);
+                const isSubscribed = userFavorites.has(team.id);
+                const starClass = isFavorited ? 'fav-star-btn favorited' : (isSubscribed ? 'fav-star-btn subscribed-other' : 'fav-star-btn');
+                const starSymbol = isSubscribed ? '★' : '☆';
 
                 return `
                     <tr style="cursor:pointer;" onclick="selectTeam(${team.id}, ${isNational})">
@@ -1048,6 +1136,9 @@ function selectTeam(teamId, isNational = false) {
     currentState.isNationalView = isNational;
     if (teamIdInput) teamIdInput.value = teamId;
     
+    // Pre-fetch team competitions for the smart filter button
+    fetchTeamCompetitions(teamId, isNational);
+    
     // If entered via Competition Context, Force strict filtering
     const useStrictFilter = currentState.isCompetitionContext === true;
     searchFixtures(useStrictFilter);
@@ -1076,9 +1167,11 @@ window.resetToCountry = function() {
     }
     
     currentState.country = null;
+    currentState.league = null;
+    currentState.team = null;
     
     // Clear downstream data
-    fixturesContainer.innerHTML = '<div class="empty-state"><p>Select a league and team to view fixtures.</p></div>';
+    updateEmptyStateMessage();
 };
 
 window.resetToLeagues = function() {
@@ -1093,8 +1186,10 @@ window.resetToLeagues = function() {
 
     updateNavigation(3, title, resetToCountry);
     
+    currentState.team = null;
+    
     // Clear downstream data
-    fixturesContainer.innerHTML = '<div class="empty-state"><p>Select a league and team to view fixtures.</p></div>';
+    updateEmptyStateMessage();
     teamsGrid.innerHTML = '';
 };
 
@@ -1169,17 +1264,76 @@ function renderFixtures(isResultsMode = false) {
     // Switch to list view layout
     fixturesContainer.className = 'fixtures-list-view'; 
     
-    // Filter Toggle Button Calculation
-    const showFilterToggle = currentState.league && currentState.league !== 'NATIONAL';
-    const filterBtnClass = currentState.isFiltered ? 'control-btn' : 'btn-primary-lg';
-    const filterBtnText = currentState.isFiltered 
-        ? `Show All Competitions` 
-        : `Show only ${currentState.leagueName || 'League'}`;
+    // Filter Toggle Button - Smart Logic
+    // Check if team has other competitions to show
+    const teamId = teamIdInput.value.trim();
+    const isNational = currentState.isNationalView || false;
+    const cachedComps = teamCompetitionsCache.get(`${teamId}_${isNational}`);
     
-    // Always allow toggle between filtered and all
-    const filterAction = currentState.isFiltered ? 'searchFixtures(false)' : 'searchFixtures(true)';
+    // Determine what other competitions exist
+    let otherCompsExist = false;
+    let otherCompsNames = [];
+    
+    if (cachedComps && currentState.league && currentState.league !== 'NATIONAL') {
+        const currentLeagueType = (currentState.leagueType || '').toLowerCase();
         
-    const filterButtonStyle = 'font-size:0.9rem; padding:8px 16px;';
+        // If viewing league matches, check for cups/continental
+        if (currentLeagueType === 'league') {
+            if (cachedComps.cups?.length > 0) {
+                otherCompsExist = true;
+                otherCompsNames.push(...cachedComps.cups.map(c => c.name));
+            }
+            if (cachedComps.continental?.length > 0) {
+                otherCompsExist = true;
+                otherCompsNames.push(...cachedComps.continental.map(c => c.name));
+            }
+        }
+        // If viewing cup matches, check for league/continental
+        else if (currentLeagueType === 'cup') {
+            if (cachedComps.leagues?.length > 0) {
+                otherCompsExist = true;
+                otherCompsNames.push(...cachedComps.leagues.map(c => c.name));
+            }
+            if (cachedComps.continental?.length > 0) {
+                otherCompsExist = true;
+                otherCompsNames.push(...cachedComps.continental.map(c => c.name));
+            }
+        }
+    }
+    
+    const showFilterToggle = currentState.league && currentState.league !== 'NATIONAL';
+    const canShowOtherComps = otherCompsExist || !cachedComps; // Show if other comps exist OR if we don't have cache yet
+    
+    // Button styling - make it more prominent when other competitions exist
+    let filterBtnClass, filterBtnText, filterBtnStyle;
+    
+    if (currentState.isFiltered) {
+        // Currently showing filtered view - button to expand
+        if (otherCompsExist) {
+            filterBtnClass = 'btn-primary-lg';
+            filterBtnText = `➕ Also show: ${otherCompsNames.slice(0, 2).join(', ')}${otherCompsNames.length > 2 ? '...' : ''}`;
+            filterBtnStyle = 'font-size:0.9rem; padding:10px 20px; animation: pulse 2s infinite;';
+        } else if (!cachedComps) {
+            filterBtnClass = 'control-btn';
+            filterBtnText = '🔄 Show All Competitions';
+            filterBtnStyle = 'font-size:0.9rem; padding:8px 16px;';
+        } else {
+            // No other competitions - disable button
+            filterBtnClass = 'control-btn';
+            filterBtnText = `Only in ${currentState.leagueName || 'this competition'}`;
+            filterBtnStyle = 'font-size:0.9rem; padding:8px 16px; opacity:0.5; cursor:not-allowed;';
+        }
+    } else {
+        // Currently showing all - button to filter
+        filterBtnClass = 'control-btn';
+        filterBtnText = `📋 Show only ${currentState.leagueName || 'League'}`;
+        filterBtnStyle = 'font-size:0.9rem; padding:8px 16px;';
+    }
+    
+    // Only enable toggle if there's something to toggle to
+    const filterAction = currentState.isFiltered 
+        ? (canShowOtherComps ? 'searchFixtures(false)' : '') 
+        : 'searchFixtures(true)';
 
     // Controls Bar
     // If in Results Mode, disable "Select All" actions as we can't add past games to calendar usually
@@ -1197,7 +1351,7 @@ function renderFixtures(isResultsMode = false) {
             
             ${showFilterToggle ? `
             <div style="flex-grow:1; text-align:center;">
-                <button class="${filterBtnClass}" onclick="${filterAction}" style="${filterButtonStyle}">
+                <button class="${filterBtnClass}" onclick="${filterAction}" style="${filterBtnStyle}" ${!filterAction ? 'disabled' : ''}>
                     ${filterBtnText}
                 </button>
             </div>
@@ -1257,11 +1411,15 @@ function createFixtureRow(fixture, isResultsMode = false) {
     const fixtureId = `fixture_${fixture.fixture.id}`;
     fixtureData[fixtureId] = fixture;
 
-    // Check favorite status
-    const isHomeFav = userFavorites.has(home.id) ? 'active' : '';
-    const isAwayFav = userFavorites.has(away.id) ? 'active' : '';
-    const homeStar = isHomeFav ? '★' : '☆';
-    const awayStar = isAwayFav ? '★' : '☆';
+    // Check favorite status (context-aware)
+    const isHomeSubscribed = userFavorites.has(home.id);
+    const isAwaySubscribed = userFavorites.has(away.id);
+    const isHomeRelevant = isSubscriptionRelevant(home.id);
+    const isAwayRelevant = isSubscriptionRelevant(away.id);
+    const isHomeFav = isHomeRelevant ? 'active' : (isHomeSubscribed ? 'subscribed-other' : '');
+    const isAwayFav = isAwayRelevant ? 'active' : (isAwaySubscribed ? 'subscribed-other' : '');
+    const homeStar = isHomeSubscribed ? '★' : '☆';
+    const awayStar = isAwaySubscribed ? '★' : '☆';
 
     // Format date as dd/mm/yyyy
     const day = date.getDate().toString().padStart(2, '0');
@@ -1600,7 +1758,14 @@ async function loadFavorites() {
         
         const data = await res.json();
         if (data.favorites) {
-            userFavorites = new Set(data.favorites.map(f => f.team_id));
+            // Store as Map with team_id -> subscription details
+            userFavorites = new Map();
+            data.favorites.forEach(f => {
+                userFavorites.set(f.team_id, {
+                    filters: f.filters || ['All'],
+                    isNational: f.is_national || false
+                });
+            });
             renderQuickFavorites(data.favorites);
             renderFavoritesList(data.favorites);
             // Re-render fixtures if present to update stars
@@ -1696,9 +1861,9 @@ window.toggleFavorite = async function(teamId, teamName, teamLogo, isNational = 
     // Check global state if argument not provided (e.g. from fixture star click)
     const effectiveIsNational = isNational || currentState.isNationalView;
 
-    // If already favorite, remove it
+    // If already favorite, open edit modal (not immediately remove)
     if (userFavorites.has(teamId)) {
-        await submitFavoriteRemove(teamId);
+        openEditSubscription(teamId);
     } else {
         // If adding, open preferences
         openSubscriptionPreferences(teamId, teamName, teamLogo, effectiveIsNational);
@@ -1709,100 +1874,240 @@ window.toggleFavorite = async function(teamId, teamName, teamLogo, isNational = 
 window.toggleFavoriteFromTable = function(btn) {
     try {
         const teamData = JSON.parse(btn.dataset.team);
-        const isNational = currentState.isNationalView || false;
+        const isNational = teamData.isNational || currentState.isNationalView || false;
         toggleFavorite(teamData.id, teamData.name, teamData.logo, isNational);
     } catch (e) {
         console.error('Error parsing team data:', e);
     }
 };
 
-window.openSubscriptionPreferences = function(teamId, teamName, teamLogo, isNationalParam = null) {
-    const isNational = isNationalParam !== null ? isNationalParam : (currentState.league === 'NATIONAL');
+// Fetch team competitions with caching
+async function fetchTeamCompetitions(teamId, isNational = false) {
+    const cacheKey = `${teamId}_${isNational}`;
+    if (teamCompetitionsCache.has(cacheKey)) {
+        return teamCompetitionsCache.get(cacheKey);
+    }
+    
+    try {
+        const res = await fetch(`${API_BASE}/team-leagues/${teamId}?national=${isNational}`);
+        const data = await res.json();
+        teamCompetitionsCache.set(cacheKey, data);
+        return data;
+    } catch (e) {
+        console.error('Error fetching team competitions:', e);
+        return null;
+    }
+}
 
-    let optionsHtml = '';
-
+// Generate smart option HTML based on available competitions
+function generateSmartOptions(comps, isNational = false) {
+    if (!comps) {
+        // Fallback to generic options if API failed
+        return isNational ? generateNationalOptions(null) : generateClubOptions(null);
+    }
+    
     if (isNational) {
-        // --- NATIONAL TEAM OPTIONS ---
-        optionsHtml = `
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="All" checked onchange="toggleFilterAll(this)">
-                <div>
-                    <strong>All Matches</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Sync everything</div>
-                </div>
-            </label>
+        return generateNationalOptions(comps.national);
+    } else {
+        return generateClubOptions(comps);
+    }
+}
 
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Major" class="sub-filter">
+function generateNationalOptions(national) {
+    let html = `
+        <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+            <input type="checkbox" name="compFilter" value="All" checked onchange="toggleFilterAll(this)">
+            <div>
+                <strong>All Matches</strong>
+                <div style="font-size:0.8rem; color:#64748b;">Sync everything</div>
+            </div>
+        </label>
+    `;
+    
+    // If we have competition data, show only available options
+    if (national) {
+        const hasMajor = national.major && national.major.length > 0;
+        const hasQualifiers = national.qualifiers && national.qualifiers.length > 0;
+        const hasFriendlies = national.friendlies && national.friendlies.length > 0;
+        const hasNationsLeague = national.nationsLeague && national.nationsLeague.length > 0;
+        
+        // Major Tournaments
+        const majorNames = hasMajor ? national.major.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasMajor ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasMajor ? 'pointer' : 'not-allowed'}; ${!hasMajor ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Major" class="sub-filter" onchange="toggleSubFilter(this)" ${!hasMajor ? 'disabled' : ''}>
                 <div>
                     <strong>Major Tournaments</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">World Cup, Euros, Copa America</div>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasMajor ? majorNames : '🏖️ Not in any major tournament this season'}</div>
                 </div>
             </label>
-
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Qualifiers" class="sub-filter">
+        `;
+        
+        // Qualifiers
+        const qualNames = hasQualifiers ? national.qualifiers.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasQualifiers ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasQualifiers ? 'pointer' : 'not-allowed'}; ${!hasQualifiers ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Qualifiers" class="sub-filter" onchange="toggleSubFilter(this)" ${!hasQualifiers ? 'disabled' : ''}>
                 <div>
                     <strong>Qualifiers</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">World Cup Qualifiers, Euro Qualifiers</div>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasQualifiers ? qualNames : '✅ Already qualified or no active qualifiers'}</div>
                 </div>
             </label>
-
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Friendlies" class="sub-filter">
+        `;
+        
+        // Friendlies
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasFriendlies ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasFriendlies ? 'pointer' : 'not-allowed'}; ${!hasFriendlies ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Friendlies" class="sub-filter" onchange="toggleSubFilter(this)" ${!hasFriendlies ? 'disabled' : ''}>
                 <div>
                     <strong>Friendlies</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">International Friendlies</div>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasFriendlies ? 'International Friendlies' : '📅 No friendlies scheduled'}</div>
                 </div>
             </label>
-            
-             <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="NationsLeague" class="sub-filter">
+        `;
+        
+        // Nations League
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasNationsLeague ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasNationsLeague ? 'pointer' : 'not-allowed'}; ${!hasNationsLeague ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="NationsLeague" class="sub-filter" onchange="toggleSubFilter(this)" ${!hasNationsLeague ? 'disabled' : ''}>
                 <div>
                     <strong>Nations League</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">UEFA Nations League</div>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasNationsLeague ? 'UEFA Nations League' : '🗓️ Not in Nations League this cycle'}</div>
                 </div>
             </label>
         `;
     } else {
-        // --- CLUB OPTIONS ---
-        optionsHtml = `
+        // Fallback - show all options enabled
+        html += `
             <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="All" checked onchange="toggleFilterAll(this)">
-                <div>
-                    <strong>All Matches</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Sync everything including friendlies</div>
-                </div>
+                <input type="checkbox" name="compFilter" value="Major" class="sub-filter" onchange="toggleSubFilter(this)">
+                <div><strong>Major Tournaments</strong><div style="font-size:0.8rem; color:#64748b;">World Cup, Euros, Copa America</div></div>
             </label>
-
             <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="League" class="sub-filter">
-                <div>
-                    <strong>Domestic League</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Premier League, La Liga, etc.</div>
-                </div>
+                <input type="checkbox" name="compFilter" value="Qualifiers" class="sub-filter" onchange="toggleSubFilter(this)">
+                <div><strong>Qualifiers</strong><div style="font-size:0.8rem; color:#64748b;">World Cup & Euro Qualifiers</div></div>
             </label>
-
             <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Cup" class="sub-filter">
-                <div>
-                    <strong>Cups</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">FA Cup, Carabao Cup, etc.</div>
-                </div>
+                <input type="checkbox" name="compFilter" value="Friendlies" class="sub-filter" onchange="toggleSubFilter(this)">
+                <div><strong>Friendlies</strong><div style="font-size:0.8rem; color:#64748b;">International Friendlies</div></div>
             </label>
-
             <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="UEFA" class="sub-filter">
-                <div>
-                    <strong>International / European</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Champions League, Europa, etc.</div>
-                </div>
+                <input type="checkbox" name="compFilter" value="NationsLeague" class="sub-filter" onchange="toggleSubFilter(this)">
+                <div><strong>Nations League</strong><div style="font-size:0.8rem; color:#64748b;">UEFA Nations League</div></div>
             </label>
         `;
     }
+    
+    return html;
+}
 
-    const html = `
+function generateClubOptions(comps) {
+    let html = `
+        <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+            <input type="checkbox" name="compFilter" value="All" checked onchange="toggleFilterAll(this)">
+            <div>
+                <strong>All Matches</strong>
+                <div style="font-size:0.8rem; color:#64748b;">Sync all matches including friendlies</div>
+            </div>
+        </label>
+    `;
+    
+    if (comps) {
+        const hasLeague = comps.leagues && comps.leagues.length > 0;
+        const hasCup = comps.cups && comps.cups.length > 0;
+        const hasContinental = comps.continental && comps.continental.length > 0;
+        
+        // League
+        const leagueNames = hasLeague ? comps.leagues.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasLeague ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasLeague ? 'pointer' : 'not-allowed'}; ${!hasLeague ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="League" class="sub-filter" onchange="toggleSubFilter(this)" ${!hasLeague ? 'disabled' : ''}>
+                <div>
+                    <strong>Domestic League</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasLeague ? leagueNames : '🏖️ Not in a league this season - maybe next year!'}</div>
+                </div>
+            </label>
+        `;
+        
+        // Cup
+        const cupNames = hasCup ? comps.cups.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasCup ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasCup ? 'pointer' : 'not-allowed'}; ${!hasCup ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Cup" class="sub-filter" onchange="toggleSubFilter(this)" ${!hasCup ? 'disabled' : ''}>
+                <div>
+                    <strong>Cups</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasCup ? cupNames : '😢 Eliminated or not participating'}</div>
+                </div>
+            </label>
+        `;
+        
+        // Continental
+        const contNames = hasContinental ? comps.continental.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasContinental ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasContinental ? 'pointer' : 'not-allowed'}; ${!hasContinental ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="UEFA" class="sub-filter" onchange="toggleSubFilter(this)" ${!hasContinental ? 'disabled' : ''}>
+                <div>
+                    <strong>Continental / International</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasContinental ? contNames : '🌟 Maybe next year!'}</div>
+                </div>
+            </label>
+        `;
+    } else {
+        // Fallback - show all options enabled
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="League" class="sub-filter" onchange="toggleSubFilter(this)">
+                <div><strong>Domestic League</strong><div style="font-size:0.8rem; color:#64748b;">Regular league matches</div></div>
+            </label>
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="Cup" class="sub-filter" onchange="toggleSubFilter(this)">
+                <div><strong>Cups</strong><div style="font-size:0.8rem; color:#64748b;">National cup competitions</div></div>
+            </label>
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="UEFA" class="sub-filter" onchange="toggleSubFilter(this)">
+                <div><strong>Continental / International</strong><div style="font-size:0.8rem; color:#64748b;">Champions League, Libertadores, etc.</div></div>
+            </label>
+        `;
+    }
+    
+    return html;
+}
+
+window.openSubscriptionPreferences = async function(teamId, teamName, teamLogo, isNationalParam = null) {
+    const isNational = isNationalParam !== null ? isNationalParam : (currentState.league === 'NATIONAL');
+
+    // Show loading modal first
+    const loadingHtml = `
         <div id="subPrefModal" class="modal active" style="z-index: 2500;">
+            <div class="modal-content" style="max-width: 450px; text-align:center;">
+                <div style="margin-bottom:20px;">
+                    <img src="${teamLogo}" style="height:50px; margin-bottom:10px;">
+                    <h2 style="margin:0;">Track ${teamName}</h2>
+                </div>
+                <div style="padding:30px; color:#64748b;">
+                    <div style="font-size:1.5rem; margin-bottom:10px;">⏳</div>
+                    Loading available competitions...
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', loadingHtml);
+    
+    // Fetch team competitions
+    const comps = await fetchTeamCompetitions(teamId, isNational);
+    
+    // Store in userFavorites cache for context-aware stars
+    if (comps) {
+        teamCompetitionsCache.set(`${teamId}_${isNational}`, comps);
+    }
+    
+    // Generate smart options
+    const optionsHtml = generateSmartOptions(comps, isNational);
+
+    // Replace modal content
+    const modal = document.getElementById('subPrefModal');
+    if (modal) {
+        modal.innerHTML = `
             <div class="modal-content" style="max-width: 450px;">
                 <span class="modal-close" onclick="document.getElementById('subPrefModal').remove()">&times;</span>
                 <div style="text-align:center; margin-bottom:20px;">
@@ -1820,7 +2125,7 @@ window.openSubscriptionPreferences = function(teamId, teamName, teamLogo, isNati
                 </div>
 
                 <div style="display:flex; gap:10px;">
-                    <button class="btn-primary-lg" style="flex:1" onclick="collectAndSubmitFavorite(${teamId}, '${teamName.replace(/'/g, "\\'")}', '${teamLogo}')">
+                    <button class="btn-primary-lg" style="flex:1" onclick="collectAndSubmitFavorite(${teamId}, '${teamName.replace(/'/g, "\\'")}', '${teamLogo}', ${isNational})">
                         Subscribe
                     </button>
                     <button class="control-btn" style="flex:1" onclick="document.getElementById('subPrefModal').remove()">
@@ -1828,24 +2133,94 @@ window.openSubscriptionPreferences = function(teamId, teamName, teamLogo, isNati
                     </button>
                 </div>
             </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', html);
-    
-    // Auto-uncheck specific filters if All is checked logic handled in toggleFilterAll
+        `;
+    }
 };
+
+// Show inline error message in subscription modal
+function showModalError(message) {
+    // Remove any existing error
+    const existing = document.getElementById('modalErrorMsg');
+    if (existing) existing.remove();
+    
+    // Find the modal content and insert error before buttons
+    const modal = document.getElementById('subPrefModal');
+    if (!modal) return;
+    
+    const buttonContainer = modal.querySelector('div[style*="display:flex; gap:10px"]');
+    if (buttonContainer) {
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'modalErrorMsg';
+        errorDiv.style.cssText = 'background:#fef2f2; border:1px solid #fecaca; color:#dc2626; padding:10px 15px; border-radius:8px; margin-bottom:15px; font-size:0.9rem; text-align:center;';
+        errorDiv.innerHTML = `⚠️ ${message}`;
+        buttonContainer.parentNode.insertBefore(errorDiv, buttonContainer);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => errorDiv.remove(), 3000);
+    }
+}
 
 window.toggleFilterAll = function(cb) {
     const others = document.querySelectorAll('.sub-filter');
     if (cb.checked) {
-        others.forEach(c => { c.checked = false; c.disabled = true; });
-    } else {
-        others.forEach(c => c.disabled = false);
+        // When All is checked, uncheck others but keep them enabled
+        others.forEach(c => { c.checked = false; });
     }
 }
 
+// When a sub-filter is clicked, uncheck "All Matches"
+window.toggleSubFilter = function(cb) {
+    if (cb.checked) {
+        const allCheckbox = document.querySelector('input[value="All"]');
+        if (allCheckbox) allCheckbox.checked = false;
+    }
+}
+
+// Check if subscription is relevant to current context (for context-aware stars)
+// This syncs the star color with what league/cup/continental table the user is viewing
+function isSubscriptionRelevant(teamId) {
+    const sub = userFavorites.get(teamId);
+    if (!sub) return false;
+    
+    const filters = sub.filters || ['All'];
+    
+    // "All" matches everything
+    if (filters.includes('All')) return true;
+    
+    // For national teams context
+    if (currentState.league === 'NATIONAL') {
+        // In national team view, check if user subscribed to this national team
+        return sub.isNational;
+    }
+    
+    // For club teams - check current competition context
+    const leagueType = (currentState.leagueType || '').toLowerCase();
+    const leagueName = (currentState.leagueName || '').toLowerCase();
+    
+    // Determine what type of competition we're currently viewing
+    const isViewingLeague = leagueType === 'league';
+    const isViewingCup = leagueType === 'cup';
+    const isViewingContinental = isContinentalCompetition(leagueName);
+    
+    // Match filters to current view
+    if (isViewingLeague && filters.includes('League')) return true;
+    if (isViewingCup && filters.includes('Cup')) return true;
+    if (isViewingContinental && filters.includes('UEFA')) return true;
+    
+    return false;
+}
+
+// Helper: Detect if competition name indicates continental/international
+function isContinentalCompetition(name) {
+    const keywords = [
+        'champions', 'europa', 'conference', 'libertadores', 'sudamericana',
+        'afc', 'caf', 'concacaf', 'club world', 'super cup', 'recopa'
+    ];
+    return keywords.some(kw => name.includes(kw));
+}
+
 // Open edit modal for existing subscription
-window.openEditSubscription = function(teamId) {
+window.openEditSubscription = async function(teamId) {
     // Find the favorite data
     const fav = window.userFavoritesData?.find(f => f.team_id === teamId);
     if (!fav) {
@@ -1855,89 +2230,37 @@ window.openEditSubscription = function(teamId) {
     
     const teamName = fav.team_name;
     const teamLogo = fav.team_logo || '/favicon.svg';
-    const currentFilters = fav.filters || ['All'];
+    const currentFilters = (fav.filters && fav.filters.length > 0) ? fav.filters : ['All'];
     const isNational = fav.is_national || false;
-    
-    // Determine which filters are checked
     const hasAll = currentFilters.includes('All');
-    
-    let optionsHtml = '';
-    
-    if (isNational) {
-        // --- NATIONAL TEAM OPTIONS ---
-        optionsHtml = `
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="All" ${hasAll ? 'checked' : ''} onchange="toggleFilterAll(this)">
-                <div>
-                    <strong>All Matches</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Sync everything</div>
-                </div>
-            </label>
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Major" class="sub-filter" ${currentFilters.includes('Major') ? 'checked' : ''} ${hasAll ? 'disabled' : ''}>
-                <div>
-                    <strong>Major Tournaments</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">World Cup, Euros, Copa America</div>
-                </div>
-            </label>
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Qualifiers" class="sub-filter" ${currentFilters.includes('Qualifiers') ? 'checked' : ''} ${hasAll ? 'disabled' : ''}>
-                <div>
-                    <strong>Qualifiers</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">World Cup Qualifiers, Euro Qualifiers</div>
-                </div>
-            </label>
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Friendlies" class="sub-filter" ${currentFilters.includes('Friendlies') ? 'checked' : ''} ${hasAll ? 'disabled' : ''}>
-                <div>
-                    <strong>Friendlies</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">International Friendlies</div>
-                </div>
-            </label>
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="NationsLeague" class="sub-filter" ${currentFilters.includes('NationsLeague') ? 'checked' : ''} ${hasAll ? 'disabled' : ''}>
-                <div>
-                    <strong>Nations League</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">UEFA Nations League</div>
-                </div>
-            </label>
-        `;
-    } else {
-        // --- CLUB OPTIONS ---
-        optionsHtml = `
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="All" ${hasAll ? 'checked' : ''} onchange="toggleFilterAll(this)">
-                <div>
-                    <strong>All Matches</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Sync everything including friendlies</div>
-                </div>
-            </label>
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="League" class="sub-filter" ${currentFilters.includes('League') ? 'checked' : ''} ${hasAll ? 'disabled' : ''}>
-                <div>
-                    <strong>Domestic League</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Premier League, La Liga, etc.</div>
-                </div>
-            </label>
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="Cup" class="sub-filter" ${currentFilters.includes('Cup') ? 'checked' : ''} ${hasAll ? 'disabled' : ''}>
-                <div>
-                    <strong>Cups</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">FA Cup, Carabao Cup, etc.</div>
-                </div>
-            </label>
-            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
-                <input type="checkbox" name="compFilter" value="UEFA" class="sub-filter" ${currentFilters.includes('UEFA') ? 'checked' : ''} ${hasAll ? 'disabled' : ''}>
-                <div>
-                    <strong>International / European</strong>
-                    <div style="font-size:0.8rem; color:#64748b;">Champions League, Europa, etc.</div>
-                </div>
-            </label>
-        `;
-    }
 
-    const html = `
+    // Show loading modal first
+    const loadingHtml = `
         <div id="subPrefModal" class="modal active" style="z-index: 2500;">
+            <div class="modal-content" style="max-width: 450px; text-align:center;">
+                <div style="margin-bottom:20px;">
+                    <img src="${teamLogo}" style="height:50px; margin-bottom:10px;">
+                    <h2 style="margin:0;">Edit ${teamName}</h2>
+                </div>
+                <div style="padding:30px; color:#64748b;">
+                    <div style="font-size:1.5rem; margin-bottom:10px;">⏳</div>
+                    Loading competitions...
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', loadingHtml);
+    
+    // Fetch team competitions
+    const comps = await fetchTeamCompetitions(teamId, isNational);
+    
+    // Generate smart options with current selections
+    const optionsHtml = generateSmartOptionsWithSelections(comps, isNational, currentFilters);
+
+    // Replace modal content
+    const modal = document.getElementById('subPrefModal');
+    if (modal) {
+        modal.innerHTML = `
             <div class="modal-content" style="max-width: 450px;">
                 <span class="modal-close" onclick="document.getElementById('subPrefModal').remove()">&times;</span>
                 <div style="text-align:center; margin-bottom:20px;">
@@ -1961,7 +2284,7 @@ window.openEditSubscription = function(teamId) {
                 </button>
 
                 <div style="display:flex; gap:10px;">
-                    <button class="btn-primary-lg" style="flex:1" onclick="collectAndUpdateSubscription(${teamId}, '${teamName.replace(/'/g, "\\'")}', '${teamLogo}')">
+                    <button class="btn-primary-lg" style="flex:1" onclick="collectAndUpdateSubscription(${teamId}, '${teamName.replace(/'/g, "\\'")}', '${teamLogo}', ${isNational})">
                         Update
                     </button>
                     <button class="control-btn" style="flex:1; color:#dc2626;" onclick="confirmUnsubscribe(${teamId}, '${teamName.replace(/'/g, "\\'")}')">
@@ -1969,13 +2292,182 @@ window.openEditSubscription = function(teamId) {
                     </button>
                 </div>
             </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', html);
+        `;
+    }
 };
 
+// Generate smart options with pre-selected values (for edit modal)
+function generateSmartOptionsWithSelections(comps, isNational, currentFilters) {
+    if (!comps) {
+        // Fallback if API failed
+        return isNational ? generateNationalOptionsWithSelections(null, currentFilters) : generateClubOptionsWithSelections(null, currentFilters);
+    }
+    
+    if (isNational) {
+        return generateNationalOptionsWithSelections(comps.national, currentFilters);
+    } else {
+        return generateClubOptionsWithSelections(comps, currentFilters);
+    }
+}
+
+function generateNationalOptionsWithSelections(national, currentFilters) {
+    const hasAll = currentFilters.includes('All');
+    
+    let html = `
+        <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+            <input type="checkbox" name="compFilter" value="All" ${hasAll ? 'checked' : ''} onchange="toggleFilterAll(this)">
+            <div>
+                <strong>All Matches</strong>
+                <div style="font-size:0.8rem; color:#64748b;">Sync everything</div>
+            </div>
+        </label>
+    `;
+    
+    if (national) {
+        const hasMajor = national.major && national.major.length > 0;
+        const hasQualifiers = national.qualifiers && national.qualifiers.length > 0;
+        const hasFriendlies = national.friendlies && national.friendlies.length > 0;
+        const hasNationsLeague = national.nationsLeague && national.nationsLeague.length > 0;
+        
+        const majorNames = hasMajor ? national.major.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasMajor ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasMajor ? 'pointer' : 'not-allowed'}; ${!hasMajor ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Major" class="sub-filter" ${currentFilters.includes('Major') ? 'checked' : ''} onchange="toggleSubFilter(this)" ${!hasMajor ? 'disabled' : ''}>
+                <div>
+                    <strong>Major Tournaments</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasMajor ? majorNames : '🏖️ Not in any major tournament this season'}</div>
+                </div>
+            </label>
+        `;
+        
+        const qualNames = hasQualifiers ? national.qualifiers.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasQualifiers ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasQualifiers ? 'pointer' : 'not-allowed'}; ${!hasQualifiers ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Qualifiers" class="sub-filter" ${currentFilters.includes('Qualifiers') ? 'checked' : ''} onchange="toggleSubFilter(this)" ${!hasQualifiers ? 'disabled' : ''}>
+                <div>
+                    <strong>Qualifiers</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasQualifiers ? qualNames : '✅ Already qualified or no active qualifiers'}</div>
+                </div>
+            </label>
+        `;
+        
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasFriendlies ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasFriendlies ? 'pointer' : 'not-allowed'}; ${!hasFriendlies ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Friendlies" class="sub-filter" ${currentFilters.includes('Friendlies') ? 'checked' : ''} onchange="toggleSubFilter(this)" ${!hasFriendlies ? 'disabled' : ''}>
+                <div>
+                    <strong>Friendlies</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasFriendlies ? 'International Friendlies' : '📅 No friendlies scheduled'}</div>
+                </div>
+            </label>
+        `;
+        
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasNationsLeague ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasNationsLeague ? 'pointer' : 'not-allowed'}; ${!hasNationsLeague ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="NationsLeague" class="sub-filter" ${currentFilters.includes('NationsLeague') ? 'checked' : ''} onchange="toggleSubFilter(this)" ${!hasNationsLeague ? 'disabled' : ''}>
+                <div>
+                    <strong>Nations League</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasNationsLeague ? 'UEFA Nations League' : '🗓️ Not in Nations League this cycle'}</div>
+                </div>
+            </label>
+        `;
+    } else {
+        // Fallback - show all options
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="Major" class="sub-filter" ${currentFilters.includes('Major') ? 'checked' : ''} onchange="toggleSubFilter(this)">
+                <div><strong>Major Tournaments</strong><div style="font-size:0.8rem; color:#64748b;">World Cup, Euros, Copa America</div></div>
+            </label>
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="Qualifiers" class="sub-filter" ${currentFilters.includes('Qualifiers') ? 'checked' : ''} onchange="toggleSubFilter(this)">
+                <div><strong>Qualifiers</strong><div style="font-size:0.8rem; color:#64748b;">World Cup & Euro Qualifiers</div></div>
+            </label>
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="Friendlies" class="sub-filter" ${currentFilters.includes('Friendlies') ? 'checked' : ''} onchange="toggleSubFilter(this)">
+                <div><strong>Friendlies</strong><div style="font-size:0.8rem; color:#64748b;">International Friendlies</div></div>
+            </label>
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="NationsLeague" class="sub-filter" ${currentFilters.includes('NationsLeague') ? 'checked' : ''} onchange="toggleSubFilter(this)">
+                <div><strong>Nations League</strong><div style="font-size:0.8rem; color:#64748b;">UEFA Nations League</div></div>
+            </label>
+        `;
+    }
+    
+    return html;
+}
+
+function generateClubOptionsWithSelections(comps, currentFilters) {
+    const hasAll = currentFilters.includes('All');
+    
+    let html = `
+        <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+            <input type="checkbox" name="compFilter" value="All" ${hasAll ? 'checked' : ''} onchange="toggleFilterAll(this)">
+            <div>
+                <strong>All Matches</strong>
+                <div style="font-size:0.8rem; color:#64748b;">Sync all matches including friendlies</div>
+            </div>
+        </label>
+    `;
+    
+    if (comps) {
+        const hasLeague = comps.leagues && comps.leagues.length > 0;
+        const hasCup = comps.cups && comps.cups.length > 0;
+        const hasContinental = comps.continental && comps.continental.length > 0;
+        
+        const leagueNames = hasLeague ? comps.leagues.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasLeague ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasLeague ? 'pointer' : 'not-allowed'}; ${!hasLeague ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="League" class="sub-filter" ${currentFilters.includes('League') ? 'checked' : ''} onchange="toggleSubFilter(this)" ${!hasLeague ? 'disabled' : ''}>
+                <div>
+                    <strong>Domestic League</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasLeague ? leagueNames : '🏖️ Not in a league this season - maybe next year!'}</div>
+                </div>
+            </label>
+        `;
+        
+        const cupNames = hasCup ? comps.cups.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasCup ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasCup ? 'pointer' : 'not-allowed'}; ${!hasCup ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="Cup" class="sub-filter" ${currentFilters.includes('Cup') ? 'checked' : ''} onchange="toggleSubFilter(this)" ${!hasCup ? 'disabled' : ''}>
+                <div>
+                    <strong>Cups</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasCup ? cupNames : '😢 Eliminated or not participating'}</div>
+                </div>
+            </label>
+        `;
+        
+        const contNames = hasContinental ? comps.continental.map(l => l.name).join(', ') : '';
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid ${hasContinental ? '#e2e8f0' : '#f1f5f9'}; border-radius:8px; cursor:${hasContinental ? 'pointer' : 'not-allowed'}; ${!hasContinental ? 'opacity:0.5;' : ''}">
+                <input type="checkbox" name="compFilter" value="UEFA" class="sub-filter" ${currentFilters.includes('UEFA') ? 'checked' : ''} onchange="toggleSubFilter(this)" ${!hasContinental ? 'disabled' : ''}>
+                <div>
+                    <strong>Continental / International</strong>
+                    <div style="font-size:0.8rem; color:#64748b;">${hasContinental ? contNames : '🌟 Maybe next year!'}</div>
+                </div>
+            </label>
+        `;
+    } else {
+        // Fallback
+        html += `
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="League" class="sub-filter" ${currentFilters.includes('League') ? 'checked' : ''} onchange="toggleSubFilter(this)">
+                <div><strong>Domestic League</strong><div style="font-size:0.8rem; color:#64748b;">Regular league matches</div></div>
+            </label>
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="Cup" class="sub-filter" ${currentFilters.includes('Cup') ? 'checked' : ''} onchange="toggleSubFilter(this)">
+                <div><strong>Cups</strong><div style="font-size:0.8rem; color:#64748b;">National cup competitions</div></div>
+            </label>
+            <label class="pref-option" style="display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                <input type="checkbox" name="compFilter" value="UEFA" class="sub-filter" ${currentFilters.includes('UEFA') ? 'checked' : ''} onchange="toggleSubFilter(this)">
+                <div><strong>Continental / International</strong><div style="font-size:0.8rem; color:#64748b;">Champions League, Libertadores, etc.</div></div>
+            </label>
+        `;
+    }
+    
+    return html;
+}
+
 // Update an existing subscription
-window.collectAndUpdateSubscription = function(teamId, teamName, teamLogo) {
+window.collectAndUpdateSubscription = function(teamId, teamName, teamLogo, isNational = false) {
     const all = document.querySelector('input[value="All"]').checked;
     let filters = [];
     
@@ -1984,18 +2476,23 @@ window.collectAndUpdateSubscription = function(teamId, teamName, teamLogo) {
     } else {
         const checked = document.querySelectorAll('.sub-filter:checked');
         checked.forEach(c => filters.push(c.value));
-        if (filters.length === 0) {
-            filters = ['All'];
-        }
+    }
+    
+    // Require at least one selection
+    if (filters.length === 0) {
+        showModalError('Please select at least one match type');
+        return;
     }
     
     document.getElementById('subPrefModal').remove();
-    submitFavoriteAdd(teamId, teamName, teamLogo, filters); // Uses same endpoint (upsert)
+    submitFavoriteAdd(teamId, teamName, teamLogo, filters, isNational); // Uses same endpoint (upsert)
 }
 
 // Confirm unsubscribe
 window.confirmUnsubscribe = function(teamId, teamName) {
-    document.getElementById('subPrefModal').remove();
+    // Remove edit modal if it exists (may not exist if called from subscription list X button)
+    const editModal = document.getElementById('subPrefModal');
+    if (editModal) editModal.remove();
     
     const html = `
         <div id="confirmModal" class="modal active" style="z-index: 2600;">
@@ -2090,7 +2587,7 @@ window.previewTeamMatches = async function(teamId, teamName) {
     }
 };
 
-window.collectAndSubmitFavorite = function(teamId, teamName, teamLogo) {
+window.collectAndSubmitFavorite = function(teamId, teamName, teamLogo, isNational = false) {
     // Collect filters
     const all = document.querySelector('input[value="All"]').checked;
     let filters = [];
@@ -2100,18 +2597,19 @@ window.collectAndSubmitFavorite = function(teamId, teamName, teamLogo) {
     } else {
         const checked = document.querySelectorAll('.sub-filter:checked');
         checked.forEach(c => filters.push(c.value));
-        if (filters.length === 0) {
-            // Default to All if nothing selected? Or prevent?
-            // Let's default to All to be safe
-            filters = ['All'];
-        }
+    }
+    
+    // Require at least one selection
+    if (filters.length === 0) {
+        showModalError('Please select at least one match type');
+        return;
     }
     
     document.getElementById('subPrefModal').remove();
-    submitFavoriteAdd(teamId, teamName, teamLogo, filters);
+    submitFavoriteAdd(teamId, teamName, teamLogo, filters, isNational);
 }
 
-async function submitFavoriteAdd(teamId, teamName, teamLogo, filters) {
+async function submitFavoriteAdd(teamId, teamName, teamLogo, filters, isNational = false) {
     const token = localStorage.getItem('token');
     try {
         const res = await fetch(FAV_API, {
@@ -2124,12 +2622,14 @@ async function submitFavoriteAdd(teamId, teamName, teamLogo, filters) {
                 team_id: teamId, 
                 team_name: teamName, 
                 team_logo: teamLogo,
-                filters: filters
+                filters: filters,
+                is_national: isNational
             })
         });
         
         if (res.ok) {
-            userFavorites.add(teamId);
+            userFavorites.set(teamId, { filters: filters, isNational: isNational });
+            updateStarButton(teamId, true); // Update the star in the table
             loadFavorites();
             checkSubscriptionPrompt(); // Still show prompt to upsell the Sync feature itself
         } else {
@@ -2149,11 +2649,32 @@ async function submitFavoriteRemove(teamId) {
         
         if (res.ok) {
             userFavorites.delete(teamId);
+            updateStarButton(teamId, false); // Update the star in the table
             loadFavorites(); 
         } else {
              showErrorModal('Error', 'Failed to remove favorite');
         }
     } catch (e) { showErrorModal('Error', 'Network error'); }
+}
+
+// Helper to update star button state in the teams table
+function updateStarButton(teamId, isFavorited) {
+    const buttons = document.querySelectorAll('.fav-star-btn');
+    buttons.forEach(btn => {
+        try {
+            const teamData = JSON.parse(btn.dataset.team);
+            if (teamData.id === teamId) {
+                btn.innerHTML = isFavorited ? '★' : '☆';
+                if (isFavorited) {
+                    const isRelevant = isSubscriptionRelevant(teamId);
+                    btn.className = isRelevant ? 'fav-star-btn favorited' : 'fav-star-btn subscribed-other';
+                } else {
+                    btn.className = 'fav-star-btn';
+                }
+                btn.title = isFavorited ? 'Edit subscription' : 'Subscribe';
+            }
+        } catch (e) {}
+    });
 }
 
 

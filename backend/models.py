@@ -40,6 +40,7 @@ class FavoriteTeam(db.Model):
     team_name = db.Column(db.String(120), nullable=False)
     team_logo = db.Column(db.String(255))
     filters = db.Column(db.Text, default=None) # JSON list of allowed types: ['League', 'Cup']
+    is_national = db.Column(db.Boolean, default=False)  # True for national teams
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     def to_dict(self):
@@ -51,6 +52,7 @@ class FavoriteTeam(db.Model):
             'team_name': self.team_name,
             'team_logo': self.team_logo,
             'filters': _json.loads(self.filters) if self.filters else None,
+            'is_national': self.is_national or False,
             'added_at': self.added_at.isoformat()
         }
 

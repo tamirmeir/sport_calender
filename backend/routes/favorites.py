@@ -90,6 +90,8 @@ def add_favorite():
         existing.filters = json.dumps(filters) if filters else None
         existing.team_name = data['team_name']  # Update name if changed
         existing.team_logo = data.get('team_logo', existing.team_logo)
+        if 'is_national' in data:
+            existing.is_national = data['is_national']
         db.session.commit()
         
         # TODO: Could re-sync fixtures here based on new filters
@@ -101,7 +103,8 @@ def add_favorite():
         team_id=data['team_id'],
         team_name=data['team_name'],
         team_logo=data.get('team_logo', ''),
-        filters=json.dumps(filters) if filters else None
+        filters=json.dumps(filters) if filters else None,
+        is_national=data.get('is_national', False)
     )
     db.session.add(favorite)
     db.session.commit()

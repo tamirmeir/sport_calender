@@ -165,4 +165,19 @@ router.get('/history/:teamId', async (req, res) => {
   res.json(history);
 });
 
+// Get all leagues/competitions a team is currently participating in
+router.get('/team-leagues/:teamId', async (req, res) => {
+  try {
+    const { teamId } = req.params;
+    const { national } = req.query;
+    const isNational = national === 'true';
+    
+    const leagues = await footballApi.getLeaguesByTeam(teamId, isNational);
+    res.json(leagues);
+  } catch (error) {
+    console.error('[API] Error fetching team leagues:', error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
