@@ -1122,6 +1122,26 @@ async function loadTeams(leagueId) {
                 });
             }
             
+            // For knockout tournaments without standings (cups after group stage),
+            // show only teams that still have upcoming fixtures (not eliminated)
+            const isCupFormat = leagueType === 'cup' || competitionFormat === 'knockout';
+            if (isCupFormat && !hasStandings && teams.length > 0) {
+                console.log('[Knockout Filter] Filtering to show only active teams in knockout stage...');
+                // Get active team IDs by checking which teams have upcoming fixtures
+                try {
+                    const activeSeason = currentState.season || new Date().getFullYear();
+                    const activeTeamsRes = await fetch(`${API_BASE}/active-teams?league=${currentState.leagueId}&season=${activeSeason}`);
+                    const activeTeams = await activeTeamsRes.json();
+                    const activeIds = new Set(activeTeams.map(t => t.id));
+                    // Filter to show only teams with upcoming fixtures
+                    const teamsBeforeFilter = teams.length;
+                    teams = teams.filter(t => activeIds.has(t.team?.id));
+                    console.log(`[Knockout Filter] Filtered from ${teamsBeforeFilter} to ${teams.length} active teams`);
+                } catch(e) {
+                    console.warn('[Knockout Filter] Could not fetch active teams:', e);
+                }
+            }
+            
             // Helper for ambiguous "W" suffix (e.g. "Chelsea W" vs just "W")
             const displayNameIsWomen = (str) => str.endsWith(' W') || str.endsWith(' Ladies');
             
@@ -1155,6 +1175,18 @@ async function loadTeams(leagueId) {
                     </tr>
                 </thead>
             `;
+            
+            // Helper: Check if team is cup winner (for non-standings view)
+            const getCupHolderBadge = (teamId) => {
+                // Only show in cup competitions
+                if (leagueType !== 'cup') return '';
+                // Check if this team is marked as cup winner
+                const teamData = teamList.find(t => t.team?.id === teamId);
+                if (teamData && teamData.isCupWinner) {
+                    return '<span class="team-badge" title="Cup Holder">🏆</span>';
+                }
+                return '';
+            };
             
             // Initialize tooltip system once
             if (!window.tooltipInitialized) {
@@ -1399,6 +1431,9 @@ async function loadTeams(leagueId) {
                 }
 
                 // Default row (no standings) - for Cups, National teams, etc.
+                // Get cup holder badge (🏆 for defending champion in cup competitions)
+                const cupBadge = getCupHolderBadge(team.id);
+                
                 return `
                     <tr style="cursor:pointer;" onclick="selectTeam(${team.id}, ${isNational})">
                         <td onclick="event.stopPropagation();">
@@ -1409,7 +1444,7 @@ async function loadTeams(leagueId) {
                         <td>
                             <img src="${team.logo}" alt="${team.name}" onerror="this.src='/favicon.svg'">
                         </td>
-                        <td class="team-info" style="font-weight: 600;">${team.name}</td>
+                        <td class="team-info" style="font-weight: 600;">${cupBadge}${team.name}</td>
                         ${isNationalContext ? `<td>${badgeHtml}</td>` : ''}
                         <td>${team.founded || '-'}</td>
                         <td>${venue.name || '-'}</td>

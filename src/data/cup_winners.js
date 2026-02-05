@@ -124,4 +124,28 @@ function getCupWinner(country, season) {
     return data ? data[season] : null;
 }
 
+// Map of league IDs to countries (for automatic country detection)
+const LEAGUE_TO_COUNTRY = {
+    45: 'england',    // FA Cup
+    48: 'england',    // EFL Cup
+    143: 'spain',     // Copa del Rey
+    81: 'germany',    // DFB Pokal
+    137: 'italy',     // Coppa Italia
+    66: 'france',     // Coupe de France
+    90: 'netherlands', // KNVB Beker
+    96: 'portugal',   // Taça de Portugal
+    384: 'israel',    // State Cup
+    385: 'israel',    // Toto Cup
+    73: 'brazil',     // Copa do Brasil
+    130: 'argentina', // Copa Argentina
+    206: 'turkey',    // Turkish Cup
+    181: 'scotland'   // Scottish Cup
+};
+
+// Helper to get country by league ID
+function getCountryByLeague(leagueId) {
+    return LEAGUE_TO_COUNTRY[leagueId] || null;
+}
+
 module.exports.getCupWinner = getCupWinner;
+module.exports.getCountryByLeague = getCountryByLeague;

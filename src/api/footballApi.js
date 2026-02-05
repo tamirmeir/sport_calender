@@ -1255,10 +1255,18 @@ class FootballApi {
 
             // Find cup winner from previous season (using local data)
             let cupWinnerId = null;
-            if (country) {
-                cupWinnerId = cupWinners.getCupWinner(country, prevSeason);
+            // Auto-detect country if not provided
+            let cupCountry = country;
+            if (!cupCountry) {
+                cupCountry = cupWinners.getCountryByLeague(leagueId);
+                if (cupCountry) {
+                    console.log(`[API] Auto-detected country from league ${leagueId}: ${cupCountry}`);
+                }
+            }
+            if (cupCountry) {
+                cupWinnerId = cupWinners.getCupWinner(cupCountry, prevSeason);
                 if (cupWinnerId) {
-                    console.log(`[API] Cup winner (${country} ${prevSeason}): Team ID ${cupWinnerId}`);
+                    console.log(`[API] Cup winner (${cupCountry} ${prevSeason}): Team ID ${cupWinnerId}`);
                 }
             }
 
