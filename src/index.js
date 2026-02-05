@@ -29,4 +29,12 @@ app.use('/api/fixtures', fixtureRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    
+    // Optional: Auto-sync metadata on startup (disabled by default)
+    // Set SYNC_ON_STARTUP=true in .env to enable
+    if (process.env.SYNC_ON_STARTUP === 'true') {
+        console.log('🔄 Starting metadata sync...');
+        const { smartSync } = require('./scripts/sync_metadata');
+        smartSync().catch(err => console.error('Sync error:', err));
+    }
 });

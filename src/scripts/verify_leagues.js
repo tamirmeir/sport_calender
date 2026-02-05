@@ -227,7 +227,7 @@ async function runSync() {
         if (cached && cached.last_checked) {
             const lastCheck = new Date(cached.last_checked);
             const hoursDiff = (now - lastCheck) / (1000 * 60 * 60);
-            if (hoursDiff < 24 && cached.is_active) {
+            if (hoursDiff < 24 && cached.status !== 'archived') {
                 console.log(`[SKIP] League ${leagueId} (${item.league.name}) verified ${Math.floor(hoursDiff)}h ago.`);
                 verifiedLeagues.push(cached);
                 continue;
@@ -307,10 +307,7 @@ async function runSync() {
 
         const record = {
             ...item,
-            verify_status: status,
-            // Legacy support: 'is_active' determines if it shows up at all. 
-            // Both active and vacation show up, archived does not.
-            is_active: (status === 'active' || status === 'vacation'),
+            status: status,  // 'active' | 'vacation' | 'archived'
             last_checked: now.toISOString()
         };
 
