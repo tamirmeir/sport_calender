@@ -1,0 +1,34 @@
+# Sport Calendar - Production Cron Jobs
+# =======================================
+# Auto-generated for production server
+
+# Environment
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+FOOTBALL_API_KEY=placeholder_will_use_env_file
+
+# Weekly winner detection + Auto commit (Sunday 00:00 UTC)
+0 0 * * 0 cd /var/www/sport_calendar && /usr/bin/node src/scripts/verify_global_winners.js >> ~/logs/sport_calendar/winners.log 2>&1 && /usr/bin/bash src/scripts/auto_commit_winners.sh >> ~/logs/sport_calendar/commits.log 2>&1
+
+# Daily health check (03:00 UTC)
+0 3 * * * cd /var/www/sport_calendar && /usr/bin/node src/scripts/health_check.js >> ~/logs/sport_calendar/health.log 2>&1
+
+# Daily quick check (04:00 UTC)
+0 4 * * * cd /var/www/sport_calendar && /usr/bin/node src/scripts/quick_check.js >> ~/logs/sport_calendar/daily.log 2>&1
+
+# Monthly validation (1st of month at 02:00 UTC)
+0 2 1 * * cd /var/www/sport_calendar && /usr/bin/node src/scripts/validate_leagues_batch.js >> ~/logs/sport_calendar/validation.log 2>&1
+
+# PM2 save (daily backup of process list at 05:00 UTC)
+0 5 * * * /usr/bin/pm2 save >> ~/logs/sport_calendar/pm2.log 2>&1
+
+# Log rotation (keep last 30 days, monthly on 1st at 06:00 UTC)
+0 6 1 * * find ~/logs/sport_calendar -name "*.log" -mtime +30 -delete
+
+# Cron Jobs Schedule Summary:
+# - Sunday 00:00 UTC: Winner detection + Auto-commit
+# - Daily 02:00 UTC: Monthly validation (1st only)
+# - Daily 03:00 UTC: Health check
+# - Daily 04:00 UTC: Quick data check
+# - Daily 05:00 UTC: PM2 save
+# - Monthly 06:00 UTC: Log cleanup (1st only)

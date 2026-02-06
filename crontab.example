@@ -1,0 +1,71 @@
+# Sport Calendar - Cron Jobs Example
+# ====================================
+# Copy relevant lines to your crontab: crontab -e
+#
+# For Development (Mac):
+# ----------------------
+
+# Environment variables (adjust paths for your system)
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+HOME=/Users/tamirmei
+
+# Weekly winner detection (Sunday at midnight)
+# Detects new tournament winners automatically
+0 0 * * 0 cd ~/dev/gitHubTamir/sport_calender && /usr/local/bin/node src/scripts/verify_global_winners.js >> ~/logs/sport_calendar/winners.log 2>&1
+
+# Daily quick check (3 AM)
+# Validates data files and checks integrity
+0 3 * * * cd ~/dev/gitHubTamir/sport_calender && /usr/local/bin/node src/scripts/quick_check.js >> ~/logs/sport_calendar/daily.log 2>&1
+
+# Monthly validation (1st of month at 2 AM)
+# Full validation of all leagues and mappings
+0 2 1 * * cd ~/dev/gitHubTamir/sport_calender && /usr/local/bin/node src/scripts/validate_leagues_batch.js >> ~/logs/sport_calendar/validation.log 2>&1
+
+# Log rotation (keep last 30 days)
+0 0 1 * * find ~/logs/sport_calendar -name "*.log" -mtime +30 -delete
+
+
+# For Production (DigitalOcean Server):
+# --------------------------------------
+# Uncomment and adjust these for production use
+
+# Environment
+# PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# SHELL=/bin/bash
+# FOOTBALL_API_KEY=YOUR_API_KEY_HERE
+
+# Weekly winner detection + Auto restart (Sunday 00:00 UTC)
+# 0 0 * * 0 cd /var/www/sport_calendar && /usr/bin/node src/scripts/verify_global_winners.js >> /var/log/sport_calendar/winners.log 2>&1 && pm2 restart matchday-frontend
+
+# Daily health check (03:00 UTC)
+# 0 3 * * * cd /var/www/sport_calendar && /usr/bin/node src/scripts/health_check.js >> /var/log/sport_calendar/health.log 2>&1
+
+# Monthly validation (1st of month at 02:00 UTC)
+# 0 2 1 * * cd /var/www/sport_calendar && /usr/bin/node src/scripts/validate_leagues_batch.js >> /var/log/sport_calendar/validation.log 2>&1
+
+# Auto-commit winners (Monday at 01:00 UTC)
+# 0 1 * * 1 cd /var/www/sport_calendar && /usr/bin/bash src/scripts/auto_commit_winners.sh >> /var/log/sport_calendar/commits.log 2>&1
+
+# Log rotation (keep last 30 days)
+# 0 0 1 * * find /var/log/sport_calendar -name "*.log" -mtime +30 -delete
+
+# PM2 save (daily backup of process list at 04:00)
+# 0 4 * * * pm2 save >> /var/log/sport_calendar/pm2.log 2>&1
+
+
+# Quick Reference:
+# ----------------
+# * * * * *  Command
+# │ │ │ │ │
+# │ │ │ │ └─ Day of week (0-7, Sunday = 0 or 7)
+# │ │ │ └─── Month (1-12)
+# │ │ └───── Day of month (1-31)
+# │ └─────── Hour (0-23)
+# └───────── Minute (0-59)
+#
+# Examples:
+# 0 0 * * 0    = Every Sunday at midnight
+# 0 2 1 * *    = 1st of every month at 2 AM
+# 0 3 * * *    = Every day at 3 AM
+# */30 * * * * = Every 30 minutes
