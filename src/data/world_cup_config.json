@@ -1,0 +1,149 @@
+{
+  "metadata": {
+    "last_updated": "2026-02-06",
+    "version": "2.0",
+    "qualification_status": "in_progress"
+  },
+  "currentWorldCup": null,
+  "nextWorldCup": {
+    "year": 2026,
+    "name": "FIFA World Cup 2026",
+    "leagueId": 1,
+    "hostCountries": ["USA", "Canada", "Mexico"],
+    "hostFlags": ["🇺🇸", "🇨🇦", "🇲🇽"],
+    "startDate": "2026-06-11T00:00:00Z",
+    "endDate": "2026-07-19T23:59:59Z",
+    "venue": {
+      "openingMatch": "Estadio Azteca, Mexico City",
+      "finalMatch": "MetLife Stadium, New Jersey"
+    },
+    "logo": "https://media.api-sports.io/football/leagues/1.png",
+    "totalTeams": 48,
+    "totalMatches": 104,
+    "format": {
+      "groups": 16,
+      "teamsPerGroup": 3,
+      "advancePerGroup": 2,
+      "description": "16 groups of 3, top 2 advance to Round of 32"
+    },
+    "countdown": {
+      "enabled": true,
+      "showOn": ["homepage", "world_hub", "americas_hub"],
+      "theme": "golden",
+      "urgencyThreshold": 30,
+      "milestones": [
+        { "days": 365, "message": "🎉 1 year to go!", "celebrate": true },
+        { "days": 180, "message": "⚽ 6 months until kick-off!" },
+        { "days": 100, "message": "⚡ 100 days countdown!", "celebrate": true },
+        { "days": 30, "message": "🔥 One month away!", "urgent": true },
+        { "days": 7, "message": "🚨 ONE WEEK!", "urgent": true },
+        { "days": 1, "message": "⏰ TOMORROW!", "urgent": true, "celebrate": true }
+      ]
+    },
+    "qualification": {
+      "status": "in_progress",
+      "deadline": "2026-03-30",
+      "teamsQualified": 35,
+      "teamsRemaining": 13,
+      "byConfederation": {
+        "UEFA": { "total": 16, "qualified": 12, "remaining": 4 },
+        "CAF": { "total": 9, "qualified": 6, "remaining": 3 },
+        "CONMEBOL": { "total": 6, "qualified": 6, "remaining": 0 },
+        "AFC": { "total": 8, "qualified": 6, "remaining": 2 },
+        "CONCACAF": { "total": 6, "qualified": 3, "remaining": 3 },
+        "OFC": { "total": 1, "qualified": 0, "remaining": 1 },
+        "Hosts": { "total": 3, "qualified": 3, "remaining": 0 }
+      }
+    },
+    "qualifiedTeams": {
+      "pot1": [
+        { "name": "Argentina", "id": 26, "flag": "🇦🇷", "fifa_rank": 1, "confederation": "CONMEBOL", "qualified": "2024-11-15" },
+        { "name": "France", "id": 2, "flag": "🇫🇷", "fifa_rank": 2, "confederation": "UEFA", "qualified": "2024-11-18" },
+        { "name": "Spain", "id": 9, "flag": "🇪🇸", "fifa_rank": 3, "confederation": "UEFA", "qualified": "2024-11-17" },
+        { "name": "England", "id": 10, "flag": "🏴󐁧󐁢󐁥󐁮󐁧󐁿", "fifa_rank": 4, "confederation": "UEFA", "qualified": "2024-11-16" },
+        { "name": "Brazil", "id": 6, "flag": "🇧🇷", "fifa_rank": 5, "confederation": "CONMEBOL", "qualified": "2024-11-15" },
+        { "name": "USA", "id": 2384, "flag": "🇺🇸", "fifa_rank": 11, "confederation": "CONCACAF", "qualified": "host", "hostNation": true },
+        { "name": "Canada", "id": 1118, "flag": "🇨🇦", "fifa_rank": 42, "confederation": "CONCACAF", "qualified": "host", "hostNation": true },
+        { "name": "Mexico", "id": 16, "flag": "🇲🇽", "fifa_rank": 15, "confederation": "CONCACAF", "qualified": "host", "hostNation": true }
+      ],
+      "pot2": [
+        { "name": "Portugal", "id": 27, "flag": "🇵🇹", "fifa_rank": 6, "confederation": "UEFA", "qualified": "2024-11-18" },
+        { "name": "Netherlands", "id": 1118, "flag": "🇳🇱", "fifa_rank": 7, "confederation": "UEFA", "qualified": "2024-11-15" },
+        { "name": "Belgium", "id": 1, "flag": "🇧🇪", "fifa_rank": 8, "confederation": "UEFA", "qualified": "2024-11-17" },
+        { "name": "Italy", "id": 768, "flag": "🇮🇹", "fifa_rank": 9, "confederation": "UEFA", "qualified": "2024-11-18" },
+        { "name": "Uruguay", "id": 7, "flag": "🇺🇾", "fifa_rank": 12, "confederation": "CONMEBOL", "qualified": "2024-11-15" },
+        { "name": "Colombia", "id": 8, "flag": "🇨🇴", "fifa_rank": 13, "confederation": "CONMEBOL", "qualified": "2024-11-15" },
+        { "name": "Germany", "id": 25, "flag": "🇩🇪", "fifa_rank": 14, "confederation": "UEFA", "qualified": "2024-11-17" },
+        { "name": "Morocco", "id": 31, "flag": "🇲🇦", "fifa_rank": 16, "confederation": "CAF", "qualified": "2024-11-19" }
+      ],
+      "pot3": [
+        { "name": "Japan", "id": 12, "flag": "🇯🇵", "fifa_rank": 17, "confederation": "AFC", "qualified": "2024-11-18" },
+        { "name": "Senegal", "id": 13, "flag": "🇸🇳", "fifa_rank": 18, "confederation": "CAF", "qualified": "2024-11-19" },
+        { "name": "Iran", "id": 22, "flag": "🇮🇷", "fifa_rank": 19, "confederation": "AFC", "qualified": "2024-11-18" },
+        { "name": "Denmark", "id": 21, "flag": "🇩🇰", "fifa_rank": 20, "confederation": "UEFA", "qualified": "2024-11-17" },
+        { "name": "South Korea", "id": 17, "flag": "🇰🇷", "fifa_rank": 21, "confederation": "AFC", "qualified": "2024-11-18" },
+        { "name": "Switzerland", "id": 15, "flag": "🇨🇭", "fifa_rank": 22, "confederation": "UEFA", "qualified": "2024-11-17" },
+        { "name": "Nigeria", "id": 19, "flag": "🇳🇬", "fifa_rank": 23, "confederation": "CAF", "qualified": "2024-11-19" },
+        { "name": "Ecuador", "id": 2382, "flag": "🇪🇨", "fifa_rank": 24, "confederation": "CONMEBOL", "qualified": "2024-11-15" }
+      ],
+      "pot4": [
+        { "name": "Croatia", "id": 3, "flag": "🇭🇷", "fifa_rank": 10, "confederation": "UEFA", "qualified": "2024-11-17" },
+        { "name": "Tunisia", "id": 28, "flag": "🇹🇳", "fifa_rank": 27, "confederation": "CAF", "qualified": "2024-11-19" },
+        { "name": "Australia", "id": 24, "flag": "🇦🇺", "fifa_rank": 28, "confederation": "AFC", "qualified": "2024-11-18" },
+        { "name": "Egypt", "id": 1569, "flag": "🇪🇬", "fifa_rank": 29, "confederation": "CAF", "qualified": "2024-11-19" },
+        { "name": "Saudi Arabia", "id": 23, "flag": "🇸🇦", "fifa_rank": 30, "confederation": "AFC", "qualified": "2024-11-18" },
+        { "name": "Algeria", "id": 1530, "flag": "🇩🇿", "fifa_rank": 31, "confederation": "CAF", "qualified": "2024-11-19" },
+        { "name": "Poland", "id": 49, "flag": "🇵🇱", "fifa_rank": 32, "confederation": "UEFA", "qualified": "2024-11-17" },
+        { "name": "Sweden", "id": 5, "flag": "🇸🇪", "fifa_rank": 25, "confederation": "UEFA", "qualified": "2025-03-25", "playoff": true }
+      ],
+      "pot5": [
+        { "name": "TBD", "confederation": "UEFA", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "UEFA", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "CAF", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "CAF", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "AFC", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "AFC", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "CONCACAF", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "CONCACAF", "note": "Playoff winner" }
+      ],
+      "pot6": [
+        { "name": "TBD", "confederation": "CONCACAF", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "CAF", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "OFC", "note": "New Zealand or playoff winner" },
+        { "name": "TBD", "confederation": "Intercontinental", "note": "Playoff winner" },
+        { "name": "TBD", "confederation": "Intercontinental", "note": "Playoff winner" }
+      ]
+    },
+    "drawDate": "2026-04-15T18:00:00Z",
+    "drawLocation": "New York City, USA",
+    "specialFeatures": {
+      "firstExpanded": true,
+      "format": "48 teams, 16 groups of 3",
+      "newFeature": "First 48-team World Cup",
+      "venues": 16,
+      "cities": 16
+    }
+  },
+  "history": [
+    {
+      "year": 2022,
+      "winner": "Argentina",
+      "winnerId": 26,
+      "runnerUp": "France",
+      "host": "Qatar",
+      "finalScore": "3-3 (4-2 pen)",
+      "finalDate": "2022-12-18",
+      "topScorer": "Kylian Mbappé (8 goals)"
+    },
+    {
+      "year": 2018,
+      "winner": "France",
+      "winnerId": 2,
+      "runnerUp": "Croatia",
+      "host": "Russia",
+      "finalScore": "4-2",
+      "finalDate": "2018-07-15",
+      "topScorer": "Harry Kane (6 goals)"
+    }
+  ]
+}

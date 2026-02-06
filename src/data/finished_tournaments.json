@@ -2,7 +2,8 @@
   "metadata": {
     "last_updated": "2026-02-06",
     "season": "2024-2025",
-    "description": "Finished tournaments with winner information"
+    "description": "Finished tournaments with winner information",
+    "structure_version": "2.0-enhanced"
   },
   "finished_tournaments": {
     "1": {
@@ -13,6 +14,44 @@
       "winner": {
         "name": "Argentina",
         "logo": "https://media.api-sports.io/football/teams/26.png"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:11.334Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2022,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2022-12-18T15:00:00+00:00",
+        "venue": "Lusail Iconic Stadium",
+        "city": "Lusail",
+        "homeTeam": {
+          "name": "Argentina",
+          "id": 26,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "France",
+          "id": 2,
+          "score": 3
+        },
+        "result": "3-3 (4-2 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 4,
+          "away": 2
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "France",
+        "id": 2
       }
     },
     "4": {
@@ -23,6 +62,44 @@
       "winner": {
         "name": "Spain",
         "logo": "https://media.api-sports.io/football/teams/9.png"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:11.757Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2024,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-07-14T19:00:00+00:00",
+        "venue": "Olympiastadion Berlin",
+        "city": "Berlin",
+        "homeTeam": {
+          "name": "Spain",
+          "id": 9,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "England",
+          "id": 10,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "England",
+        "id": 10
       }
     },
     "6": {
@@ -38,6 +115,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Senegal vs Egypt, 1-0, 2026-01-14"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:12.130Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-18T19:00:00+00:00",
+        "venue": "Complexe Sportif Moulay Abdellah",
+        "city": "Rabat",
+        "homeTeam": {
+          "name": "Senegal",
+          "id": 13,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Morocco",
+          "id": 31,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Morocco",
+        "id": 31
       }
     },
     "9": {
@@ -48,6 +163,44 @@
       "winner": {
         "name": "Argentina",
         "logo": "https://media.api-sports.io/football/teams/26.png"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:12.502Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2024,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-07-15T00:30:00+00:00",
+        "venue": "Hard Rock Stadium",
+        "city": "Miami Gardens, Florida",
+        "homeTeam": {
+          "name": "Argentina",
+          "id": 26,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Colombia",
+          "id": 8,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Colombia",
+        "id": 8
       }
     },
     "11": {
@@ -63,6 +216,44 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Lanus vs Universidad de Chile, 1-0, 2025-10-30"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:12.878Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-22T20:00:00+00:00",
+        "venue": "Estadio Defensores del Chaco",
+        "city": "Asuncion",
+        "homeTeam": {
+          "name": "Lanus",
+          "id": 446,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Atletico-MG",
+          "id": 1062,
+          "score": 0
+        },
+        "result": "0-0 (5-4 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 5,
+          "away": 4
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Atletico-MG",
+        "id": 1062
       }
     },
     "13": {
@@ -78,6 +269,44 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Palmeiras vs Flamengo, 0-1, 2025-11-29"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:13.253Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-29T21:00:00+00:00",
+        "venue": "Estadio Monumental",
+        "city": "Lima",
+        "homeTeam": {
+          "name": "Palmeiras",
+          "id": 121,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Flamengo",
+          "id": 127,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Palmeiras",
+        "id": 121
       }
     },
     "15": {
@@ -93,6 +322,44 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Chelsea vs Paris Saint Germain, 3-0, 2025-07-13"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:13.625Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-13T19:00:00+00:00",
+        "venue": "MetLife Stadium",
+        "city": "East Rutherford, New Jersey",
+        "homeTeam": {
+          "name": "Chelsea",
+          "id": 49,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Paris Saint Germain",
+          "id": 85,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Paris Saint Germain",
+        "id": 85
       }
     },
     "16": {
@@ -108,6 +375,44 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Cruz Azul vs Vancouver Whitecaps, 5-0, 2025-06-02"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:13.997Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-06-02T01:00:00+00:00",
+        "venue": "Estadio Olímpico Universitario",
+        "city": "D.F.",
+        "homeTeam": {
+          "name": "Cruz Azul",
+          "id": 2295,
+          "score": 5
+        },
+        "awayTeam": {
+          "name": "Vancouver Whitecaps",
+          "id": 1603,
+          "score": 0
+        },
+        "result": "5-0 (null-null pen)",
+        "round": "Finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Vancouver Whitecaps",
+        "id": 1603
       }
     },
     "22": {
@@ -123,6 +428,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "USA vs Mexico, 1-2, 2025-07-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:14.369Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-06T23:00:00+00:00",
+        "venue": "NRG Stadium",
+        "city": "Houston, Texas",
+        "homeTeam": {
+          "name": "USA",
+          "id": 2384,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Mexico",
+          "id": 16,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "USA",
+        "id": 2384
       }
     },
     "23": {
@@ -138,6 +481,18 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "South Korea vs Japan, 0-1, 2025-07-15"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:14.742Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "27": {
@@ -153,6 +508,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Auckland City vs Hekari United, 2-0, 2025-04-12"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:15.113Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-04-12T07:00:00+00:00",
+        "venue": "National Sports Stadium",
+        "city": "Honiara",
+        "homeTeam": {
+          "name": "Auckland City",
+          "id": 2537,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Hekari United",
+          "id": 8141,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Hekari United",
+        "id": 8141
       }
     },
     "73": {
@@ -168,6 +561,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Vasco DA Gama vs Corinthians, 1-2, 2025-12-21"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:15.484Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-21T21:00:00+00:00",
+        "venue": "Estádio do Maracanã",
+        "city": "Rio de Janeiro",
+        "homeTeam": {
+          "name": "Vasco DA Gama",
+          "id": 133,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Corinthians",
+          "id": 131,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Vasco DA Gama",
+        "id": 133
       }
     },
     "77": {
@@ -183,6 +614,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "CRB vs ASA, 2-1, 2025-03-15"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:15.869Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-03-15T19:00:00+00:00",
+        "venue": "Estádio Rei Pelé",
+        "city": "Maceió, Alagoas",
+        "homeTeam": {
+          "name": "CRB",
+          "id": 146,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "ASA",
+          "id": 1207,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "ASA",
+        "id": 1207
       }
     },
     "90": {
@@ -198,6 +667,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Telstar vs GO Ahead Eagles, 2-1, 2026-02-05"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:16.241Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-02-05T19:00:00+00:00",
+        "venue": "BUKO Stadion",
+        "city": "Velsen-Zuid",
+        "homeTeam": {
+          "name": "Telstar",
+          "id": 427,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "GO Ahead Eagles",
+          "id": 410,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "GO Ahead Eagles",
+        "id": 410
       }
     },
     "97": {
@@ -213,6 +720,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Guimaraes vs SC Braga, 2-1, 2026-01-10"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:16.613Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-10T20:00:00+00:00",
+        "venue": "Unknown",
+        "city": "Leiria",
+        "homeTeam": {
+          "name": "Guimaraes",
+          "id": 224,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "SC Braga",
+          "id": 217,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "SC Braga",
+        "id": 217
       }
     },
     "101": {
@@ -228,6 +773,44 @@
         "detected_at": "2026-02-06T22:59:07.164Z",
         "confidence": "high",
         "note": "Nagoya Grampus vs Albirex Niigata, 3-3 (5-4 pen), 2024-11-02 (Final)"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:16.999Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2024,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-11-02T04:05:00+00:00",
+        "venue": "Japan National Stadium",
+        "city": "Tokyo",
+        "homeTeam": {
+          "name": "Nagoya Grampus",
+          "id": 288,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Albirex Niigata",
+          "id": 311,
+          "score": 3
+        },
+        "result": "3-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Nagoya Grampus",
+        "id": 288
       }
     },
     "102": {
@@ -243,6 +826,44 @@
         "detected_at": "2026-02-06T22:58:05.851Z",
         "confidence": "high",
         "note": "Gamba Osaka vs Vissel Kobe, 0-1, 2024-11-23 (Final)"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:17.367Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2024,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-11-23T05:00:00+00:00",
+        "venue": "Japan National Stadium",
+        "city": "Tokyo",
+        "homeTeam": {
+          "name": "Gamba Osaka",
+          "id": 293,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Vissel Kobe",
+          "id": 289,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Gamba Osaka",
+        "id": 293
       }
     },
     "105": {
@@ -258,6 +879,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Lillestrom vs Sarpsborg 08 FF, 3-1, 2025-12-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:17.739Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-06T15:00:00+00:00",
+        "venue": "Ullevaal Stadion",
+        "city": "Oslo",
+        "homeTeam": {
+          "name": "Lillestrom",
+          "id": 321,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Sarpsborg 08 FF",
+          "id": 333,
+          "score": 1
+        },
+        "result": "3-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Sarpsborg 08 FF",
+        "id": 333
       }
     },
     "112": {
@@ -273,6 +932,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Caernarfon Town vs Colwyn Bay, 4-1, 2026-01-31"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:18.112Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-31T17:15:00+00:00",
+        "venue": "The Oval",
+        "city": "Caernarfon",
+        "homeTeam": {
+          "name": "Caernarfon Town",
+          "id": 356,
+          "score": 4
+        },
+        "awayTeam": {
+          "name": "Colwyn Bay",
+          "id": 5611,
+          "score": 1
+        },
+        "result": "4-1 (null-null pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Colwyn Bay",
+        "id": 5611
       }
     },
     "115": {
@@ -288,6 +985,18 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Olympic vs Malmo FF, 0-1, 2025-09-17"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:18.484Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "130": {
@@ -303,6 +1012,44 @@
         "detected_at": "2026-02-06T23:03:31.182Z",
         "confidence": "high",
         "note": "Fixed from Argentinos JRS to Independ. Rivadavia"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:28.861Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-06T00:10:00+00:00",
+        "venue": "Unknown",
+        "city": "Cordoba",
+        "homeTeam": {
+          "name": "Independ. Rivadavia",
+          "id": 473,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Argentinos JRS",
+          "id": 458,
+          "score": 2
+        },
+        "result": "2-2 (5-3 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 5,
+          "away": 3
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Argentinos JRS",
+        "id": 458
       }
     },
     "143": {
@@ -319,7 +1066,45 @@
         "confidence": "high",
         "note": "Fixed from Barcelona to Atletico Madrid"
       },
-      "note": "Barcelona beat Real Madrid 3-2 (AET) in final, April 26, 2025"
+      "note": "Barcelona beat Real Madrid 3-2 (AET) in final, April 26, 2025",
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:29.253Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-02-05T20:00:00+00:00",
+        "venue": "Estadio de la Cartuja",
+        "city": "Seville",
+        "homeTeam": {
+          "name": "Real Betis",
+          "id": 543,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Atletico Madrid",
+          "id": 530,
+          "score": 5
+        },
+        "result": "0-5 (null-null pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Real Betis",
+        "id": 543
+      }
     },
     "167": {
       "name": "Cup",
@@ -334,6 +1119,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Valur Reykjavik vs Vestri, 0-1, 2025-08-22"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:29.628Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-22T19:00:00+00:00",
+        "venue": "Laugardalsvöllur",
+        "city": "Reykjavík",
+        "homeTeam": {
+          "name": "Valur Reykjavik",
+          "id": 274,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Vestri",
+          "id": 4165,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Valur Reykjavik",
+        "id": 274
       }
     },
     "168": {
@@ -349,6 +1172,44 @@
         "detected_at": "2026-02-06T23:03:31.940Z",
         "confidence": "high",
         "note": "Fixed from Vestri to Valur Reykjavik"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:29.998Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-03-22T14:00:00+00:00",
+        "venue": "Würth völlurinn",
+        "city": "Reykjavík",
+        "homeTeam": {
+          "name": "Fylkir",
+          "id": 267,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Valur Reykjavik",
+          "id": 274,
+          "score": 3
+        },
+        "result": "2-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Fylkir",
+        "id": 267
       }
     },
     "171": {
@@ -364,6 +1225,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Beijing Guoan vs Henan Jianye, 3-0, 2025-12-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:30.371Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-06T11:00:00+00:00",
+        "venue": "Suzhou Olympic Sports Centre Stadium",
+        "city": "Suzhou",
+        "homeTeam": {
+          "name": "Beijing Guoan",
+          "id": 830,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Henan Jianye",
+          "id": 840,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Henan Jianye",
+        "id": 840
       }
     },
     "185": {
@@ -379,6 +1278,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "ST Mirren vs Celtic, 3-1, 2025-12-14"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:30.744Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-14T15:30:00+00:00",
+        "venue": "Hampden Park",
+        "city": "Glasgow",
+        "homeTeam": {
+          "name": "ST Mirren",
+          "id": 251,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Celtic",
+          "id": 247,
+          "score": 1
+        },
+        "result": "3-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Celtic",
+        "id": 247
       }
     },
     "241": {
@@ -394,6 +1331,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Independiente Medellin vs Atletico Nacional, 0-1, 2025-12-18"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:31.126Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-18T00:30:00+00:00",
+        "venue": "Estadio Atanasio Girardot",
+        "city": "",
+        "homeTeam": {
+          "name": "Independiente Medellin",
+          "id": 1128,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Atletico Nacional",
+          "id": 1137,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Independiente Medellin",
+        "id": 1128
       }
     },
     "246": {
@@ -409,6 +1384,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "HJK helsinki vs KuPS, 1-0, 2025-09-20"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:31.499Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-20T15:00:00+00:00",
+        "venue": "Tammelan Stadion",
+        "city": "Tampere",
+        "homeTeam": {
+          "name": "HJK helsinki",
+          "id": 649,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "KuPS",
+          "id": 1165,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "KuPS",
+        "id": 1165
       }
     },
     "257": {
@@ -424,6 +1437,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Austin vs Nashville SC, 1-2, 2025-10-02"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:31.870Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-02T00:00:00+00:00",
+        "venue": "Q2 Stadium",
+        "city": "",
+        "homeTeam": {
+          "name": "Austin",
+          "id": 16489,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Nashville SC",
+          "id": 9569,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Austin",
+        "id": 16489
       }
     },
     "267": {
@@ -439,6 +1490,44 @@
         "detected_at": "2026-02-06T23:03:32.314Z",
         "confidence": "high",
         "note": "Fixed from Deportes Limache to Huachipato"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:32.244Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-10T23:00:00+00:00",
+        "venue": "Estadio El Teniente",
+        "city": "Rancagua",
+        "homeTeam": {
+          "name": "Huachipato",
+          "id": 2328,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Deportes Limache",
+          "id": 16730,
+          "score": 1
+        },
+        "result": "1-1 (4-3 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 4,
+          "away": 3
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Deportes Limache",
+        "id": 16730
       }
     },
     "294": {
@@ -454,6 +1543,44 @@
         "detected_at": "2026-02-06T23:03:32.683Z",
         "confidence": "high",
         "note": "Fixed from Gwangju FC to Jeonbuk Motors"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:32.615Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-06T04:30:00+00:00",
+        "venue": "Seoul World Cup Stadium",
+        "city": "Seoul",
+        "homeTeam": {
+          "name": "Gwangju FC",
+          "id": 2759,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Jeonbuk Motors",
+          "id": 2762,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Gwangju FC",
+        "id": 2759
       }
     },
     "325": {
@@ -469,6 +1596,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Punjab vs Kerala, 0-4, 2026-02-05"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:32.986Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-02-03T08:30:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Kerala",
+          "id": 7169,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Assam",
+          "id": 7156,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Assam",
+        "id": 7156
       }
     },
     "341": {
@@ -484,6 +1649,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Song Lam Nghe An vs Công An Nhân Dân, 0-5, 2025-06-29"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:33.358Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-06-29T11:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Song Lam Nghe An",
+          "id": 3678,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Công An Nhân Dân",
+          "id": 16400,
+          "score": 5
+        },
+        "result": "0-5 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Song Lam Nghe An",
+        "id": 3678
       }
     },
     "384": {
@@ -499,6 +1702,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Maccabi Kabilio Jaffa vs Maccabi Tel Aviv, 0-5, 2026-02-05"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:33.730Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-02-05T18:30:00+00:00",
+        "venue": "Bloomfield Stadium",
+        "city": "Tel-Aviv",
+        "homeTeam": {
+          "name": "Maccabi Kabilio Jaffa",
+          "id": 6192,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Maccabi Tel Aviv",
+          "id": 604,
+          "score": 5
+        },
+        "result": "0-5 (null-null pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Maccabi Kabilio Jaffa",
+        "id": 6192
       }
     },
     "385": {
@@ -513,6 +1754,44 @@
         "detected_by": "api-sports-cup-winner",
         "detected_at": "2026-02-06T12:18:24.611Z",
         "confidence": "high"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:34.104Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-28T18:30:00+00:00",
+        "venue": "Sammy Ofer Stadium",
+        "city": "Haifa",
+        "homeTeam": {
+          "name": "Hapoel Tel Aviv",
+          "id": 4501,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Beitar Jerusalem",
+          "id": 657,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Hapoel Tel Aviv",
+        "id": 4501
       }
     },
     "486": {
@@ -528,6 +1807,18 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "ML Vitebsk vs Slonim, 8-1, 2025-12-04"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:34.477Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "495": {
@@ -543,6 +1834,18 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Foolad Hormozgan vs Esteghlal FC, 0-2, 2026-01-13"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:34.850Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "498": {
@@ -558,6 +1861,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Ordabasy vs FK Tobol Kostanay, 0-2, 2025-10-04"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:35.222Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-04T14:00:00+00:00",
+        "venue": "Kaysar Arena",
+        "city": "",
+        "homeTeam": {
+          "name": "Ordabasy",
+          "id": 692,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "FK Tobol Kostanay",
+          "id": 2259,
+          "score": 2
+        },
+        "result": "0-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Ordabasy",
+        "id": 692
       }
     },
     "500": {
@@ -573,6 +1914,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Johor Darul Takzim FC vs Sabah FA, 5-0, 2025-12-14"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:35.592Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-14T13:00:00+00:00",
+        "venue": "Bukit Jalil National Stadium",
+        "city": "Kuala Lumpur",
+        "homeTeam": {
+          "name": "Johor Darul Takzim FC",
+          "id": 2523,
+          "score": 5
+        },
+        "awayTeam": {
+          "name": "Sabah FA",
+          "id": 2505,
+          "score": 0
+        },
+        "result": "5-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Sabah FA",
+        "id": 2505
       }
     },
     "501": {
@@ -588,6 +1967,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "2 de Mayo vs General Caballero, 0-1, 2025-11-16"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:35.962Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-16T21:00:00+00:00",
+        "venue": "Unknown",
+        "city": "Pedro Juan Caballero",
+        "homeTeam": {
+          "name": "2 de Mayo",
+          "id": 2140,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "General Caballero",
+          "id": 1181,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "2 de Mayo",
+        "id": 2140
       }
     },
     "503": {
@@ -603,6 +2020,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Estudiantil CNI vs ANBA Peru, 2-1, 2025-11-23"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:46.344Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-30T20:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "ANBA Peru",
+          "id": 26861,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Estudiantil CNI",
+          "id": 20324,
+          "score": 1
+        },
+        "result": "2-1 (2-4 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 2,
+          "away": 4
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "ANBA Peru",
+        "id": 26861
       }
     },
     "504": {
@@ -618,6 +2073,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al-Ittihad FC vs Al-Qadisiyah FC, 3-1, 2025-05-30"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:46.735Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-05-30T18:00:00+00:00",
+        "venue": "Al Inma Bank Stadium at King Abdullah Sport City",
+        "city": "Jeddah",
+        "homeTeam": {
+          "name": "Al-Ittihad FC",
+          "id": 2938,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Al-Qadisiyah FC",
+          "id": 2933,
+          "score": 1
+        },
+        "result": "3-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Al-Qadisiyah FC",
+        "id": 2933
       }
     },
     "508": {
@@ -633,6 +2126,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Richards Bay vs Orlando Pirates, 0-1, 2025-11-08"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:47.105Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-06T16:00:00+00:00",
+        "venue": "Peter Mokaba Stadium",
+        "city": "Polokwane",
+        "homeTeam": {
+          "name": "Orlando Pirates",
+          "id": 2700,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Marumo Gallants",
+          "id": 2682,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Marumo Gallants",
+        "id": 2682
       }
     },
     "516": {
@@ -648,6 +2179,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "MC Alger vs USM Alger, 1-0, 2026-01-17"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:47.473Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-17T16:00:00+00:00",
+        "venue": "Nelson Mandela Stadium",
+        "city": "Baraki",
+        "homeTeam": {
+          "name": "MC Alger",
+          "id": 906,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "USM Alger",
+          "id": 910,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "USM Alger",
+        "id": 910
       }
     },
     "517": {
@@ -663,6 +2232,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Velez Sarsfield vs Estudiantes L.P., 0-3, 2024-12-22"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:47.842Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-12-22T00:00:00+00:00",
+        "venue": "Estadio Único Madre de Ciudades",
+        "city": "Santiago del Estero, Prov. de Santiago del Estero",
+        "homeTeam": {
+          "name": "Velez Sarsfield",
+          "id": 438,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Estudiantes L.P.",
+          "id": 450,
+          "score": 3
+        },
+        "result": "0-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Velez Sarsfield",
+        "id": 438
       }
     },
     "526": {
@@ -678,6 +2285,44 @@
         "detected_at": "2026-02-06T23:03:33.058Z",
         "confidence": "high",
         "note": "Fixed from PSG to Paris Saint Germain"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:48.213Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-08T18:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Paris Saint Germain",
+          "id": 85,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Marseille",
+          "id": 81,
+          "score": 2
+        },
+        "result": "2-2 (4-1 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 4,
+          "away": 1
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Marseille",
+        "id": 81
       }
     },
     "527": {
@@ -693,6 +2338,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Colo Colo vs Universidad de Chile, 0-3, 2025-09-14"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:48.785Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-14T18:00:00+00:00",
+        "venue": "Estadio Santa Laura-Universidad SEK",
+        "city": "Santiago de Chile",
+        "homeTeam": {
+          "name": "Colo Colo",
+          "id": 2315,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Universidad de Chile",
+          "id": 2323,
+          "score": 3
+        },
+        "result": "0-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Colo Colo",
+        "id": 2315
       }
     },
     "528": {
@@ -708,6 +2391,44 @@
         "detected_at": "2026-02-06T23:03:33.436Z",
         "confidence": "high",
         "note": "Fixed from Manchester City to Crystal Palace"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:49.155Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-10T14:00:00+00:00",
+        "venue": "Wembley Stadium",
+        "city": "London",
+        "homeTeam": {
+          "name": "Crystal Palace",
+          "id": 52,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Liverpool",
+          "id": 40,
+          "score": 2
+        },
+        "result": "2-2 (3-2 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 3,
+          "away": 2
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Liverpool",
+        "id": 40
       }
     },
     "529": {
@@ -723,6 +2444,44 @@
         "detected_at": "2026-02-06T23:03:33.810Z",
         "confidence": "high",
         "note": "Fixed from Bayer Leverkusen to Bayern München"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:49.523Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-16T18:30:00+00:00",
+        "venue": "MHPArena",
+        "city": "Stuttgart",
+        "homeTeam": {
+          "name": "VfB Stuttgart",
+          "id": 172,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Bayern München",
+          "id": 157,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "VfB Stuttgart",
+        "id": 172
       }
     },
     "530": {
@@ -738,6 +2497,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Dila vs Spaeri, 2-0, 2025-07-02"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:49.896Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-02T16:00:00+00:00",
+        "venue": "David Petriashvili Arena",
+        "city": "Tbilisi",
+        "homeTeam": {
+          "name": "Dila",
+          "id": 3499,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Spaeri",
+          "id": 14864,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "3rd Place Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Spaeri",
+        "id": 14864
       }
     },
     "531": {
@@ -753,6 +2550,44 @@
         "detected_at": "2026-02-06T23:03:34.179Z",
         "confidence": "high",
         "note": "Fixed from Real Madrid to Paris Saint Germain"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:50.267Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-13T19:00:00+00:00",
+        "venue": "Bluenergy Stadium",
+        "city": "Udine",
+        "homeTeam": {
+          "name": "Paris Saint Germain",
+          "id": 85,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Tottenham",
+          "id": 47,
+          "score": 2
+        },
+        "result": "2-2 (4-3 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 4,
+          "away": 3
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Tottenham",
+        "id": 47
       }
     },
     "533": {
@@ -767,6 +2602,44 @@
         "detected_by": "api-sports-cup-winner",
         "detected_at": "2026-02-06T12:18:24.691Z",
         "confidence": "high"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:50.641Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-18T17:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Pyramids FC",
+          "id": 1036,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Renaissance Berkane",
+          "id": 962,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Renaissance Berkane",
+        "id": 962
       }
     },
     "534": {
@@ -782,6 +2655,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Moca vs Weymouth Wales, 3-2, 2025-08-03"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:51.011Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-03T23:45:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Moca",
+          "id": 16617,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Weymouth Wales",
+          "id": 8410,
+          "score": 2
+        },
+        "result": "3-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Weymouth Wales",
+        "id": 8410
       }
     },
     "539": {
@@ -797,6 +2708,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al Ahly vs Ceramica Cleopatra, 2-1, 2024-10-20"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:51.392Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-10-24T17:00:00+00:00",
+        "venue": "Mohammed Bin Zayed Stadium",
+        "city": "Abu Dhabi",
+        "homeTeam": {
+          "name": "Al Ahly",
+          "id": 1577,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Zamalek SC",
+          "id": 1040,
+          "score": 0
+        },
+        "result": "0-0 (7-6 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 7,
+          "away": 6
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Zamalek SC",
+        "id": 1040
       }
     },
     "541": {
@@ -811,6 +2760,44 @@
         "detected_by": "api-sports-cup-winner",
         "detected_at": "2026-02-06T12:18:24.762Z",
         "confidence": "high"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:51.763Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-02-28T00:30:00+00:00",
+        "venue": "Estádio Olímpico Nilton Santos",
+        "city": "Rio de Janeiro",
+        "homeTeam": {
+          "name": "Botafogo",
+          "id": 120,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Racing Club",
+          "id": 436,
+          "score": 2
+        },
+        "result": "0-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Botafogo",
+        "id": 120
       }
     },
     "544": {
@@ -826,6 +2813,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Rangers vs Eastern, 1-3, 2025-05-31"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:52.136Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-05-31T07:00:00+00:00",
+        "venue": "Mong Kok Stadium",
+        "city": "Hong Kong",
+        "homeTeam": {
+          "name": "Rangers",
+          "id": 4459,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Eastern",
+          "id": 4451,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Rangers",
+        "id": 4459
       }
     },
     "545": {
@@ -841,6 +2866,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Goa vs Jamshedpur, 3-0, 2025-05-03"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:52.508Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-05-03T14:00:00+00:00",
+        "venue": "Kalinga Stadium",
+        "city": "Bhubaneswar",
+        "homeTeam": {
+          "name": "Goa",
+          "id": 3475,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Jamshedpur",
+          "id": 3476,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Jamshedpur",
+        "id": 3476
       }
     },
     "547": {
@@ -856,6 +2919,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Napoli vs Bologna, 2-0, 2025-12-22"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:52.881Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-22T19:00:00+00:00",
+        "venue": "King Saud University Stadium",
+        "city": "Riyadh",
+        "homeTeam": {
+          "name": "Napoli",
+          "id": 492,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Bologna",
+          "id": 500,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Bologna",
+        "id": 500
       }
     },
     "548": {
@@ -871,6 +2972,44 @@
         "detected_at": "2026-02-06T22:59:07.165Z",
         "confidence": "high",
         "note": "Kawasaki Frontale vs Vissel Kobe, 1-0, 2024-02-17 (Final)"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:53.251Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2024,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-02-17T04:35:00+00:00",
+        "venue": "Japan National Stadium",
+        "city": "Tokyo",
+        "homeTeam": {
+          "name": "Vissel Kobe",
+          "id": 289,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Kawasaki Frontale",
+          "id": 294,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Vissel Kobe",
+        "id": 289
       }
     },
     "550": {
@@ -886,6 +3025,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Sporting CP vs Benfica, 0-1, 2025-07-31"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:32:53.618Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-31T19:45:00+00:00",
+        "venue": "Estádio Do Algarve",
+        "city": "Almancil",
+        "homeTeam": {
+          "name": "Sporting CP",
+          "id": 228,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Benfica",
+          "id": 211,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Sporting CP",
+        "id": 228
       }
     },
     "551": {
@@ -901,6 +3078,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Galatasaray vs Fenerbahçe, 0-2, 2026-01-10"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:03.990Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-10T15:45:00+00:00",
+        "venue": "Atatürk Olympic Stadium",
+        "city": "Istanbul",
+        "homeTeam": {
+          "name": "Galatasaray",
+          "id": 645,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Fenerbahçe",
+          "id": 611,
+          "score": 2
+        },
+        "result": "0-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Galatasaray",
+        "id": 645
       }
     },
     "555": {
@@ -916,6 +3131,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "FCSB vs CFR 1907 Cluj, 2-1, 2025-07-05"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:04.379Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-05T17:00:00+00:00",
+        "venue": "Stadionul Steaua",
+        "city": "București",
+        "homeTeam": {
+          "name": "FCSB",
+          "id": 559,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "CFR 1907 Cluj",
+          "id": 2246,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "CFR 1907 Cluj",
+        "id": 2246
       }
     },
     "556": {
@@ -931,6 +3184,44 @@
         "detected_at": "2026-02-06T23:03:34.551Z",
         "confidence": "high",
         "note": "Fixed from Inter to Barcelona"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:04.749Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-11T19:00:00+00:00",
+        "venue": "King Abdullah Sports City",
+        "city": "Jeddah",
+        "homeTeam": {
+          "name": "Barcelona",
+          "id": 529,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Real Madrid",
+          "id": 541,
+          "score": 2
+        },
+        "result": "3-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Real Madrid",
+        "id": 541
       }
     },
     "612": {
@@ -946,6 +3237,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Bahia vs Confiança, 5-0, 2025-09-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:05.119Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-06T20:30:00+00:00",
+        "venue": "Casa de Apostas Arena Fonte Nova",
+        "city": "Salvador, Bahia",
+        "homeTeam": {
+          "name": "Bahia",
+          "id": 118,
+          "score": 5
+        },
+        "awayTeam": {
+          "name": "Confiança",
+          "id": 7772,
+          "score": 0
+        },
+        "result": "5-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Confiança",
+        "id": 7772
       }
     },
     "632": {
@@ -961,6 +3290,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Botafogo vs Flamengo, 1-3, 2025-02-02"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:05.488Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-02-02T19:00:00+00:00",
+        "venue": "Estádio Estadual Jornalista Edgar Augusto Proença",
+        "city": "Belém, Pará",
+        "homeTeam": {
+          "name": "Botafogo",
+          "id": 120,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Flamengo",
+          "id": 127,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Botafogo",
+        "id": 120
       }
     },
     "639": {
@@ -976,6 +3343,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Breidablik vs KA Akureyri, 3-1, 2025-03-30"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:05.860Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-03-30T16:15:00+00:00",
+        "venue": "Kópavogsvöllur",
+        "city": "Kópavogur",
+        "homeTeam": {
+          "name": "Breidablik",
+          "id": 276,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "KA Akureyri",
+          "id": 272,
+          "score": 1
+        },
+        "result": "3-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "KA Akureyri",
+        "id": 272
       }
     },
     "656": {
@@ -991,6 +3396,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Levski Sofia vs Ludogorets, 0-1, 2026-02-03"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:06.229Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-02-03T16:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Levski Sofia",
+          "id": 646,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Ludogorets",
+          "id": 566,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Levski Sofia",
+        "id": 646
       }
     },
     "657": {
@@ -1006,6 +3449,18 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Elva vs Tallinna Kalev, 1-2, 2025-10-30"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:06.601Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "658": {
@@ -1021,6 +3476,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Riga vs Auda, 1-2, 2025-10-29"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:06.973Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-29T17:45:00+00:00",
+        "venue": "Skonto stadions",
+        "city": "Riga",
+        "homeTeam": {
+          "name": "Riga",
+          "id": 10124,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Auda",
+          "id": 4135,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Riga",
+        "id": 10124
       }
     },
     "659": {
@@ -1035,6 +3528,44 @@
         "detected_by": "api-sports-cup-winner",
         "detected_at": "2026-02-06T12:18:24.840Z",
         "confidence": "high"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:07.345Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-13T16:30:00+00:00",
+        "venue": "Bloomfield Stadium",
+        "city": "Tel-Aviv",
+        "homeTeam": {
+          "name": "Maccabi Tel Aviv",
+          "id": 604,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Hapoel Beer Sheva",
+          "id": 563,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Maccabi Tel Aviv",
+        "id": 604
       }
     },
     "661": {
@@ -1050,6 +3581,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Panevėžys vs Hegelmann Litauen, 1-0, 2025-09-28"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:07.712Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-28T13:00:00+00:00",
+        "venue": "Jonavos centrinis stadionas",
+        "city": "Jonava",
+        "homeTeam": {
+          "name": "Panevėžys",
+          "id": 3874,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Hegelmann Litauen",
+          "id": 3861,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Hegelmann Litauen",
+        "id": 3861
       }
     },
     "663": {
@@ -1065,6 +3634,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "FC Krasnodar vs CSKA Moscow, 0-1, 2025-07-12"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:08.081Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-12T15:00:00+00:00",
+        "venue": "Ak Bars Arena",
+        "city": "Kazan'",
+        "homeTeam": {
+          "name": "FC Krasnodar",
+          "id": 621,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "CSKA Moscow",
+          "id": 555,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "FC Krasnodar",
+        "id": 621
       }
     },
     "672": {
@@ -1080,6 +3687,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Saburtalo vs Dila, 1-3, 2025-12-10"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:08.461Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-10T15:00:00+00:00",
+        "venue": "Mikheil Meskhi Stadium",
+        "city": "Tbilisi",
+        "homeTeam": {
+          "name": "Saburtalo",
+          "id": 3502,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Dila",
+          "id": 3499,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Saburtalo",
+        "id": 3502
       }
     },
     "708": {
@@ -1095,6 +3740,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Egnatia Rrogozhinë vs Dinamo Tirana, 1-3, 2025-12-28"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:08.832Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-28T18:00:00+00:00",
+        "venue": "Air Albania Stadium",
+        "city": "Tirana",
+        "homeTeam": {
+          "name": "Egnatia Rrogozhinë",
+          "id": 3327,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Dinamo Tirana",
+          "id": 3326,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Egnatia Rrogozhinë",
+        "id": 3327
       }
     },
     "719": {
@@ -1110,6 +3793,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al Arabi vs Al Qadsia, 3-4, 2026-01-28"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:09.202Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-02-01T16:30:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Al Kuwait",
+          "id": 3535,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Al Qadsia",
+          "id": 3537,
+          "score": 1
+        },
+        "result": "1-1 (3-4 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 3,
+          "away": 4
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Al Kuwait",
+        "id": 3535
       }
     },
     "720": {
@@ -1125,6 +3846,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al Kuwait vs Al Arabi, 2-0, 2025-12-23"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:09.572Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-23T15:45:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Al Kuwait",
+          "id": 3535,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Al Arabi",
+          "id": 3532,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Al Arabi",
+        "id": 3532
       }
     },
     "723": {
@@ -1140,6 +3899,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Dečić vs Sutjeska, 2-1, 2025-11-26"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:09.941Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-26T14:00:00+00:00",
+        "venue": "Tusko",
+        "city": "Tuzi",
+        "homeTeam": {
+          "name": "Dečić",
+          "id": 3745,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Sutjeska",
+          "id": 673,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Sutjeska",
+        "id": 673
       }
     },
     "735": {
@@ -1155,6 +3952,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Ourense CF vs Orihuela, 3-0, 2025-11-08"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:10.311Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-08T17:30:00+00:00",
+        "venue": "Estadio de O Couto",
+        "city": "",
+        "homeTeam": {
+          "name": "Ourense CF",
+          "id": 9612,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Orihuela",
+          "id": 9404,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Orihuela",
+        "id": 9404
       }
     },
     "738": {
@@ -1170,6 +4005,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Cambrian & Clydach vs Barry Town, 0-3, 2025-12-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:10.680Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-04T20:00:00+00:00",
+        "venue": "The Ogi Bridge Meadow Stadium",
+        "city": "Hwlffordd / Haverfordwest, Pembrokeshie",
+        "homeTeam": {
+          "name": "Haverfordwest County AFC",
+          "id": 2194,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Barry Town",
+          "id": 361,
+          "score": 2
+        },
+        "result": "0-2 (null-null pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Haverfordwest County AFC",
+        "id": 2194
       }
     },
     "742": {
@@ -1185,6 +4058,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "XV de Piracicaba vs Primavera SP, 2-0, 2025-10-11"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:11.052Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-11T21:00:00+00:00",
+        "venue": "Estadio Municipal Barao de Serra Negra",
+        "city": "Piracicaba",
+        "homeTeam": {
+          "name": "XV de Piracicaba",
+          "id": 7870,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Primavera SP",
+          "id": 10039,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Primavera SP",
+        "id": 10039
       }
     },
     "772": {
@@ -1200,6 +4111,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Seattle Sounders vs Inter Miami, 3-0, 2025-09-01"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:21.426Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-01T00:00:00+00:00",
+        "venue": "Lumen Field",
+        "city": "Seattle, Washington",
+        "homeTeam": {
+          "name": "Seattle Sounders",
+          "id": 1595,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Inter Miami",
+          "id": 9568,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Inter Miami",
+        "id": 9568
       }
     },
     "802": {
@@ -1215,6 +4164,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Pakhtakor vs Buxoro, 1-0, 2025-10-29"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:21.968Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-29T13:30:00+00:00",
+        "venue": "Bobur Arena",
+        "city": "Andijan",
+        "homeTeam": {
+          "name": "Pakhtakor",
+          "id": 4220,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Buxoro",
+          "id": 4211,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Buxoro",
+        "id": 4211
       }
     },
     "810": {
@@ -1230,6 +4217,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Velez Sarsfield vs Central Cordoba de Santiago, 2-0, 2025-09-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:22.340Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-06T19:00:00+00:00",
+        "venue": "Estadio Jose Amalfitani",
+        "city": "",
+        "homeTeam": {
+          "name": "Velez Sarsfield",
+          "id": 438,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Central Cordoba de Santiago",
+          "id": 1065,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Central Cordoba de Santiago",
+        "id": 1065
       }
     },
     "812": {
@@ -1245,6 +4270,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Neman vs Dinamo Minsk, 0-2, 2025-02-22"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:22.710Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-02-22T11:00:00+00:00",
+        "venue": "Stadion FK Minsk",
+        "city": "Minsk",
+        "homeTeam": {
+          "name": "Neman",
+          "id": 387,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Dinamo Minsk",
+          "id": 394,
+          "score": 2
+        },
+        "result": "0-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Neman",
+        "id": 387
       }
     },
     "814": {
@@ -1260,6 +4323,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Valur Reykjavik vs KR Reykjavik, 0-3, 2025-01-30"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:23.082Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-01-30T20:00:00+00:00",
+        "venue": "Egilshöll",
+        "city": "Reykjavík",
+        "homeTeam": {
+          "name": "Valur Reykjavik",
+          "id": 274,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "KR Reykjavik",
+          "id": 271,
+          "score": 3
+        },
+        "result": "0-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Valur Reykjavik",
+        "id": 274
       }
     },
     "815": {
@@ -1275,6 +4376,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Vikingur Olafsiik vs Tindastóll, 2-0, 2025-09-26"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:23.454Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-26T19:15:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Vikingur Olafsiik",
+          "id": 828,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Tindastóll",
+          "id": 4168,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Tindastóll",
+        "id": 4168
       }
     },
     "816": {
@@ -1290,6 +4429,18 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Shabab Al Ordon vs Al Salt, 1-2, 2025-12-28"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:23.825Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "818": {
@@ -1305,6 +4456,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Kairat Almaty vs Aktobe, 2-0, 2025-02-22"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:24.195Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-02-22T10:00:00+00:00",
+        "venue": "Astana Arena",
+        "city": "Astana",
+        "homeTeam": {
+          "name": "Kairat Almaty",
+          "id": 664,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Aktobe",
+          "id": 4563,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Aktobe",
+        "id": 4563
       }
     },
     "824": {
@@ -1320,6 +4509,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al-Rayyan SC vs Al-Gharafa, 1-2, 2025-05-24"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:24.567Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-05-24T16:00:00+00:00",
+        "venue": "Khalifa International Stadium",
+        "city": "Ar-Rayyan",
+        "homeTeam": {
+          "name": "Al-Rayyan SC",
+          "id": 2897,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Al-Gharafa",
+          "id": 2903,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Al-Rayyan SC",
+        "id": 2897
       }
     },
     "826": {
@@ -1335,6 +4562,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al-Nassr vs Al-Hilal Saudi FC, 1-4, 2024-08-17"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:24.938Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-08-17T16:15:00+00:00",
+        "venue": "Prince Sultan bin Abdulaziz Sports City Stadium",
+        "city": "Abha",
+        "homeTeam": {
+          "name": "Al-Nassr",
+          "id": 2939,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Al-Hilal Saudi FC",
+          "id": 2932,
+          "score": 4
+        },
+        "result": "1-4 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Al-Nassr",
+        "id": 2939
       }
     },
     "830": {
@@ -1350,6 +4615,44 @@
         "detected_at": "2026-02-06T22:41:44.674Z",
         "confidence": "high",
         "note": "Nasaf vs Andijan, 1-0, 2025-05-27"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:25.309Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2024,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-05-27T14:30:00+00:00",
+        "venue": "Milliy Stadion",
+        "city": "Tashkent",
+        "homeTeam": {
+          "name": "Nasaf",
+          "id": 4215,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Andijan",
+          "id": 4209,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Andijan",
+        "id": 4209
       }
     },
     "831": {
@@ -1365,6 +4668,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Nam Dinh vs Thanh Hóa, 3-0, 2024-08-31"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:25.685Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-08-31T11:00:00+00:00",
+        "venue": "Sân vận động Thiên Trường",
+        "city": "Nam Dinh",
+        "homeTeam": {
+          "name": "Nam Dinh",
+          "id": 3674,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Thanh Hóa",
+          "id": 3680,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Thanh Hóa",
+        "id": 3680
       }
     },
     "837": {
@@ -1380,6 +4721,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Lions Gibraltar vs Magpies, 1-3, 2025-03-29"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:26.058Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-03-29T14:00:00+00:00",
+        "venue": "Europa Point Stadium",
+        "city": "Gibraltar",
+        "homeTeam": {
+          "name": "Lions Gibraltar",
+          "id": 16133,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Magpies",
+          "id": 16135,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Lions Gibraltar",
+        "id": 16133
       }
     },
     "838": {
@@ -1395,6 +4774,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al Hussein vs Al Wihdat, 1-0, 2025-07-25"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:26.432Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-25T17:00:00+00:00",
+        "venue": "Al Hasan Stadium",
+        "city": "Irbid",
+        "homeTeam": {
+          "name": "Al Hussein",
+          "id": 4532,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Al Wihdat",
+          "id": 4537,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Al Wihdat",
+        "id": 4537
       }
     },
     "842": {
@@ -1410,6 +4827,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Club Nacional vs Penarol, 2-1, 2025-01-26"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:26.800Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-01-26T23:30:00+00:00",
+        "venue": "Estadio Centenario",
+        "city": "Montevideo",
+        "homeTeam": {
+          "name": "Club Nacional",
+          "id": 2356,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Penarol",
+          "id": 2348,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Penarol",
+        "id": 2348
       }
     },
     "857": {
@@ -1425,6 +4880,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Club America vs Toluca, 1-3, 2025-07-21"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:27.173Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-21T01:15:00+00:00",
+        "venue": "Estadio Azteca",
+        "city": "",
+        "homeTeam": {
+          "name": "Club America",
+          "id": 2287,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Toluca",
+          "id": 2281,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Club America",
+        "id": 2287
       }
     },
     "859": {
@@ -1440,6 +4933,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Angola vs South Africa, 3-0, 2025-06-15"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:27.548Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-06-15T13:00:00+00:00",
+        "venue": "Estadio Nacional do Chiazi",
+        "city": "",
+        "homeTeam": {
+          "name": "Angola",
+          "id": 1529,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "South Africa",
+          "id": 1531,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "South Africa",
+        "id": 1531
       }
     },
     "860": {
@@ -1455,6 +4986,44 @@
         "detected_at": "2026-02-06T23:03:34.921Z",
         "confidence": "high",
         "note": "Fixed from Jordan to Morocco"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:27.920Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-18T16:00:00+00:00",
+        "venue": "Lusail Iconic Stadium",
+        "city": "Lusail",
+        "homeTeam": {
+          "name": "Jordan",
+          "id": 1548,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Morocco",
+          "id": 31,
+          "score": 3
+        },
+        "result": "2-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Jordan",
+        "id": 1548
       }
     },
     "863": {
@@ -1470,6 +5039,44 @@
         "detected_at": "2026-02-06T23:03:35.290Z",
         "confidence": "high",
         "note": "Fixed from Al Ramtha to Al Faisaly"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:28.289Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-22T15:30:00+00:00",
+        "venue": "Amman International Stadium",
+        "city": "Amman",
+        "homeTeam": {
+          "name": "Al Faisaly",
+          "id": 4531,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Shabab Al Ordon",
+          "id": 4539,
+          "score": 0
+        },
+        "result": "0-0 (5-4 pen)",
+        "round": "Quarter-finals",
+        "penalties": {
+          "home": 5,
+          "away": 4
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Shabab Al Ordon",
+        "id": 4539
       }
     },
     "866": {
@@ -1485,6 +5092,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "MLS All-Stars vs Liga MX All-Stars, 3-1, 2025-07-24"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:28.660Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-24T01:00:00+00:00",
+        "venue": "Q2 Stadium",
+        "city": "Austin, Texas",
+        "homeTeam": {
+          "name": "MLS All-Stars",
+          "id": 17665,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Liga MX All-Stars",
+          "id": 17664,
+          "score": 1
+        },
+        "result": "3-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Liga MX All-Stars",
+        "id": 17664
       }
     },
     "869": {
@@ -1500,6 +5145,44 @@
         "detected_at": "2026-02-06T17:38:59.069Z",
         "confidence": "high",
         "note": "Hay Al Wadi vs Red Arrows, 0-2, 2024-07-19"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:39.035Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2024-07-21T16:00:00+00:00",
+        "venue": "Azam Complex Stadium",
+        "city": "Mbagala",
+        "homeTeam": {
+          "name": "APR",
+          "id": 5309,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Red Arrows",
+          "id": 5213,
+          "score": 1
+        },
+        "result": "1-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "APR",
+        "id": 5309
       }
     },
     "874": {
@@ -1515,6 +5198,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Avondale vs Newcastle Jets, 2-4, 2025-08-31"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:39.442Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-04T09:40:00+00:00",
+        "venue": "Lakeside Stadium",
+        "city": "Melbourne",
+        "homeTeam": {
+          "name": "Heidelberg United",
+          "id": 3803,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Newcastle Jets",
+          "id": 946,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Heidelberg United",
+        "id": 3803
       }
     },
     "884": {
@@ -1530,6 +5251,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Virtus vs Tre Fiori, 1-0, 2025-12-23"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:39.814Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-23T19:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Virtus",
+          "id": 5308,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Tre Fiori",
+          "id": 2260,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Tre Fiori",
+        "id": 2260
       }
     },
     "885": {
@@ -1545,6 +5304,44 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Los Angeles Galaxy vs Toluca, 2-3, 2025-10-02"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:40.184Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-02T02:30:00+00:00",
+        "venue": "Dignity Health Sports Park",
+        "city": "",
+        "homeTeam": {
+          "name": "Los Angeles Galaxy",
+          "id": 1605,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Toluca",
+          "id": 2281,
+          "score": 3
+        },
+        "result": "2-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Los Angeles Galaxy",
+        "id": 1605
       }
     },
     "898": {
@@ -1560,6 +5357,18 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Port FC vs Ayutthaya FC, 2-1, 2026-01-28"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:40.559Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "901": {
@@ -1575,6 +5384,44 @@
         "detected_at": "2026-02-06T23:03:35.660Z",
         "confidence": "high",
         "note": "Fixed from Turku PS to JIPPO"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:40.928Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-04-04T15:30:00+00:00",
+        "venue": "Veritas Stadion",
+        "city": "Åbo",
+        "homeTeam": {
+          "name": "Turku PS",
+          "id": 1168,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "JIPPO",
+          "id": 9172,
+          "score": 0
+        },
+        "result": "0-0 (0-1 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 0,
+          "away": 1
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Turku PS",
+        "id": 1168
       }
     },
     "903": {
@@ -1590,6 +5437,18 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Brondby vs Rosenborg, 3-2, 2025-02-07"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:41.301Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "905": {
@@ -1605,6 +5464,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Tractor Sazi vs Esteghlal FC, 2-1, 2025-08-11"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:41.672Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-11T16:00:00+00:00",
+        "venue": "Naghsh-e-Jahan Stadium",
+        "city": "Esfahān (Isfahan)",
+        "homeTeam": {
+          "name": "Tractor Sazi",
+          "id": 2737,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Esteghlal FC",
+          "id": 2733,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Esteghlal FC",
+        "id": 2733
       }
     },
     "924": {
@@ -1620,6 +5517,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Oxford United vs Port FC, 1-2, 2025-07-13"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:42.045Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-13T12:30:00+00:00",
+        "venue": "Kassem Stadium",
+        "city": "",
+        "homeTeam": {
+          "name": "Oxford United",
+          "id": 1338,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Port FC",
+          "id": 2789,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Oxford United",
+        "id": 1338
       }
     },
     "930": {
@@ -1635,6 +5570,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Penarol vs Plaza Colonia, 2-0, 2025-10-29"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:42.415Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-29T23:30:00+00:00",
+        "venue": "Estadio Centenario",
+        "city": "Montevideo",
+        "homeTeam": {
+          "name": "Penarol",
+          "id": 2348,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Plaza Colonia",
+          "id": 2355,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Plaza Colonia",
+        "id": 2355
       }
     },
     "937": {
@@ -1650,6 +5623,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Arsenal vs Athletic Club, 3-0, 2025-08-09"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:42.788Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-09T16:00:00+00:00",
+        "venue": "Emirates Stadium",
+        "city": "London",
+        "homeTeam": {
+          "name": "Arsenal",
+          "id": 42,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Athletic Club",
+          "id": 531,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Athletic Club",
+        "id": 531
       }
     },
     "959": {
@@ -1665,6 +5676,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Home United vs Balestier Khalsa, 1-0, 2025-12-20"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:43.158Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2026-01-10T11:30:00+00:00",
+        "venue": "Jalan Besar Stadium",
+        "city": "Singapore",
+        "homeTeam": {
+          "name": "Home United",
+          "id": 4204,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Tampines Rovers",
+          "id": 4206,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Tampines Rovers",
+        "id": 4206
       }
     },
     "961": {
@@ -1680,6 +5729,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "General Caballero vs Cerro Porteno, 2-5, 2025-12-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:43.528Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-06T21:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "General Caballero",
+          "id": 1181,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Cerro Porteno",
+          "id": 1176,
+          "score": 5
+        },
+        "result": "2-5 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "General Caballero",
+        "id": 1181
       }
     },
     "964": {
@@ -1695,6 +5782,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Bolívar vs Nacional Potosí, 1-4, 2025-12-22"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:43.897Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-22T23:00:00+00:00",
+        "venue": "Estadio Hernando Siles",
+        "city": "La Paz",
+        "homeTeam": {
+          "name": "Bolívar",
+          "id": 3702,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Nacional Potosí",
+          "id": 3706,
+          "score": 4
+        },
+        "result": "1-4 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Bolívar",
+        "id": 3702
       }
     },
     "971": {
@@ -1710,6 +5835,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "GOR Mahia vs Nairobi United, 1-2, 2025-06-29"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:44.274Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-06-29T12:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "GOR Mahia",
+          "id": 2467,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Nairobi United",
+          "id": 22231,
+          "score": 2
+        },
+        "result": "1-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "GOR Mahia",
+        "id": 2467
       }
     },
     "972": {
@@ -1725,6 +5888,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "SHANGHAI SIPG vs Shanghai Shenhua, 2-3, 2025-02-07"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:44.645Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-02-07T11:35:00+00:00",
+        "venue": "Kunshan Olympic Sports Center",
+        "city": "Kunshan",
+        "homeTeam": {
+          "name": "SHANGHAI SIPG",
+          "id": 836,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Shanghai Shenhua",
+          "id": 833,
+          "score": 3
+        },
+        "result": "2-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "SHANGHAI SIPG",
+        "id": 836
       }
     },
     "1008": {
@@ -1740,6 +5941,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Uzbekistan vs Kyrgyzstan, 4-0, 2025-09-05"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:45.014Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-08T14:30:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Iran",
+          "id": 22,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Uzbekistan",
+          "id": 1568,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Iran",
+        "id": 22
       }
     },
     "1035": {
@@ -1755,6 +5994,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Portuguesa RJ vs América RJ, 2-0, 2025-09-20"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:45.384Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-20T21:00:00+00:00",
+        "venue": "Estádio Luso-Brasileiro",
+        "city": "Rio de Janeiro, Rio de Janeiro",
+        "homeTeam": {
+          "name": "Portuguesa RJ",
+          "id": 7835,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "América RJ",
+          "id": 13104,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "América RJ",
+        "id": 13104
       }
     },
     "1036": {
@@ -1770,6 +6047,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Figueirense vs Joinville, 2-1, 2025-11-23"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:45.757Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-23T19:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Figueirense",
+          "id": 137,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Joinville",
+          "id": 795,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Joinville",
+        "id": 795
       }
     },
     "1038": {
@@ -1785,6 +6100,44 @@
         "detected_at": "2026-02-06T17:38:59.071Z",
         "confidence": "high",
         "note": "Thailand vs Iraq, 0-1, 2025-09-07"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:46.129Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-07T13:00:00+00:00",
+        "venue": "Kanchanaburi Provincial Stadium",
+        "city": "Kanchanaburi",
+        "homeTeam": {
+          "name": "Thailand",
+          "id": 1564,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Iraq",
+          "id": 1567,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Thailand",
+        "id": 1564
       }
     },
     "1042": {
@@ -1800,6 +6153,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Lincoln Red Imps FC vs Magpies, 3-0, 2025-08-17"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:56.502Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-17T19:00:00+00:00",
+        "venue": "Europa Point Stadium",
+        "city": "Gibraltar",
+        "homeTeam": {
+          "name": "Lincoln Red Imps FC",
+          "id": 667,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Magpies",
+          "id": 16135,
+          "score": 0
+        },
+        "result": "3-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Magpies",
+        "id": 16135
       }
     },
     "1044": {
@@ -1815,6 +6206,18 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "Portalban / Gletterens vs Solothurn, 2-0, 2025-10-19"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:56.896Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "1089": {
@@ -1830,6 +6233,44 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Al Sadd vs Al-Wasl FC, 0-1, 2025-01-18"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:57.270Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-01-18T16:00:00+00:00",
+        "venue": "Jassim Bin Hamad Stadium",
+        "city": "Doha",
+        "homeTeam": {
+          "name": "Al Sadd",
+          "id": 2895,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Al-Wasl FC",
+          "id": 2872,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Al Sadd",
+        "id": 2895
       }
     },
     "1095": {
@@ -1845,6 +6286,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Sacramento Republic vs Hartford Athletic, 0-1, 2025-10-05"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:57.641Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-05T02:00:00+00:00",
+        "venue": "Heart Health Park",
+        "city": "Sacramento, California",
+        "homeTeam": {
+          "name": "Sacramento Republic",
+          "id": 4015,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Hartford Athletic",
+          "id": 3995,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Sacramento Republic",
+        "id": 4015
       }
     },
     "1097": {
@@ -1860,6 +6339,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Porto Vitória vs Vitória ES, 1-3, 2025-08-03"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:58.013Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-03T20:00:00+00:00",
+        "venue": "Estádio Kleber José de Andrade",
+        "city": "Cariacica, Espírito Santo",
+        "homeTeam": {
+          "name": "Porto Vitória",
+          "id": 20717,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Vitória ES",
+          "id": 7837,
+          "score": 3
+        },
+        "result": "1-3 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Porto Vitória",
+        "id": 20717
       }
     },
     "1123": {
@@ -1875,6 +6392,44 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Al Nasr vs Qatar SC, 5-1, 2025-01-17"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:58.380Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-01-17T16:00:00+00:00",
+        "venue": "Al Maktoum Stadium",
+        "city": "Dubai",
+        "homeTeam": {
+          "name": "Al Nasr",
+          "id": 10155,
+          "score": 5
+        },
+        "awayTeam": {
+          "name": "Qatar SC",
+          "id": 2907,
+          "score": 1
+        },
+        "result": "5-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Qatar SC",
+        "id": 2907
       }
     },
     "1127": {
@@ -1890,6 +6445,44 @@
         "detected_at": "2026-02-06T17:38:59.075Z",
         "confidence": "high",
         "note": "Auckland United vs Wellington Olympic, 2-4, 2025-09-07"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:58.751Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-07T01:00:00+00:00",
+        "venue": "North Harbour Stadium",
+        "city": "North Shore",
+        "homeTeam": {
+          "name": "Auckland United",
+          "id": 20649,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Wellington Olympic",
+          "id": 20646,
+          "score": 4
+        },
+        "result": "2-4 (null-null pen)",
+        "round": "Finals",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Auckland United",
+        "id": 20649
       }
     },
     "1144": {
@@ -1905,6 +6498,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Bibiani Gold Stars vs Asante Kotoko, 0-1, 2025-08-31"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:59.121Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-31T15:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Bibiani Gold Stars",
+          "id": 17993,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Asante Kotoko",
+          "id": 6411,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Bibiani Gold Stars",
+        "id": 17993
       }
     },
     "1158": {
@@ -1920,6 +6551,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Brasil DE Pelotas vs Aimoré, 2-0, 2025-11-30"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:59.493Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-30T22:00:00+00:00",
+        "venue": "Unknown",
+        "city": "Pelotas",
+        "homeTeam": {
+          "name": "Brasil DE Pelotas",
+          "id": 141,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Aimoré",
+          "id": 7767,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Aimoré",
+        "id": 7767
       }
     },
     "1164": {
@@ -1935,6 +6604,44 @@
         "detected_at": "2026-02-06T23:03:36.030Z",
         "confidence": "high",
         "note": "Fixed from AS FAR to FAR Rabat W"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:33:59.865Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-21T17:00:00+00:00",
+        "venue": "Suez Canal Stadium",
+        "city": "Ismailia",
+        "homeTeam": {
+          "name": "FAR Rabat W",
+          "id": 25379,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "ASEC Mimosas W",
+          "id": 27013,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "ASEC Mimosas W",
+        "id": 27013
       }
     },
     "1165": {
@@ -1950,6 +6657,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Maracanã vs Tirol/CEFAT, 2-1, 2025-12-05"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:00.239Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-05T22:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "Maracanã",
+          "id": 13089,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Tirol/CEFAT",
+          "id": 18799,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Tirol/CEFAT",
+        "id": 18799
       }
     },
     "1167": {
@@ -1965,6 +6710,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "CS Herediano vs LD Alajuelense, 0-1, 2025-07-20"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:00.612Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-20T22:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "CS Herediano",
+          "id": 815,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "LD Alajuelense",
+          "id": 822,
+          "score": 1
+        },
+        "result": "0-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "CS Herediano",
+        "id": 815
       }
     },
     "1168": {
@@ -1980,6 +6763,44 @@
         "detected_at": "2026-02-06T23:03:36.400Z",
         "confidence": "high",
         "note": "Fixed from Flamengo to Paris Saint Germain"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:00.996Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-17T17:00:00+00:00",
+        "venue": "Ahmad bin Ali Stadium",
+        "city": "Al Rayyan",
+        "homeTeam": {
+          "name": "Paris Saint Germain",
+          "id": 85,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Flamengo",
+          "id": 127,
+          "score": 1
+        },
+        "result": "1-1 (2-1 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 2,
+          "away": 1
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Flamengo",
+        "id": 127
       }
     },
     "1172": {
@@ -1995,6 +6816,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Bolívar vs Blooming, 5-0, 2025-03-16"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:01.375Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-03-16T21:30:00+00:00",
+        "venue": "Estadio Hernando Siles",
+        "city": "La Paz",
+        "homeTeam": {
+          "name": "Bolívar",
+          "id": 3702,
+          "score": 5
+        },
+        "awayTeam": {
+          "name": "Blooming",
+          "id": 3701,
+          "score": 0
+        },
+        "result": "5-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Blooming",
+        "id": 3701
       }
     },
     "1176": {
@@ -2010,6 +6869,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Rīgas FS vs Riga, 3-1, 2025-03-01"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:01.745Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-03-01T12:00:00+00:00",
+        "venue": "LNK Sporta Parks",
+        "city": "Riga",
+        "homeTeam": {
+          "name": "Rīgas FS",
+          "id": 4160,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Riga",
+          "id": 10124,
+          "score": 1
+        },
+        "result": "3-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Riga",
+        "id": 10124
       }
     },
     "1178": {
@@ -2025,6 +6922,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Estudiantes L.P. vs Velez Sarsfield, 0-2, 2025-07-08"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:02.125Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-08T23:30:00+00:00",
+        "venue": "Estadio Libertadores de América",
+        "city": "Avellaneda, Provincia de Buenos Aires",
+        "homeTeam": {
+          "name": "Estudiantes L.P.",
+          "id": 450,
+          "score": 0
+        },
+        "awayTeam": {
+          "name": "Velez Sarsfield",
+          "id": 438,
+          "score": 2
+        },
+        "result": "0-2 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Estudiantes L.P.",
+        "id": 450
       }
     },
     "1180": {
@@ -2040,6 +6975,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Cibao vs Delfines Del Este, 1-0, 2025-05-24"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:02.510Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-05-24T22:00:00+00:00",
+        "venue": "Estadio Cibao",
+        "city": "Santiago De Los Caballeros",
+        "homeTeam": {
+          "name": "Cibao",
+          "id": 8004,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Delfines Del Este",
+          "id": 16139,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Championship - Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Delfines Del Este",
+        "id": 16139
       }
     },
     "1184": {
@@ -2055,6 +7028,44 @@
         "detected_at": "2026-02-06T23:03:36.770Z",
         "confidence": "high",
         "note": "Fixed from Tuna Luso to Águia de Marabá"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:02.886Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-04-12T19:00:00+00:00",
+        "venue": "Estádio Estadual Jornalista Edgar Augusto Proença",
+        "city": "Belém, Pará",
+        "homeTeam": {
+          "name": "Tuna Luso",
+          "id": 15611,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Águia de Marabá",
+          "id": 7879,
+          "score": 1
+        },
+        "result": "1-1 (0-1 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 0,
+          "away": 1
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Tuna Luso",
+        "id": 15611
       }
     },
     "1187": {
@@ -2070,6 +7081,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Diriangén vs Real Estelí, 2-1, 2025-07-16"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:03.257Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-07-16T02:00:00+00:00",
+        "venue": "Estadio Cacique Diriangén",
+        "city": "Diriamba",
+        "homeTeam": {
+          "name": "Diriangén",
+          "id": 4641,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Real Estelí",
+          "id": 4645,
+          "score": 1
+        },
+        "result": "2-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Real Estelí",
+        "id": 4645
       }
     },
     "1192": {
@@ -2085,6 +7134,44 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Petro de Luanda vs Kabuscorp, 3-1, 2025-09-13"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:03.631Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-09-13T15:00:00+00:00",
+        "venue": "Estádio Joaquim Dinis",
+        "city": "Luanda",
+        "homeTeam": {
+          "name": "Petro de Luanda",
+          "id": 4922,
+          "score": 3
+        },
+        "awayTeam": {
+          "name": "Kabuscorp",
+          "id": 4929,
+          "score": 1
+        },
+        "result": "3-1 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Kabuscorp",
+        "id": 4929
       }
     },
     "1194": {
@@ -2100,6 +7187,44 @@
         "detected_at": "2026-02-06T17:00:00Z",
         "confidence": "high",
         "note": "ES Tunis beat Stade Tunisien 1-0, 2025"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:14.038Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-08-03T16:15:00+00:00",
+        "venue": "Stade olympique Hammadi-Agrebi",
+        "city": "Radès",
+        "homeTeam": {
+          "name": "ES Tunis",
+          "id": 980,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "Stade Tunisien",
+          "id": 991,
+          "score": 0
+        },
+        "result": "1-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Stade Tunisien",
+        "id": 991
       }
     },
     "1197": {
@@ -2115,6 +7240,18 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al-Rustaq vs Al-Khabourah, 1-2, 2025-11-22"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:14.429Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
       }
     },
     "1201": {
@@ -2130,6 +7267,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "ATK Mohun Bagan vs United, 2-0, 2025-10-15"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:14.803Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-10-18T12:30:00+00:00",
+        "venue": "Salt Lake Stadium",
+        "city": "Kolkata",
+        "homeTeam": {
+          "name": "East Bengal II",
+          "id": 21137,
+          "score": 1
+        },
+        "awayTeam": {
+          "name": "ATK Mohun Bagan",
+          "id": 15516,
+          "score": 1
+        },
+        "result": "1-1 (4-5 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 4,
+          "away": 5
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "East Bengal II",
+        "id": 21137
       }
     },
     "1202": {
@@ -2145,6 +7320,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "South Melbourne vs Marconi Stallions, 2-0, 2025-12-06"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:15.174Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-12-06T04:00:00+00:00",
+        "venue": "Unknown",
+        "city": "",
+        "homeTeam": {
+          "name": "South Melbourne",
+          "id": 3811,
+          "score": 2
+        },
+        "awayTeam": {
+          "name": "Marconi Stallions",
+          "id": 3768,
+          "score": 0
+        },
+        "result": "2-0 (null-null pen)",
+        "round": "Final",
+        "penalties": {
+          "home": null,
+          "away": null
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "Marconi Stallions",
+        "id": 3768
       }
     },
     "1205": {
@@ -2160,6 +7373,44 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Loud vs Furia, 6-7, 2025-11-14"
+      },
+      "validation": {
+        "lastChecked": "2026-02-06T23:34:15.545Z",
+        "nextCheck": "2026-03-08",
+        "confidence": "high",
+        "method": "upcoming_matches_check",
+        "checksPerformed": 1
+      },
+      "season": {
+        "year": 2025,
+        "verifiedDate": "2026-02-06",
+        "confidence": "verified"
+      },
+      "finalMatch": {
+        "date": "2025-11-15T00:00:00+00:00",
+        "venue": "Trident Arena",
+        "city": "",
+        "homeTeam": {
+          "name": "Furia",
+          "id": 26901,
+          "score": 4
+        },
+        "awayTeam": {
+          "name": "G3X",
+          "id": 26902,
+          "score": 4
+        },
+        "result": "4-4 (3-1 pen)",
+        "round": "Final",
+        "penalties": {
+          "home": 3,
+          "away": 1
+        },
+        "overtime": true
+      },
+      "runnerUp": {
+        "name": "G3X",
+        "id": 26902
       }
     }
   }
