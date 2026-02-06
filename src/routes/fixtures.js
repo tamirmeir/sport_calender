@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const internationalWinners = require('../data/international_winners');
 const { getSeasonYear } = require('../utils/config');
+const smartCache = require('../utils/smartCache');
 
 const router = express.Router();
 
@@ -2001,6 +2002,92 @@ router.get('/tournament/:tournamentId/details', async (req, res) => {
         
     } catch (error) {
         console.error('[API] Error in tournament details:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// ================================
+// SMART CACHE MANAGEMENT ENDPOINTS
+// ================================
+
+// 📊 Cache Statistics
+router.get('/cache/stats', async (req, res) => {
+    try {
+        const stats = smartCache.getCacheStats();
+        res.json(stats);
+    } catch (error) {
+        console.error('[API] Error getting cache stats:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 🔍 Tournaments Needing Revalidation
+router.get('/cache/needs-revalidation', async (req, res) => {
+    try {
+        const tournaments = smartCache.getTournamentsNeedingRevalidation();
+        res.json({
+            count: tournaments.length,
+            tournaments
+        });
+    } catch (error) {
+        console.error('[API] Error getting tournaments needing revalidation:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 🔄 Manual Revalidation (single tournament)
+router.post('/cache/revalidate/:tournamentId', async (req, res) => {
+    try {
+        const { tournamentId } = req.params;
+        
+        console.log(`[API] Manual revalidation requested for tournament ${tournamentId}`);
+        
+        const result = await smartCache.revalidateTournament(tournamentId, footballApi);
+        
+        res.json({
+            tournamentId,
+            revalidated: true,
+            result
+        });
+    } catch (error) {
+        console.error('[API] Error revalidating tournament:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 🔄 Batch Revalidation (all tournaments needing check)
+router.post('/cache/revalidate-all', async (req, res) => {
+    try {
+        console.log('[API] Batch revalidation requested');
+        
+        const needingRevalidation = smartCache.getTournamentsNeedingRevalidation();
+        
+        if (needingRevalidation.length === 0) {
+            return res.json({
+                message: 'No tournaments need revalidation',
+                count: 0,
+                results: []
+            });
+        }
+        
+        const tournamentIds = needingRevalidation.map(t => t.id);
+        const results = await smartCache.batchRevalidate(tournamentIds, footballApi);
+        
+        const needsUpdate = results.filter(r => r.needsUpdate).length;
+        
+        res.json({
+            message: 'Batch revalidation complete',
+            totalChecked: results.length,
+            needsUpdate,
+            results: results.map((r, i) => ({
+                id: tournamentIds[i],
+                name: needingRevalidation[i].name,
+                needsUpdate: r.needsUpdate,
+                newData: r.newData
+            }))
+        });
+    } catch (error) {
+        console.error('[API] Error in batch revalidation:', error);
         res.status(500).json({ error: error.message });
     }
 });

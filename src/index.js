@@ -37,4 +37,11 @@ app.listen(PORT, () => {
         const { smartSync } = require('./scripts/sync_metadata');
         smartSync().catch(err => console.error('Sync error:', err));
     }
+    
+    // Start Smart Cache scheduler (daily revalidation at 3 AM)
+    if (process.env.ENABLE_SCHEDULER !== 'false') {
+        console.log('⏰ Starting Smart Cache scheduler...');
+        const scheduler = require('./utils/scheduler');
+        scheduler.start();
+    }
 });
