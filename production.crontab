@@ -10,6 +10,9 @@ FOOTBALL_API_KEY=placeholder_will_use_env_file
 # Weekly winner detection + Auto commit (Sunday 00:00 UTC)
 0 0 * * 0 cd /var/www/sport_calendar && /usr/bin/node src/scripts/winner_verification.js >> ~/logs/sport_calendar/winners.log 2>&1 && /usr/bin/bash src/scripts/auto_commit_winners.sh >> ~/logs/sport_calendar/commits.log 2>&1
 
+# Weekly missing tournaments detection (Monday 02:00 UTC)
+0 2 * * 1 cd /var/www/sport_calendar && /usr/bin/node src/scripts/detect_missing_winners.js >> ~/logs/sport_calendar/missing.log 2>&1
+
 # Daily health check (03:00 UTC)
 0 3 * * * cd /var/www/sport_calendar && /usr/bin/node src/scripts/health_check.js >> ~/logs/sport_calendar/health.log 2>&1
 
