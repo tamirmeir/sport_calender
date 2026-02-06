@@ -1042,16 +1042,20 @@ async function loadContinentHub() {
 
     if (definitions) {
          // Render predefined lists logic
-         renderStructuredContinent(definitions, region);
+         await renderStructuredContinent(definitions, region);
     } else {
         // Fallback to Search API "World" with filter
-        fallbackContinentSearch(region);
+        await fallbackContinentSearch(region);
     }
 }
 
-function renderStructuredContinent(defs, region) {
+async function renderStructuredContinent(defs, region) {
     leaguesGrid.innerHTML = '';
     leaguesGrid.classList.remove('cards-grid');
+
+    // Load tournament data from backend FIRST
+    const tournamentData = await loadTournamentData();
+    console.log('[CONTINENT HUB] Loaded tournament data:', Object.keys(tournamentData).length, 'tournaments');
 
     // 1. Create Tabs
     const tabsDiv = document.createElement('div');
@@ -1114,8 +1118,41 @@ function renderStructuredContinent(defs, region) {
         defs.clubs.forEach(c => {
             const card = document.createElement('div');
             card.className = 'grid-card';
-            const isVacation = c.status === 'vacation' || c.matchCount === 0 || (Array.isArray(c.matches) && c.matches.length === 0);
-            if (isVacation) {
+            
+            // Check tournament data from backend
+            const tournamentInfo = tournamentData[c.id];
+            const isFinished = tournamentInfo && tournamentInfo.status === 'finished' && tournamentInfo.winner;
+            const isVacation = !isFinished && (c.status === 'vacation' || c.matchCount === 0 || (Array.isArray(c.matches) && c.matches.length === 0));
+            
+            if (isFinished) {
+                // Finished tournament - show Golden Card with winner
+                console.log('[CONTINENT HUB] Rendering finished tournament:', c.id, c.name, 'Winner:', tournamentInfo.winner.name);
+                card.classList.add('finished-card');
+                card.style.position = 'relative';
+                card.style.cursor = 'default';
+                
+                const winnerDisplay = tournamentInfo.winner ? 
+                    `<div style="display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px;background:rgba(255,255,255,0.6);border-radius:6px;">
+                        <img src="${tournamentInfo.winner.logo}" alt="${tournamentInfo.winner.name}" style="width:24px;height:24px;object-fit:contain;" onerror="this.style.display='none'">
+                        <div style="flex:1;">
+                            <div style="font-size:0.7rem;color:#8b6914;font-weight:600;">WINNER</div>
+                            <div style="font-size:0.85rem;color:#6b5416;font-weight:700;">${tournamentInfo.winner.name}</div>
+                        </div>
+                    </div>` : '';
+                
+                card.innerHTML = `
+                    <div class="card-content" style="filter:grayscale(0.2);opacity:0.8;border:2px solid #d4af37;background:linear-gradient(135deg, #fffdf7 0%, #f9f6e8 100%);">
+                        <div style="position:absolute;top:8px;right:8px;font-size:1.5rem;">🏆</div>
+                        <img src="${getLeagueLogo(c.id)}" alt="${c.name}" style="opacity:0.75;" onerror="this.src='/favicon.svg'">
+                        <span class="league-name" style="color:#6b5416;font-weight:600;">${c.name}</span>
+                        <div style="margin-top:12px;padding:10px 14px;background:rgba(212,175,55,0.15);border-radius:8px;border:1px dashed #d4af37;">
+                            <div style="font-size:0.9rem;color:#8b6914;font-weight:700;letter-spacing:0.5px;">TOURNAMENT</div>
+                            <div style="font-size:0.85rem;color:#6b5416;margin-top:2px;">Completed</div>
+                        </div>
+                        ${winnerDisplay}
+                    </div>
+                `;
+            } else if (isVacation) {
                 card.classList.add('vacation-card');
                 card.style.position = 'relative';
                 card.innerHTML = `
@@ -1172,12 +1209,44 @@ function renderStructuredContinent(defs, region) {
 
     const natGrid = natDiv.querySelector('#cont-nat-grid');
     if (defs.national && defs.national.length > 0) {
-        defs.national.forEach(c => {
+         defs.national.forEach(c => {
              const card = document.createElement('div');
              card.className = 'grid-card';
              
-             const isVacation = c.status === 'vacation';
-             if (isVacation) {
+             // Check tournament data from backend
+             const tournamentInfo = tournamentData[c.id];
+             const isFinished = tournamentInfo && tournamentInfo.status === 'finished' && tournamentInfo.winner;
+             const isVacation = !isFinished && c.status === 'vacation';
+             
+             if (isFinished) {
+                 // Finished tournament - show Golden Card with winner
+                 console.log('[CONTINENT HUB] Rendering finished national tournament:', c.id, c.name, 'Winner:', tournamentInfo.winner.name);
+                 card.classList.add('finished-card');
+                 card.style.position = 'relative';
+                 card.style.cursor = 'default';
+                 
+                 const winnerDisplay = tournamentInfo.winner ? 
+                     `<div style="display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px;background:rgba(255,255,255,0.6);border-radius:6px;">
+                         <img src="${tournamentInfo.winner.logo}" alt="${tournamentInfo.winner.name}" style="width:24px;height:24px;object-fit:contain;" onerror="this.style.display='none'">
+                         <div style="flex:1;">
+                             <div style="font-size:0.7rem;color:#8b6914;font-weight:600;">WINNER</div>
+                             <div style="font-size:0.85rem;color:#6b5416;font-weight:700;">${tournamentInfo.winner.name}</div>
+                         </div>
+                     </div>` : '';
+                 
+                 card.innerHTML = `
+                     <div class="card-content" style="filter:grayscale(0.2);opacity:0.8;border:2px solid #d4af37;background:linear-gradient(135deg, #fffdf7 0%, #f9f6e8 100%);">
+                         <div style="position:absolute;top:8px;right:8px;font-size:1.5rem;">🏆</div>
+                         <img src="${getLeagueLogo(c.id)}" alt="${c.name}" style="opacity:0.75;" onerror="this.src='/favicon.svg'">
+                         <span class="league-name" style="color:#6b5416;font-weight:600;">${c.name}</span>
+                         <div style="margin-top:12px;padding:10px 14px;background:rgba(212,175,55,0.15);border-radius:8px;border:1px dashed #d4af37;">
+                             <div style="font-size:0.9rem;color:#8b6914;font-weight:700;letter-spacing:0.5px;">TOURNAMENT</div>
+                             <div style="font-size:0.85rem;color:#6b5416;margin-top:2px;">Completed</div>
+                         </div>
+                         ${winnerDisplay}
+                     </div>
+                 `;
+             } else if (isVacation) {
                  card.classList.add('vacation-card');
                  card.style.position = 'relative';
                  card.innerHTML = `
@@ -1189,7 +1258,7 @@ function renderStructuredContinent(defs, region) {
                  `;
              } else {
                  // Mark as competition context
-                 card.onclick = () => selectLeague(c.id, c.name, true, 'Cup'); 
+                 card.onclick = () => selectLeague(c.id, c.name, true, 'Cup');
                  card.innerHTML = `
                      <div class="card-content">
                          <img src="${getLeagueLogo(c.id)}" alt="${c.name}" onerror="this.src='/favicon.svg'">
