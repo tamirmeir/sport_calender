@@ -176,6 +176,21 @@
         "confidence": "high",
         "note": "AS FAR (Morocco) beat ASEC Mimosas 2-1 in final, November 21, 2025"
       }
+    },
+    "1194": {
+      "name": "Super Cup",
+      "country": "Tunisia",
+      "year": 2025,
+      "status": "finished",
+      "winner": {
+        "name": "ES Tunis",
+        "logo": "https://media.api-sports.io/football/teams/980.png",
+        "id": 980,
+        "detected_by": "manual-user-report",
+        "detected_at": "2026-02-06T17:00:00Z",
+        "confidence": "high",
+        "note": "ES Tunis beat Stade Tunisien 1-0, 2025"
+      }
     }
   }
 }

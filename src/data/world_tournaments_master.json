@@ -764,6 +764,55 @@
         ],
         "description": "CAF Women's Champions League"
       }
+    },
+    "1194": {
+      "name": "Tunisian Super Cup",
+      "country": "Tunisia",
+      "countryCode": "TN",
+      "region": "africa",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/1194.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-01-15",
+        "endDate": "2025-01-15",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "january_single_match",
+        "frequency": "annual",
+        "month": 1
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2025",
+        "team": "ES Tunis",
+        "teamId": 980,
+        "teamLogo": "https://media.api-sports.io/football/teams/980.png",
+        "confirmedDate": "2026-02-06T17:00:00Z",
+        "detectedBy": "manual-user-report",
+        "confidence": "high"
+      },
+      "api": {
+        "leagueId": 1194,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T17:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 8,
+        "cardType": "golden",
+        "badges": [
+          "super_cup",
+          "finished",
+          "tunisia"
+        ],
+        "description": "Tunisian Super Cup"
+      }
     }
   }
 }

@@ -112,7 +112,8 @@ const criticalTournaments = {
     '385': 'Toto Cup Ligat Al',
     '533': 'CAF Super Cup',
     '659': 'Super Cup (Israel)',
-    '1164': "CAF Women's Champions League"
+    '1164': "CAF Women's Champions League",
+    '1194': 'Super Cup (Tunisia)'
 };
 
 Object.entries(criticalTournaments).forEach(([id, name]) => {
