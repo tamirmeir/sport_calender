@@ -162,7 +162,26 @@ node src/scripts/verify_leagues.js
 
 Set `FOOTBALL_API_KEY=demo_key_12345` for mock data without API calls.
 
-## 📚 Documentation
+## � League Validation
+
+Automated validation system to ensure tournament statuses are correct:
+
+```bash
+# Validate all 975 leagues (runs in ~5 minutes)
+./src/scripts/run_validation.sh 10
+
+# Check specific batch (e.g., batch 1 of 10)
+node src/scripts/validate_leagues_batch.js 1 10
+```
+
+**What it validates:**
+- ✅ Finished tournaments are correctly marked
+- ⚠️ Leagues without fixtures (candidates for finished status)
+- ❌ Errors: Leagues marked finished but still active
+
+**Latest report**: `VALIDATION_REPORT_2026-02-05.md`
+
+## �📚 Documentation
 
 - [Architecture](docs/ARCHITECTURE.md) - System design and data flow
 - [API Data Flow](docs/API_DATA_FLOW.md) - All API endpoints and sync process

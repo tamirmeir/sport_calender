@@ -1,0 +1,575 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-02-06T14:30:00Z",
+    "version": "1.0.0",
+    "description": "Master tournament database with unified structure",
+    "coverage": {
+      "countries": 15,
+      "tournaments": 23,
+      "competitions": ["international", "super_cups", "leagues", "cups"]
+    }
+  },
+  "tournaments": {
+    "1": {
+      "name": "World Cup",
+      "country": "Global",
+      "countryCode": "FIFA",
+      "region": "global",
+      "type": "international",
+      "tier": "world",
+      "logo": "https://media.api-sports.io/football/leagues/1.png",
+      "status": {
+        "current": "finished",
+        "season": "2022",
+        "startDate": "2022-11-20",
+        "endDate": "2022-12-18",
+        "currentMatchday": 7,
+        "totalMatchdays": 7
+      },
+      "schedule": {
+        "pattern": "quadrennial",
+        "frequency": "every_4_years",
+        "month": [11, 12]
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2022",
+        "team": "Argentina",
+        "teamId": 26,
+        "teamLogo": "https://media.api-sports.io/football/teams/26.png",
+        "confirmedDate": "2022-12-18"
+      },
+      "api": {
+        "leagueId": 1,
+        "season": 2022,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 1,
+        "cardType": "golden",
+        "badges": ["world_cup", "finished", "legendary"],
+        "description": "FIFA World Cup"
+      }
+    },
+    "4": {
+      "name": "European Championship",
+      "country": "Europe",
+      "countryCode": "UEFA",
+      "region": "europe",
+      "type": "international",
+      "tier": "continental",
+      "logo": "https://media.api-sports.io/football/leagues/4.png",
+      "status": {
+        "current": "finished",
+        "season": "2024",
+        "startDate": "2024-06-14",
+        "endDate": "2024-07-14",
+        "currentMatchday": 7,
+        "totalMatchdays": 7
+      },
+      "schedule": {
+        "pattern": "quadrennial",
+        "frequency": "every_4_years",
+        "month": [6, 7]
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2024",
+        "team": "Spain",
+        "teamId": 9,
+        "teamLogo": "https://media.api-sports.io/football/teams/9.png",
+        "confirmedDate": "2024-07-14"
+      },
+      "api": {
+        "leagueId": 4,
+        "season": 2024,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 2,
+        "cardType": "golden",
+        "badges": ["euro", "finished", "continental"],
+        "description": "UEFA European Championship"
+      }
+    },
+    "9": {
+      "name": "Copa America",
+      "country": "South America",
+      "countryCode": "CONMEBOL",
+      "region": "south_america",
+      "type": "international",
+      "tier": "continental",
+      "logo": "https://media.api-sports.io/football/leagues/9.png",
+      "status": {
+        "current": "finished",
+        "season": "2024",
+        "startDate": "2024-06-20",
+        "endDate": "2024-07-14",
+        "currentMatchday": 6,
+        "totalMatchdays": 6
+      },
+      "schedule": {
+        "pattern": "irregular",
+        "frequency": "every_4_years",
+        "month": [6, 7]
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2024",
+        "team": "Argentina",
+        "teamId": 26,
+        "teamLogo": "https://media.api-sports.io/football/teams/26.png",
+        "confirmedDate": "2024-07-14"
+      },
+      "api": {
+        "leagueId": 9,
+        "season": 2024,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 3,
+        "cardType": "golden",
+        "badges": ["copa_america", "finished", "continental"],
+        "description": "CONMEBOL Copa America"
+      }
+    },
+    "385": {
+      "name": "Toto Cup Ligat Al",
+      "country": "Israel",
+      "countryCode": "IL",
+      "region": "middle_east",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/385.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-07-15",
+        "endDate": "2025-08-15",
+        "currentMatchday": 6,
+        "totalMatchdays": 6
+      },
+      "schedule": {
+        "pattern": "july_august",
+        "frequency": "annual",
+        "month": [7, 8]
+      },
+      "winner": {
+        "hasWinner": false,
+        "season": "2025",
+        "team": null,
+        "teamId": null,
+        "teamLogo": null,
+        "confirmedDate": null
+      },
+      "api": {
+        "leagueId": 385,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 9,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "israel"],
+        "description": "Israeli Pre-Season Tournament"
+      }
+    },
+    "528": {
+      "name": "Community Shield",
+      "country": "England",
+      "countryCode": "GB",
+      "region": "europe",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/528.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-08-10",
+        "endDate": "2025-08-10",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "august_single_match",
+        "frequency": "annual",
+        "month": 8
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2025",
+        "team": "Manchester City",
+        "teamId": 50,
+        "teamLogo": "https://media.api-sports.io/football/teams/50.png",
+        "confirmedDate": "2025-08-10"
+      },
+      "api": {
+        "leagueId": 528,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 7,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "england"],
+        "description": "FA Community Shield"
+      }
+    },
+    "531": {
+      "name": "UEFA Super Cup",
+      "country": "Europe",
+      "countryCode": "UEFA",
+      "region": "europe",
+      "type": "super_cup",
+      "tier": "continental",
+      "logo": "https://media.api-sports.io/football/leagues/531.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-08-14",
+        "endDate": "2025-08-14",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "august_single_match",
+        "frequency": "annual",
+        "month": 8
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2025",
+        "team": "Real Madrid",
+        "teamId": 541,
+        "teamLogo": "https://media.api-sports.io/football/teams/541.png",
+        "confirmedDate": "2025-08-14"
+      },
+      "api": {
+        "leagueId": 531,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 5,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "uefa"],
+        "description": "UEFA Super Cup"
+      }
+    },
+    "533": {
+      "name": "CAF Super Cup",
+      "country": "Africa",
+      "countryCode": "CAF",
+      "region": "africa",
+      "type": "super_cup",
+      "tier": "continental",
+      "logo": "https://media.api-sports.io/football/leagues/533.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-02-15",
+        "endDate": "2025-02-15",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "february_single_match",
+        "frequency": "annual",
+        "month": 2
+      },
+      "winner": {
+        "hasWinner": false,
+        "season": "2025",
+        "team": null,
+        "teamId": null,
+        "teamLogo": null,
+        "confirmedDate": null
+      },
+      "api": {
+        "leagueId": 533,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 8,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "africa"],
+        "description": "CAF Super Cup"
+      }
+    },
+    "541": {
+      "name": "Recopa Sudamericana",
+      "country": "South America",
+      "countryCode": "CONMEBOL",
+      "region": "south_america",
+      "type": "super_cup",
+      "tier": "continental",
+      "logo": "https://media.api-sports.io/football/leagues/541.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-02-20",
+        "endDate": "2025-02-27",
+        "currentMatchday": 2,
+        "totalMatchdays": 2
+      },
+      "schedule": {
+        "pattern": "february_two_legs",
+        "frequency": "annual",
+        "month": 2
+      },
+      "winner": {
+        "hasWinner": false,
+        "season": "2025",
+        "team": null,
+        "teamId": null,
+        "teamLogo": null,
+        "confirmedDate": null
+      },
+      "api": {
+        "leagueId": 541,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 8,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "south_america"],
+        "description": "Recopa Sudamericana"
+      }
+    },
+    "514": {
+      "name": "Supercopa de España",
+      "country": "Spain",
+      "countryCode": "ES",
+      "region": "europe",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/514.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-01-08",
+        "endDate": "2025-01-12",
+        "currentMatchday": 3,
+        "totalMatchdays": 3
+      },
+      "schedule": {
+        "pattern": "january_mini_tournament",
+        "frequency": "annual",
+        "month": 1
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2025",
+        "team": "Barcelona",
+        "teamId": 529,
+        "teamLogo": "https://media.api-sports.io/football/teams/529.png",
+        "confirmedDate": "2025-01-12"
+      },
+      "api": {
+        "leagueId": 514,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 6,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "spain"],
+        "description": "Spanish Super Cup"
+      }
+    },
+    "529": {
+      "name": "DFL Supercup",
+      "country": "Germany",
+      "countryCode": "DE",
+      "region": "europe",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/529.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-08-17",
+        "endDate": "2025-08-17",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "august_single_match",
+        "frequency": "annual",
+        "month": 8
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2025",
+        "team": "Bayer Leverkusen",
+        "teamId": 168,
+        "teamLogo": "https://media.api-sports.io/football/teams/168.png",
+        "confirmedDate": "2025-08-17"
+      },
+      "api": {
+        "leagueId": 529,
+        "season": 2025,
+        "providedByApi": true,
+        "countryOverride": "Germany",
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 6,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "germany"],
+        "description": "German Super Cup"
+      }
+    },
+    "556": {
+      "name": "Supercoppa Italiana",
+      "country": "Italy",
+      "countryCode": "IT",
+      "region": "europe",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/556.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-01-02",
+        "endDate": "2025-01-06",
+        "currentMatchday": 3,
+        "totalMatchdays": 3
+      },
+      "schedule": {
+        "pattern": "january_mini_tournament",
+        "frequency": "annual",
+        "month": 1
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2025",
+        "team": "Inter",
+        "teamId": 505,
+        "teamLogo": "https://media.api-sports.io/football/teams/505.png",
+        "confirmedDate": "2025-01-06"
+      },
+      "api": {
+        "leagueId": 556,
+        "season": 2025,
+        "providedByApi": true,
+        "countryOverride": "Italy",
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 6,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "italy"],
+        "description": "Italian Super Cup"
+      }
+    },
+    "526": {
+      "name": "Trophée des Champions",
+      "country": "France",
+      "countryCode": "FR",
+      "region": "europe",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/526.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-08-03",
+        "endDate": "2025-08-03",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "august_single_match",
+        "frequency": "annual",
+        "month": 8
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2025",
+        "team": "PSG",
+        "teamId": 85,
+        "teamLogo": "https://media.api-sports.io/football/teams/85.png",
+        "confirmedDate": "2025-08-03"
+      },
+      "api": {
+        "leagueId": 526,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 6,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "france"],
+        "description": "French Super Cup"
+      }
+    },
+    "659": {
+      "name": "Israeli Super Cup",
+      "country": "Israel",
+      "countryCode": "IL",
+      "region": "middle_east",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/659.png",
+      "status": {
+        "current": "finished",
+        "season": "2025",
+        "startDate": "2025-08-20",
+        "endDate": "2025-08-20",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "august_single_match",
+        "frequency": "annual",
+        "month": 8
+      },
+      "winner": {
+        "hasWinner": false,
+        "season": "2025",
+        "team": null,
+        "teamId": null,
+        "teamLogo": null,
+        "confirmedDate": null
+      },
+      "api": {
+        "leagueId": 659,
+        "season": 2025,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T14:00:00Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 8,
+        "cardType": "golden",
+        "badges": ["super_cup", "finished", "israel"],
+        "description": "Israeli Super Cup"
+      }
+    }
+  }
+}

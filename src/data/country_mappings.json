@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-02-06T14:30:00Z",
+    "version": "1.0.0",
+    "description": "Country mappings, API corrections, and geographical fixes"
+  },
+  "countryOverrides": {
+    "api_corrections": {
+      "556": {
+        "correct_country": "Italy",
+        "api_returns": "Spain",
+        "tournament": "Supercoppa Italiana",
+        "reason": "API incorrectly places Italian Super Cup in Spain"
+      },
+      "529": {
+        "correct_country": "Germany", 
+        "api_returns": "Various",
+        "tournament": "DFL Supercup",
+        "reason": "API inconsistent with German Super Cup placement"
+      },
+      "547": {
+        "correct_country": "Germany",
+        "api_returns": "Various", 
+        "tournament": "DFL Supercup (Alt ID)",
+        "reason": "Alternative league ID for German Super Cup"
+      },
+      "143": {
+        "correct_country": "Brazil",
+        "api_returns": "Various",
+        "tournament": "Copa do Brasil",
+        "reason": "API placement issues with Brazilian tournaments"
+      },
+      "848": {
+        "correct_country": "Argentina",
+        "api_returns": "Various",
+        "tournament": "Copa Argentina",
+        "reason": "API placement issues with Argentine tournaments"
+      }
+    }
+  },
+  "leagueCountryMapping": {
+    "super_cups": {
+      "529": "Germany",
+      "547": "Germany", 
+      "556": "Italy",
+      "528": "England",
+      "526": "France",
+      "514": "Spain",
+      "659": "Israel",
+      "385": "Israel"
+    },
+    "domestic_leagues": {
+      "39": "England",
+      "78": "Germany", 
+      "135": "Italy",
+      "140": "Spain",
+      "61": "France",
+      "379": "Israel"
+    },
+    "continental": {
+      "2": "Europe",
+      "3": "Europe", 
+      "848": "Europe",
+      "13": "South America",
+      "11": "South America"
+    }
+  },
+  "problematicCountries": {
+    "exclude": [
+      "Crimea"
+    ],
+    "reasons": {
+      "Crimea": "Political sensitivity and disputed territory status"
+    },
+    "alternative_handling": {
+      "Crimea": "Skip in country listings"
+    }
+  },
+  "countryDisplayNames": {
+    "standard": {
+      "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 England",
+      "Germany": "🇩🇪 Germany", 
+      "Italy": "🇮🇹 Italy",
+      "Spain": "🇪🇸 Spain",
+      "France": "🇫🇷 France",
+      "Brazil": "🇧🇷 Brazil",
+      "Argentina": "🇦🇷 Argentina",
+      "Israel": "🇮🇱 Israel",
+      "Netherlands": "🇳🇱 Netherlands",
+      "Portugal": "🇵🇹 Portugal"
+    },
+    "confederations": {
+      "Europe": "🇪🇺 Europe",
+      "South America": "🌎 South America", 
+      "Asia": "🌏 Asia",
+      "Africa": "🌍 Africa",
+      "Global": "🌐 Global"
+    }
+  },
+  "regionMapping": {
+    "country_to_region": {
+      "England": "europe",
+      "Germany": "europe",
+      "Italy": "europe", 
+      "Spain": "europe",
+      "France": "europe",
+      "Netherlands": "europe",
+      "Portugal": "europe",
+      "Belgium": "europe",
+      "Brazil": "south_america",
+      "Argentina": "south_america",
+      "Colombia": "south_america",
+      "Uruguay": "south_america",
+      "Chile": "south_america",
+      "Peru": "south_america",
+      "Japan": "asia",
+      "South Korea": "asia",
+      "China": "asia",
+      "Thailand": "asia",
+      "India": "asia",
+      "Israel": "middle_east",
+      "Saudi Arabia": "middle_east",
+      "UAE": "middle_east",
+      "South Africa": "africa",
+      "Egypt": "africa",
+      "Morocco": "africa",
+      "Nigeria": "africa",
+      "Ghana": "africa",
+      "United States": "north_america", 
+      "Canada": "north_america",
+      "Mexico": "north_america",
+      "Australia": "oceania",
+      "New Zealand": "oceania"
+    },
+    "confederation_mapping": {
+      "UEFA": "europe",
+      "CONMEBOL": "south_america", 
+      "AFC": "asia",
+      "CAF": "africa",
+      "CONCACAF": "north_america",
+      "OFC": "oceania",
+      "FIFA": "global"
+    }
+  },
+  "apiEndpointMapping": {
+    "country_name_standardization": {
+      "england_variations": ["England", "United Kingdom", "Great Britain", "UK", "GB"],
+      "germany_variations": ["Germany", "Deutschland", "DE"],
+      "spain_variations": ["Spain", "España", "ES"],
+      "italy_variations": ["Italy", "Italia", "IT"],
+      "france_variations": ["France", "FR"],
+      "brazil_variations": ["Brazil", "Brasil", "BR"],
+      "argentina_variations": ["Argentina", "AR"]
+    }
+  },
+  "manualLeagueInjection": {
+    "missing_from_api": {
+      "529": {
+        "name": "DFL Supercup",
+        "country": "Germany",
+        "reason": "Sometimes missing from /leagues endpoint",
+        "inject_manually": true
+      },
+      "556": {
+        "name": "Supercoppa Italiana", 
+        "country": "Italy",
+        "reason": "Sometimes appears under wrong country",
+        "inject_manually": true
+      }
+    }
+  },
+  "validationRules": {
+    "country_checks": {
+      "europe_super_cups_august": {
+        "leagues": ["528", "529", "526"],
+        "expected_month": 8,
+        "expected_region": "europe"
+      },
+      "europe_winter_super_cups": {
+        "leagues": ["514", "556"],
+        "expected_month": 1,
+        "expected_region": "europe"
+      },
+      "south_america_february": {
+        "leagues": ["541"],
+        "expected_month": 2,
+        "expected_region": "south_america"
+      }
+    }
+  }
+}

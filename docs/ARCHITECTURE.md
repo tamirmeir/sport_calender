@@ -4,7 +4,14 @@
 
 ## Overview
 
-Sport Calendar is a **hybrid dual-stack application** that allows users to browse football fixtures, subscribe to teams, and sync matches to their personal calendars.
+Sport Calendar is a **hybrid dual-stack application** that allows users to browse football fixtures, subscribe to teams, and sync matches to their personal calendars. It features a sophisticated **backend-driven tournament management system** that dynamically handles tournament statuses, winner data, and golden card displays based on comprehensive metadata.
+
+### Key Features
+- **Dynamic Tournament System**: Backend-managed tournament metadata with automatic status calculation
+- **Golden Cards**: Finished tournaments display elegant winner cards with golden styling
+- **Smart Status Detection**: Regional and seasonal awareness for tournament states (active/vacation/finished)
+- **Real-time Data**: Live integration with API-Sports for fixtures and teams
+- **Systematic Data Management**: Centralized JSON configuration files replace hardcoded data
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -24,11 +31,12 @@ Sport Calendar is a **hybrid dual-stack application** that allows users to brows
 │  │                     Express Server                             │  │
 │  │                     src/index.js                               │  │
 │  ├───────────────────────────────────────────────────────────────┤  │
-│  │  /api/fixtures/*  →  footballApi.js  →  API-Sports            │  │
-│  │  /api/auth/*      →  Proxy to Python (8000)                   │  │
-│  │  /api/favorites/* →  Proxy to Python (8000)                   │  │
-│  │  /calendar/*      →  Proxy to Python (8000)                   │  │
-│  │  /sync/*          →  Proxy to Python (8000)                   │  │
+│  │  /api/fixtures/*           →  footballApi.js  →  API-Sports     │  │
+│  │  /api/fixtures/tournaments/* →  Tournament Data System         │  │
+│  │  /api/auth/*               →  Proxy to Python (8000)          │  │
+│  │  /api/favorites/*          →  Proxy to Python (8000)          │  │
+│  │  /calendar/*               →  Proxy to Python (8000)          │  │
+│  │  /sync/*                   →  Proxy to Python (8000)          │  │
 │  └───────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────┘
          │                                      │
@@ -45,6 +53,38 @@ Sport Calendar is a **hybrid dual-stack application** that allows users to brows
                                     │   SQLite Database     │
                                     │   sport_calendar.db   │
                                     └───────────────────────┘
+```
+
+## Tournament Data System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                     Tournament Data Flow                             │
+├─────────────────────────────────────────────────────────────────────┤
+│  Frontend Request                                                   │
+│  └─ loadTournamentData() → /api/fixtures/tournaments/status/all    │
+│                                                                     │
+│  Backend Processing                                                 │
+│  ├─ loadWorldTournamentsMaster() → world_tournaments_master.json   │
+│  ├─ loadStatusRules() → status_rules.json                         │
+│  ├─ loadRegionsConfig() → regions_config.json                     │
+│  └─ Calculate live status based on current month & region          │
+│                                                                     │
+│  Response Format                                                    │
+│  └─ { tournaments: { id: { status, winner }}, month, lastUpdated } │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Tournament Data Files Structure
+
+```
+src/data/
+├── world_tournaments_master.json     # 13 major tournaments with full metadata
+├── regions_config.json               # Regional season patterns & configurations
+├── status_rules.json                 # Month-based status calculation rules
+├── country_mappings.json             # Tournament-to-country association fixes
+├── display_config.json               # UI styling and badge configurations
+└── active_leagues.json               # Verified leagues cache (existing)
 ```
 
 ## Request Routing Table

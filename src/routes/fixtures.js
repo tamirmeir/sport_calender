@@ -1,10 +1,472 @@
 const express = require('express');
-
 const footballApi = require('../api/footballApi');
+const fs = require('fs');
+const path = require('path');
 const internationalWinners = require('../data/international_winners');
 const { getSeasonYear } = require('../utils/config');
 
 const router = express.Router();
+
+// Load unified tournament data system
+const loadWorldTournamentsMaster = () => {
+    try {
+        const masterPath = path.join(__dirname, '../../src/data/world_tournaments_master.json');
+        return JSON.parse(fs.readFileSync(masterPath, 'utf8'));
+    } catch (error) {
+        console.error('Error loading world tournaments master:', error);
+        return { metadata: {}, tournaments: {} };
+    }
+};
+
+const loadRegionsConfig = () => {
+    try {
+        const regionsPath = path.join(__dirname, '../../src/data/regions_config.json');
+        return JSON.parse(fs.readFileSync(regionsPath, 'utf8'));
+    } catch (error) {
+        console.error('Error loading regions config:', error);
+        return { regions: {}, seasonPatterns: {} };
+    }
+};
+
+const loadStatusRules = () => {
+    try {
+        const statusPath = path.join(__dirname, '../../src/data/status_rules.json');
+        return JSON.parse(fs.readFileSync(statusPath, 'utf8'));
+    } catch (error) {
+        console.error('Error loading status rules:', error);
+        return { statusRules: {} };
+    }
+};
+
+const loadCountryMappings = () => {
+    try {
+        const mappingsPath = path.join(__dirname, '../../src/data/country_mappings.json');
+        return JSON.parse(fs.readFileSync(mappingsPath, 'utf8'));
+    } catch (error) {
+        console.error('Error loading country mappings:', error);
+        return { countryOverrides: {}, leagueCountryMapping: {} };
+    }
+};
+
+const loadDisplayConfig = () => {
+    try {
+        const displayPath = path.join(__dirname, '../../src/data/display_config.json');
+        return JSON.parse(fs.readFileSync(displayPath, 'utf8'));
+    } catch (error) {
+        console.error('Error loading display config:', error);
+        return { cardTypes: {}, badges: {}, statusMessages: {} };
+    }
+};
+
+// ================================
+// NEW UNIFIED TOURNAMENT DATA API
+// ================================
+
+// 🌍 Get master tournament database
+router.get('/tournaments/master', async (req, res) => {
+    try {
+        const masterData = loadWorldTournamentsMaster();
+        const regionsConfig = loadRegionsConfig();
+        const displayConfig = loadDisplayConfig();
+        
+        // Enrich data with current status calculations
+        const currentMonth = new Date().getMonth() + 1;
+        const enrichedTournaments = {};
+        
+        Object.entries(masterData.tournaments).forEach(([id, tournament]) => {
+            const region = regionsConfig.regions[tournament.region];
+            const statusRules = loadStatusRules();
+            
+            // Calculate current status based on region and month
+            let currentStatus = tournament.status.current;
+            if (region && statusRules.statusRules.leagues[region.defaultPattern]) {
+                const monthStatus = statusRules.statusRules.leagues[region.defaultPattern].months[currentMonth];
+                if (monthStatus) {
+                    currentStatus = monthStatus.status;
+                }
+            }
+            
+            enrichedTournaments[id] = {
+                ...tournament,
+                calculatedStatus: {
+                    current: currentStatus,
+                    month: currentMonth,
+                    lastCalculated: new Date().toISOString()
+                }
+            };
+        });
+        
+        res.json({
+            ...masterData,
+            tournaments: enrichedTournaments,
+            regions: regionsConfig.regions,
+            displayConfig: displayConfig.cardTypes
+        });
+    } catch (error) {
+        console.error('Error serving master tournament data:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 📅 Get all tournaments with current status (EARLY PLACEMENT TO AVOID CONFLICTS)
+router.get('/tournaments/status/all', async (req, res) => {
+    try {
+        const masterData = loadWorldTournamentsMaster();
+        const statusRules = loadStatusRules();
+        const currentMonth = new Date().getMonth() + 1;
+        
+        const allTournamentsWithStatus = {};
+        Object.entries(masterData.tournaments).forEach(([id, tournament]) => {
+            // Calculate current status based on rules
+            let calculatedStatus = tournament.status.current;
+            
+            // If it's finished, keep as finished
+            if (tournament.status.current === 'finished' && tournament.winner.hasWinner) {
+                calculatedStatus = 'finished';
+            }
+            // If it's vacation status, use vacation
+            else if (tournament.status.current === 'vacation' || tournament.status.current === 'off_season') {
+                calculatedStatus = 'vacation';
+            }
+            // Otherwise, use live calculation based on schedule pattern
+            else if (statusRules.statusRules.leagues[tournament.schedule.pattern]) {
+                const monthStatus = statusRules.statusRules.leagues[tournament.schedule.pattern].months[currentMonth];
+                if (monthStatus) {
+                    calculatedStatus = monthStatus.status;
+                }
+            }
+            
+            allTournamentsWithStatus[id] = {
+                status: calculatedStatus,
+                winner: tournament.winner.hasWinner ? {
+                    name: tournament.winner.team,
+                    logo: tournament.winner.teamLogo
+                } : null
+            };
+        });
+        
+        res.json({
+            tournaments: allTournamentsWithStatus,
+            month: currentMonth,
+            lastUpdated: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('Error serving all tournaments status:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Get tournaments by country
+router.get('/tournaments/country/:countryName', async (req, res) => {
+    try {
+        const countryName = req.params.countryName;
+        const masterData = loadWorldTournamentsMaster();
+        const displayConfig = loadDisplayConfig();
+        
+        const countryTournaments = Object.entries(masterData.tournaments)
+            .filter(([id, tournament]) => 
+                tournament.country.toLowerCase() === countryName.toLowerCase() &&
+                tournament.display.showInCountryHub
+            )
+            .sort(([,a], [,b]) => a.display.priority - b.display.priority)
+            .reduce((acc, [id, tournament]) => {
+                acc[id] = tournament;
+                return acc;
+            }, {});
+        
+        res.json({
+            country: countryName,
+            count: Object.keys(countryTournaments).length,
+            tournaments: countryTournaments,
+            displayConfig: displayConfig.badges
+        });
+    } catch (error) {
+        console.error('Error serving country tournaments:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// ⚽ Get tournament status with live calculation
+router.get('/tournaments/:tournamentId/status', async (req, res) => {
+    try {
+        const tournamentId = req.params.tournamentId;
+        const masterData = loadWorldTournamentsMaster();
+        const statusRules = loadStatusRules();
+        const tournament = masterData.tournaments[tournamentId];
+        
+        if (!tournament) {
+            return res.status(404).json({ error: 'Tournament not found' });
+        }
+        
+        const currentMonth = new Date().getMonth() + 1;
+        const region = tournament.region;
+        const pattern = tournament.schedule.pattern;
+        
+        // Calculate live status
+        let liveStatus = tournament.status.current;
+        let statusMessage = "Status unknown";
+        
+        if (statusRules.statusRules.leagues[pattern]) {
+            const monthStatus = statusRules.statusRules.leagues[pattern].months[currentMonth];
+            if (monthStatus) {
+                liveStatus = monthStatus.status;
+                statusMessage = monthStatus.message;
+            }
+        }
+        
+        res.json({
+            tournamentId,
+            name: tournament.name,
+            country: tournament.country,
+            currentStatus: liveStatus,
+            statusMessage: statusMessage,
+            winner: tournament.winner,
+            lastUpdated: new Date().toISOString(),
+            schedule: tournament.schedule,
+            api: tournament.api
+        });
+    } catch (error) {
+        console.error('Error serving tournament status:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 🏆 Get all tournaments with winners
+router.get('/tournaments/winners/current', async (req, res) => {
+    try {
+        const masterData = loadWorldTournamentsMaster();
+        
+        const winnersOnly = Object.entries(masterData.tournaments)
+            .filter(([id, tournament]) => tournament.winner.hasWinner)
+            .reduce((acc, [id, tournament]) => {
+                acc[id] = {
+                    name: tournament.name,
+                    country: tournament.country,
+                    type: tournament.type,
+                    winner: tournament.winner,
+                    status: tournament.status,
+                    display: tournament.display
+                };
+                return acc;
+            }, {});
+        
+        res.json({
+            count: Object.keys(winnersOnly).length,
+            tournaments: winnersOnly,
+            lastUpdated: masterData.metadata.lastUpdated
+        });
+    } catch (error) {
+        console.error('Error serving winners data:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// � Get all tournaments with current status
+router.get('/tournaments/status/all', async (req, res) => {
+    try {
+        const masterData = loadWorldTournamentsMaster();
+        const statusRules = loadStatusRules();
+        const currentMonth = new Date().getMonth() + 1;
+        
+        const allTournamentsWithStatus = {};
+        Object.entries(masterData.tournaments).forEach(([id, tournament]) => {
+            // Calculate current status based on rules
+            let calculatedStatus = tournament.status.current;
+            
+            // If it's finished, keep as finished
+            if (tournament.status.current === 'finished' && tournament.winner.hasWinner) {
+                calculatedStatus = 'finished';
+            }
+            // If it's vacation status, use vacation
+            else if (tournament.status.current === 'vacation' || tournament.status.current === 'off_season') {
+                calculatedStatus = 'vacation';
+            }
+            // Otherwise, use live calculation based on schedule pattern
+            else if (statusRules.statusRules.leagues[tournament.schedule.pattern]) {
+                const monthStatus = statusRules.statusRules.leagues[tournament.schedule.pattern].months[currentMonth];
+                if (monthStatus) {
+                    calculatedStatus = monthStatus.status;
+                }
+            }
+            
+            allTournamentsWithStatus[id] = {
+                status: calculatedStatus,
+                winner: tournament.winner.hasWinner ? {
+                    name: tournament.winner.team,
+                    logo: tournament.winner.teamLogo
+                } : null
+            };
+        });
+        
+        res.json({
+            tournaments: allTournamentsWithStatus,
+            month: currentMonth,
+            lastUpdated: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('Error serving all tournaments status:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// �📊 Get coverage statistics
+router.get('/tournaments/coverage', async (req, res) => {
+    try {
+        const masterData = loadWorldTournamentsMaster();
+        const regionsConfig = loadRegionsConfig();
+        
+        const stats = {
+            total_tournaments: Object.keys(masterData.tournaments).length,
+            by_region: {},
+            by_type: {},
+            by_status: {},
+            with_winners: 0,
+            coverage: masterData.metadata.coverage
+        };
+        
+        Object.values(masterData.tournaments).forEach(tournament => {
+            // By region
+            stats.by_region[tournament.region] = (stats.by_region[tournament.region] || 0) + 1;
+            
+            // By type
+            stats.by_type[tournament.type] = (stats.by_type[tournament.type] || 0) + 1;
+            
+            // By status
+            stats.by_status[tournament.status.current] = (stats.by_status[tournament.status.current] || 0) + 1;
+            
+            // With winners
+            if (tournament.winner.hasWinner) {
+                stats.with_winners++;
+            }
+        });
+        
+        res.json({
+            statistics: stats,
+            regions_available: Object.keys(regionsConfig.regions),
+            last_updated: masterData.metadata.lastUpdated
+        });
+    } catch (error) {
+        console.error('Error serving coverage statistics:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// ================================
+// BACKWARD COMPATIBILITY ENDPOINTS
+// ================================
+
+// Load tournament metadata (OLD FORMAT - for backward compatibility)
+const loadTournamentMetadata = () => {
+    try {
+        // Try new format first
+        const masterData = loadWorldTournamentsMaster();
+        
+        // Convert to old format
+        const oldFormat = {
+            tournament_status: {
+                finished: {
+                    tournaments: {}
+                },
+                ongoing: {
+                    tournaments: {}
+                }
+            }
+        };
+        
+        Object.entries(masterData.tournaments).forEach(([id, tournament]) => {
+            if (tournament.status.current === 'finished') {
+                oldFormat.tournament_status.finished.tournaments[id] = {
+                    name: tournament.name,
+                    type: tournament.type,
+                    country: tournament.country,
+                    season: tournament.status.season,
+                    status: tournament.status.current,
+                    winner: tournament.winner.hasWinner ? {
+                        name: tournament.winner.team,
+                        id: tournament.winner.teamId,
+                        logo: tournament.winner.teamLogo
+                    } : null,
+                    final_date: tournament.winner.confirmedDate
+                };
+            } else {
+                oldFormat.tournament_status.ongoing.tournaments[id] = {
+                    name: tournament.name,
+                    type: tournament.type,
+                    country: tournament.country,
+                    season: tournament.status.season,
+                    status: tournament.status.current
+                };
+            }
+        });
+        
+        return oldFormat;
+    } catch (error) {
+        console.error('Error loading tournament metadata:', error);
+        return { tournament_status: { finished: { tournaments: {} }, ongoing: { tournaments: {} } } };
+    }
+};
+
+// Get comprehensive tournament status data (OLD FORMAT)
+router.get('/tournament-status', async (req, res) => {
+    try {
+        const metadata = loadTournamentMetadata();
+        res.json(metadata.tournament_status);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get only finished tournaments (OLD FORMAT - backward compatibility)
+router.get('/finished-tournaments', async (req, res) => {
+    try {
+        const masterData = loadWorldTournamentsMaster();
+        
+        // Convert to old frontend format
+        const finishedTournaments = {};
+        Object.entries(masterData.tournaments).forEach(([id, tournament]) => {
+            if (tournament.status.current === 'finished') {
+                finishedTournaments[id] = {
+                    winner: tournament.winner.hasWinner ? {
+                        name: tournament.winner.team,
+                        logo: tournament.winner.teamLogo
+                    } : null
+                };
+            }
+        });
+        
+        res.json(finishedTournaments);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get tournament winners only
+router.get('/tournament-winners', async (req, res) => {
+    try {
+        const metadata = loadTournamentMetadata();
+        const winners = {};
+        
+        Object.entries(metadata.tournament_status.finished.tournaments).forEach(([id, tournament]) => {
+            if (tournament.winner) {
+                winners[id] = tournament.winner;
+            }
+        });
+        
+        res.json(winners);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Load tournament data (old method - keeping for backward compatibility)
+const loadFinishedTournaments = () => {
+    const metadata = loadTournamentMetadata();
+    const finished = {};
+    Object.entries(metadata.tournament_status.finished.tournaments).forEach(([id, tournament]) => {
+        finished[id] = { winner: tournament.winner };
+    });
+    return finished;
+};
 
 // --- V2 Explorer Routes ---
 
@@ -12,7 +474,16 @@ const router = express.Router();
 router.get('/countries', async (req, res) => {
     try {
         const countries = await footballApi.getCountries();
-        res.json(countries);
+        
+        // Filter out countries without active leagues
+        // These are territories/disputed regions that appear in API but have no leagues
+        const countriesWithoutLeagues = new Set(['Crimea']);
+        
+        const validCountries = countries.filter(country => 
+            !countriesWithoutLeagues.has(country.name)
+        );
+        
+        res.json(validCountries);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -24,10 +495,46 @@ router.get('/leagues', async (req, res) => {
         const { country } = req.query;
         if (!country) return res.status(400).json({ error: 'Country parameter required' });
         
+        // ADDED: Correct country mapping for leagues that API returns incorrectly
+        const leagueCountryOverride = {
+            556: 'Italy',     // Supercoppa Italiana (wrongly returned for Spain)
+            514: 'Spain',     // Supercopa de España  
+            529: 'Germany',   // DFL Supercup (correct ID)
+            526: 'France',    // Trophée des Champions
+            528: 'England',   // Community Shield
+            659: 'Israel',    // Super Cup Israel
+            385: 'Israel'     // Toto Cup Ligat Al
+        };
+        
         const allLeagues = await footballApi.getLeagues(country);
         
+        // ADDED: Manually inject leagues that should appear in this country but API doesn't return
+        const additionalLeagues = [];
+        if (country === 'Spain' && !allLeagues.find(l => l.id === 514)) {
+            additionalLeagues.push({ id: 514, name: 'Supercopa de España', type: 'Cup', logo: 'https://media.api-sports.io/football/leagues/514.png' });
+        }
+        if (country === 'Italy' && !allLeagues.find(l => l.id === 556)) {
+            additionalLeagues.push({ id: 556, name: 'Supercoppa Italiana', type: 'Cup', logo: 'https://media.api-sports.io/football/leagues/556.png' });
+        }
+        if (country === 'Germany' && !allLeagues.find(l => l.id === 529)) {
+            additionalLeagues.push({ id: 529, name: 'DFL Supercup', type: 'Cup', logo: 'https://media.api-sports.io/football/leagues/529.png' });
+        }
+        if (country === 'England' && !allLeagues.find(l => l.id === 528)) {
+            additionalLeagues.push({ id: 528, name: 'Community Shield', type: 'Cup', logo: 'https://media.api-sports.io/football/leagues/528.png' });
+        }
+        if (country === 'France' && !allLeagues.find(l => l.id === 526)) {
+            additionalLeagues.push({ id: 526, name: 'Trophée des Champions', type: 'Cup', logo: 'https://media.api-sports.io/football/leagues/526.png' });
+        }
+
+        const combinedLeagues = [...allLeagues, ...additionalLeagues];
+
         // Filter out unwanted leagues (youth, lower tiers, regional, etc.)
-        const filteredLeagues = allLeagues.filter(league => {
+        const filteredLeagues = combinedLeagues.filter(league => {
+            // FIXED: Exclude leagues that wrongly appear in wrong countries
+            if (leagueCountryOverride[league.id]) {
+                return leagueCountryOverride[league.id] === country;
+            }
+            
             const n = (league.name || '').toLowerCase();
             
             // === EXCLUDE: Youth/Women/Reserve teams ===

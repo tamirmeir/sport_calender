@@ -1,3 +1,20 @@
+/* Firefox-specific font size normalization */
+* {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
 /* Vacation Card Style */
 .vacation-card {
     background: #f8fafc !important;
@@ -79,6 +96,28 @@
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
     color: #92400e;
     border-color: #fcd34d;
+}
+
+/* League Status Row */
+.league-status-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.league-status-badge {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: inline-block;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.next-match-countdown {
+    font-size: 0.7rem;
 }
 
 .countdown-badge .countdown-icon {
@@ -316,6 +355,13 @@ select {
     height: 60px;
     width: 60px;
     object-fit: contain;
+    pointer-events: none;
+}
+
+.grid-card span,
+.grid-card .league-name,
+.grid-card .team-name-text {
+    pointer-events: none;
 }
 
 .cards-grid {
@@ -572,21 +618,46 @@ tbody tr:hover {
     background-color: #f1f5f9;
     border-radius: 8px;
     border: 1px solid var(--border-color);
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .selection-controls {
     display: flex;
     gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.control-btn,
+.btn-primary-lg {
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin: 0;
+    border-width: 1px;
+    border-style: solid;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .control-btn {
-    padding: 8px 16px;
-    border: 1px solid var(--border-color);
+    padding: 7px 11px !important;
+    border-color: var(--border-color);
     border-radius: 6px;
     background: white;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 12.8px !important;
+    font-weight: 500;
     transition: all 0.2s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 34px !important;
+    line-height: 1 !important;
+    min-width: auto;
 }
 
 .control-btn:hover {
@@ -597,11 +668,25 @@ tbody tr:hover {
 .btn-primary-lg {
     background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
     color: white;
-    border: none;
+    border-color: transparent;
     font-weight: 600;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 7px 13px !important;
+    font-size: 12.8px !important;
     box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 34px !important;
+    line-height: 1 !important;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: auto;
 }
 
 .btn-primary-lg:hover {
@@ -628,15 +713,19 @@ tbody tr:hover {
 
 .fixtures-table th,
 .fixtures-table td {
-    padding: 12px 16px;
+    padding: 6px 8px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
+    font-size: 12px !important;
+    line-height: 1.4;
 }
 
 .fixtures-table th {
-    background-color: #f8fafc;
+    background: #f1f5f9;
     font-weight: 600;
-    color: var(--text-color);
+    color: #64748b;
+    font-size: 12px !important;
+    padding: 6px 8px;
 }
 
 .fixtures-table tr:hover {
@@ -661,8 +750,8 @@ tbody tr:hover {
 .fixtures-table .team-col {
     display: flex;
     align-items: center;
-    gap: 8px;
-    min-width: 200px;
+    gap: 6px;
+    min-width: 180px;
 }
 
 .fixtures-table .team-col span {
@@ -682,8 +771,8 @@ tbody tr:hover {
 }
 
 .fixtures-table .team-col img {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -799,12 +888,22 @@ tbody tr:hover {
 
     .controls-bar {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         align-items: stretch;
+        padding: 12px;
     }
 
     .selection-controls {
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+    
+    .control-btn,
+    .btn-primary-lg {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.9rem;
         justify-content: center;
     }
 
@@ -1718,7 +1817,7 @@ tbody tr:hover {
     height: 28px;
     border-radius: 50%;
     cursor: pointer;
-    opacity: 0.35;
+    opacity: 0.7;
     transition: all 0.2s ease;
     flex-shrink: 0;
     color: #64748b;
@@ -1743,6 +1842,32 @@ tbody tr:hover {
     transform: scale(1.1);
 }
 
+/* Info Circle for Competition Info Button */
+.info-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-style: italic;
+    font-family: Georgia, serif;
+    text-align: center;
+    line-height: 1;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+    transition: all 0.2s ease;
+}
+
+.info-btn:hover .info-circle {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+    transform: scale(1.15);
+}
+
 /* ========== Tournament View Styles ========== */
 .view-data-btn {
     padding: 12px 24px;
@@ -1765,8 +1890,8 @@ tbody tr:hover {
 /* Groups Grid */
 .groups-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
 }
 
 .group-card {
@@ -1779,43 +1904,48 @@ tbody tr:hover {
 .group-header {
     background: linear-gradient(135deg, #1e293b, #334155);
     color: white;
-    padding: 12px 16px;
+    padding: 8px 10px;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 13.6px !important;
     text-align: center;
 }
 
 .group-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85rem;
+    font-size: 12px !important;
 }
 
 .group-table th,
 .group-table td {
-    padding: 8px 6px;
+    padding: 6px 8px;
     text-align: center;
     border-bottom: 1px solid #e2e8f0;
+    font-size: 12px !important;
+    line-height: 1.4;
 }
 
 .group-table th {
     background: #f1f5f9;
     font-weight: 600;
     color: #64748b;
-    font-size: 0.75rem;
+    font-size: 10.4px !important;
+    padding: 6px 8px;
 }
 
 .group-table .team-cell {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     text-align: left;
+    padding: 6px 8px;
 }
 
 .group-table .team-cell img {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 .group-table .team-cell span {
@@ -1823,7 +1953,8 @@ tbody tr:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 120px;
+    max-width: 85px;
+    font-size: 12px !important;
 }
 
 .group-table .pts {
@@ -2153,6 +2284,43 @@ tbody tr:hover {
         grid-template-columns: 1fr;
     }
     
+    .group-table th,
+    .group-table td {
+        padding: 5px 4px;
+        font-size: 0.7rem;
+    }
+    
+    .group-table .team-cell {
+        gap: 4px;
+        padding: 5px 4px;
+    }
+    
+    .group-table .team-cell span {
+        max-width: 70px;
+        font-size: 0.7rem;
+    }
+    
+    .group-table .team-cell img {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .fixtures-table th,
+    .fixtures-table td {
+        padding: 5px 4px;
+        font-size: 0.75rem;
+    }
+    
+    .fixtures-table .team-col {
+        gap: 4px;
+        min-width: 140px;
+    }
+    
+    .fixtures-table .team-col img {
+        width: 16px;
+        height: 16px;
+    }
+    
     .bracket-container {
         padding: 10px;
     }
@@ -2163,5 +2331,43 @@ tbody tr:hover {
     
     .playoff-tabs {
         flex-wrap: wrap;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .groups-grid {
+        gap: 8px;
+    }
+    
+    .group-table th,
+    .group-table td {
+        padding: 4px 2px;
+        font-size: 0.65rem;
+    }
+    
+    .group-table .team-cell span {
+        max-width: 60px;
+    }
+    
+    .fixtures-table th,
+    .fixtures-table td {
+        padding: 4px 3px;
+        font-size: 0.7rem;
+    }
+    
+    .controls-bar {
+        gap: 8px;
+        padding: 10px;
+    }
+    
+    .selection-controls {
+        gap: 6px;
+    }
+    
+    .control-btn,
+    .btn-primary-lg {
+        padding: 10px 12px;
+        font-size: 0.85rem;
     }
 }

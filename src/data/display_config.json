@@ -1,0 +1,311 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-02-06T14:30:00Z",
+    "version": "1.0.0",
+    "description": "Display configuration for tournament cards, badges, and visual elements"
+  },
+  "cardTypes": {
+    "standard": {
+      "name": "Standard Card",
+      "background": "#ffffff",
+      "border": "#e2e8f0",
+      "borderRadius": "12px",
+      "shadow": "0 2px 4px rgba(0,0,0,0.1)",
+      "padding": "20px",
+      "usage": "Active leagues and ongoing tournaments"
+    },
+    "golden": {
+      "name": "Golden Card",
+      "background": "linear-gradient(135deg, #fbbf24, #f59e0b)",
+      "border": "#d97706",
+      "borderRadius": "12px", 
+      "shadow": "0 4px 8px rgba(251, 191, 36, 0.3)",
+      "padding": "20px",
+      "specialEffects": {
+        "glow": true,
+        "animation": "subtle_pulse"
+      },
+      "usage": "Finished tournaments with winners, major competitions"
+    },
+    "winter": {
+      "name": "Winter Break Card",
+      "background": "#f1f5f9",
+      "border": "#cbd5e1",
+      "borderRadius": "12px",
+      "shadow": "0 2px 4px rgba(0,0,0,0.05)",
+      "padding": "20px",
+      "overlay": "winter_pattern",
+      "usage": "Leagues on winter break"
+    },
+    "off_season": {
+      "name": "Off Season Card", 
+      "background": "#fefce8",
+      "border": "#fbbf24",
+      "borderRadius": "12px",
+      "shadow": "0 2px 4px rgba(251, 191, 36, 0.1)",
+      "padding": "20px",
+      "usage": "Leagues in summer break"
+    }
+  },
+  "badges": {
+    "tournament_status": {
+      "finished": {
+        "text": "🏆 Finished",
+        "color": "#10b981",
+        "background": "#d1fae5",
+        "priority": 1
+      },
+      "active": {
+        "text": "⚽ Active",
+        "color": "#059669", 
+        "background": "#ecfdf5",
+        "priority": 2
+      },
+      "winter_break": {
+        "text": "❄️ Winter Break",
+        "color": "#6366f1",
+        "background": "#e0e7ff", 
+        "priority": 3
+      },
+      "off_season": {
+        "text": "☀️ Off Season",
+        "color": "#f59e0b",
+        "background": "#fef3c7",
+        "priority": 4
+      },
+      "final_stages": {
+        "text": "🔥 Final Stages",
+        "color": "#ef4444",
+        "background": "#fecaca",
+        "priority": 2
+      }
+    },
+    "tournament_types": {
+      "super_cup": {
+        "text": "⭐ Super Cup",
+        "color": "#8b5cf6",
+        "background": "#f3e8ff"
+      },
+      "international": {
+        "text": "🌍 International",
+        "color": "#06b6d4",
+        "background": "#cffafe"
+      },
+      "continental": {
+        "text": "🏆 Continental", 
+        "color": "#10b981",
+        "background": "#d1fae5"
+      },
+      "domestic": {
+        "text": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Domestic",
+        "color": "#6366f1",
+        "background": "#e0e7ff"
+      },
+      "knockout": {
+        "text": "🎲 Knockout",
+        "color": "#f59e0b", 
+        "background": "#fef3c7"
+      }
+    },
+    "tier_levels": {
+      "world": {
+        "text": "👑 World",
+        "color": "#dc2626",
+        "background": "#fecaca"
+      },
+      "continental": {
+        "text": "🏆 Continental",
+        "color": "#059669",
+        "background": "#d1fae5"
+      },
+      "national": {
+        "text": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 National", 
+        "color": "#6366f1",
+        "background": "#e0e7ff"
+      },
+      "top_tier": {
+        "text": "⭐ Top Tier",
+        "color": "#8b5cf6",
+        "background": "#f3e8ff"
+      }
+    },
+    "countries": {
+      "england": {
+        "text": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 England",
+        "color": "#dc2626",
+        "background": "#fecaca"
+      },
+      "germany": {
+        "text": "🇩🇪 Germany",
+        "color": "#000000",
+        "background": "#fbbf24"
+      },
+      "spain": {
+        "text": "🇪🇸 Spain", 
+        "color": "#dc2626",
+        "background": "#fbbf24"
+      },
+      "italy": {
+        "text": "🇮🇹 Italy",
+        "color": "#059669",
+        "background": "#dc2626"
+      },
+      "france": {
+        "text": "🇫🇷 France",
+        "color": "#dc2626",
+        "background": "#3b82f6"
+      },
+      "brazil": {
+        "text": "🇧🇷 Brazil",
+        "color": "#059669",
+        "background": "#fbbf24"
+      },
+      "argentina": {
+        "text": "🇦🇷 Argentina",
+        "color": "#3b82f6",
+        "background": "#ffffff"
+      },
+      "israel": {
+        "text": "🇮🇱 Israel",
+        "color": "#3b82f6", 
+        "background": "#ffffff"
+      }
+    }
+  },
+  "statusMessages": {
+    "leagues": {
+      "active": {
+        "icon": "⚽",
+        "message": "Active Season",
+        "description": "Regular season matches ongoing"
+      },
+      "winter_break": {
+        "icon": "❄️",
+        "message": "Winter Break",
+        "description": "League on winter break, returning soon"
+      },
+      "off_season": {
+        "icon": "☀️", 
+        "message": "Off Season",
+        "description": "Season finished, summer break"
+      },
+      "final_stages": {
+        "icon": "🔥",
+        "message": "Final Stages",
+        "description": "Season finale approaching"
+      },
+      "season_start": {
+        "icon": "🚀",
+        "message": "Season Starting",
+        "description": "New season beginning soon"
+      }
+    },
+    "tournaments": {
+      "finished": {
+        "icon": "🏆",
+        "message": "Tournament Finished",
+        "description": "Competition completed"
+      },
+      "waiting_draw": {
+        "icon": "🎲",
+        "message": "Waiting for Next Draw",
+        "description": "Advanced to next round, awaiting draw"
+      },
+      "eliminated": {
+        "icon": "❌",
+        "message": "Eliminated", 
+        "description": "Team eliminated from competition"
+      },
+      "advanced": {
+        "icon": "✅",
+        "message": "Advanced to Next Round",
+        "description": "Qualified for next stage"
+      }
+    },
+    "team_specific": {
+      "no_upcoming_knockout": {
+        "icon": "🎲",
+        "message": "Waiting for Next Draw", 
+        "description": "Team advanced but waiting for tournament draw",
+        "action_button": "Show All Team Matches"
+      },
+      "no_upcoming_eliminated": {
+        "icon": "❌",
+        "message": "Eliminated from Tournament",
+        "description": "Team eliminated, season may continue in other competitions",
+        "action_button": "Show All Team Matches"
+      },
+      "no_upcoming_vacation": {
+        "icon": "☀️",
+        "message": "Off Season Break",
+        "description": "Team on summer break, season finished",
+        "action_button": "Show Last Season Matches"
+      }
+    }
+  },
+  "animations": {
+    "golden_card_pulse": {
+      "keyframes": "@keyframes golden-pulse { 0% { box-shadow: 0 4px 8px rgba(251, 191, 36, 0.3); } 50% { box-shadow: 0 6px 12px rgba(251, 191, 36, 0.5); } 100% { box-shadow: 0 4px 8px rgba(251, 191, 36, 0.3); } }",
+      "animation": "golden-pulse 3s ease-in-out infinite"
+    },
+    "status_badge_enter": {
+      "transition": "all 0.3s ease",
+      "transform": "translateY(0) scale(1)",
+      "opacity": "1"
+    }
+  },
+  "layouts": {
+    "tournament_card": {
+      "header": {
+        "logo_size": "48px",
+        "title_font": "1.25rem",
+        "title_weight": "600"
+      },
+      "status_section": {
+        "font_size": "0.9rem",
+        "spacing": "12px"
+      },
+      "winner_section": {
+        "logo_size": "32px", 
+        "name_font": "1.1rem",
+        "name_weight": "600",
+        "highlight": true
+      },
+      "badges_container": {
+        "spacing": "8px",
+        "flex_wrap": true
+      }
+    },
+    "country_hub": {
+      "grid": {
+        "columns": "repeat(auto-fit, minmax(300px, 1fr))",
+        "gap": "24px",
+        "padding": "20px"
+      },
+      "sorting": {
+        "primary": "priority",
+        "secondary": "name"
+      }
+    }
+  },
+  "responsive": {
+    "mobile": {
+      "max_width": "768px",
+      "card_padding": "16px",
+      "font_scale": "0.9",
+      "grid_columns": "1fr"
+    },
+    "tablet": {
+      "max_width": "1024px", 
+      "card_padding": "18px",
+      "font_scale": "0.95",
+      "grid_columns": "repeat(auto-fit, minmax(280px, 1fr))"
+    },
+    "desktop": {
+      "min_width": "1025px",
+      "card_padding": "20px",
+      "font_scale": "1",
+      "grid_columns": "repeat(auto-fit, minmax(300px, 1fr))"
+    }
+  }
+}

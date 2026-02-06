@@ -17,6 +17,68 @@ let userFavorites = new Map(); // Map of teamId -> {filters: [], isNational: boo
 let selectedFixtures = new Set(); // New state for checked items
 let fixtureData = {}; // For calendar events
 let teamCompetitionsCache = new Map(); // Cache for team competitions data
+let tournamentDataCache = null; // Cache for tournament masters data
+
+// Function to refresh tournament data cache
+function refreshTournamentData() {
+    tournamentDataCache = null;
+    console.log('[TOURNAMENT] Cache cleared. Next load will fetch fresh data.');
+}
+
+// Leagues with verified competition structure data
+// TOP tier leagues and major cups from around the world
+const leaguesWithInfo = new Set([
+    // England
+    39, 45, 48, 528,
+    // Germany
+    78, 81, 547,
+    // Italy
+    135, 137, 556,
+    // Spain
+    140, 143, 514,
+    // France
+    61, 66, 526,
+    // Portugal
+    94, 96,
+    // Netherlands
+    88,
+    // Belgium
+    144,
+    // Turkey
+    203,
+    // Russia
+    235,
+    // Greece
+    197,
+    // Scotland
+    179,
+    // Switzerland
+    207,
+    // Austria
+    218,
+    // Poland
+    106,
+    // Czech Republic
+    345,
+    // Denmark
+    119,
+    // Norway
+    103,
+    // Sweden
+    113,
+    // Israel
+    383, 385,
+    // South America
+    71, 73, 128, 130, 250, 253, 265, 268, 283, 384, 541,
+    // North America
+    262, 480,
+    // Asia
+    188, 323, 307, 169,
+    // Africa
+    20, 29, 32, 96,
+    // International
+    1, 2, 3, 4, 5, 6, 9, 10, 15, 16, 17, 18, 19, 21, 960, 531, 533
+]);
 
 // Elements
 const stepCountry = document.getElementById('stepCountry');
@@ -186,6 +248,89 @@ async function fetchLeagueCountdown(leagueId) {
     }
 }
 
+// Fetch and display countdown for national team competitions (use nat- prefix for IDs)
+async function fetchNationalCountdown(leagueId) {
+    try {
+        const response = await fetch(`${API_BASE}/league-next/${leagueId}`);
+        const data = await response.json();
+        
+        const countdownEl = document.getElementById(`countdown-nat-${leagueId}`);
+        if (!countdownEl) return;
+        
+        if (data.hasNext && data.fixture) {
+            const countdown = formatCountdown(data.fixture.date);
+            if (countdown) {
+                const isSoon = countdown.includes('hour') || countdown === 'Today' || countdown === 'Tomorrow';
+                const badgeClass = isSoon ? 'countdown-badge soon' : 'countdown-badge';
+                const icon = isSoon ? '⚽' : '🗓️';
+                countdownEl.innerHTML = `<span class="${badgeClass}"><span class="countdown-icon">${icon}</span>${countdown}</span>`;
+            }
+        }
+    } catch (e) {
+        console.log(`[UI] Countdown fetch failed for national league ${leagueId}:`, e.message);
+    }
+}
+
+// Load tournament data from backend API
+async function loadTournamentData() {
+    try {
+        if (tournamentDataCache) {
+            return tournamentDataCache; // Return cached data
+        }
+        
+        const response = await fetch(`${API_BASE}/tournaments/status/all`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Convert backend format to frontend format
+        const convertedData = {};
+        if (data.tournaments) {
+            Object.entries(data.tournaments).forEach(([id, tournament]) => {
+                convertedData[id] = {
+                    status: tournament.status,  // 'finished', 'vacation', 'active', etc.
+                    winner: tournament.winner   // null or { name, logo }
+                };
+            });
+        }
+        
+        tournamentDataCache = convertedData;
+        console.log('[TOURNAMENT] Loaded tournament data from backend:', Object.keys(convertedData).length, 'tournaments');
+        console.log('[TOURNAMENT] Sample data:', Object.entries(convertedData).slice(0, 3));
+        return convertedData;
+    } catch (error) {
+        console.error('[TOURNAMENT] Failed to load tournament data from backend:', error);
+        
+        // Fallback to hardcoded data if backend fails
+        return {
+            // Major International Tournaments (finished)
+            1: { status: 'finished', winner: { name: 'Argentina', logo: 'https://media.api-sports.io/football/teams/26.png' } }, // World Cup 2022
+            4: { status: 'finished', winner: { name: 'Spain', logo: 'https://media.api-sports.io/football/teams/9.png' } }, // Euro 2024
+            9: { status: 'finished', winner: { name: 'Argentina', logo: 'https://media.api-sports.io/football/teams/26.png' } }, // Copa America 2024
+            
+            // Super Cups (finished)
+            528: { status: 'finished', winner: { name: 'Manchester City', logo: 'https://media.api-sports.io/football/teams/50.png' } }, // Community Shield 2025
+            531: { status: 'finished', winner: { name: 'Real Madrid', logo: 'https://media.api-sports.io/football/teams/541.png' } }, // UEFA Super Cup 2025
+            514: { status: 'finished', winner: { name: 'Barcelona', logo: 'https://media.api-sports.io/football/teams/529.png' } }, // Supercopa de España 2025
+            529: { status: 'finished', winner: { name: 'Bayer Leverkusen', logo: 'https://media.api-sports.io/football/teams/168.png' } }, // DFL Supercup 2025 (Germany)
+            556: { status: 'finished', winner: { name: 'Inter', logo: 'https://media.api-sports.io/football/teams/505.png' } }, // Supercoppa Italiana 2025
+            526: { status: 'finished', winner: { name: 'PSG', logo: 'https://media.api-sports.io/football/teams/85.png' } }, // Trophée des Champions 2025
+            
+            // Domestic Cups (finished)
+            143: { status: 'finished', winner: { name: 'Athletic Bilbao', logo: 'https://media.api-sports.io/football/teams/531.png' } }, // Copa del Rey 2025
+            66: { status: 'finished', winner: { name: 'PSG', logo: 'https://media.api-sports.io/football/teams/85.png' } },  // Coupe de France 2025
+            
+            // Tournaments on vacation
+            385: { status: 'vacation', winner: null }, // Toto Cup Ligat Al (Israel)
+            533: { status: 'vacation', winner: null }, // CAF Super Cup (Africa)
+            541: { status: 'vacation', winner: null }, // Recopa Sudamericana (South America)
+            659: { status: 'vacation', winner: null }  // Super Cup (Israel)
+        };
+    }
+}
+
 
 function showContinentSelection() {
     currentState.mode = 'continent'; // Set Mode
@@ -226,12 +371,13 @@ function showContinentSelection() {
     continents.forEach(c => {
         const card = document.createElement('div');
         card.className = 'grid-card';
+        card.style.cursor = 'pointer';
         // Go to Continent Hub (Step 2)
         card.onclick = () => selectCountry(c.name, c.flag, c.regionFilter);
         
         card.innerHTML = `
-            <img src="${c.flag}" alt="${c.name}" style="width:40px; height:40px;">
-            <span>${c.name}</span>
+            <img src="${c.flag}" alt="${c.name}" style="width:40px; height:40px; pointer-events: none;">
+            <span style="pointer-events: none;">${c.name}</span>
         `;
         countriesGrid.appendChild(card);
     });
@@ -285,6 +431,7 @@ function showGlobalSelection() {
         if (isVacation) {
             card.classList.add('vacation-card');
             card.style.position = 'relative';
+            card.style.cursor = 'default';
             card.innerHTML = `
                 <span class="vacation-badge" style="position:absolute;top:8px;left:8px;font-size:1.5rem;z-index:10;">🏖️</span>
                 <div class="card-content" style="filter:grayscale(1);opacity:0.6;">
@@ -381,11 +528,12 @@ function renderCountriesList(list) {
     displayList.forEach(c => {
         const card = document.createElement('div');
         card.className = 'grid-card';
+        card.style.cursor = 'pointer';
         card.onclick = () => selectCountry(c.name, c.flag); // Normal country select (No region filter)
         card.innerHTML = `
             <img src="${c.flag || 'https://media.api-sports.io/flags/' + c.code.toLowerCase() + '.svg'}" 
-                 alt="${c.name}" onerror="this.style.display='none'">
-            <span style="font-size: 1.1rem; font-weight: 600;">${c.name}</span>
+                 alt="${c.name}" onerror="this.style.display='none'" style="pointer-events: none;">
+            <span style="font-size: 1.1rem; font-weight: 600; pointer-events: none;">${c.name}</span>
         `;
         countriesGrid.appendChild(card);
     });
@@ -550,13 +698,49 @@ async function loadCountryHub() {
             
             // Backend already filters and limits to 15
             
+            // Load tournament data from backend (replaces hardcoded finishedTournaments)
+            const finishedTournaments = await loadTournamentData();
+            console.log('[TOURNAMENT] Processing leagues with tournament data:', Object.keys(finishedTournaments).length, 'tournaments');
+            
             leagues.forEach(league => {
                 const card = document.createElement('div');
                 card.className = 'grid-card';
                 card.id = `league-card-${league.id}`;
-                // Use the new API fields: status, ui_label
-                const isVacation = league.status === 'vacation';
-                if (isVacation) {
+                
+                // Get tournament info from backend data (combines status + winner data)
+                const tournamentInfo = finishedTournaments[league.id]; 
+                const isVacation = (league.status === 'vacation') || (tournamentInfo && tournamentInfo.status === 'vacation');
+                const isFinished = tournamentInfo && tournamentInfo.status === 'finished' && tournamentInfo.winner;
+                
+                if (isFinished) {
+                    console.log('[TOURNAMENT] Found finished tournament:', league.id, league.name, 'Winner:', tournamentInfo.winner.name);
+                    // Finished tournament - show elegant finished state with winner
+                    card.classList.add('finished-card');
+                    card.style.position = 'relative';
+                    card.style.cursor = 'default';
+                    
+                    const winnerDisplay = tournamentInfo.winner ? 
+                        `<div style="display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px;background:rgba(255,255,255,0.6);border-radius:6px;">
+                            <img src="${tournamentInfo.winner.logo}" alt="${tournamentInfo.winner.name}" style="width:24px;height:24px;object-fit:contain;" onerror="this.style.display='none'">
+                            <div style="flex:1;">
+                                <div style="font-size:0.7rem;color:#8b6914;font-weight:600;">WINNER</div>
+                                <div style="font-size:0.85rem;color:#6b5416;font-weight:700;">${tournamentInfo.winner.name}</div>
+                            </div>
+                        </div>` : '';
+                    
+                    card.innerHTML = `
+                        <div class="card-content" style="filter:grayscale(0.2);opacity:0.8;border:2px solid #d4af37;background:linear-gradient(135deg, #fffdf7 0%, #f9f6e8 100%);">
+                            <div style="position:absolute;top:8px;right:8px;font-size:1.5rem;">🏆</div>
+                            <img src="${league.logo}" alt="${league.name}" style="opacity:0.75;" onerror="this.src='/favicon.svg'">
+                            <span class="league-name" style="color:#6b5416;font-weight:600;">${league.name}</span>
+                            <div style="margin-top:12px;padding:10px 14px;background:rgba(212,175,55,0.15);border-radius:8px;border:1px dashed #d4af37;">
+                                <div style="font-size:0.9rem;color:#8b6914;font-weight:700;letter-spacing:0.5px;">TOURNAMENT</div>
+                                <div style="font-size:0.85rem;color:#6b5416;margin-top:2px;">Completed</div>
+                            </div>
+                            ${winnerDisplay}
+                        </div>
+                    `;
+                } else if (isVacation) {
                     card.classList.add('vacation-card');
                     card.style.position = 'relative';
                     card.innerHTML = `
@@ -574,28 +758,157 @@ async function loadCountryHub() {
                         if (e.target.closest('.info-btn')) return; // Don't select if clicking info
                         selectLeague(league.id, league.name, true, league.type);
                     };
+                    
+                    // Only show info button if league has verified structure data
+                    const infoButton = leaguesWithInfo.has(league.id) ? 
+                        `<button class="info-btn" onclick="showCompetitionInfo(${league.id}, '${league.name.replace(/'/g, "\\'")}'); event.stopPropagation();" title="Competition info">
+                            <span class="info-circle">i</span>
+                        </button>` : '';
+                    
                     card.innerHTML = `
                         <div class="card-content">
                             <img src="${league.logo}" alt="${league.name}" onerror="this.src='https://media.api-sports.io/football/leagues/1.png'">
                             <div class="league-info">
                                 <span class="league-name">${league.name}</span>
-                                <span class="next-match-countdown" id="countdown-${league.id}"></span>
+                                <div class="league-status-row">
+                                    <span class="league-status-badge" id="status-${league.id}" style="font-size:0.75rem;padding:3px 8px;border-radius:12px;font-weight:600;display:none;margin-top:6px;"></span>
+                                    <span class="next-match-countdown" id="countdown-${league.id}"></span>
+                                </div>
                             </div>
-                            <button class="info-btn" onclick="showCompetitionInfo(${league.id}, '${league.name.replace(/'/g, "\\'")}'); event.stopPropagation();" title="Competition info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button>
+                            ${infoButton}
                         </div>
                     `;
-                    // Fetch countdown asynchronously
+                    // Fetch status and countdown asynchronously
+                    fetchLeagueStatus(league.id, league.country);
                     fetchLeagueCountdown(league.id);
                 }
                 domesticGrid.appendChild(card);
             });
         } else {
-            domesticGrid.innerHTML = '<p class="empty-msg">No leagues found.</p>';
+            domesticGrid.innerHTML = `
+                <div class="empty-state" style="padding: 40px; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🏟️</div>
+                    <h3 style="color: #64748b; margin-bottom: 12px;">No Leagues Available</h3>
+                    <p style="color: #94a3b8;">This country doesn't have any active leagues in our database.</p>
+                    <p style="color: #94a3b8; margin-top: 8px;">Try selecting a different country.</p>
+                </div>
+            `;
             domesticGrid.classList.remove('cards-grid');
         }
 
     } catch(e) { 
         leaguesGrid.innerHTML = '<p class="error">Error loading hub.</p>'; 
+    }
+}
+
+// Check league status by fetching fixtures
+async function getLeagueStatus(leagueId) {
+    try {
+        // Try to get a major team for this league from our test teams map
+        const testTeams = {
+            39: 33,    // Premier League -> Man United
+            140: 532,  // La Liga -> Real Madrid
+            135: 50,   // Serie A -> Milan
+            78: 157,   // Bundesliga -> Bayern
+            61: 157,   // Ligue 1 -> PSG
+            2: 33,     // Champions League -> Man United
+            3: 33,     // Europa League -> Man United
+            4: 33      // Conference League -> Man United
+        };
+        
+        const teamId = testTeams[leagueId] || 33; // Default to Man United
+        const response = await fetch(`${API_BASE}/fixtures/team/${teamId}?next=20`);
+        const data = await response.json();
+        const fixtures = Array.isArray(data) ? data : (data.response || []);
+        
+        // Count fixtures in this league
+        const leagueFixtures = fixtures.filter(f => f.league?.id == leagueId);
+        
+        if (leagueFixtures.length > 0) {
+            return { status: 'active', count: leagueFixtures.length };
+        } else {
+            return { status: 'break', count: 0 };
+        }
+    } catch (e) {
+        return { status: 'unknown', count: 0 };
+    }
+}
+
+// Fetch and display league status
+async function fetchLeagueStatus(leagueId, leagueCountry, idPrefix = 'status') {
+    const badge = document.getElementById(`${idPrefix}-${leagueId}`);
+    if (!badge) return;
+    
+    const statusData = await getLeagueStatus(leagueId);
+    
+    if (statusData.status === 'active') {
+        badge.innerHTML = `🟢 Active (${statusData.count} matches)`;
+        badge.style.background = '#dcfce7';
+        badge.style.color = '#166534';
+        badge.style.border = '1px solid #86efac';
+        badge.style.display = 'inline-block';
+    } else if (statusData.status === 'break') {
+        // Smart detection based on region and current month
+        const now = new Date();
+        const month = now.getMonth(); // 0=Jan, 11=Dec
+        
+        // Detect region from country
+        const europeanCountries = ['England', 'Spain', 'Germany', 'France', 'Italy', 'Portugal', 'Netherlands', 'Belgium', 'Scotland', 'Turkey', 'Greece', 'Switzerland', 'Austria', 'Denmark', 'Sweden', 'Norway', 'Poland', 'Czech-Republic', 'Ukraine', 'Russia', 'Croatia', 'Serbia', 'Romania', 'Bulgaria', 'Israel'];
+        const southAmericanCountries = ['Brazil', 'Argentina', 'Uruguay', 'Paraguay', 'Chile', 'Colombia', 'Ecuador', 'Peru', 'Bolivia', 'Venezuela'];
+        const asianCountries = ['Japan', 'South-Korea', 'China', 'Saudi-Arabia', 'Qatar', 'United-Arab-Emirates', 'Iran', 'Iraq', 'India', 'Thailand', 'Malaysia', 'Singapore', 'Indonesia', 'Vietnam'];
+        const northernCountries = ['Sweden', 'Norway', 'Finland', 'Denmark', 'Iceland']; // Late start leagues
+        
+        let statusText;
+        const country = leagueCountry || '';
+        
+        if (europeanCountries.includes(country) && !northernCountries.includes(country)) {
+            // European leagues: August-May season
+            if (month >= 5 && month <= 7) {
+                statusText = '☀️ Off Season';
+            } else if (month >= 11 || month === 0) {
+                statusText = '❄️ Winter Break';
+            } else {
+                statusText = '⏸️ No Matches';
+            }
+        } else if (southAmericanCountries.includes(country)) {
+            // South American leagues: Calendar year (no winter break)
+            if (month >= 11 || month <= 1) {
+                statusText = '☀️ Off Season';
+            } else {
+                statusText = '⏸️ No Matches';
+            }
+        } else if (northernCountries.includes(country)) {
+            // Northern leagues: April-November season
+            if (month >= 11 || month <= 2) {
+                statusText = '❄️ Off Season';
+            } else {
+                statusText = '⏸️ No Matches';
+            }
+        } else if (asianCountries.includes(country)) {
+            // Asian leagues: Varies, mostly August-May or Feb-Dec
+            if (month >= 11 || month === 0) {
+                statusText = '⏸️ No Matches';
+            } else if (month >= 5 && month <= 7) {
+                statusText = '☀️ Off Season';
+            } else {
+                statusText = '⏸️ No Matches';
+            }
+        } else {
+            // Default: Generic message
+            statusText = '⏸️ No Matches';
+        }
+        
+        badge.innerHTML = statusText;
+        badge.style.background = '#fef3c7';
+        badge.style.color = '#92400e';
+        badge.style.border = '1px solid #fcd34d';
+        badge.style.display = 'inline-block';
+    } else {
+        badge.innerHTML = '⚪️ Status Unknown';
+        badge.style.background = '#f3f4f6';
+        badge.style.color = '#6b7280';
+        badge.style.border = '1px solid #d1d5db';
+        badge.style.display = 'inline-block';
     }
 }
 
@@ -818,13 +1131,30 @@ function renderStructuredContinent(defs, region) {
                     if (e.target.closest('.info-btn')) return;
                     selectLeague(c.id, c.name, true, 'Cup');
                 };
+                
+                // Only show info button if competition has verified structure data
+                const infoButton = leaguesWithInfo.has(c.id) ? 
+                    `<button class="info-btn" onclick="showCompetitionInfo(${c.id}, '${c.name.replace(/'/g, "\\'")}'); event.stopPropagation();" title="Competition info">
+                        <span class="info-circle">i</span>
+                    </button>` : '';
+                
                 card.innerHTML = `
-                    <div class="card-content" style="display:flex;align-items:center;gap:10px;width:100%;">
-                        <img src="${getLeagueLogo(c.id)}" alt="${c.name}" onerror="this.src='/favicon.svg'" style="width:40px;height:40px;">
-                        <span style="flex:1;">${c.name}</span>
-                        <button class="info-btn" onclick="showCompetitionInfo(${c.id}, '${c.name.replace(/'/g, "\\'")}'); event.stopPropagation();" title="Competition info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button>
+                    <div class="card-content">
+                        <img src="${getLeagueLogo(c.id)}" alt="${c.name}" onerror="this.src='/favicon.svg'">
+                        <div class="league-info">
+                            <span class="league-name">${c.name}</span>
+                            <div class="league-status-row">
+                                <span class="league-status-badge" id="status-${c.id}" style="font-size:0.75rem;padding:3px 8px;border-radius:12px;font-weight:600;display:none;margin-top:6px;"></span>
+                                <span class="next-match-countdown" id="countdown-${c.id}"></span>
+                            </div>
+                        </div>
+                        ${infoButton}
                     </div>
                 `;
+                
+                // Fetch status and countdown asynchronously
+                fetchLeagueStatus(c.id, c.country);
+                fetchLeagueCountdown(c.id);
             }
             clubGrid.appendChild(card);
         });
@@ -861,9 +1191,21 @@ function renderStructuredContinent(defs, region) {
                  // Mark as competition context
                  card.onclick = () => selectLeague(c.id, c.name, true, 'Cup'); 
                  card.innerHTML = `
-                     <img src="${getLeagueLogo(c.id)}" alt="${c.name}" onerror="this.src='/favicon.svg'">
-                     <span>${c.name}</span>
+                     <div class="card-content">
+                         <img src="${getLeagueLogo(c.id)}" alt="${c.name}" onerror="this.src='/favicon.svg'">
+                         <div class="league-info">
+                             <span class="league-name">${c.name}</span>
+                             <div class="league-status-row">
+                                 <span class="league-status-badge" id="status-nat-${c.id}" style="font-size:0.75rem;padding:3px 8px;border-radius:12px;font-weight:600;display:none;margin-top:6px;"></span>
+                                 <span class="next-match-countdown" id="countdown-nat-${c.id}"></span>
+                             </div>
+                         </div>
+                     </div>
                  `;
+                 
+                 // Fetch status and countdown asynchronously
+                 fetchLeagueStatus(c.id, 'World', 'status-nat');
+                 fetchNationalCountdown(c.id);
              }
              natGrid.appendChild(card);
         });
@@ -946,6 +1288,9 @@ async function selectLeague(leagueId, leagueName, isCompetitionContext = false, 
     const stepTitle = leagueId === 'NATIONAL' 
         ? `Step 3: Select ${currentState.country} National Team` 
         : `Step 3: Select ${leagueName} Team`;
+    
+    // Store league name for later use (cup holder detection)
+    currentState.leagueNameForTitle = leagueName;
         
     updateNavigation(3, stepTitle, resetToLeagues);
     
@@ -1123,22 +1468,74 @@ async function loadTeams(leagueId) {
             }
             
             // For knockout tournaments without standings (cups after group stage),
-            // show only teams that still have upcoming fixtures (not eliminated)
+            // show only teams still in the current knockout stage (not eliminated)
             const isCupFormat = leagueType === 'cup' || competitionFormat === 'knockout';
             if (isCupFormat && !hasStandings && teams.length > 0) {
-                console.log('[Knockout Filter] Filtering to show only active teams in knockout stage...');
-                // Get active team IDs by checking which teams have upcoming fixtures
+                console.log('🏆 [Knockout Filter] Detected cup format without standings');
+                console.log(`🏆 [Knockout Filter] League: ${currentState.leagueName || 'Unknown'}, Season: ${activeSeason}, Total teams registered: ${teams.length}`);
+                // Use tournament endpoint to get exact list of teams still in knockout stage
+                // This is more accurate than checking fixtures - shows ALL teams in current round
                 try {
-                    const activeSeason = currentState.season || new Date().getFullYear();
-                    const activeTeamsRes = await fetch(`${API_BASE}/active-teams?league=${currentState.leagueId}&season=${activeSeason}`);
-                    const activeTeams = await activeTeamsRes.json();
-                    const activeIds = new Set(activeTeams.map(t => t.id));
-                    // Filter to show only teams with upcoming fixtures
-                    const teamsBeforeFilter = teams.length;
-                    teams = teams.filter(t => activeIds.has(t.team?.id));
-                    console.log(`[Knockout Filter] Filtered from ${teamsBeforeFilter} to ${teams.length} active teams`);
+                    const tournamentRes = await fetch(`${API_BASE}/tournament/${leagueId}`);
+                    const tournamentData = await tournamentRes.json();
+                    
+                    // If tournament has knockoutTeams list, use it (most accurate!)
+                    if (tournamentData.knockoutTeams && tournamentData.knockoutTeams.length > 0) {
+                        const knockoutIds = new Set(tournamentData.knockoutTeams.map(t => t.id));
+                        console.log(`🏆 [Knockout Filter] Tournament API reports ${knockoutIds.size} teams in ${tournamentData.currentRound || 'current stage'}`);
+                        
+                        // ENHANCEMENT: Also check finished matches to identify eliminated teams
+                        // This handles cases where API hasn't updated knockoutTeams yet after recent matches
+                        const eliminatedIds = new Set();
+                        if (tournamentData.currentRound) {
+                            console.log(`🏆 [Knockout Filter] Checking finished matches in ${tournamentData.currentRound} for eliminations...`);
+                            const roundFixturesRes = await fetch(`${API_BASE}/fixtures?league=${leagueId}&season=${activeSeason}&round=${encodeURIComponent(tournamentData.currentRound)}`);
+                            const roundFixtures = await roundFixturesRes.json();
+                            const fixtures = Array.isArray(roundFixtures) ? roundFixtures : (roundFixtures.response || []);
+                            
+                            fixtures.forEach(fixture => {
+                                if (fixture.fixture?.status?.short === 'FT') {
+                                    // Match finished - identify loser
+                                    const homeId = fixture.teams?.home?.id;
+                                    const awayId = fixture.teams?.away?.id;
+                                    const homeWinner = fixture.teams?.home?.winner;
+                                    const awayWinner = fixture.teams?.away?.winner;
+                                    
+                                    if (homeWinner === false && homeId) {
+                                        eliminatedIds.add(homeId);
+                                        console.log(`🏆 [Knockout Filter] ❌ ${fixture.teams.home.name} eliminated (lost match)`);
+                                    }
+                                    if (awayWinner === false && awayId) {
+                                        eliminatedIds.add(awayId);
+                                        console.log(`🏆 [Knockout Filter] ❌ ${fixture.teams.away.name} eliminated (lost match)`);
+                                    }
+                                }
+                            });
+                        }
+                        
+                        const teamsBeforeFilter = teams.length;
+                        // Filter: must be in knockoutTeams AND not eliminated by match results
+                        teams = teams.filter(t => {
+                            const teamId = t.team?.id;
+                            const inKnockout = knockoutIds.has(teamId);
+                            const isEliminated = eliminatedIds.has(teamId);
+                            return inKnockout && !isEliminated;
+                        });
+                        console.log(`🏆 [Knockout Filter] ✅ Filtered from ${teamsBeforeFilter} to ${teams.length} active teams`);
+                        console.log(`🏆 [Knockout Filter] Eliminated teams hidden: ${teamsBeforeFilter - teams.length}`);
+                    } else {
+                        // Fallback: Use active-teams (teams with upcoming fixtures)
+                        console.log('🏆 [Knockout Filter] Tournament API has no knockoutTeams, falling back to active-teams');
+                        const activeTeamsRes = await fetch(`${API_BASE}/active-teams?league=${leagueId}&season=${activeSeason}`);
+                        const activeTeams = await activeTeamsRes.json();
+                        const activeIds = new Set(activeTeams.map(t => t.id));
+                        console.log(`🏆 [Knockout Filter] Active teams with upcoming fixtures: ${activeIds.size}`);
+                        const teamsBeforeFilter = teams.length;
+                        teams = teams.filter(t => activeIds.has(t.team?.id));
+                        console.log(`🏆 [Knockout Filter] ✅ Filtered from ${teamsBeforeFilter} to ${teams.length} active teams`);
+                    }
                 } catch(e) {
-                    console.warn('[Knockout Filter] Could not fetch active teams:', e);
+                    console.warn('🏆 [Knockout Filter] ❌ Could not fetch tournament data:', e);
                 }
             }
             
@@ -1322,7 +1719,9 @@ async function loadTeams(leagueId) {
                 }
 
                 // Favorite star button - data attributes for the handler
-                const teamData = JSON.stringify({id: team.id, name: team.name, logo: team.logo, isNational: isNational || false}).replace(/"/g, '&quot;');
+                const teamData = JSON.stringify({id: team.id, name: team.name, logo: team.logo, isNational: isNational || false})
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
                 const isFavorited = isSubscriptionRelevant(team.id);
                 const isSubscribed = userFavorites.has(team.id);
                 const starClass = isFavorited ? 'fav-star-btn favorited' : (isSubscribed ? 'fav-star-btn subscribed-other' : 'fav-star-btn');
@@ -1444,7 +1843,7 @@ async function loadTeams(leagueId) {
                         <td>
                             <img src="${team.logo}" alt="${team.name}" onerror="this.src='/favicon.svg'">
                         </td>
-                        <td class="team-info" style="font-weight: 600;">${cupBadge}${team.name}</td>
+                        <td class="team-info" style="font-weight: 600;">${team.name}${cupBadge}</td>
                         ${isNationalContext ? `<td>${badgeHtml}</td>` : ''}
                         <td>${team.founded || '-'}</td>
                         <td>${venue.name || '-'}</td>
@@ -1522,6 +1921,42 @@ function selectTeam(teamId, isNational = false) {
     currentState.isNationalView = isNational;
     if (teamIdInput) teamIdInput.value = teamId;
     
+    // Find team name and check if cup holder
+    const teamData = Array.from(document.querySelectorAll('[data-team]'))
+        .map(btn => {
+            try {
+                const dataStr = btn.getAttribute('data-team')
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#39;/g, "'");
+                return JSON.parse(dataStr);
+            } catch (e) {
+                console.error('Failed to parse team data:', e);
+                return null;
+            }
+        })
+        .filter(t => t !== null)
+        .find(t => t.id == teamId);
+    
+    if (teamData) {
+        const teamName = teamData.name;
+        let titleSuffix = '';
+        
+        // Check if this is a cup competition and if team is cup holder
+        if (currentState.leagueType === 'cup') {
+            const cupHolder = teamData.isCupWinner;
+            if (cupHolder) {
+                titleSuffix = ' 🏆';
+            }
+        }
+        
+        // Update title with team name
+        const stepTitleText = isNational 
+            ? `Step 3: ${teamName}${titleSuffix}`
+            : `Step 3: ${currentState.leagueNameForTitle || 'League'} - ${teamName}${titleSuffix}`;
+        
+        updateNavigation(3, stepTitleText, resetToLeagues);
+    }
+    
     // Pre-fetch team competitions for the smart filter button
     fetchTeamCompetitions(teamId, isNational);
     
@@ -1586,6 +2021,7 @@ async function searchFixtures(useLeagueFilter = false) {
     const teamId = teamIdInput.value.trim();
     if (!teamId) return;
 
+    const previousFilterState = currentState.isFiltered; // Track if this is a filter toggle
     currentState.isFiltered = useLeagueFilter; // Store state for UI toggle
 
     showStatus('🔄 Loading fixtures...', 'loading');
@@ -1610,19 +2046,78 @@ async function searchFixtures(useLeagueFilter = false) {
         if (fixtureList.length > 0) {
             allFixtures = fixtureList;
             showStatus(`✅ Found ${allFixtures.length} upcoming fixtures!`, 'success');
-            renderFixtures(false); 
-            fixturesContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // Only save scroll position if toggling filter (not initial search)
+            // previousFilterState will be undefined on first load
+            const isToggling = (previousFilterState !== undefined) && (previousFilterState !== useLeagueFilter);
+            const scrollY = window.scrollY;
+            
+            renderFixtures(false);
+            
+            if (isToggling) {
+                // Restore scroll position on toggle to prevent jump
+                requestAnimationFrame(() => {
+                    window.scrollTo(0, scrollY);
+                });
+            } else {
+                // Initial search - scroll to fixtures table
+                requestAnimationFrame(() => {
+                    fixturesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
         } else {
             if (Array.isArray(fixtureList)) {
-                 // ** STRICT EMPTY STATE: No History **
+                 // ** EMPTY STATE: Check if this is a knockout tournament in progress **
+                 let customMessage = null;
+                 let customIcon = '🎲';
+                 let customTitle = 'Waiting for Next Draw';
                  
-                 const msg = 'No matches scheduled—enjoy the break!';
+                 // If viewing a specific cup/tournament, check tournament status
+                 if (useLeagueFilter && currentState.league && currentState.leagueType === 'cup') {
+                     customIcon = '🎲';
+                     customTitle = 'Waiting for Next Draw';
+                     customMessage = `Team is waiting for the next draw in ${currentState.leagueName || 'this tournament'}`;
+                     
+                     try {
+                         const tournamentRes = await fetch(`${API_BASE}/tournament/${currentState.league}`);
+                         const tournamentData = await tournamentRes.json();
+                         
+                         // If tournament is in knockout stage and NOT finished
+                         if (tournamentData.isKnockout && !tournamentData.isFinished) {
+                             const currentRound = tournamentData.currentRoundLabel || tournamentData.currentRound || 'current stage';
+                             // Check if team is still in knockout teams list
+                             const teamStillIn = tournamentData.knockoutTeams?.some(t => t.id == teamId);
+                             
+                             if (teamStillIn) {
+                                 customIcon = '⏰';
+                                 customTitle = `Waiting for Next Match`;
+                                 customMessage = `${currentRound} completed—awaiting draw for next round`;
+                             } else {
+                                 customIcon = '❌';
+                                 customTitle = `Eliminated from Tournament`;
+                                 customMessage = `Team was eliminated from ${currentState.leagueName || 'this tournament'}`;
+                             }
+                         }
+                     } catch(e) {
+                         console.log('Could not check tournament status:', e);
+                     }
+                 }
+                 
+                 const finalMessage = customMessage || 'No matches scheduled for now';
+                 
+                 // Add "Show All Matches" button for knockout tournaments 
+                 const showAllButton = useLeagueFilter && currentState.leagueType === 'cup' ? 
+                     `<button onclick="loadTeamFixtures(${teamId}, false)" style="margin-top:15px;padding:8px 16px;background:#3b82f6;color:white;border:none;border-radius:6px;cursor:pointer;">
+                         Show All Team Matches
+                      </button>` : '';
+                 
                  showStatus('No upcoming fixtures found.', 'warning');
                  fixturesContainer.innerHTML = `
                     <div class="empty-state vacation-card" style="padding: 40px; text-align: center; border-radius: 12px; border: 1px dashed #e2e8f0; margin-top: 20px; background: #f3f4f6; color: #bdbdbd;">
-                        <div style="font-size: 3rem; margin-bottom: 10px;">🏖️</div>
-                        <h3 style="color: #bdbdbd; margin-bottom: 10px;">No Upcoming Matches</h3>
-                        <p style="color: #bdbdbd;">${msg}</p>
+                        <div style="font-size: 3rem; margin-bottom: 10px;">${customIcon}</div>
+                        <h3 style="color: #bdbdbd; margin-bottom: 10px;">${customTitle}</h3>
+                        <p style="color: #bdbdbd;">${finalMessage}</p>
+                        ${showAllButton}
                     </div>`;
                  fixturesContainer.scrollIntoView({ behavior: 'smooth' }); // Ensure user sees the result
             } else {
@@ -1698,22 +2193,22 @@ function renderFixtures(isResultsMode = false) {
         if (otherCompsExist) {
             filterBtnClass = 'btn-primary-lg';
             filterBtnText = `➕ Also show: ${otherCompsNames.slice(0, 2).join(', ')}${otherCompsNames.length > 2 ? '...' : ''}`;
-            filterBtnStyle = 'font-size:0.9rem; padding:10px 20px; animation: pulse 2s infinite;';
+            filterBtnStyle = '';
         } else if (!cachedComps) {
             filterBtnClass = 'control-btn';
             filterBtnText = '🔄 Show All Competitions';
-            filterBtnStyle = 'font-size:0.9rem; padding:8px 16px;';
+            filterBtnStyle = '';
         } else {
             // No other competitions - disable button
             filterBtnClass = 'control-btn';
             filterBtnText = `Only in ${currentState.leagueName || 'this competition'}`;
-            filterBtnStyle = 'font-size:0.9rem; padding:8px 16px; opacity:0.5; cursor:not-allowed;';
+            filterBtnStyle = 'opacity:0.5; cursor:not-allowed;';
         }
     } else {
         // Currently showing all - button to filter
         filterBtnClass = 'control-btn';
         filterBtnText = `📋 Show only ${currentState.leagueName || 'League'}`;
-        filterBtnStyle = 'font-size:0.9rem; padding:8px 16px;';
+        filterBtnStyle = '';
     }
     
     // Only enable toggle if there's something to toggle to
@@ -1730,11 +2225,11 @@ function renderFixtures(isResultsMode = false) {
         <div class="controls-bar" style="display:grid; grid-template-columns: auto auto 1fr auto; gap:16px; align-items:center; ${isResultsMode ? 'background:#fff7ed; border-color:#fdba74;' : ''}">
             ${isResultsMode ? '<div style="grid-column:1/-1; text-align:center; font-weight:bold; color:#c2410c; padding-bottom:8px; border-bottom:1px solid #fdba74;">📊 Recent Results</div>' : ''}
             
-            ${!isResultsMode ? '<span style="color:#2563eb; font-size:0.9rem; font-weight:600; background:#eff6ff; padding:6px 12px; border-radius:6px; border:1px solid #bfdbfe; white-space:nowrap;">👇 Select or ⭐ Subscribe</span>' : '<div></div>'}
+            ${!isResultsMode ? '<span style="color:#2563eb; font-size:0.8rem; font-weight:600; background:#eff6ff; padding:6px 10px; border-radius:6px; border:1px solid #bfdbfe; white-space:nowrap;">👇 Select or ⭐ Subscribe</span>' : '<div></div>'}
             
             <div class="selection-controls">
-                <button class="control-btn" onclick="handleSelectAll()" ${disableControls}>Select All</button>
-                <button class="control-btn" onclick="handleClearAll()" ${disableControls}>Clear All</button>
+                <button class="control-btn" onclick="handleSelectAll()" ${disableControls}>✅ Select All</button>
+                <button class="control-btn" onclick="handleClearAll()" ${disableControls}>❌ Clear All</button>
             </div>
             
             ${showFilterToggle ? `
@@ -1748,7 +2243,7 @@ function renderFixtures(isResultsMode = false) {
             <div style="display:flex; gap:12px; align-items:center; justify-content:flex-end;">
                 <button id="syncBtn" class="control-btn" onclick="getSyncLink()" disabled title="Login required" ${disableControls}>🔗 Sync</button>
                 <button id="addSelectedBtn" class="btn-primary-lg" onclick="addSelectedToCalendar()" disabled ${disableControls}>
-                    Add (0)
+                    ➕ Add (0)
                 </button>
             </div>
         </div>
@@ -3956,12 +4451,13 @@ window.showCompetitionInfo = async function(leagueId, leagueName) {
         
         if (!hasRealData) {
             content.innerHTML = `
+                <button class="modal-close-btn" onclick="document.getElementById('competitionInfoModal').remove()" 
+                        style="position:absolute;top:12px;right:12px;background:#f1f5f9;border:none;width:32px;height:32px;border-radius:50%;font-size:1.2rem;cursor:pointer;color:#64748b;display:flex;align-items:center;justify-content:center;transition:all 0.2s;">×</button>
+                
                 <div style="text-align:center;padding:30px;">
                     <div style="font-size:2.5rem;margin-bottom:12px;">📋</div>
                     <p style="color:#64748b;font-weight:500;margin-bottom:4px;">${leagueName}</p>
                     <p style="color:#94a3b8;font-size:0.85rem;">No detailed info available yet</p>
-                    <button onclick="document.getElementById('competitionInfoModal').remove()" 
-                            style="margin-top:20px;padding:10px 32px;background:#f1f5f9;border:none;border-radius:8px;cursor:pointer;color:#64748b;">Close</button>
                 </div>`;
             return;
         }
@@ -4046,13 +4542,6 @@ window.showCompetitionInfo = async function(leagueId, leagueName) {
             ${statusBadge}
             ${promoHtml}
             ${viewDataBtn ? `<div style="text-align:center;margin-top:20px;">${viewDataBtn}</div>` : ''}
-            
-            <div style="text-align:center;margin-top:16px;">
-                <button onclick="document.getElementById('competitionInfoModal').remove()" 
-                        style="padding:10px 32px;background:#f1f5f9;border:none;border-radius:8px;font-size:0.9rem;cursor:pointer;color:#64748b;transition:all 0.2s;"
-                        onmouseenter="this.style.background='#e2e8f0';this.style.color='#1e293b';"
-                        onmouseleave="this.style.background='#f1f5f9';this.style.color='#64748b';">Close</button>
-            </div>
         `;
         
         // Add hover effect to close button

@@ -1,6 +1,32 @@
 # File Reference - Code Documentation
 
-> Last Updated: February 2026
+> Last Updated: February 2026 - Added Tournament Data System
+
+## 🏆 Tournament Data System Files (IMPLEMENTED)
+
+### New Data Files (`src/data/`)
+
+**Tournament Master Data** (51KB total across 5 files):
+- `world_tournaments_master.json` (15.8KB) - 13 major tournaments with complete metadata
+- `status_rules.json` (10.3KB) - Month-based status calculation rules  
+- `display_config.json` (8.4KB) - UI styling and badge configurations
+- `regions_config.json` (7.0KB) - Regional season patterns
+- `country_mappings.json` (5.3KB) - Tournament-to-country fixes
+
+**New API Endpoints**:
+- `/api/fixtures/tournaments/status/all` - Main tournament status endpoint
+- `/api/fixtures/tournaments/master` - Complete tournament database
+- `/api/fixtures/tournaments/winners/current` - Winners-only data
+- `/api/fixtures/tournaments/country/:name` - Country-specific tournaments
+- `/api/fixtures/tournaments/:id/status` - Individual tournament status
+
+**Frontend Integration**:
+- `loadTournamentData()` function in `public/js/app_v2.js`
+- `tournamentDataCache` for performance optimization
+- Golden card rendering for finished tournaments
+- Automatic fallback to hardcoded data
+
+---
 
 ## Directory Structure Overview
 

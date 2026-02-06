@@ -1,0 +1,241 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-02-06T14:30:00Z",
+    "version": "1.0.0",
+    "description": "Regional configurations for tournament patterns and schedules"
+  },
+  "regions": {
+    "global": {
+      "name": "Global",
+      "description": "Worldwide tournaments",
+      "countries": ["FIFA"],
+      "defaultPattern": "irregular",
+      "winterBreak": false,
+      "timezone": "UTC",
+      "characteristics": {
+        "major_tournaments": ["World Cup", "Olympics"],
+        "frequency": "quadrennial",
+        "schedule_varies": true
+      }
+    },
+    "europe": {
+      "name": "Europe",
+      "description": "European football confederation",
+      "countries": ["England", "Germany", "Spain", "Italy", "France", "Netherlands", "Portugal", "Belgium"],
+      "defaultPattern": "august_may",
+      "winterBreak": true,
+      "winterBreakMonths": [12, 1],
+      "superCupMonth": 8,
+      "timezone": "CET",
+      "characteristics": {
+        "season_start": "August",
+        "season_end": "May",
+        "winter_break": "December-January",
+        "super_cups": "August",
+        "domestic_cups": "September-May",
+        "continental": "September-June"
+      }
+    },
+    "south_america": {
+      "name": "South America",
+      "description": "CONMEBOL confederation",
+      "countries": ["Brazil", "Argentina", "Colombia", "Uruguay", "Chile", "Peru"],
+      "defaultPattern": "calendar_year",
+      "winterBreak": false,
+      "superCupMonth": 2,
+      "timezone": "UTC-3",
+      "characteristics": {
+        "season_start": "February",
+        "season_end": "December",
+        "state_championships": "January-April",
+        "super_cups": "February",
+        "continental": "February-November"
+      }
+    },
+    "asia": {
+      "name": "Asia",
+      "description": "AFC confederation",
+      "countries": ["Japan", "South Korea", "China", "Thailand", "India"],
+      "defaultPattern": "february_november",
+      "winterBreak": true,
+      "winterBreakMonths": [12, 1, 2],
+      "superCupMonth": 2,
+      "timezone": "JST",
+      "characteristics": {
+        "season_start": "February",
+        "season_end": "November", 
+        "winter_break": "December-February",
+        "super_cups": "February"
+      }
+    },
+    "africa": {
+      "name": "Africa",
+      "description": "CAF confederation", 
+      "countries": ["South Africa", "Egypt", "Morocco", "Nigeria", "Ghana"],
+      "defaultPattern": "varies_by_country",
+      "winterBreak": false,
+      "superCupMonth": 2,
+      "timezone": "CAT",
+      "characteristics": {
+        "season_varies": true,
+        "north_africa": "September-June",
+        "south_africa": "August-May",
+        "super_cups": "February"
+      }
+    },
+    "middle_east": {
+      "name": "Middle East",
+      "description": "Middle Eastern countries",
+      "countries": ["Israel", "Saudi Arabia", "UAE"],
+      "defaultPattern": "august_may",
+      "winterBreak": true,
+      "winterBreakMonths": [12, 1],
+      "superCupMonth": 8,
+      "timezone": "IST",
+      "characteristics": {
+        "season_start": "August",
+        "season_end": "May",
+        "follows_european_model": true,
+        "super_cups": "August"
+      }
+    },
+    "north_america": {
+      "name": "North America",
+      "description": "MLS and CONCACAF",
+      "countries": ["United States", "Canada", "Mexico"],
+      "defaultPattern": "february_november",
+      "winterBreak": true,
+      "winterBreakMonths": [12, 1, 2],
+      "superCupMonth": 3,
+      "timezone": "EST",
+      "characteristics": {
+        "season_start": "March",
+        "season_end": "November",
+        "playoffs": "October-November",
+        "off_season": "December-February"
+      }
+    },
+    "oceania": {
+      "name": "Oceania",
+      "description": "Australia and New Zealand",
+      "countries": ["Australia", "New Zealand"],
+      "defaultPattern": "october_may",
+      "winterBreak": true,
+      "winterBreakMonths": [6, 7, 8, 9],
+      "superCupMonth": 10,
+      "timezone": "AEST",
+      "characteristics": {
+        "season_start": "October",
+        "season_end": "May",
+        "southern_hemisphere": true,
+        "winter_is_off_season": true
+      }
+    }
+  },
+  "seasonPatterns": {
+    "august_may": {
+      "name": "European Model",
+      "startMonth": 8,
+      "endMonth": 5,
+      "description": "Traditional European season",
+      "regions": ["europe", "middle_east", "africa_south"],
+      "monthStatuses": {
+        "1": "winter_break",
+        "2": "active",
+        "3": "active", 
+        "4": "active",
+        "5": "final_stages",
+        "6": "off_season",
+        "7": "off_season",
+        "8": "season_start",
+        "9": "active",
+        "10": "active",
+        "11": "active",
+        "12": "winter_break"
+      }
+    },
+    "calendar_year": {
+      "name": "Calendar Year Model",
+      "startMonth": 2,
+      "endMonth": 12,
+      "description": "South American model",
+      "regions": ["south_america"],
+      "monthStatuses": {
+        "1": "state_championships",
+        "2": "season_start",
+        "3": "active",
+        "4": "active",
+        "5": "active",
+        "6": "active",
+        "7": "active",
+        "8": "active",
+        "9": "active",
+        "10": "active",
+        "11": "final_stages",
+        "12": "off_season"
+      }
+    },
+    "february_november": {
+      "name": "Asian Model",
+      "startMonth": 2,
+      "endMonth": 11,
+      "description": "Asian and MLS model",
+      "regions": ["asia", "north_america"],
+      "monthStatuses": {
+        "1": "winter_break",
+        "2": "season_start",
+        "3": "active",
+        "4": "active",
+        "5": "active",
+        "6": "active",
+        "7": "active",
+        "8": "active",
+        "9": "active",
+        "10": "active",
+        "11": "final_stages",
+        "12": "winter_break"
+      }
+    },
+    "october_may": {
+      "name": "Southern Hemisphere Model",
+      "startMonth": 10,
+      "endMonth": 5,
+      "description": "Australian model",
+      "regions": ["oceania"],
+      "monthStatuses": {
+        "1": "active",
+        "2": "active",
+        "3": "active",
+        "4": "active",
+        "5": "final_stages",
+        "6": "winter_break",
+        "7": "winter_break",
+        "8": "winter_break",
+        "9": "winter_break",
+        "10": "season_start",
+        "11": "active",
+        "12": "active"
+      }
+    }
+  },
+  "superCupScheduling": {
+    "august_openers": {
+      "month": 8,
+      "regions": ["europe", "middle_east"],
+      "description": "Season opening super cups",
+      "examples": ["Community Shield", "DFL Supercup", "Trophée des Champions"]
+    },
+    "january_winter": {
+      "month": 1,
+      "regions": ["europe"],
+      "description": "Winter super cups during break",
+      "examples": ["Supercopa de España", "Supercoppa Italiana"]
+    },
+    "february_continental": {
+      "month": 2,
+      "regions": ["south_america", "asia", "africa"],
+      "description": "Continental super cups",
+      "examples": ["Recopa Sudamericana", "CAF Super Cup"]
+    }
+  }
+}

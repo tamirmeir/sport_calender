@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "last_updated": "2026-02-06",
+    "season": "2024-2025",
+    "description": "Finished tournaments with winner information"
+  },
+  "finished_tournaments": {
+    "1": {
+      "name": "World Cup",
+      "country": "Qatar",
+      "year": 2022,
+      "winner": {
+        "name": "Argentina",
+        "logo": "https://media.api-sports.io/football/teams/26.png"
+      }
+    },
+    "4": {
+      "name": "Euro",
+      "country": "Germany",
+      "year": 2024,
+      "winner": {
+        "name": "Spain",
+        "logo": "https://media.api-sports.io/football/teams/9.png"
+      }
+    },
+    "9": {
+      "name": "Copa America",
+      "country": "USA",
+      "year": 2024,
+      "winner": {
+        "name": "Argentina",
+        "logo": "https://media.api-sports.io/football/teams/26.png"
+      }
+    },
+    "143": {
+      "name": "Copa del Rey",
+      "country": "Spain",
+      "year": 2025,
+      "winner": {
+        "name": "Athletic Bilbao",
+        "logo": "https://media.api-sports.io/football/teams/531.png"
+      }
+    },
+    "514": {
+      "name": "Supercopa de España",
+      "country": "Spain",
+      "year": 2025,
+      "winner": {
+        "name": "Barcelona",
+        "logo": "https://media.api-sports.io/football/teams/529.png"
+      }
+    },
+    "556": {
+      "name": "Supercoppa Italiana",
+      "country": "Italy",
+      "year": 2025,
+      "winner": {
+        "name": "Inter",
+        "logo": "https://media.api-sports.io/football/teams/505.png"
+      }
+    },
+    "529": {
+      "name": "DFL Supercup",
+      "country": "Germany",
+      "year": 2025,
+      "winner": {
+        "name": "Bayer Leverkusen",
+        "logo": "https://media.api-sports.io/football/teams/168.png"
+      }
+    },
+    "528": {
+      "name": "Community Shield",
+      "country": "England",
+      "year": 2025,
+      "winner": {
+        "name": "Manchester City",
+        "logo": "https://media.api-sports.io/football/teams/50.png"
+      }
+    },
+    "526": {
+      "name": "Trophée des Champions",
+      "country": "France",
+      "year": 2025,
+      "winner": {
+        "name": "PSG",
+        "logo": "https://media.api-sports.io/football/teams/85.png"
+      }
+    },
+    "531": {
+      "name": "UEFA Super Cup",
+      "country": "Europe",
+      "year": 2025,
+      "winner": {
+        "name": "Real Madrid",
+        "logo": "https://media.api-sports.io/football/teams/541.png"
+      }
+    },
+    "385": {
+      "name": "Toto Cup Ligat Al",
+      "country": "Israel",
+      "year": 2025,
+      "winner": null
+    },
+    "533": {
+      "name": "CAF Super Cup",
+      "country": "Africa",
+      "year": 2025,
+      "winner": null
+    },
+    "541": {
+      "name": "Recopa Sudamericana",
+      "country": "South America",
+      "year": 2025,
+      "winner": null
+    },
+    "659": {
+      "name": "Super Cup",
+      "country": "Israel",
+      "year": 2025,
+      "winner": null
+    }
+  }
+}

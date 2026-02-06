@@ -1,6 +1,56 @@
 # API Data Flow Documentation
 
-> Last Updated: February 2026
+> Last Updated: February 2026 - Tournament Data System Integration
+
+## 🏆 Tournament Data Flow (NEWLY IMPLEMENTED)
+
+### Complete Tournament Data Pipeline
+
+```
+Frontend Request
+├── loadTournamentData() → /api/fixtures/tournaments/status/all
+├── Check tournamentDataCache (if exists, return cached)
+└── Fetch from backend
+
+Backend Processing
+├── loadWorldTournamentsMaster() → world_tournaments_master.json (13 tournaments)
+├── loadStatusRules() → status_rules.json (month-based rules)
+├── loadRegionsConfig() → regions_config.json (seasonal patterns)
+├── Calculate live status (current month + regional pattern)
+└── Return: { tournaments: {id: {status, winner}}, month, lastUpdated }
+
+Frontend Consumption
+├── Convert backend format to frontend format
+├── Cache in tournamentDataCache
+├── Apply to league card rendering
+├── Show golden cards for finished tournaments with winners
+└── Fallback to hardcoded data on error
+```
+
+### Live Data Example (Supercopa España)
+
+**Request**: `GET /api/fixtures/tournaments/status/all`
+
+**Response**:
+```json
+{
+  "tournaments": {
+    "514": {
+      "status": "finished",
+      "winner": {
+        "name": "Barcelona",
+        "logo": "https://media.api-sports.io/football/teams/529.png"
+      }
+    }
+  },
+  "month": 2,
+  "lastUpdated": "2026-02-06T03:04:47.293Z"
+}
+```
+
+**Frontend Result**: Golden card with Barcelona as winner in Spain country hub
+
+---
 
 ## External API: API-Sports v3
 

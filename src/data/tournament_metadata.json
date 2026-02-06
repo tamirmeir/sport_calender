@@ -1,0 +1,233 @@
+{
+  "metadata": {
+    "last_updated": "2026-02-06",
+    "season": "2024-2025",
+    "description": "Complete tournament metadata with status, winners, and schedule information",
+    "version": "1.0",
+    "backward_compatible": true
+  },
+  "tournament_status": {
+    "finished": {
+      "description": "Tournaments completed for the season",
+      "tournaments": {
+        "1": {
+          "name": "World Cup",
+          "type": "international",
+          "country": "Global",
+          "season": "2022",
+          "status": "finished",
+          "winner": {
+            "name": "Argentina",
+            "id": 26,
+            "logo": "https://media.api-sports.io/football/teams/26.png"
+          },
+          "final_date": "2022-12-18"
+        },
+        "4": {
+          "name": "Euro Championship",
+          "type": "international", 
+          "country": "Europe",
+          "season": "2024",
+          "status": "finished",
+          "winner": {
+            "name": "Spain",
+            "id": 9,
+            "logo": "https://media.api-sports.io/football/teams/9.png"
+          },
+          "final_date": "2024-07-14"
+        },
+        "9": {
+          "name": "Copa America",
+          "type": "international",
+          "country": "South America", 
+          "season": "2024",
+          "status": "finished",
+          "winner": {
+            "name": "Argentina",
+            "id": 26,
+            "logo": "https://media.api-sports.io/football/teams/26.png"
+          },
+          "final_date": "2024-07-14"
+        },
+        "66": {
+          "name": "Coupe de France",
+          "type": "domestic_cup",
+          "country": "France",
+          "season": "2024-25",
+          "status": "finished",
+          "winner": {
+            "name": "PSG",
+            "id": 85,
+            "logo": "https://media.api-sports.io/football/teams/85.png"
+          },
+          "final_date": "2025-05-25"
+        },
+        "143": {
+          "name": "Copa del Rey",
+          "type": "domestic_cup",
+          "country": "Spain",
+          "season": "2024-25", 
+          "status": "finished",
+          "winner": {
+            "name": "Athletic Bilbao",
+            "id": 531,
+            "logo": "https://media.api-sports.io/football/teams/531.png"
+          },
+          "final_date": "2025-04-19"
+        },
+        "514": {
+          "name": "Supercopa de España",
+          "type": "super_cup",
+          "country": "Spain",
+          "season": "2024-25",
+          "status": "finished", 
+          "winner": {
+            "name": "Barcelona",
+            "id": 529,
+            "logo": "https://media.api-sports.io/football/teams/529.png"
+          },
+          "final_date": "2025-01-12"
+        },
+        "529": {
+          "name": "DFL Supercup",
+          "type": "super_cup",
+          "country": "Germany",
+          "season": "2024-25",
+          "status": "finished",
+          "winner": {
+            "name": "Bayer Leverkusen", 
+            "id": 168,
+            "logo": "https://media.api-sports.io/football/teams/168.png"
+          },
+          "final_date": "2024-08-17"
+        },
+        "556": {
+          "name": "Supercoppa Italiana",
+          "type": "super_cup", 
+          "country": "Italy",
+          "season": "2024-25",
+          "status": "finished",
+          "winner": {
+            "name": "Inter",
+            "id": 505,
+            "logo": "https://media.api-sports.io/football/teams/505.png"
+          },
+          "final_date": "2025-01-06"
+        },
+        "528": {
+          "name": "Community Shield",
+          "type": "super_cup",
+          "country": "England", 
+          "season": "2024-25",
+          "status": "finished",
+          "winner": {
+            "name": "Manchester City",
+            "id": 50,
+            "logo": "https://media.api-sports.io/football/teams/50.png"
+          },
+          "final_date": "2024-08-10"
+        },
+        "526": {
+          "name": "Trophée des Champions",
+          "type": "super_cup",
+          "country": "France",
+          "season": "2024-25", 
+          "status": "finished",
+          "winner": {
+            "name": "PSG",
+            "id": 85,
+            "logo": "https://media.api-sports.io/football/teams/85.png"
+          },
+          "final_date": "2025-01-05"
+        },
+        "531": {
+          "name": "UEFA Super Cup",
+          "type": "super_cup",
+          "country": "Europe",
+          "season": "2024-25",
+          "status": "finished", 
+          "winner": {
+            "name": "Real Madrid",
+            "id": 541,
+            "logo": "https://media.api-sports.io/football/teams/541.png"
+          },
+          "final_date": "2024-08-14"
+        }
+      }
+    },
+    "ongoing": {
+      "description": "Tournaments currently in progress",
+      "tournaments": {
+        "81": {
+          "name": "DFB Pokal",
+          "type": "domestic_cup",
+          "country": "Germany", 
+          "season": "2024-25",
+          "status": "between_rounds",
+          "current_round": "Round of 16",
+          "next_round_date": "2026-02-25",
+          "description": "Waiting for next round draw"
+        },
+        "45": {
+          "name": "FA Cup",
+          "type": "domestic_cup",
+          "country": "England",
+          "season": "2024-25", 
+          "status": "active",
+          "current_round": "5th Round",
+          "next_fixtures": "2026-02-15"
+        }
+      }
+    },
+    "to_be_determined": {
+      "description": "Tournaments with unclear status - need data investigation",
+      "tournaments": {
+        "385": {
+          "name": "Toto Cup Ligat Al",
+          "type": "domestic_cup", 
+          "country": "Israel",
+          "season": "2024-25",
+          "status": "unknown",
+          "winner": null,
+          "note": "Need to investigate current status"
+        },
+        "533": {
+          "name": "CAF Super Cup", 
+          "type": "continental_super_cup",
+          "country": "Africa",
+          "season": "2024-25",
+          "status": "unknown",
+          "winner": null,
+          "note": "Need to investigate current status"
+        },
+        "541": {
+          "name": "Recopa Sudamericana",
+          "type": "continental_super_cup",
+          "country": "South America", 
+          "season": "2024-25",
+          "status": "unknown", 
+          "winner": null,
+          "note": "Need to investigate current status"
+        },
+        "659": {
+          "name": "Israeli Super Cup",
+          "type": "super_cup",
+          "country": "Israel",
+          "season": "2024-25",
+          "status": "unknown",
+          "winner": null,
+          "note": "Need to investigate current status" 
+        }
+      }
+    }
+  },
+  "api_configuration": {
+    "endpoints": {
+      "tournament_status": "/api/fixtures/tournament-status",
+      "finished_tournaments": "/api/fixtures/finished-tournaments", 
+      "tournament_winners": "/api/fixtures/tournament-winners"
+    },
+    "cache_duration": "6h",
+    "sync_schedule": "daily_6am"
+  }
+}

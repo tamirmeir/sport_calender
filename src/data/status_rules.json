@@ -1,0 +1,338 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-02-06T14:30:00Z",
+    "version": "1.0.0", 
+    "description": "Status calculation rules for tournaments based on region, month, and type"
+  },
+  "statusRules": {
+    "leagues": {
+      "august_may": {
+        "pattern": "european",
+        "description": "European league pattern",
+        "months": {
+          "1": {
+            "status": "winter_break",
+            "message": "❄️ Winter Break",
+            "description": "League on winter break"
+          },
+          "2": {
+            "status": "active",
+            "message": "⚽ Active Season", 
+            "description": "Regular season matches"
+          },
+          "3": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "4": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "5": {
+            "status": "final_stages",
+            "message": "🔥 Final Stages",
+            "description": "Season finale approaching"
+          },
+          "6": {
+            "status": "off_season",
+            "message": "☀️ Off Season",
+            "description": "Season finished, summer break"
+          },
+          "7": {
+            "status": "off_season", 
+            "message": "☀️ Off Season",
+            "description": "Season finished, summer break"
+          },
+          "8": {
+            "status": "season_start",
+            "message": "🚀 Season Starting",
+            "description": "New season beginning"
+          },
+          "9": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "10": {
+            "status": "active",
+            "message": "⚽ Active Season", 
+            "description": "Regular season matches"
+          },
+          "11": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "12": {
+            "status": "winter_break",
+            "message": "❄️ Winter Break",
+            "description": "League on winter break"
+          }
+        }
+      },
+      "calendar_year": {
+        "pattern": "south_american",
+        "description": "South American league pattern",
+        "months": {
+          "1": {
+            "status": "state_championships",
+            "message": "🏆 State Championships",
+            "description": "Regional state tournaments active"
+          },
+          "2": {
+            "status": "season_start", 
+            "message": "🚀 Season Starting",
+            "description": "National league season beginning"
+          },
+          "3": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "4": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "5": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "6": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "7": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "8": {
+            "status": "active",
+            "message": "⚽ Active Season", 
+            "description": "Regular season matches"
+          },
+          "9": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "10": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "11": {
+            "status": "final_stages",
+            "message": "🔥 Final Stages", 
+            "description": "Season finale approaching"
+          },
+          "12": {
+            "status": "off_season",
+            "message": "☀️ Off Season",
+            "description": "Season finished, summer break"
+          }
+        }
+      },
+      "february_november": {
+        "pattern": "asian_mls",
+        "description": "Asian and MLS league pattern", 
+        "months": {
+          "1": {
+            "status": "winter_break",
+            "message": "❄️ Winter Break",
+            "description": "League on winter break"
+          },
+          "2": {
+            "status": "season_start",
+            "message": "🚀 Season Starting",
+            "description": "New season beginning"
+          },
+          "3": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "4": {
+            "status": "active",
+            "message": "⚽ Active Season", 
+            "description": "Regular season matches"
+          },
+          "5": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "6": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "7": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "8": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "9": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "10": {
+            "status": "active",
+            "message": "⚽ Active Season",
+            "description": "Regular season matches"
+          },
+          "11": {
+            "status": "final_stages",
+            "message": "🔥 Final Stages",
+            "description": "Season finale approaching"
+          },
+          "12": {
+            "status": "winter_break",
+            "message": "❄️ Winter Break",
+            "description": "League on winter break"
+          }
+        }
+      }
+    },
+    "super_cups": {
+      "august_openers": {
+        "timing": "season_opener",
+        "month": 8,
+        "status": "finished",
+        "message": "🏆 Season Finished",
+        "description": "Super Cup completed - season opener"
+      },
+      "january_winter": {
+        "timing": "mid_season",
+        "month": 1,
+        "status": "finished", 
+        "message": "🏆 Season Finished",
+        "description": "Winter Super Cup completed"
+      },
+      "february_continental": {
+        "timing": "season_opener",
+        "month": 2,
+        "status": "finished",
+        "message": "🏆 Season Finished", 
+        "description": "Continental Super Cup completed"
+      }
+    },
+    "knockouts": {
+      "stages": {
+        "group_stage": {
+          "description": "Group stage matches",
+          "status": "active",
+          "message": "⚽ Group Stage Active"
+        },
+        "round_16": {
+          "description": "Round of 16",
+          "status": "active",
+          "message": "🎯 Round of 16"
+        },
+        "quarter_finals": {
+          "description": "Quarter finals",
+          "status": "active",
+          "message": "🔥 Quarter Finals"
+        },
+        "semi_finals": {
+          "description": "Semi finals", 
+          "status": "active",
+          "message": "⭐ Semi Finals"
+        },
+        "final": {
+          "description": "Final match",
+          "status": "active",
+          "message": "🏆 Final"
+        },
+        "finished": {
+          "description": "Tournament completed",
+          "status": "finished",
+          "message": "🏆 Tournament Finished"
+        }
+      },
+      "teamStatuses": {
+        "active": {
+          "status": "active",
+          "message": "⚽ Still in Competition",
+          "description": "Team still competing"
+        },
+        "waiting_draw": {
+          "status": "waiting",
+          "message": "🎲 Waiting for Next Draw",
+          "description": "Advanced to next round, waiting for draw"
+        },
+        "eliminated": {
+          "status": "eliminated",
+          "message": "❌ Eliminated",
+          "description": "Team eliminated from tournament"
+        },
+        "advanced": {
+          "status": "advanced",
+          "message": "✅ Advanced to Next Round",
+          "description": "Qualified for next stage"
+        }
+      }
+    },
+    "international": {
+      "world_cup": {
+        "frequency": "quadrennial",
+        "months": [11, 12],
+        "status": "finished",
+        "message": "🏆 Tournament Finished",
+        "next_tournament": "2026"
+      },
+      "euro": {
+        "frequency": "quadrennial", 
+        "months": [6, 7],
+        "status": "finished",
+        "message": "🏆 Tournament Finished",
+        "next_tournament": "2028"
+      },
+      "copa_america": {
+        "frequency": "irregular",
+        "months": [6, 7],
+        "status": "finished",
+        "message": "🏆 Tournament Finished",
+        "next_tournament": "2028"
+      }
+    }
+  },
+  "statusPriority": {
+    "finished": 1,
+    "final_stages": 2,
+    "active": 3,
+    "season_start": 4,
+    "winter_break": 5,
+    "off_season": 6,
+    "waiting": 7
+  },
+  "displayMessages": {
+    "no_matches_waiting": {
+      "knockout": "🎲 Waiting for Next Draw",
+      "description": "Team advanced but waiting for tournament draw"
+    },
+    "no_matches_eliminated": {
+      "knockout": "❌ Eliminated from Tournament", 
+      "description": "Team eliminated, no more matches"
+    },
+    "no_matches_vacation": {
+      "league": "☀️ Off Season Break",
+      "description": "League finished, summer break"
+    },
+    "no_matches_winter": {
+      "league": "❄️ Winter Break",
+      "description": "League on winter break"
+    }
+  }
+}
