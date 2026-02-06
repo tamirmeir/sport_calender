@@ -1388,10 +1388,15 @@ async function loadTeams(leagueId) {
             const month = date.getMonth(); // 0-11
             
             const leagueName = currentState.leagueName || '';
+            const country = currentState.country || '';
+            
+            // Asian leagues (Vietnam, Thailand, Indonesia, Malaysia, Singapore, Philippines)
+            // Run Aug-Jun, season named after END year (e.g. Aug 2025-Jun 2026 = Season 2026)
+            const asianCountries = ['Vietnam', 'Thailand', 'Indonesia', 'Malaysia', 'Singapore', 'Philippines'];
+            const isAsianLeague = asianCountries.includes(country);
             
             const isCalendarYearLeague = 
                 (currentState.regionFilter === 'SouthAmerica' && !leagueName.includes('Qualifiers')) || 
-                (currentState.regionFilter === 'Asia' && !leagueName.includes('Qualifiers')) || 
                 currentState.regionFilter === 'NorthAmerica' ||
                 (currentState.regionFilter === 'World' && !leagueName.includes('UEFA') && !leagueName.includes('Qualifiers')) ||
                 (['Libertadores', 'Sudamericana', 'MLS', 'Brasileirão', 'CONMEBOL'].some(k => leagueName.includes(k)));
@@ -1399,12 +1404,19 @@ async function loadTeams(leagueId) {
             // Super cups (Recopa, UEFA Super Cup) happen early in the year with previous season's winners
             const isSuperCup = leagueName.includes('Recopa') || leagueName.includes('Super Cup');
 
-            activeSeason = year;
-            if (!isCalendarYearLeague) {
-                 activeSeason = month < 6 ? year - 1 : year; // Academic
-            } else if (isSuperCup && month < 4) {
-                 // Super cups in Jan-Apr use previous year's season data
-                 activeSeason = year - 1;
+            if (isAsianLeague) {
+                // Asian: Aug-Jun, season = end year
+                // Before August = current year, August onwards = next year
+                activeSeason = month >= 7 ? year + 1 : year;
+            } else if (isCalendarYearLeague) {
+                activeSeason = year;
+                if (isSuperCup && month < 4) {
+                    // Super cups in Jan-Apr use previous year's season data
+                    activeSeason = year - 1;
+                }
+            } else {
+                // Academic (European leagues): Jul-Jun, season = start year
+                activeSeason = month < 6 ? year - 1 : year;
             }
 
             console.log(`Fetching teams for league ${leagueId}, season ${activeSeason} (Context: ${isCalendarYearLeague ? 'Calendar' : 'Academic'}${isSuperCup ? ', SuperCup' : ''})`);
