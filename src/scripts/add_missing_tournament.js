@@ -134,28 +134,120 @@ console.log('');
 
 function getCountryCode(country) {
     const codes = {
-        'Tunisia': 'TN', 'Algeria': 'DZ', 'Morocco': 'MA', 'Egypt': 'EG',
-        'South-Africa': 'ZA', 'Nigeria': 'NG', 'Ghana': 'GH', 'Kenya': 'KE',
-        'Senegal': 'SN', 'Cameroon': 'CM', 'Ivory-Coast': 'CI',
+        // Europe
+        'England': 'GB', 'Spain': 'ES', 'Italy': 'IT', 'Germany': 'DE', 'France': 'FR',
+        'Portugal': 'PT', 'Netherlands': 'NL', 'Belgium': 'BE', 'Switzerland': 'CH',
+        'Austria': 'AT', 'Scotland': 'GB', 'Wales': 'GB', 'Northern-Ireland': 'GB',
+        'Republic-of-Ireland': 'IE', 'Denmark': 'DK', 'Sweden': 'SE', 'Norway': 'NO',
+        'Finland': 'FI', 'Iceland': 'IS', 'Poland': 'PL', 'Czech-Republic': 'CZ',
+        'Slovakia': 'SK', 'Hungary': 'HU', 'Romania': 'RO', 'Bulgaria': 'BG',
+        'Greece': 'GR', 'Turkey': 'TR', 'Russia': 'RU', 'Ukraine': 'UA',
+        'Croatia': 'HR', 'Serbia': 'RS', 'Slovenia': 'SI', 'Bosnia-and-Herzegovina': 'BA',
+        'Albania': 'AL', 'Macedonia': 'MK', 'Montenegro': 'ME', 'Kosovo': 'XK',
+        'Cyprus': 'CY', 'Estonia': 'EE', 'Latvia': 'LV', 'Lithuania': 'LT',
+        'Georgia': 'GE', 'Armenia': 'AM', 'Azerbaijan': 'AZ', 'Belarus': 'BY',
+        'Moldova': 'MD', 'Luxembourg': 'LU', 'Malta': 'MT', 'Liechtenstein': 'LI',
+        
+        // Africa
+        'Morocco': 'MA', 'Algeria': 'DZ', 'Tunisia': 'TN', 'Libya': 'LY', 'Egypt': 'EG',
+        'Nigeria': 'NG', 'Ghana': 'GH', 'Ivory-Coast': 'CI', 'Senegal': 'SN',
+        'Cameroon': 'CM', 'South-Africa': 'ZA', 'Kenya': 'KE', 'Ethiopia': 'ET',
+        'Mali': 'ML', 'Burkina-Faso': 'BF', 'Guinea': 'GN', 'Tanzania': 'TZ',
+        'Uganda': 'UG', 'Angola': 'AO', 'Mozambique': 'MZ', 'Zimbabwe': 'ZW',
+        'Zambia': 'ZM', 'DR-Congo': 'CD', 'Congo': 'CG', 'Gabon': 'GA',
+        'Benin': 'BJ', 'Togo': 'TG', 'Rwanda': 'RW', 'Sudan': 'SD',
+        'Namibia': 'NA', 'Botswana': 'BW', 'Madagascar': 'MG',
+        
+        // Middle East
         'Israel': 'IL', 'Saudi-Arabia': 'SA', 'UAE': 'AE', 'Qatar': 'QA',
-        'England': 'GB', 'Spain': 'ES', 'Italy': 'IT', 'Germany': 'DE',
-        'France': 'FR', 'Portugal': 'PT', 'Netherlands': 'NL', 'Belgium': 'BE',
-        'Brazil': 'BR', 'Argentina': 'AR', 'Uruguay': 'UY', 'Chile': 'CL'
+        'Kuwait': 'KW', 'Bahrain': 'BH', 'Oman': 'OM', 'Jordan': 'JO',
+        'Lebanon': 'LB', 'Syria': 'SY', 'Iraq': 'IQ', 'Palestine': 'PS',
+        'Yemen': 'YE', 'Iran': 'IR',
+        
+        // Asia
+        'Japan': 'JP', 'South-Korea': 'KR', 'China': 'CN', 'Australia': 'AU',
+        'India': 'IN', 'Thailand': 'TH', 'Vietnam': 'VN', 'Malaysia': 'MY',
+        'Singapore': 'SG', 'Indonesia': 'ID', 'Philippines': 'PH',
+        'Hong-Kong': 'HK', 'Pakistan': 'PK', 'Bangladesh': 'BD',
+        'Kazakhstan': 'KZ', 'Uzbekistan': 'UZ',
+        
+        // Americas
+        'Brazil': 'BR', 'Argentina': 'AR', 'Uruguay': 'UY', 'Chile': 'CL',
+        'Colombia': 'CO', 'Peru': 'PE', 'Ecuador': 'EC', 'Venezuela': 'VE',
+        'Paraguay': 'PY', 'Bolivia': 'BO', 'USA': 'US', 'Mexico': 'MX',
+        'Canada': 'CA', 'Costa-Rica': 'CR', 'Panama': 'PA', 'Honduras': 'HN',
+        'Jamaica': 'JM', 'Trinidad-and-Tobago': 'TT',
+        
+        // Oceania
+        'New-Zealand': 'NZ', 'Fiji': 'FJ'
     };
     return codes[country] || 'XX';
 }
 
 function getRegion(country) {
-    const africanCountries = ['Tunisia', 'Algeria', 'Morocco', 'Egypt', 'South-Africa', 
-                              'Nigeria', 'Ghana', 'Kenya', 'Senegal', 'Cameroon', 'Ivory-Coast'];
-    const europeanCountries = ['England', 'Spain', 'Italy', 'Germany', 'France', 'Portugal', 
-                               'Netherlands', 'Belgium', 'Turkey', 'Greece'];
-    const middleEastCountries = ['Israel', 'Saudi-Arabia', 'UAE', 'Qatar', 'Jordan', 'Iraq'];
-    const southAmericanCountries = ['Brazil', 'Argentina', 'Uruguay', 'Chile', 'Colombia', 'Peru'];
+    // Europe
+    const europeanCountries = [
+        'England', 'Spain', 'Italy', 'Germany', 'France', 'Portugal', 'Netherlands', 'Belgium',
+        'Switzerland', 'Austria', 'Scotland', 'Wales', 'Northern-Ireland', 'Republic-of-Ireland',
+        'Denmark', 'Sweden', 'Norway', 'Finland', 'Iceland', 'Poland', 'Czech-Republic',
+        'Slovakia', 'Hungary', 'Romania', 'Bulgaria', 'Greece', 'Turkey', 'Russia', 'Ukraine',
+        'Croatia', 'Serbia', 'Slovenia', 'Bosnia-and-Herzegovina', 'Albania', 'Macedonia',
+        'Montenegro', 'Kosovo', 'Cyprus', 'Estonia', 'Latvia', 'Lithuania', 'Georgia',
+        'Armenia', 'Azerbaijan', 'Belarus', 'Moldova', 'Luxembourg', 'Malta', 'Liechtenstein'
+    ];
     
-    if (africanCountries.includes(country)) return 'africa';
+    // Africa
+    const africanCountries = [
+        'Morocco', 'Algeria', 'Tunisia', 'Libya', 'Egypt', 'Nigeria', 'Ghana', 'Ivory-Coast',
+        'Senegal', 'Cameroon', 'South-Africa', 'Kenya', 'Ethiopia', 'Mali', 'Burkina-Faso',
+        'Guinea', 'Tanzania', 'Uganda', 'Angola', 'Mozambique', 'Zimbabwe', 'Zambia',
+        'DR-Congo', 'Congo', 'Gabon', 'Benin', 'Togo', 'Rwanda', 'Sudan', 'Namibia',
+        'Botswana', 'Madagascar', 'Malawi', 'Central-African-Republic', 'Chad',
+        'Equatorial-Guinea', 'Eritrea', 'Somalia', 'Djibouti', 'Comoros', 'Mauritius',
+        'Seychelles', 'Cape-Verde', 'Sao-Tome-And-Principe', 'South-Sudan'
+    ];
+    
+    // Middle East
+    const middleEastCountries = [
+        'Israel', 'Saudi-Arabia', 'UAE', 'Qatar', 'Kuwait', 'Bahrain', 'Oman',
+        'Jordan', 'Lebanon', 'Syria', 'Iraq', 'Palestine', 'Yemen', 'Iran'
+    ];
+    
+    // Asia
+    const asianCountries = [
+        'Japan', 'South-Korea', 'China', 'India', 'Thailand', 'Vietnam', 'Malaysia',
+        'Singapore', 'Indonesia', 'Philippines', 'Hong-Kong', 'Pakistan', 'Bangladesh',
+        'Kazakhstan', 'Uzbekistan', 'Turkmenistan', 'Kyrgyzstan', 'Tajikistan',
+        'North-Korea', 'Taiwan', 'Mongolia', 'Myanmar', 'Cambodia', 'Laos',
+        'Sri-Lanka', 'Nepal', 'Afghanistan'
+    ];
+    
+    // South America
+    const southAmericanCountries = [
+        'Brazil', 'Argentina', 'Uruguay', 'Chile', 'Colombia', 'Peru',
+        'Ecuador', 'Venezuela', 'Paraguay', 'Bolivia', 'Guyana', 'Suriname'
+    ];
+    
+    // North America (including Central America & Caribbean)
+    const northAmericanCountries = [
+        'USA', 'Mexico', 'Canada', 'Costa-Rica', 'Panama', 'Honduras',
+        'Nicaragua', 'El-Salvador', 'Guatemala', 'Belize', 'Jamaica',
+        'Trinidad-and-Tobago', 'Haiti', 'Cuba', 'Dominican-Republic',
+        'Puerto-Rico', 'Curacao', 'Aruba'
+    ];
+    
+    // Oceania
+    const oceaniaCountries = [
+        'Australia', 'New-Zealand', 'Fiji', 'Papua-New-Guinea', 'New-Caledonia',
+        'Tahiti', 'Solomon-Islands', 'Vanuatu', 'Samoa', 'Tonga'
+    ];
+    
     if (europeanCountries.includes(country)) return 'europe';
+    if (africanCountries.includes(country)) return 'africa';
     if (middleEastCountries.includes(country)) return 'middle_east';
+    if (asianCountries.includes(country)) return 'asia';
     if (southAmericanCountries.includes(country)) return 'south_america';
+    if (northAmericanCountries.includes(country)) return 'north_america';
+    if (oceaniaCountries.includes(country)) return 'oceania';
     return 'other';
 }

@@ -142,16 +142,45 @@ git push origin main
 
 ## 🌍 Countries Scanned
 
-**Current coverage:**
-- **Europe**: England, Spain, Italy, Germany, France, Portugal, Netherlands, Belgium, Turkey, Greece, Ukraine, Russia, Poland, Austria, Switzerland, Croatia
-- **Africa**: Tunisia, Algeria, Morocco, Egypt, South Africa, Nigeria, Ghana, Kenya, Senegal, Cameroon, Ivory Coast
-- **Middle East**: Israel, Saudi Arabia, UAE, Qatar, Jordan, Iraq
-- **Asia**: Japan, South Korea, China, Australia, India, Thailand, Malaysia
-- **South America**: Brazil, Argentina, Uruguay, Chile, Colombia, Peru, Ecuador
-- **North America**: USA, Mexico, Canada, Costa Rica
-- **Global**: World tournaments
+**Comprehensive global coverage - 150+ countries:**
 
-**Total: 50+ countries**
+### **Europe (50+ countries)**
+- **Western**: England, Spain, Italy, Germany, France, Portugal, Netherlands, Belgium, Switzerland, Austria, Scotland, Wales, Ireland, Luxembourg
+- **Eastern**: Russia, Ukraine, Poland, Czech Republic, Slovakia, Hungary, Romania, Bulgaria, Serbia, Croatia, Slovenia, Bosnia, Montenegro, Albania, Macedonia, Kosovo, Moldova, Belarus
+- **Northern**: Denmark, Sweden, Norway, Finland, Iceland, Estonia, Latvia, Lithuania
+- **Southern**: Greece, Turkey, Cyprus, Georgia, Armenia, Azerbaijan, Malta
+
+### **Africa (50+ countries)**
+- **North**: Morocco, Algeria, Tunisia, Libya, Egypt
+- **West**: Nigeria, Ghana, Ivory Coast, Senegal, Mali, Burkina Faso, Guinea, Benin, Togo, Niger, Gambia, Sierra Leone, Liberia, Cape Verde
+- **Central**: Cameroon, DR Congo, Congo, Gabon, Equatorial Guinea, Chad, CAR, Sao Tome
+- **East**: Kenya, Uganda, Tanzania, Ethiopia, Sudan, South Sudan, Rwanda, Burundi, Djibouti, Somalia, Eritrea, Comoros
+- **Southern**: South Africa, Zimbabwe, Zambia, Angola, Mozambique, Namibia, Botswana, Malawi, Lesotho, Swaziland, Madagascar, Mauritius, Seychelles
+
+### **Middle East (13 countries)**
+Israel, Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, Oman, Jordan, Lebanon, Syria, Iraq, Palestine, Yemen
+
+### **Asia (30+ countries)**
+- **East**: China, Japan, South Korea, North Korea, Hong Kong, Taiwan, Mongolia
+- **South**: India, Pakistan, Bangladesh, Sri Lanka, Nepal, Bhutan, Maldives, Afghanistan
+- **Southeast**: Thailand, Vietnam, Malaysia, Singapore, Indonesia, Philippines, Myanmar, Cambodia, Laos, Brunei, Timor Leste
+- **Central**: Kazakhstan, Uzbekistan, Turkmenistan, Kyrgyzstan, Tajikistan, Iran
+
+### **South America (13 countries)**
+Brazil, Argentina, Uruguay, Chile, Paraguay, Peru, Colombia, Ecuador, Venezuela, Bolivia, Guyana, Suriname, French Guyana
+
+### **North America & Caribbean (40+ countries)**
+- **North America**: USA, Mexico, Canada
+- **Central America**: Costa Rica, Panama, Honduras, Nicaragua, El Salvador, Guatemala, Belize
+- **Caribbean**: Jamaica, Trinidad & Tobago, Haiti, Cuba, Dominican Republic, Puerto Rico, Guadeloupe, Martinique, Curacao, Aruba, Barbados, Grenada, Saint Lucia, and more island nations
+
+### **Oceania (12+ countries)**
+Australia, New Zealand, Fiji, Papua New Guinea, New Caledonia, Tahiti, Solomon Islands, Vanuatu, Samoa, American Samoa, Tonga, Cook Islands
+
+### **Global**
+World tournaments (FIFA competitions)
+
+**Total: 150+ countries - nearly complete FIFA membership coverage!**
 
 ---
 
@@ -182,17 +211,24 @@ const isCup = league.type === 'Cup' ||
 
 ## 📈 Performance
 
-**Typical run:**
-- Duration: 2-5 minutes (with rate limiting)
-- API calls: ~200-300
+**Typical run (150+ countries):**
+- Duration: 10-20 minutes (with rate limiting)
+- API calls: ~500-800
 - Rate limit: 200ms between requests
-- Memory: < 50MB
+- Memory: < 100MB
 
 **API considerations:**
 - Uses existing FOOTBALL_API_KEY
 - Respects rate limits (200ms delay)
 - Only checks last 10 fixtures per tournament
 - Focuses on Cups to reduce load
+- Can be run less frequently (weekly is fine)
+
+**Optimization tips:**
+- Most countries have < 10 leagues
+- Filter reduces API load (only checks Cups)
+- Runs during low-traffic hours (Monday 2 AM)
+- Results cached in JSON report
 
 ---
 

@@ -42,23 +42,83 @@ const statusMismatches = [];
 let totalScanned = 0;
 let cupsScanned = 0;
 
-// Countries to scan (expand as needed)
+// Countries to scan - comprehensive list covering all major football nations
 const COUNTRIES = [
     'World',
-    // Europe
+    
+    // Europe - Western
     'England', 'Spain', 'Italy', 'Germany', 'France', 'Portugal', 'Netherlands', 'Belgium',
-    'Turkey', 'Greece', 'Ukraine', 'Russia', 'Poland', 'Austria', 'Switzerland', 'Croatia',
-    // Africa
-    'Tunisia', 'Algeria', 'Morocco', 'Egypt', 'South-Africa', 'Nigeria', 'Ghana', 'Kenya',
-    'Senegal', 'Cameroon', 'Ivory-Coast',
+    'Switzerland', 'Austria', 'Scotland', 'Wales', 'Northern-Ireland', 'Republic-of-Ireland',
+    'Luxembourg', 'Liechtenstein', 'Monaco', 'Andorra', 'Malta', 'Gibraltar', 'San-Marino',
+    
+    // Europe - Eastern
+    'Russia', 'Ukraine', 'Poland', 'Czech-Republic', 'Slovakia', 'Hungary', 'Romania',
+    'Bulgaria', 'Serbia', 'Croatia', 'Slovenia', 'Bosnia-and-Herzegovina', 'Montenegro',
+    'Albania', 'Macedonia', 'Kosovo', 'Moldova', 'Belarus',
+    
+    // Europe - Northern
+    'Denmark', 'Sweden', 'Norway', 'Finland', 'Iceland', 'Estonia', 'Latvia', 'Lithuania',
+    
+    // Europe - Southern
+    'Greece', 'Turkey', 'Cyprus', 'Georgia', 'Armenia', 'Azerbaijan',
+    
+    // Africa - North
+    'Morocco', 'Algeria', 'Tunisia', 'Libya', 'Egypt',
+    
+    // Africa - West
+    'Nigeria', 'Ghana', 'Ivory-Coast', 'Senegal', 'Mali', 'Burkina-Faso', 'Guinea',
+    'Benin', 'Togo', 'Niger', 'Gambia', 'Sierra-Leone', 'Liberia', 'Mauritania',
+    'Guinea-Bissau', 'Cape-Verde',
+    
+    // Africa - Central
+    'Cameroon', 'DR-Congo', 'Congo', 'Gabon', 'Equatorial-Guinea', 'Chad',
+    'Central-African-Republic', 'Sao-Tome-And-Principe',
+    
+    // Africa - East
+    'Kenya', 'Uganda', 'Tanzania', 'Ethiopia', 'Sudan', 'South-Sudan', 'Rwanda',
+    'Burundi', 'Djibouti', 'Somalia', 'Eritrea', 'Comoros',
+    
+    // Africa - Southern
+    'South-Africa', 'Zimbabwe', 'Zambia', 'Angola', 'Mozambique', 'Namibia',
+    'Botswana', 'Malawi', 'Lesotho', 'Swaziland', 'Madagascar', 'Mauritius', 'Seychelles',
+    
     // Middle East
-    'Israel', 'Saudi-Arabia', 'UAE', 'Qatar', 'Jordan', 'Iraq',
-    // Asia
-    'Japan', 'South-Korea', 'China', 'Australia', 'India', 'Thailand', 'Malaysia',
+    'Israel', 'Saudi-Arabia', 'UAE', 'Qatar', 'Kuwait', 'Bahrain', 'Oman',
+    'Jordan', 'Lebanon', 'Syria', 'Iraq', 'Palestine', 'Yemen',
+    
+    // Asia - East
+    'China', 'Japan', 'South-Korea', 'North-Korea', 'Hong-Kong', 'Taiwan', 'Mongolia',
+    
+    // Asia - South
+    'India', 'Pakistan', 'Bangladesh', 'Sri-Lanka', 'Nepal', 'Bhutan', 'Maldives', 'Afghanistan',
+    
+    // Asia - Southeast
+    'Thailand', 'Vietnam', 'Malaysia', 'Singapore', 'Indonesia', 'Philippines',
+    'Myanmar', 'Cambodia', 'Laos', 'Brunei', 'Timor-Leste',
+    
+    // Asia - Central
+    'Kazakhstan', 'Uzbekistan', 'Turkmenistan', 'Kyrgyzstan', 'Tajikistan', 'Iran',
+    
     // South America
-    'Brazil', 'Argentina', 'Uruguay', 'Chile', 'Colombia', 'Peru', 'Ecuador',
+    'Brazil', 'Argentina', 'Uruguay', 'Chile', 'Paraguay', 'Peru', 'Colombia',
+    'Ecuador', 'Venezuela', 'Bolivia', 'Guyana', 'Suriname', 'French-Guyana',
+    
     // North America
-    'USA', 'Mexico', 'Canada', 'Costa-Rica'
+    'USA', 'Mexico', 'Canada',
+    
+    // Central America & Caribbean
+    'Costa-Rica', 'Panama', 'Honduras', 'Nicaragua', 'El-Salvador', 'Guatemala', 'Belize',
+    'Jamaica', 'Trinidad-and-Tobago', 'Haiti', 'Cuba', 'Dominican-Republic',
+    'Puerto-Rico', 'Guadeloupe', 'Martinique', 'Curacao', 'Aruba', 'Surinam',
+    'Barbados', 'Grenada', 'Saint-Lucia', 'Saint-Vincent-Grenadines',
+    'Antigua-and-Barbuda', 'Dominica', 'Saint-Kitts-Nevis', 'Bahamas',
+    'Cayman-Islands', 'Turks-and-Caicos-Islands', 'British-Virgin-Islands',
+    'US-Virgin-Islands', 'Anguilla', 'Montserrat', 'Bermuda',
+    
+    // Oceania
+    'Australia', 'New-Zealand', 'Fiji', 'Papua-New-Guinea', 'New-Caledonia',
+    'Tahiti', 'Solomon-Islands', 'Vanuatu', 'Samoa', 'American-Samoa',
+    'Tonga', 'Cook-Islands'
 ];
 
 function apiRequest(path) {
