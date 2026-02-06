@@ -625,7 +625,8 @@ router.get('/leagues', async (req, res) => {
                 return {
                     ...league,
                     status: 'finished',
-                    ui_label: '🏆 Finished'
+                    ui_label: '🏆 Finished',
+                    winner: tournamentInfo.winner // ADDED: Include winner data
                 };
             }
             return league;
