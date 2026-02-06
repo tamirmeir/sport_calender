@@ -39,6 +39,8 @@ jobs:
           host: ${{ secrets.DO_HOST }}
           username: ${{ secrets.DO_USERNAME }}
           key: ${{ secrets.DO_SSH_KEY }}
+          script_stop: false
+          command_timeout: 30m
           script: |
             # Navigate to project
             cd /var/www/sport_calendar
