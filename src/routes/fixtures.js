@@ -137,6 +137,7 @@ router.get('/tournaments/status/all', async (req, res) => {
             }
             
             allTournamentsWithStatus[id] = {
+                name: tournament.name, // ADDED: Include tournament name
                 status: calculatedStatus,
                 winner: tournament.winner.hasWinner ? {
                     name: tournament.winner.team,
@@ -290,6 +291,7 @@ router.get('/tournaments/status/all', async (req, res) => {
             }
             
             allTournamentsWithStatus[id] = {
+                name: tournament.name, // ADDED: Include tournament name
                 status: calculatedStatus,
                 winner: tournament.winner.hasWinner ? {
                     name: tournament.winner.team,
