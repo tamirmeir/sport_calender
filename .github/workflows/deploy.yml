@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    if: false # DISABLED: Prevent workflow from running
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,6 +31,7 @@ jobs:
 
 
   deploy:
+    if: false # DISABLED: Prevent workflow from running
     needs: test
     runs-on: ubuntu-latest
     steps:
