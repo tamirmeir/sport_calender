@@ -608,8 +608,31 @@ router.get('/leagues', async (req, res) => {
             return true;
         });
         
+        // ADDED: Load finished tournaments data to mark cups as finished
+        const finishedTournamentsPath = path.join(__dirname, '../data/finished_tournaments.json');
+        let finishedTournaments = {};
+        try {
+            const finishedData = JSON.parse(fs.readFileSync(finishedTournamentsPath, 'utf8'));
+            finishedTournaments = finishedData.finished_tournaments || {};
+        } catch (err) {
+            console.warn('[leagues] Could not load finished_tournaments.json:', err.message);
+        }
+        
+        // Update league status if tournament is finished
+        const leaguesWithStatus = filteredLeagues.map(league => {
+            const tournamentInfo = finishedTournaments[league.id];
+            if (tournamentInfo && tournamentInfo.status === 'finished') {
+                return {
+                    ...league,
+                    status: 'finished',
+                    ui_label: '🏆 Finished'
+                };
+            }
+            return league;
+        });
+        
         // Limit to top 15 leagues per country
-        res.json(filteredLeagues.slice(0, 15));
+        res.json(leaguesWithStatus.slice(0, 15));
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -9,6 +9,7 @@
       "name": "World Cup",
       "country": "Qatar",
       "year": 2022,
+      "status": "finished",
       "winner": {
         "name": "Argentina",
         "logo": "https://media.api-sports.io/football/teams/26.png"
@@ -18,6 +19,7 @@
       "name": "Euro",
       "country": "Germany",
       "year": 2024,
+      "status": "finished",
       "winner": {
         "name": "Spain",
         "logo": "https://media.api-sports.io/football/teams/9.png"
@@ -27,6 +29,7 @@
       "name": "Copa America",
       "country": "USA",
       "year": 2024,
+      "status": "finished",
       "winner": {
         "name": "Argentina",
         "logo": "https://media.api-sports.io/football/teams/26.png"
@@ -36,88 +39,143 @@
       "name": "Copa del Rey",
       "country": "Spain",
       "year": 2025,
+      "status": "finished",
       "winner": {
-        "name": "Athletic Bilbao",
-        "logo": "https://media.api-sports.io/football/teams/531.png"
+        "name": "Barcelona",
+        "logo": "https://media.api-sports.io/football/teams/529.png"
+      },
+      "note": "Barcelona beat Real Madrid 3-2 (AET) in final, April 26, 2025"
+    },
+    "385": {
+      "name": "Toto Cup Ligat Al",
+      "country": "Israel",
+      "year": 2025,
+      "status": "finished",
+      "winner": {
+        "name": "Beitar Jerusalem",
+        "logo": "https://media.api-sports.io/football/teams/657.png",
+        "id": 657,
+        "detected_by": "api-sports-cup-winner",
+        "detected_at": "2026-02-06T12:18:24.611Z",
+        "confidence": "high"
       }
     },
     "514": {
       "name": "Supercopa de España",
       "country": "Spain",
       "year": 2025,
+      "status": "finished",
       "winner": {
         "name": "Barcelona",
         "logo": "https://media.api-sports.io/football/teams/529.png"
-      }
+      },
+      "note": "Fixed: Was wrongly labeled as Algeria cup - actually Spanish Super Cup"
     },
-    "556": {
-      "name": "Supercoppa Italiana",
-      "country": "Italy",
+    "526": {
+      "name": "Trophée des Champions",
+      "country": "France",
       "year": 2025,
+      "status": "finished",
       "winner": {
-        "name": "Inter",
-        "logo": "https://media.api-sports.io/football/teams/505.png"
-      }
-    },
-    "529": {
-      "name": "DFL Supercup",
-      "country": "Germany",
-      "year": 2025,
-      "winner": {
-        "name": "Bayer Leverkusen",
-        "logo": "https://media.api-sports.io/football/teams/168.png"
+        "name": "PSG",
+        "logo": "https://media.api-sports.io/football/teams/85.png"
       }
     },
     "528": {
       "name": "Community Shield",
       "country": "England",
       "year": 2025,
+      "status": "finished",
       "winner": {
         "name": "Manchester City",
         "logo": "https://media.api-sports.io/football/teams/50.png"
       }
     },
-    "526": {
-      "name": "Trophée des Champions",
-      "country": "France",
+    "529": {
+      "name": "DFL Supercup",
+      "country": "Germany",
       "year": 2025,
+      "status": "finished",
       "winner": {
-        "name": "PSG",
-        "logo": "https://media.api-sports.io/football/teams/85.png"
+        "name": "Bayer Leverkusen",
+        "logo": "https://media.api-sports.io/football/teams/168.png"
       }
     },
     "531": {
       "name": "UEFA Super Cup",
       "country": "Europe",
       "year": 2025,
+      "status": "finished",
       "winner": {
         "name": "Real Madrid",
         "logo": "https://media.api-sports.io/football/teams/541.png"
       }
     },
-    "385": {
-      "name": "Toto Cup Ligat Al",
-      "country": "Israel",
-      "year": 2025,
-      "winner": null
-    },
     "533": {
       "name": "CAF Super Cup",
       "country": "Africa",
       "year": 2025,
-      "winner": null
+      "status": "finished",
+      "winner": {
+        "name": "Pyramids FC",
+        "logo": "https://media.api-sports.io/football/teams/1036.png",
+        "id": 1036,
+        "detected_by": "api-sports-cup-winner",
+        "detected_at": "2026-02-06T12:18:24.691Z",
+        "confidence": "high"
+      }
     },
     "541": {
       "name": "Recopa Sudamericana",
       "country": "South America",
       "year": 2025,
-      "winner": null
+      "status": "finished",
+      "winner": {
+        "name": "Racing Club",
+        "logo": "https://media.api-sports.io/football/teams/436.png",
+        "id": 436,
+        "detected_by": "api-sports-cup-winner",
+        "detected_at": "2026-02-06T12:18:24.762Z",
+        "confidence": "high"
+      }
+    },
+    "556": {
+      "name": "Supercoppa Italiana", 
+      "country": "Italy",
+      "year": 2025,
+      "status": "finished",
+      "winner": {
+        "name": "Inter",
+        "logo": "https://media.api-sports.io/football/teams/505.png"
+      }
     },
     "659": {
       "name": "Super Cup",
       "country": "Israel",
       "year": 2025,
-      "winner": null
+      "status": "finished",
+      "winner": {
+        "name": "Hapoel Beer Sheva",
+        "logo": "https://media.api-sports.io/football/teams/563.png",
+        "id": 563,
+        "detected_by": "api-sports-cup-winner",
+        "detected_at": "2026-02-06T12:18:24.840Z",
+        "confidence": "high"
+      }
+    },
+    "1164": {
+      "name": "CAF Women's Champions League",
+      "country": "Africa",
+      "year": 2025,
+      "status": "finished",
+      "winner": {
+        "name": "AS FAR",
+        "logo": "https://media.api-sports.io/football/teams/15.png",
+        "detected_by": "manual-cafonline-com",
+        "detected_at": "2026-02-06T16:30:00Z",
+        "confidence": "high",
+        "note": "AS FAR (Morocco) beat ASEC Mimosas 2-1 in final, November 21, 2025"
+      }
     }
   }
 }

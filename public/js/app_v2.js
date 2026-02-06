@@ -323,10 +323,10 @@ async function loadTournamentData() {
             66: { status: 'finished', winner: { name: 'PSG', logo: 'https://media.api-sports.io/football/teams/85.png' } },  // Coupe de France 2025
             
             // Tournaments on vacation
-            385: { status: 'vacation', winner: null }, // Toto Cup Ligat Al (Israel)
-            533: { status: 'vacation', winner: null }, // CAF Super Cup (Africa)
-            541: { status: 'vacation', winner: null }, // Recopa Sudamericana (South America)
-            659: { status: 'vacation', winner: null }  // Super Cup (Israel)
+            385: { status: 'vacation', winner: { status: 'research_needed', priority: 'low' } }, // Toto Cup Ligat Al (Israel)
+            533: { status: 'vacation', winner: { status: 'research_needed', priority: 'medium' } }, // CAF Super Cup (Africa)
+            541: { status: 'vacation', winner: { status: 'research_needed', priority: 'medium' } }, // Recopa Sudamericana (South America)
+            659: { status: 'vacation', winner: { status: 'research_needed', priority: 'low' } }  // Super Cup (Israel)
         };
     }
 }
@@ -1014,8 +1014,8 @@ async function loadContinentHub() {
             clubs: [
                 {id: 12, name: 'CAF Champions League'},
                 {id: 20, name: 'CAF Confederation Cup'},
-                {id: 533, name: 'CAF Super Cup', status: 'vacation'},
-                {id: 1164, name: "CAF Women's Champions League", status: 'vacation'}
+                {id: 533, name: 'CAF Super Cup'},
+                {id: 1164, name: "CAF Women's Champions League"}
             ],
             national: [
                 {id: 6, name: 'Africa Cup of Nations', status: 'vacation'},
