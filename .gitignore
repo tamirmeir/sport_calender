@@ -25,3 +25,9 @@ backend/instance/
 npm-debug.log*
 .DS_Store
 Thumbs.db
+
+# Local development files
+logs/*.txt
+logs/*.log
+reports/*.json
+*.local.*

@@ -99,14 +99,23 @@ sport_calender/
 ├── public/                     # Frontend (Vanilla JS)
 │   ├── index.html              # Main SPA page
 │   ├── css_v2/styles.css       # Stylesheet
-│   └── js/app_v2.js            # App logic (3300+ lines)
+│   └── js/app_v2.js            # App logic
 │
 ├── src/                        # Node.js Backend
 │   ├── index.js                # Express entry + proxy
-│   ├── api/footballApi.js      # API-Sports wrapper (745 lines)
+│   ├── api/footballApi.js      # API-Sports wrapper
 │   ├── routes/fixtures.js      # Fixture endpoints
-│   ├── data/active_leagues.json # Verified leagues cache
-│   └── scripts/verify_leagues.js # Sync script
+│   ├── data/                   # Tournament data & mappings
+│   │   ├── finished_tournaments.json    # 208 tournament winners
+│   │   ├── world_tournaments_master.json # Tournament metadata
+│   │   ├── season_mappings.json         # Season type by country
+│   │   └── country_mappings.json        # Country overrides
+│   └── scripts/                # Automation scripts
+│       ├── winner_verification.js       # Weekly winner checks
+│       ├── detect_missing_winners.js    # Find missing tournaments
+│       ├── bulk_add_tournaments.js      # Bulk tournament import
+│       ├── comprehensive_test.js        # Full system test
+│       └── health_check.js              # Daily health monitoring
 │
 ├── backend/                    # Python Backend
 │   ├── app.py                  # Flask entry
@@ -118,10 +127,27 @@ sport_calender/
 │   └── instance/
 │       └── sport_calendar.db   # SQLite database
 │
-├── docs/                       # Documentation
-│   ├── ARCHITECTURE.md         # System architecture
-│   ├── API_REFERENCE.md        # API documentation
-│   └── FILE_REFERENCE.md       # File-by-file docs
+├── docs/                       # 📚 Documentation (38 files)
+│   ├── README.md               # Documentation index
+│   ├── guides/                 # User & developer guides
+│   ├── architecture/           # System design docs
+│   ├── setup/                  # Installation & config
+│   ├── deployment/             # Production guides
+│   └── troubleshooting/        # Common issues & fixes
+│
+├── scripts/                    # 🔧 Utility Scripts
+│   ├── deployment/             # Deployment scripts
+│   ├── maintenance/            # System maintenance
+│   └── dev-tools/              # Development utilities
+│
+├── config/                     # ⚙️ Configuration
+│   ├── production.crontab      # Production cron jobs
+│   └── crontab.example         # Example crontab
+│
+├── logs/                       # 📝 Application Logs (local)
+├── reports/                    # 📊 Generated Reports
+│   ├── missing_winners_report.json
+│   └── TEST_RESULTS.txt
 │
 └── .env                        # Environment variables
 ```
@@ -181,21 +207,36 @@ node src/scripts/validate_leagues_batch.js 1 10
 
 **Latest report**: `VALIDATION_REPORT_2026-02-05.md`
 
-## �📚 Documentation
+## 📚 Documentation
 
-- [Architecture](docs/ARCHITECTURE.md) - System design and data flow
-- [API Data Flow](docs/API_DATA_FLOW.md) - All API endpoints and sync process
-- [File Reference](docs/FILE_REFERENCE.md) - Function documentation
+**Complete documentation available in [`docs/`](./docs/)** (38 files organized by category)
+
+### Quick Links:
+- **[Documentation Index](docs/README.md)** - Start here
+- **[Architecture](docs/architecture/ARCHITECTURE.md)** - System design
+- **[Maintenance Guide](docs/guides/MAINTENANCE_GUIDE.md)** - Daily operations
+- **[API Reference](docs/architecture/API_REFERENCE.md)** - All endpoints
+- **[Deployment Guide](docs/deployment/PRODUCTION_GUIDE.md)** - Production setup
+- **[Troubleshooting](docs/troubleshooting/FIX_NOW.md)** - Common issues
+
+### Documentation Categories:
+- 📖 **Guides** (8 files) - User & developer guides
+- 🏗️ **Architecture** (8 files) - System design & API docs
+- ⚙️ **Setup** (8 files) - Installation & configuration
+- 🚀 **Deployment** (6 files) - Production management
+- 🔧 **Troubleshooting** (7 files) - Issues & solutions
 
 ## 🐛 Troubleshooting
 
 **Ports stuck?**
 ```bash
-bash kill_ports.sh
+bash scripts/maintenance/kill_ports.sh
 ```
 
 **Backend not running?**
 Check if both servers are running: Node.js on 3000, Python on 8000.
+
+**More help:** See [Troubleshooting Guide](docs/troubleshooting/FIX_NOW.md)
 
 ## 📄 License
 
