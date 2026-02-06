@@ -7,6 +7,35 @@ const { getSeasonYear } = require('../utils/config');
 
 const router = express.Router();
 
+// Load season mappings
+const loadSeasonMappings = () => {
+    try {
+        const mappingsPath = path.join(__dirname, '../data/season_mappings.json');
+        return JSON.parse(fs.readFileSync(mappingsPath, 'utf8'));
+    } catch (error) {
+        console.error('Error loading season mappings:', error);
+        return { countries: {}, leagues: {} };
+    }
+};
+
+// Get season type for a country or league
+const getSeasonType = (country = null, leagueId = null) => {
+    const mappings = loadSeasonMappings();
+    
+    // Check league-specific mapping first
+    if (leagueId && mappings.leagues[leagueId]) {
+        return mappings.leagues[leagueId];
+    }
+    
+    // Then check country mapping
+    if (country && mappings.countries[country]) {
+        return mappings.countries[country];
+    }
+    
+    // Default to academic (European style)
+    return 'academic';
+};
+
 // Load unified tournament data system
 const loadWorldTournamentsMaster = () => {
     try {
@@ -734,11 +763,18 @@ router.get('/standings', async (req, res) => {
 router.get('/fixtures', async (req, res) => {
     console.log('[API] Hit /fixtures endpoint with query:', req.query);
     try {
-        const { league, season, next, last, status } = req.query;
+        const { league, season, next, last, status, country } = req.query;
         if (!league) return res.status(400).json({ error: 'League parameter required' });
 
-        const seasonYear = season || new Date().getFullYear();
-        // nextCount logic moved inside API helper which handles priority
+        // Determine season based on league/country type
+        let seasonYear;
+        if (season) {
+            seasonYear = season;
+        } else {
+            const seasonType = getSeasonType(country, league);
+            seasonYear = getSeasonYear(seasonType);
+            console.log(`[API] Auto-detected season ${seasonYear} for league ${league} (type: ${seasonType})`);
+        }
         
         const fixtures = await footballApi.getFixturesByLeague(league, seasonYear, next, last, status);
         res.json(fixtures);
@@ -750,12 +786,20 @@ router.get('/fixtures', async (req, res) => {
 // --- NEW: Universal Active Teams Logic (The Funnel) ---
 router.get('/active-teams', async (req, res) => {
     try {
-        const { league, season } = req.query;
+        const { league, season, country } = req.query;
         if (!league) return res.status(400).json({ error: 'League ID required' });
         
-        let seasonYear = season || new Date().getFullYear();
+        // Determine season based on league/country type
+        let seasonYear;
+        if (season) {
+            seasonYear = season;
+        } else {
+            const seasonType = getSeasonType(country, league);
+            seasonYear = getSeasonYear(seasonType);
+            console.log(`[Route] Auto-detected season ${seasonYear} for league ${league} (type: ${seasonType})`);
+        }
         
-        // First attempt with provided/default season
+        // First attempt with provided/auto-detected season
         let activeTeams = await footballApi.getActiveTournamentTeams(league, seasonYear);
         
         // If no teams found, try to get the league's actual current season

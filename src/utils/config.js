@@ -3,7 +3,7 @@ require('dotenv').config();
 /**
  * Dynamic Season Calculator
  * Returns the appropriate season year based on current date
- * @param {string} type - 'academic' (Jul-Jun like European leagues) or 'calendar' (Jan-Dec like MLS, South America)
+ * @param {string} type - 'academic' (Jul-Jun like European leagues), 'calendar' (Jan-Dec like MLS), or 'asian' (Aug-Jun like Vietnam, Thailand)
  * @returns {number} The season year
  */
 function getSeasonYear(type = 'academic') {
@@ -13,6 +13,12 @@ function getSeasonYear(type = 'academic') {
 
     if (type === 'calendar') {
         return year;
+    }
+    
+    if (type === 'asian') {
+        // Asian leagues: Aug-Jun, season named after END year
+        // Before August = current year's season, August onwards = next year's season
+        return month >= 7 ? year + 1 : year;
     }
     
     // Academic: Before July = previous year's season, July onwards = current year

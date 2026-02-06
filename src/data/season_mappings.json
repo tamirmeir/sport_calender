@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "description": "Season type mappings for different countries and leagues",
+    "last_updated": "2026-02-06",
+    "season_types": {
+      "academic": "Jul-Jun (European leagues) - season = start year",
+      "calendar": "Jan-Dec (Americas) - season = calendar year",
+      "asian": "Aug-Jun (Asian leagues) - season = end year"
+    }
+  },
+  "countries": {
+    "Vietnam": "asian",
+    "Thailand": "asian",
+    "Indonesia": "asian",
+    "Malaysia": "asian",
+    "Singapore": "asian",
+    "Philippines": "asian",
+    "China": "calendar",
+    "Japan": "calendar",
+    "South-Korea": "calendar",
+    "Australia": "academic",
+    "India": "academic",
+    "USA": "calendar",
+    "Mexico": "academic",
+    "Brazil": "calendar",
+    "Argentina": "calendar",
+    "Chile": "calendar",
+    "Colombia": "calendar",
+    "Uruguay": "calendar",
+    "Peru": "calendar",
+    "Ecuador": "calendar",
+    "Venezuela": "calendar",
+    "Paraguay": "calendar",
+    "Bolivia": "calendar"
+  },
+  "leagues": {
+    "340": "asian",
+    "637": "asian",
+    "347": "asian",
+    "298": "asian",
+    "335": "asian",
+    "307": "asian",
+    "290": "calendar",
+    "292": "calendar",
+    "98": "calendar",
+    "99": "calendar"
+  }
+}
