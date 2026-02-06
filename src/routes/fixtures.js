@@ -657,10 +657,14 @@ router.get('/leagues', async (req, res) => {
                     ...league,
                     status: 'finished',
                     ui_label: '🏆 Finished',
-                    winner: tournamentInfo.winner // ADDED: Include winner data
+                    winner: tournamentInfo.winner,
+                    // v2.0 Enhanced data for rich tooltips
+                    runnerUp: tournamentInfo.runnerUp || null,
+                    finalMatch: tournamentInfo.finalMatch || null,
+                    validation: tournamentInfo.validation || null
                 };
             }
-            return league;
+            return { ...league, status: 'active', ui_label: '⚽ Active' };
         });
         
         // Limit to top 15 leagues per country
@@ -1776,6 +1780,229 @@ router.get('/competition-structure/:leagueId', async (req, res) => {
     console.error('[API] Error fetching competition structure:', error.message);
     res.status(500).json({ error: error.message });
   }
+});
+
+// ================================
+// v2.0 ENHANCED ENDPOINTS
+// ================================
+
+// 🏆 World Cup Countdown
+router.get('/events/world-cup-countdown', async (req, res) => {
+    try {
+        const worldCupConfigPath = path.join(__dirname, '../data/world_cup_config.json');
+        const config = JSON.parse(fs.readFileSync(worldCupConfigPath, 'utf8'));
+        
+        const nextWC = config.nextWorldCup;
+        if (!nextWC || !nextWC.countdown.enabled) {
+            return res.json({ enabled: false });
+        }
+        
+        const now = new Date();
+        const startDate = new Date(nextWC.startDate);
+        const endDate = new Date(nextWC.endDate);
+        
+        // Check if World Cup is happening now
+        if (now >= startDate && now <= endDate) {
+            const daysRunning = Math.floor((now - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            
+            return res.json({
+                enabled: true,
+                status: 'live',
+                message: '⚡ WORLD CUP 2026 - LIVE! ⚡',
+                daysRunning,
+                totalDays,
+                year: nextWC.year,
+                hosts: nextWC.hostCountries,
+                hostFlags: nextWC.hostFlags
+            });
+        }
+        
+        // Calculate countdown
+        const timeUntil = startDate - now;
+        const days = Math.floor(timeUntil / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeUntil % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeUntil % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeUntil % (1000 * 60)) / 1000);
+        
+        // Find milestone message
+        let milestone = null;
+        for (const m of nextWC.countdown.milestones) {
+            if (m.days && days <= m.days) {
+                milestone = m;
+            }
+        }
+        
+        // Last 24 hours - show hour countdown
+        const urgentMode = days === 0 && hours < 24;
+        
+        return res.json({
+            enabled: true,
+            status: 'countdown',
+            countdown: {
+                days,
+                hours,
+                minutes,
+                seconds,
+                totalDays: days,
+                urgentMode
+            },
+            milestone: milestone || null,
+            tournament: {
+                year: nextWC.year,
+                name: nextWC.name,
+                startDate: nextWC.startDate,
+                hosts: nextWC.hostCountries,
+                hostFlags: nextWC.hostFlags,
+                teams: nextWC.totalTeams,
+                logo: nextWC.logo
+            },
+            qualification: nextWC.qualification || null
+        });
+        
+    } catch (error) {
+        console.error('[API] Error in world-cup-countdown:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// ⚽ League Playoff Phase Info
+router.get('/league/:leagueId/playoff-phase', async (req, res) => {
+    try {
+        const { leagueId } = req.params;
+        
+        const seasonStructurePath = path.join(__dirname, '../data/season_structure.json');
+        const structure = JSON.parse(fs.readFileSync(seasonStructurePath, 'utf8'));
+        
+        const leagueStructure = structure.leagues[leagueId];
+        
+        if (!leagueStructure || !leagueStructure.hasPlayoffs) {
+            return res.json({
+                hasPlayoffs: false,
+                leagueId,
+                currentPhase: 'regular'
+            });
+        }
+        
+        // Determine current phase
+        const now = new Date();
+        let currentPhase = null;
+        let nextPhase = null;
+        
+        for (let i = 0; i < leagueStructure.structure.phases.length; i++) {
+            const phase = leagueStructure.structure.phases[i];
+            const start = new Date(phase.startDate);
+            const end = new Date(phase.endDate);
+            
+            if (now >= start && now <= end) {
+                currentPhase = phase;
+                nextPhase = leagueStructure.structure.phases[i + 1] || null;
+                break;
+            }
+            
+            // Check if phase is upcoming
+            if (now < start && !currentPhase) {
+                nextPhase = phase;
+            }
+        }
+        
+        // Calculate transition info
+        let transitionInfo = null;
+        if (nextPhase) {
+            const nextStart = new Date(nextPhase.startDate);
+            const daysUntil = Math.ceil((nextStart - now) / (1000 * 60 * 60 * 24));
+            
+            if (daysUntil <= 14) {
+                transitionInfo = {
+                    daysUntil,
+                    nextPhaseName: nextPhase.name,
+                    nextPhaseType: nextPhase.type,
+                    startDate: nextPhase.startDate,
+                    urgent: daysUntil <= 7,
+                    message: daysUntil <= 7 ? 
+                        `🚨 ${nextPhase.name} starts in ${daysUntil} days!` :
+                        `⚡ ${nextPhase.name} starts ${nextPhase.startDate}`
+                };
+            }
+        }
+        
+        return res.json({
+            hasPlayoffs: true,
+            leagueId,
+            leagueName: leagueStructure.name,
+            country: leagueStructure.country,
+            playoffType: leagueStructure.structure.type,
+            currentPhase: currentPhase ? {
+                name: currentPhase.name,
+                type: currentPhase.type,
+                startDate: currentPhase.startDate,
+                endDate: currentPhase.endDate,
+                totalRounds: currentPhase.totalRounds,
+                qualifiers: currentPhase.qualifiers || null,
+                pointsCarryOver: currentPhase.pointsCarryOver || null
+            } : null,
+            nextPhase: nextPhase ? {
+                name: nextPhase.name,
+                type: nextPhase.type,
+                startDate: nextPhase.startDate
+            } : null,
+            transition: transitionInfo,
+            allPhases: leagueStructure.structure.phases
+        });
+        
+    } catch (error) {
+        console.error('[API] Error in playoff-phase:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// 🎯 Tournament Details (Full info for tooltips)
+router.get('/tournament/:tournamentId/details', async (req, res) => {
+    try {
+        const { tournamentId } = req.params;
+        
+        const finishedPath = path.join(__dirname, '../data/finished_tournaments.json');
+        const masterPath = path.join(__dirname, '../data/world_tournaments_master.json');
+        
+        const finished = JSON.parse(fs.readFileSync(finishedPath, 'utf8'));
+        const master = JSON.parse(fs.readFileSync(masterPath, 'utf8'));
+        
+        const tournamentFinished = finished.finished_tournaments[tournamentId];
+        const tournamentMaster = master.tournaments[tournamentId];
+        
+        if (!tournamentFinished && !tournamentMaster) {
+            return res.status(404).json({ error: 'Tournament not found' });
+        }
+        
+        // Build comprehensive response
+        const response = {
+            id: tournamentId,
+            name: tournamentFinished?.name || tournamentMaster?.name,
+            country: tournamentFinished?.country || tournamentMaster?.country,
+            year: tournamentFinished?.year || tournamentMaster?.status?.season,
+            status: tournamentFinished?.status || tournamentMaster?.status?.current || 'active',
+            
+            // Winner info
+            winner: tournamentFinished?.winner || null,
+            runnerUp: tournamentFinished?.runnerUp || null,
+            
+            // Final match details (for tooltip)
+            finalMatch: tournamentFinished?.finalMatch || null,
+            
+            // Validation metadata
+            validation: tournamentFinished?.validation || null,
+            
+            // Master data
+            display: tournamentMaster?.display || null,
+            logo: tournamentMaster?.logo || null
+        };
+        
+        res.json(response);
+        
+    } catch (error) {
+        console.error('[API] Error in tournament details:', error);
+        res.status(500).json({ error: error.message });
+    }
 });
 
 module.exports = router;
