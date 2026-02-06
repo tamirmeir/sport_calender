@@ -36,25 +36,25 @@
 ```json
 {
   "standings": [
-    // קבוצה 1: Championship Playoff
+    // קבוצה 1: Championship Playoff (ממשיכות עם כל הנקודות!)
     [
-      {"rank": 1, "team": "Maccabi Haifa", "points": 23, "group": "Championship"},
-      {"rank": 2, "team": "Maccabi Tel Aviv", "points": 22},
+      {"rank": 1, "team": "Maccabi Haifa", "points": 45, "group": "Championship"},
+      {"rank": 2, "team": "Maccabi Tel Aviv", "points": 43},
       ...
-      {"rank": 6, "team": "Hapoel Haifa", "points": 18}
+      {"rank": 6, "team": "Hapoel Haifa", "points": 32}
     ],
-    // קבוצה 2: Relegation Playoff
+    // קבוצה 2: Relegation Playoff (גם כאן, נקודות מלאות!)
     [
-      {"rank": 1, "team": "Hapoel Petah Tikva", "points": 15, "group": "Relegation"},
-      {"rank": 2, "team": "Maccabi Netanya", "points": 14},
+      {"rank": 1, "team": "Hapoel Petah Tikva", "points": 28, "group": "Relegation"},
+      {"rank": 2, "team": "Maccabi Netanya", "points": 26},
       ...
-      {"rank": 8, "team": "Hapoel Hadera", "points": 8}
+      {"rank": 8, "team": "Hapoel Hadera", "points": 15}
     ]
   ]
 }
 ```
 
-**שתי טבלאות נפרדות!**
+**שתי טבלאות נפרדות - אבל הנקודות נשארות מלאות!**
 
 ---
 
@@ -75,13 +75,14 @@
 
 ### ליגת העל (Israel):
 ```
-pointsCarryOver: "half"
+pointsCarryOver: "full"
 ```
 
-**כל קבוצה מתחילה את הפלייאוף עם חצי מהנקודות שצברה בעונה הרגילה!**
+**כל הנקודות נשמרות! הקבוצות ממשיכות עם אותן נקודות שצברו בעונה הרגילה!**
 
-**דוגמה:**
-- מכבי חיפה סיימה עם **45 נקודות** → מתחילה פלייאוף עם **23 נקודות** (45÷2=22.5, מעוגל כלפי מעלה)
+**דוגמה מעונה 2024-2025:**
+- מכבי תל אביב סיימה עונה רגילה עם **57 נקודות** → התחילה פלייאוף עם **57 נקודות** → סיימה עם **80 נקודות** (צברה עוד 23)
+- הפועל באר שבע סיימה עונה רגילה עם **58 נקודות** → התחילה פלייאוף עם **58 נקודות** → סיימה עם **78 נקודות** (צברה עוד 20)
 
 ### סקוטלנד (Premiership):
 ```
@@ -197,7 +198,7 @@ curl https://matchdaybytm.com/api/fixtures/league/383/playoff-phase
 │ Top 6 → Championship Playoff        │
 │ Bottom 8 → Relegation Playoff       │
 │                                     │
-│ Points will be halved!              │
+│ All points carry over fully!        │
 └─────────────────────────────────────┘
 ```
 
@@ -328,7 +329,7 @@ function PlayoffPhaseIndicator({ leagueId }) {
 
 | ליגה | מדינה | סוג פלייאוף | נקודות נשמרות |
 |------|-------|-------------|----------------|
-| Ligat Ha'Al | 🇮🇱 Israel | Split | Half |
+| Ligat Ha'Al | 🇮🇱 Israel | Split | **Full** ✅ |
 | Jupiler Pro | 🇧🇪 Belgium | Championship | Half |
 | Premiership | 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland | Split | Full |
 | Super League | 🇨🇭 Switzerland | Split | Full |
