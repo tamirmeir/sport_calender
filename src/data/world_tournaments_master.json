@@ -1272,7 +1272,7 @@
       "logo": "https://media.api-sports.io/football/leagues/101.png",
       "status": {
         "current": "finished",
-        "season": "2025",
+        "season": "2024",
         "startDate": "2025-11-01",
         "endDate": "2025-11-01",
         "currentMatchday": 1,
@@ -1285,12 +1285,12 @@
       },
       "winner": {
         "hasWinner": true,
-        "season": "2025",
-        "team": "Sanfrecce Hiroshima",
-        "teamId": 282,
-        "teamLogo": "https://media.api-sports.io/football/teams/282.png",
-        "confirmedDate": "2026-02-06T17:38:59.073Z",
-        "detectedBy": "automated-bulk-detection",
+        "season": "2024",
+        "team": "Nagoya Grampus",
+        "teamId": 305,
+        "teamLogo": "https://media.api-sports.io/football/teams/305.png",
+        "confirmedDate": "2026-02-06T22:59:07.165Z",
+        "detectedBy": "manual-correction",
         "confidence": "high"
       },
       "api": {
@@ -1321,7 +1321,7 @@
       "logo": "https://media.api-sports.io/football/leagues/102.png",
       "status": {
         "current": "finished",
-        "season": "2025",
+        "season": "2024",
         "startDate": "2025-11-22",
         "endDate": "2025-11-22",
         "currentMatchday": 1,
@@ -1334,12 +1334,12 @@
       },
       "winner": {
         "hasWinner": true,
-        "season": "2025",
-        "team": "Machida Zelvia",
-        "teamId": 303,
-        "teamLogo": "https://media.api-sports.io/football/teams/303.png",
-        "confirmedDate": "2026-02-06T17:38:59.073Z",
-        "detectedBy": "automated-bulk-detection",
+        "season": "2024",
+        "team": "Vissel Kobe",
+        "teamId": 276,
+        "teamLogo": "https://media.api-sports.io/football/teams/276.png",
+        "confirmedDate": "2026-02-06T22:58:05.853Z",
+        "detectedBy": "manual-correction",
         "confidence": "high"
       },
       "api": {
@@ -4552,7 +4552,7 @@
       "logo": "https://media.api-sports.io/football/leagues/548.png",
       "status": {
         "current": "finished",
-        "season": "2025",
+        "season": "2024",
         "startDate": "2025-02-08",
         "endDate": "2025-02-08",
         "currentMatchday": 1,
@@ -4565,12 +4565,12 @@
       },
       "winner": {
         "hasWinner": true,
-        "season": "2025",
-        "team": "Sanfrecce Hiroshima",
-        "teamId": 282,
-        "teamLogo": "https://media.api-sports.io/football/teams/282.png",
-        "confirmedDate": "2026-02-06T17:38:59.073Z",
-        "detectedBy": "automated-bulk-detection",
+        "season": "2024",
+        "team": "Kawasaki Frontale",
+        "teamId": 296,
+        "teamLogo": "https://media.api-sports.io/football/teams/296.png",
+        "confirmedDate": "2026-02-06T22:59:07.165Z",
+        "detectedBy": "manual-correction",
         "confidence": "high"
       },
       "api": {

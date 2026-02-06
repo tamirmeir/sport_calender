@@ -218,31 +218,31 @@
     "101": {
       "name": "J-League Cup",
       "country": "Japan",
-      "year": 2025,
+      "year": 2024,
       "status": "finished",
       "winner": {
-        "name": "Sanfrecce Hiroshima",
-        "logo": "https://media.api-sports.io/football/teams/282.png",
-        "id": 282,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
+        "name": "Nagoya Grampus",
+        "logo": "https://media.api-sports.io/football/teams/305.png",
+        "id": 305,
+        "detected_by": "manual-correction",
+        "detected_at": "2026-02-06T22:59:07.164Z",
         "confidence": "high",
-        "note": "Kashiwa Reysol vs Sanfrecce Hiroshima, 1-3, 2025-11-01"
+        "note": "Nagoya Grampus vs Albirex Niigata, 3-3 (5-4 pen), 2024-11-02 (Final)"
       }
     },
     "102": {
       "name": "Emperor Cup",
       "country": "Japan",
-      "year": 2025,
+      "year": 2024,
       "status": "finished",
       "winner": {
-        "name": "Machida Zelvia",
-        "logo": "https://media.api-sports.io/football/teams/303.png",
-        "id": 303,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
+        "name": "Vissel Kobe",
+        "logo": "https://media.api-sports.io/football/teams/276.png",
+        "id": 276,
+        "detected_by": "manual-correction",
+        "detected_at": "2026-02-06T22:58:05.851Z",
         "confidence": "high",
-        "note": "Machida Zelvia vs Vissel Kobe, 3-1, 2025-11-22"
+        "note": "Gamba Osaka vs Vissel Kobe, 0-1, 2024-11-23 (Final)"
       }
     },
     "105": {
@@ -1132,16 +1132,16 @@
     "548": {
       "name": "Super Cup",
       "country": "Japan",
-      "year": 2025,
+      "year": 2024,
       "status": "finished",
       "winner": {
-        "name": "Sanfrecce Hiroshima",
-        "logo": "https://media.api-sports.io/football/teams/282.png",
-        "id": 282,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
+        "name": "Kawasaki Frontale",
+        "logo": "https://media.api-sports.io/football/teams/296.png",
+        "id": 296,
+        "detected_by": "manual-correction",
+        "detected_at": "2026-02-06T22:59:07.165Z",
         "confidence": "high",
-        "note": "Vissel Kobe vs Sanfrecce Hiroshima, 0-2, 2025-02-08"
+        "note": "Kawasaki Frontale vs Vissel Kobe, 1-0, 2024-02-17 (Final)"
       }
     },
     "550": {
