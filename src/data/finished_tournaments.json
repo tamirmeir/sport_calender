@@ -296,13 +296,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Argentinos JRS",
-        "logo": "https://media.api-sports.io/football/teams/458.png",
-        "id": 458,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.074Z",
+        "name": "Independ. Rivadavia",
+        "logo": "https://media.api-sports.io/football/teams/473.png",
+        "id": 473,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:31.182Z",
         "confidence": "high",
-        "note": "Belgrano Cordoba vs Argentinos JRS, 1-2, 2025-10-24"
+        "note": "Fixed from Argentinos JRS to Independ. Rivadavia"
       }
     },
     "143": {
@@ -311,8 +311,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Barcelona",
-        "logo": "https://media.api-sports.io/football/teams/529.png"
+        "name": "Atletico Madrid",
+        "logo": "https://media.api-sports.io/football/teams/530.png",
+        "id": 530,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:31.553Z",
+        "confidence": "high",
+        "note": "Fixed from Barcelona to Atletico Madrid"
       },
       "note": "Barcelona beat Real Madrid 3-2 (AET) in final, April 26, 2025"
     },
@@ -337,13 +342,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Vestri",
-        "logo": "https://media.api-sports.io/football/teams/4165.png",
-        "id": 4165,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
+        "name": "Valur Reykjavik",
+        "logo": "https://media.api-sports.io/football/teams/274.png",
+        "id": 274,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:31.940Z",
         "confidence": "high",
-        "note": "Throttur Reykjavik vs Vestri, 0-1, 2025-03-25"
+        "note": "Fixed from Vestri to Valur Reykjavik"
       }
     },
     "171": {
@@ -361,51 +366,6 @@
         "note": "Beijing Guoan vs Henan Jianye, 3-0, 2025-12-06"
       }
     },
-    "174": {
-      "name": "Cup",
-      "country": "Bulgaria",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Ludogorets",
-        "logo": "https://media.api-sports.io/football/teams/566.png",
-        "id": 566,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Septemvri Sofia vs Ludogorets, 1-3, 2025-12-15"
-      }
-    },
-    "181": {
-      "name": "FA Cup",
-      "country": "Scotland",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Celtic",
-        "logo": "https://media.api-sports.io/football/teams/247.png",
-        "id": 247,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Auchinleck Talbot vs Celtic, 0-2, 2026-01-18"
-      }
-    },
-    "182": {
-      "name": "Challenge Cup",
-      "country": "Scotland",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Inverness CT",
-        "logo": "https://media.api-sports.io/football/teams/903.png",
-        "id": 903,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Inverness CT vs Stenhousemuir, 1-0, 2026-01-27"
-      }
-    },
     "185": {
       "name": "League Cup",
       "country": "Scotland",
@@ -419,96 +379,6 @@
         "detected_at": "2026-02-06T17:38:59.072Z",
         "confidence": "high",
         "note": "ST Mirren vs Celtic, 3-1, 2025-12-14"
-      }
-    },
-    "199": {
-      "name": "Cup",
-      "country": "Greece",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "PAOK",
-        "logo": "https://media.api-sports.io/football/teams/619.png",
-        "id": 619,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Panathinaikos vs PAOK, 0-1, 2026-02-04"
-      }
-    },
-    "206": {
-      "name": "Türkiye Kupası",
-      "country": "Turkey",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Fenerbahçe",
-        "logo": "https://media.api-sports.io/football/teams/611.png",
-        "id": 611,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Fenerbahçe vs Erzurum BB, 3-1, 2026-02-05"
-      }
-    },
-    "209": {
-      "name": "Schweizer Cup",
-      "country": "Switzerland",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "FC ST. Gallen",
-        "logo": "https://media.api-sports.io/football/teams/1011.png",
-        "id": 1011,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "FC ST. Gallen vs FC Basel 1893, 2-1, 2026-02-04"
-      }
-    },
-    "212": {
-      "name": "Cup",
-      "country": "Croatia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "HNK Rijeka",
-        "logo": "https://media.api-sports.io/football/teams/561.png",
-        "id": 561,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Mladost Ždralovi vs HNK Rijeka, 1-4, 2025-12-03"
-      }
-    },
-    "220": {
-      "name": "Cup",
-      "country": "Austria",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Red Bull Salzburg",
-        "logo": "https://media.api-sports.io/football/teams/571.png",
-        "id": 571,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Wolfsberger AC vs Red Bull Salzburg, 0-1, 2026-02-01"
-      }
-    },
-    "237": {
-      "name": "Cup",
-      "country": "Russia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Zenit",
-        "logo": "https://media.api-sports.io/football/teams/596.png",
-        "id": 596,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Dynamo vs Zenit, 0-1, 2025-11-27"
       }
     },
     "241": {
@@ -562,43 +432,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Deportes Limache",
-        "logo": "https://media.api-sports.io/football/teams/16730.png",
-        "id": 16730,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.074Z",
+        "name": "Huachipato",
+        "logo": "https://media.api-sports.io/football/teams/2328.png",
+        "id": 2328,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:32.314Z",
         "confidence": "high",
-        "note": "D. La Serena vs Deportes Limache, 1-6, 2025-10-12"
-      }
-    },
-    "273": {
-      "name": "Magyar Kupa",
-      "country": "Hungary",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Zalaegerszegi TE",
-        "logo": "https://media.api-sports.io/football/teams/2414.png",
-        "id": 2414,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Zalaegerszegi TE vs Budafoki LC, 3-1, 2025-10-30"
-      }
-    },
-    "285": {
-      "name": "Cupa României",
-      "country": "Romania",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Universitatea Craiova",
-        "logo": "https://media.api-sports.io/football/teams/632.png",
-        "id": 632,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Petrolul Ploiesti vs Universitatea Craiova, 0-4, 2025-12-04"
+        "note": "Fixed from Deportes Limache to Huachipato"
       }
     },
     "294": {
@@ -607,43 +447,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Gwangju FC",
-        "logo": "https://media.api-sports.io/football/teams/2759.png",
-        "id": 2759,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
+        "name": "Jeonbuk Motors",
+        "logo": "https://media.api-sports.io/football/teams/2762.png",
+        "id": 2762,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:32.683Z",
         "confidence": "high",
-        "note": "Bucheon FC 1995 vs Gwangju FC, 1-2, 2025-08-27"
-      }
-    },
-    "298": {
-      "name": "FA Cup",
-      "country": "Thailand",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Ayutthaya FC",
-        "logo": "https://media.api-sports.io/football/teams/2803.png",
-        "id": 2803,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.074Z",
-        "confidence": "high",
-        "note": "Ayutthaya FC vs Uttaradit, 3-0, 2026-01-14"
-      }
-    },
-    "321": {
-      "name": "Cup",
-      "country": "Cyprus",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "AEL",
-        "logo": "https://media.api-sports.io/football/teams/3396.png",
-        "id": 3396,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Aris vs AEL, 0-1, 2026-01-21"
+        "note": "Fixed from Gwangju FC to Jeonbuk Motors"
       }
     },
     "325": {
@@ -661,21 +471,6 @@
         "note": "Punjab vs Kerala, 0-4, 2026-02-05"
       }
     },
-    "335": {
-      "name": "Cup",
-      "country": "Ukraine",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Metalist 1925 Kharkiv",
-        "logo": "https://media.api-sports.io/football/teams/3628.png",
-        "id": 3628,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Metalist 1925 Kharkiv vs Ahrobiznes Volochysk, 4-3, 2025-10-30"
-      }
-    },
     "341": {
       "name": "Cup",
       "country": "Vietnam",
@@ -689,36 +484,6 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Song Lam Nghe An vs Công An Nhân Dân, 0-5, 2025-06-29"
-      }
-    },
-    "347": {
-      "name": "Cup",
-      "country": "Czech-Republic",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Sparta Praha",
-        "logo": "https://media.api-sports.io/football/teams/628.png",
-        "id": 628,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Artis vs Sparta Praha, 1-2, 2025-12-03"
-      }
-    },
-    "375": {
-      "name": "Cup",
-      "country": "Slovenia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Olimpija Ljubljana",
-        "logo": "https://media.api-sports.io/football/teams/677.png",
-        "id": 677,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Olimpija Ljubljana vs Celje, 1-0, 2025-12-04"
       }
     },
     "384": {
@@ -748,21 +513,6 @@
         "detected_by": "api-sports-cup-winner",
         "detected_at": "2026-02-06T12:18:24.611Z",
         "confidence": "high"
-      }
-    },
-    "420": {
-      "name": "Cup",
-      "country": "Azerbaijan",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Turan",
-        "logo": "https://media.api-sports.io/football/teams/5499.png",
-        "id": 5499,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Turan vs Kapaz, 1-0, 2026-02-05"
       }
     },
     "486": {
@@ -870,21 +620,6 @@
         "note": "Al-Ittihad FC vs Al-Qadisiyah FC, 3-1, 2025-05-30"
       }
     },
-    "507": {
-      "name": "Cup",
-      "country": "South-Africa",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Stellenbosch",
-        "logo": "https://media.api-sports.io/football/teams/4905.png",
-        "id": 4905,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Stellenbosch vs Kaizer Chiefs, 2-1, 2026-02-04"
-      }
-    },
     "508": {
       "name": "League Cup",
       "country": "South-Africa",
@@ -899,32 +634,6 @@
         "confidence": "high",
         "note": "Richards Bay vs Orlando Pirates, 0-1, 2025-11-08"
       }
-    },
-    "511": {
-      "name": "Cup",
-      "country": "Tunisia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Stade Gabesien",
-        "logo": "https://media.api-sports.io/football/teams/985.png",
-        "id": 985,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Stade Gabesien vs CS Hammam-Lif, 2-0, 2026-01-11"
-      }
-    },
-    "514": {
-      "name": "Supercopa de España",
-      "country": "Spain",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Barcelona",
-        "logo": "https://media.api-sports.io/football/teams/529.png"
-      },
-      "note": "Fixed: Was wrongly labeled as Algeria cup - actually Spanish Super Cup"
     },
     "516": {
       "name": "Super Cup",
@@ -962,8 +671,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "PSG",
-        "logo": "https://media.api-sports.io/football/teams/85.png"
+        "name": "Paris Saint Germain",
+        "logo": "https://media.api-sports.io/football/teams/85.png",
+        "id": 85,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:33.058Z",
+        "confidence": "high",
+        "note": "Fixed from PSG to Paris Saint Germain"
       }
     },
     "527": {
@@ -987,8 +701,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Manchester City",
-        "logo": "https://media.api-sports.io/football/teams/50.png"
+        "name": "Crystal Palace",
+        "logo": "https://media.api-sports.io/football/teams/52.png",
+        "id": 52,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:33.436Z",
+        "confidence": "high",
+        "note": "Fixed from Manchester City to Crystal Palace"
       }
     },
     "529": {
@@ -997,8 +716,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Bayer Leverkusen",
-        "logo": "https://media.api-sports.io/football/teams/168.png"
+        "name": "Bayern München",
+        "logo": "https://media.api-sports.io/football/teams/157.png",
+        "id": 157,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:33.810Z",
+        "confidence": "high",
+        "note": "Fixed from Bayer Leverkusen to Bayern München"
       }
     },
     "530": {
@@ -1022,8 +746,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Real Madrid",
-        "logo": "https://media.api-sports.io/football/teams/541.png"
+        "name": "Paris Saint Germain",
+        "logo": "https://media.api-sports.io/football/teams/85.png",
+        "id": 85,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:34.179Z",
+        "confidence": "high",
+        "note": "Fixed from Real Madrid to Paris Saint Germain"
       }
     },
     "533": {
@@ -1195,23 +924,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Inter",
-        "logo": "https://media.api-sports.io/football/teams/505.png"
-      }
-    },
-    "559": {
-      "name": "League Cup",
-      "country": "Northern-Ireland",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Linfield",
-        "logo": "https://media.api-sports.io/football/teams/583.png",
-        "id": 583,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
+        "name": "Barcelona",
+        "logo": "https://media.api-sports.io/football/teams/529.png",
+        "id": 529,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:34.551Z",
         "confidence": "high",
-        "note": "Linfield vs Ballymena United, 1-0, 2026-01-28"
+        "note": "Fixed from Inter to Barcelona"
       }
     },
     "612": {
@@ -1257,21 +976,6 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Breidablik vs KA Akureyri, 3-1, 2025-03-30"
-      }
-    },
-    "655": {
-      "name": "Copa Constitució",
-      "country": "Andorra",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "UE Santa Coloma",
-        "logo": "https://media.api-sports.io/football/teams/703.png",
-        "id": 703,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "UE Santa Coloma vs Principat, 2-0, 2026-01-11"
       }
     },
     "656": {
@@ -1363,21 +1067,6 @@
         "note": "FC Krasnodar vs CSKA Moscow, 0-1, 2025-07-12"
       }
     },
-    "665": {
-      "name": "Cup",
-      "country": "Kosovo",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Trepça'89",
-        "logo": "https://media.api-sports.io/football/teams/3885.png",
-        "id": 3885,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Kika vs Trepça'89, 2-4, 2025-12-05"
-      }
-    },
     "672": {
       "name": "David Kipiani Cup",
       "country": "Georgia",
@@ -1393,66 +1082,6 @@
         "note": "Saburtalo vs Dila, 1-3, 2025-12-10"
       }
     },
-    "674": {
-      "name": "Cupa",
-      "country": "Moldova",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Sheriff Tiraspol",
-        "logo": "https://media.api-sports.io/football/teams/568.png",
-        "id": 568,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Sheriff Tiraspol vs FCM Ungheni, 7-0, 2025-10-29"
-      }
-    },
-    "677": {
-      "name": "QSL Cup",
-      "country": "Qatar",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Al Shahaniya",
-        "logo": "https://media.api-sports.io/football/teams/2893.png",
-        "id": 2893,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Al Shahaniya vs Al Shamal, 1-0, 2026-01-27"
-      }
-    },
-    "680": {
-      "name": "Cup",
-      "country": "Slovakia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "FK Košice",
-        "logo": "https://media.api-sports.io/football/teams/10534.png",
-        "id": 10534,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Ružomberok vs FK Košice, 2-4, 2025-12-10"
-      }
-    },
-    "707": {
-      "name": "Cup",
-      "country": "Albania",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Teuta Durrës",
-        "logo": "https://media.api-sports.io/football/teams/3320.png",
-        "id": 3320,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Teuta Durrës vs Vora, 2-0, 2026-01-10"
-      }
-    },
     "708": {
       "name": "Super Cup",
       "country": "Albania",
@@ -1466,51 +1095,6 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Egnatia Rrogozhinë vs Dinamo Tirana, 1-3, 2025-12-28"
-      }
-    },
-    "709": {
-      "name": "Cup",
-      "country": "Armenia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Syunik",
-        "logo": "https://media.api-sports.io/football/teams/20087.png",
-        "id": 20087,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Syunik vs Cilicia, 1-0, 2025-10-30"
-      }
-    },
-    "714": {
-      "name": "Cup",
-      "country": "Egypt",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Pyramids FC",
-        "logo": "https://media.api-sports.io/football/teams/1036.png",
-        "id": 1036,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "El Gouna FC vs Pyramids FC, 0-3, 2026-01-20"
-      }
-    },
-    "716": {
-      "name": "Senior Shield",
-      "country": "Hong-Kong",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "North District",
-        "logo": "https://media.api-sports.io/football/teams/6401.png",
-        "id": 6401,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Kitchee vs North District, 2-3, 2025-09-28"
       }
     },
     "719": {
@@ -1543,21 +1127,6 @@
         "note": "Al Kuwait vs Al Arabi, 2-0, 2025-12-23"
       }
     },
-    "721": {
-      "name": "Cup",
-      "country": "Luxembourg",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Wiltz",
-        "logo": "https://media.api-sports.io/football/teams/11906.png",
-        "id": 11906,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Wiltz vs Marisca Mersch, 6-0, 2025-11-09"
-      }
-    },
     "723": {
       "name": "Cup",
       "country": "Montenegro",
@@ -1571,36 +1140,6 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Dečić vs Sutjeska, 2-1, 2025-11-26"
-      }
-    },
-    "729": {
-      "name": "Coppa Titano",
-      "country": "San-Marino",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Virtus",
-        "logo": "https://media.api-sports.io/football/teams/5308.png",
-        "id": 5308,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Libertas vs Virtus, 1-3, 2025-12-10"
-      }
-    },
-    "732": {
-      "name": "Cup",
-      "country": "Serbia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Jedinstvo Ub",
-        "logo": "https://media.api-sports.io/football/teams/12319.png",
-        "id": 12319,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Borac Cacak vs Jedinstvo Ub, 1-2, 2025-12-03"
       }
     },
     "735": {
@@ -1646,51 +1185,6 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "XV de Piracicaba vs Primavera SP, 2-0, 2025-10-11"
-      }
-    },
-    "756": {
-      "name": "Cup",
-      "country": "Macedonia",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Shkendija",
-        "logo": "https://media.api-sports.io/football/teams/609.png",
-        "id": 609,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Shkendija vs Tikveš, 2-0, 2025-11-19"
-      }
-    },
-    "757": {
-      "name": "Irish Cup",
-      "country": "Northern-Ireland",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Loughgall",
-        "logo": "https://media.api-sports.io/football/teams/5345.png",
-        "id": 5345,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Loughgall vs Knockbreda, 2-0, 2026-02-03"
-      }
-    },
-    "761": {
-      "name": "Cup",
-      "country": "Liechtenstein",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Balzers",
-        "logo": "https://media.api-sports.io/football/teams/12711.png",
-        "id": 12711,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Eschen / Mauren II vs Balzers, 1-4, 2025-11-05"
       }
     },
     "772": {
@@ -1813,36 +1307,6 @@
         "note": "Kairat Almaty vs Aktobe, 2-0, 2025-02-22"
       }
     },
-    "820": {
-      "name": "Crown Prince Cup",
-      "country": "Kuwait",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Al Arabi",
-        "logo": "https://media.api-sports.io/football/teams/3532.png",
-        "id": 3532,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Al Arabi vs Al Fahaheel, 2-0, 2026-01-19"
-      }
-    },
-    "821": {
-      "name": "FA Trophy",
-      "country": "Malta",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Mosta",
-        "logo": "https://media.api-sports.io/football/teams/4627.png",
-        "id": 4627,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Mgarr United vs Mosta, 0-3, 2026-01-28"
-      }
-    },
     "824": {
       "name": "Emir Cup",
       "country": "Qatar",
@@ -1948,21 +1412,6 @@
         "note": "Club Nacional vs Penarol, 2-1, 2025-01-26"
       }
     },
-    "848": {
-      "name": "UEFA Europa Conference League",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "FSV Mainz 05",
-        "logo": "https://media.api-sports.io/football/teams/164.png",
-        "id": 164,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
-        "confidence": "high",
-        "note": "FSV Mainz 05 vs Samsunspor, 2-0, 2025-12-18"
-      }
-    },
     "857": {
       "name": "Campeón de Campeones",
       "country": "Mexico",
@@ -1999,13 +1448,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Jordan",
-        "logo": "https://media.api-sports.io/football/teams/1548.png",
-        "id": 1548,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
+        "name": "Morocco",
+        "logo": "https://media.api-sports.io/football/teams/31.png",
+        "id": 31,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:34.921Z",
         "confidence": "high",
-        "note": "Saudi Arabia vs Jordan, 0-1, 2025-12-15"
+        "note": "Fixed from Jordan to Morocco"
       }
     },
     "863": {
@@ -2014,13 +1463,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Al Ramtha",
-        "logo": "https://media.api-sports.io/football/teams/4534.png",
-        "id": 4534,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
+        "name": "Al Faisaly",
+        "logo": "https://media.api-sports.io/football/teams/4531.png",
+        "id": 4531,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:35.290Z",
         "confidence": "high",
-        "note": "Al Ahli vs Al Ramtha, 0-1, 2025-12-22"
+        "note": "Fixed from Al Ramtha to Al Faisaly"
       }
     },
     "866": {
@@ -2098,21 +1547,6 @@
         "note": "Los Angeles Galaxy vs Toluca, 2-3, 2025-10-02"
       }
     },
-    "895": {
-      "name": "League Cup",
-      "country": "Egypt",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Wadi Degla",
-        "logo": "https://media.api-sports.io/football/teams/1046.png",
-        "id": 1046,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Ismaily SC vs Wadi Degla, 1-2, 2026-01-17"
-      }
-    },
     "898": {
       "name": "League Cup",
       "country": "Thailand",
@@ -2134,13 +1568,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Turku PS",
-        "logo": "https://media.api-sports.io/football/teams/1168.png",
-        "id": 1168,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
+        "name": "JIPPO",
+        "logo": "https://media.api-sports.io/football/teams/9172.png",
+        "id": 9172,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:35.660Z",
         "confidence": "high",
-        "note": "Turku PS vs Lahti, 3-2, 2025-03-29"
+        "note": "Fixed from Turku PS to JIPPO"
       }
     },
     "903": {
@@ -2218,21 +1652,6 @@
         "note": "Arsenal vs Athletic Club, 3-0, 2025-08-09"
       }
     },
-    "958": {
-      "name": "Copa Costa Rica",
-      "country": "Costa-Rica",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Deportivo Saprissa",
-        "logo": "https://media.api-sports.io/football/teams/816.png",
-        "id": 816,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.074Z",
-        "confidence": "high",
-        "note": "Deportivo Saprissa vs AD Carmelita, 6-0, 2026-02-06"
-      }
-    },
     "959": {
       "name": "Cup",
       "country": "Singapore",
@@ -2276,36 +1695,6 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "Bolívar vs Nacional Potosí, 1-4, 2025-12-22"
-      }
-    },
-    "966": {
-      "name": "Cup",
-      "country": "Ghana",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Attram de Visser",
-        "logo": "https://media.api-sports.io/football/teams/22761.png",
-        "id": 22761,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Eleven Wonders vs Attram de Visser, 0-4, 2026-02-06"
-      }
-    },
-    "967": {
-      "name": "Cup",
-      "country": "Lebanon",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Al Nejmeh",
-        "logo": "https://media.api-sports.io/football/teams/4570.png",
-        "id": 4570,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Al Nejmeh vs Al Ansar, 1-0, 2026-01-18"
       }
     },
     "971": {
@@ -2428,21 +1817,6 @@
         "note": "Portalban / Gletterens vs Solothurn, 2-0, 2025-10-19"
       }
     },
-    "1049": {
-      "name": "King's Cup",
-      "country": "Bahrain",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "A'Ali",
-        "logo": "https://media.api-sports.io/football/teams/20386.png",
-        "id": 20386,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "A'Ali vs Al Najma, 2-0, 2026-02-05"
-      }
-    },
     "1089": {
       "name": "UAE-Qatar - Super Shield",
       "country": "World",
@@ -2518,36 +1892,6 @@
         "note": "Auckland United vs Wellington Olympic, 2-4, 2025-09-07"
       }
     },
-    "1129": {
-      "name": "ASEAN Club Championship",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Bangkok United",
-        "logo": "https://media.api-sports.io/football/teams/2770.png",
-        "id": 2770,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
-        "confidence": "high",
-        "note": "Bangkok United vs Shan United, 2-1, 2026-02-05"
-      }
-    },
-    "1132": {
-      "name": "AFC Challenge League",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Dewa United",
-        "logo": "https://media.api-sports.io/football/teams/17902.png",
-        "id": 17902,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
-        "confidence": "high",
-        "note": "Dewa United vs Shan United, 4-1, 2025-11-01"
-      }
-    },
     "1144": {
       "name": "Super Cup",
       "country": "Ghana",
@@ -2561,21 +1905,6 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Bibiani Gold Stars vs Asante Kotoko, 0-1, 2025-08-31"
-      }
-    },
-    "1156": {
-      "name": "National League Cup",
-      "country": "England",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Tamworth",
-        "logo": "https://media.api-sports.io/football/teams/7752.png",
-        "id": 7752,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Tamworth vs FC Halifax Town, 1-0, 2026-01-27"
       }
     },
     "1158": {
@@ -2593,33 +1922,19 @@
         "note": "Brasil DE Pelotas vs Aimoré, 2-0, 2025-11-30"
       }
     },
-    "1162": {
-      "name": "AGCFF Gulf Champions League",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Al Qadsia",
-        "logo": "https://media.api-sports.io/football/teams/3537.png",
-        "id": 3537,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Al Qadsia vs Sitra, 2-1, 2025-12-24"
-      }
-    },
     "1164": {
       "name": "CAF Women's Champions League",
       "country": "Africa",
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "AS FAR",
-        "logo": "https://media.api-sports.io/football/teams/15.png",
-        "detected_by": "manual-cafonline-com",
-        "detected_at": "2026-02-06T16:30:00Z",
+        "name": "FAR Rabat W",
+        "logo": "https://media.api-sports.io/football/teams/25379.png",
+        "id": 25379,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:36.030Z",
         "confidence": "high",
-        "note": "AS FAR (Morocco) beat ASEC Mimosas 2-1 in final, November 21, 2025"
+        "note": "Fixed from AS FAR to FAR Rabat W"
       }
     },
     "1165": {
@@ -2658,13 +1973,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Flamengo",
-        "logo": "https://media.api-sports.io/football/teams/127.png",
-        "id": 127,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
+        "name": "Paris Saint Germain",
+        "logo": "https://media.api-sports.io/football/teams/85.png",
+        "id": 85,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:36.400Z",
         "confidence": "high",
-        "note": "Flamengo vs Pyramids FC, 2-0, 2025-12-13"
+        "note": "Fixed from Flamengo to Paris Saint Germain"
       }
     },
     "1172": {
@@ -2733,13 +2048,13 @@
       "year": 2025,
       "status": "finished",
       "winner": {
-        "name": "Tuna Luso",
-        "logo": "https://media.api-sports.io/football/teams/15611.png",
-        "id": 15611,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.074Z",
+        "name": "Águia de Marabá",
+        "logo": "https://media.api-sports.io/football/teams/7879.png",
+        "id": 7879,
+        "detected_by": "auto-fix-validation",
+        "detected_at": "2026-02-06T23:03:36.770Z",
         "confidence": "high",
-        "note": "Tuna Luso vs Castanhal, 2-1, 2025-04-06"
+        "note": "Fixed from Tuna Luso to Águia de Marabá"
       }
     },
     "1187": {
@@ -2800,21 +2115,6 @@
         "detected_at": "2026-02-06T17:38:59.073Z",
         "confidence": "high",
         "note": "Al-Rustaq vs Al-Khabourah, 1-2, 2025-11-22"
-      }
-    },
-    "1199": {
-      "name": "League Cup",
-      "country": "Hong-Kong",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Wofoo Tai Po",
-        "logo": "https://media.api-sports.io/football/teams/4457.png",
-        "id": 4457,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Hong Kong FC vs Wofoo Tai Po, 0-3, 2025-11-15"
       }
     },
     "1201": {
