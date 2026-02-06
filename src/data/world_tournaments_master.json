@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "lastUpdated": "2026-02-06T17:38:59.075Z",
+    "lastUpdated": "2026-02-06T22:41:44.674Z",
     "version": "1.0.0",
     "description": "Master tournament database with unified structure",
     "coverage": {
       "countries": 15,
-      "tournaments": 208,
+      "tournaments": 209,
       "competitions": [
         "international",
         "super_cups",
@@ -7042,6 +7042,55 @@
           "super_cup",
           "finished",
           "saudi-arabia"
+        ],
+        "description": "Super Cup"
+      }
+    },
+    "830": {
+      "name": "Super Cup",
+      "country": "Uzbekistan",
+      "countryCode": "UZ",
+      "region": "asia",
+      "type": "super_cup",
+      "tier": "national",
+      "logo": "https://media.api-sports.io/football/leagues/830.png",
+      "status": {
+        "current": "finished",
+        "season": "2024",
+        "startDate": "2025-05-27",
+        "endDate": "2025-05-27",
+        "currentMatchday": 1,
+        "totalMatchdays": 1
+      },
+      "schedule": {
+        "pattern": "annual_tournament",
+        "frequency": "annual",
+        "month": 5
+      },
+      "winner": {
+        "hasWinner": true,
+        "season": "2024",
+        "team": "Nasaf",
+        "teamId": 622,
+        "teamLogo": "https://media.api-sports.io/football/teams/622.png",
+        "confirmedDate": "2026-02-06T22:41:44.674Z",
+        "detectedBy": "manual-verification",
+        "confidence": "high"
+      },
+      "api": {
+        "leagueId": 830,
+        "season": 2024,
+        "providedByApi": true,
+        "lastFetch": "2026-02-06T22:41:44.674Z"
+      },
+      "display": {
+        "showInCountryHub": true,
+        "priority": 8,
+        "cardType": "golden",
+        "badges": [
+          "super_cup",
+          "finished",
+          "uzbekistan"
         ],
         "description": "Super Cup"
       }

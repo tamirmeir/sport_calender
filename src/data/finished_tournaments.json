@@ -2098,6 +2098,21 @@
         "note": "Al-Nassr vs Al-Hilal Saudi FC, 1-4, 2024-08-17"
       }
     },
+    "830": {
+      "name": "Super Cup",
+      "country": "Uzbekistan",
+      "year": 2024,
+      "status": "finished",
+      "winner": {
+        "name": "Nasaf",
+        "logo": "https://media.api-sports.io/football/teams/622.png",
+        "id": 622,
+        "detected_by": "manual-verification",
+        "detected_at": "2026-02-06T22:41:44.674Z",
+        "confidence": "high",
+        "note": "Nasaf vs Andijan, 1-0, 2025-05-27"
+      }
+    },
     "831": {
       "name": "Super Cup",
       "country": "Vietnam",
