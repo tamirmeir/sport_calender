@@ -15,36 +15,6 @@
         "logo": "https://media.api-sports.io/football/teams/26.png"
       }
     },
-    "2": {
-      "name": "UEFA Champions League",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Inter",
-        "logo": "https://media.api-sports.io/football/teams/505.png",
-        "id": 505,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
-        "confidence": "high",
-        "note": "Borussia Dortmund vs Inter, 0-2, 2026-01-28"
-      }
-    },
-    "3": {
-      "name": "UEFA Europa League",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Genk",
-        "logo": "https://media.api-sports.io/football/teams/742.png",
-        "id": 742,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
-        "confidence": "high",
-        "note": "Genk vs Malmo FF, 2-1, 2026-01-29"
-      }
-    },
     "4": {
       "name": "Euro",
       "country": "Germany",
@@ -95,21 +65,6 @@
         "note": "Lanus vs Universidad de Chile, 1-0, 2025-10-30"
       }
     },
-    "12": {
-      "name": "CAF Champions League",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "MC Alger",
-        "logo": "https://media.api-sports.io/football/teams/906.png",
-        "id": 906,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "MC Alger vs Saint Eloi Lupopo, 2-0, 2026-02-01"
-      }
-    },
     "13": {
       "name": "CONMEBOL Libertadores",
       "country": "World",
@@ -153,51 +108,6 @@
         "detected_at": "2026-02-06T17:38:59.070Z",
         "confidence": "high",
         "note": "Cruz Azul vs Vancouver Whitecaps, 5-0, 2025-06-02"
-      }
-    },
-    "17": {
-      "name": "AFC Champions League",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Al-Ittihad FC",
-        "logo": "https://media.api-sports.io/football/teams/2938.png",
-        "id": 2938,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
-        "confidence": "high",
-        "note": "Al-Ittihad FC vs Nasaf, 1-0, 2025-12-23"
-      }
-    },
-    "18": {
-      "name": "AFC Cup",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Arkadag",
-        "logo": "https://media.api-sports.io/football/teams/21232.png",
-        "id": 21232,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.071Z",
-        "confidence": "high",
-        "note": "Arkadag vs Khalidiya, 1-0, 2025-12-24"
-      }
-    },
-    "20": {
-      "name": "CAF Confederation Cup",
-      "country": "World",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Olympique Safi",
-        "logo": "https://media.api-sports.io/football/teams/975.png",
-        "id": 975,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Olympique Safi vs San-Pédro, 2-1, 2026-02-01"
       }
     },
     "22": {
@@ -245,66 +155,6 @@
         "note": "Auckland City vs Hekari United, 2-0, 2025-04-12"
       }
     },
-    "45": {
-      "name": "FA Cup",
-      "country": "England",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Salford City",
-        "logo": "https://media.api-sports.io/football/teams/1844.png",
-        "id": 1844,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Salford City vs Swindon Town, 3-2, 2026-01-20"
-      }
-    },
-    "47": {
-      "name": "FA Trophy",
-      "country": "England",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Woking",
-        "logo": "https://media.api-sports.io/football/teams/1836.png",
-        "id": 1836,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Walton & Hersham vs Woking, 1-2, 2026-01-31"
-      }
-    },
-    "48": {
-      "name": "League Cup",
-      "country": "England",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Manchester City",
-        "logo": "https://media.api-sports.io/football/teams/50.png",
-        "id": 50,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Manchester City vs Newcastle, 3-1, 2026-02-04"
-      }
-    },
-    "66": {
-      "name": "Coupe de France",
-      "country": "France",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Strasbourg",
-        "logo": "https://media.api-sports.io/football/teams/95.png",
-        "id": 95,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Strasbourg vs Monaco, 3-1, 2026-02-05"
-      }
-    },
     "73": {
       "name": "Copa Do Brasil",
       "country": "Brazil",
@@ -333,21 +183,6 @@
         "detected_at": "2026-02-06T17:38:59.074Z",
         "confidence": "high",
         "note": "CRB vs ASA, 2-1, 2025-03-15"
-      }
-    },
-    "81": {
-      "name": "DFB Pokal",
-      "country": "Germany",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "VfB Stuttgart",
-        "logo": "https://media.api-sports.io/football/teams/172.png",
-        "id": 172,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Holstein Kiel vs VfB Stuttgart, 0-3, 2026-02-04"
       }
     },
     "90": {
@@ -425,21 +260,6 @@
         "note": "Lillestrom vs Sarpsborg 08 FF, 3-1, 2025-12-06"
       }
     },
-    "108": {
-      "name": "Cup",
-      "country": "Poland",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Zawisza Bydgoszcz",
-        "logo": "https://media.api-sports.io/football/teams/13843.png",
-        "id": 13843,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "Zawisza Bydgoszcz vs Wisla Krakow, 4-1, 2025-12-04"
-      }
-    },
     "112": {
       "name": "Welsh Cup",
       "country": "Wales",
@@ -470,21 +290,6 @@
         "note": "Olympic vs Malmo FF, 0-1, 2025-09-17"
       }
     },
-    "121": {
-      "name": "DBU Pokalen",
-      "country": "Denmark",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "FC Nordsjaelland",
-        "logo": "https://media.api-sports.io/football/teams/398.png",
-        "id": 398,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.073Z",
-        "confidence": "high",
-        "note": "FC Nordsjaelland vs FC Midtjylland, 2-1, 2025-12-14"
-      }
-    },
     "130": {
       "name": "Copa Argentina",
       "country": "Argentina",
@@ -500,21 +305,6 @@
         "note": "Belgrano Cordoba vs Argentinos JRS, 1-2, 2025-10-24"
       }
     },
-    "137": {
-      "name": "Coppa Italia",
-      "country": "Italy",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Atalanta",
-        "logo": "https://media.api-sports.io/football/teams/499.png",
-        "id": 499,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Atalanta vs Juventus, 3-0, 2026-02-05"
-      }
-    },
     "143": {
       "name": "Copa del Rey",
       "country": "Spain",
@@ -525,21 +315,6 @@
         "logo": "https://media.api-sports.io/football/teams/529.png"
       },
       "note": "Barcelona beat Real Madrid 3-2 (AET) in final, April 26, 2025"
-    },
-    "147": {
-      "name": "Cup",
-      "country": "Belgium",
-      "year": 2025,
-      "status": "finished",
-      "winner": {
-        "name": "Antwerp",
-        "logo": "https://media.api-sports.io/football/teams/740.png",
-        "id": 740,
-        "detected_by": "automated-bulk-detection",
-        "detected_at": "2026-02-06T17:38:59.072Z",
-        "confidence": "high",
-        "note": "Anderlecht vs Antwerp, 0-1, 2026-02-05"
-      }
     },
     "167": {
       "name": "Cup",

@@ -149,6 +149,15 @@ function apiRequest(path) {
 
 async function checkFixtures(leagueId, leagueName, country, season = CURRENT_SEASON) {
     try {
+        // CRITICAL: Check if tournament has upcoming matches first!
+        const upcomingFixtures = await apiRequest(`/fixtures?league=${leagueId}&season=${season}&next=1`);
+        
+        if (upcomingFixtures && upcomingFixtures.length > 0) {
+            // Tournament still has upcoming matches - it's NOT finished
+            return null;
+        }
+        
+        // No upcoming matches - now check for finished matches
         const fixtures = await apiRequest(`/fixtures?league=${leagueId}&season=${season}&last=10`);
         
         if (!fixtures || fixtures.length === 0) {
