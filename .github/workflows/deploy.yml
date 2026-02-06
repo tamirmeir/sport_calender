@@ -40,8 +40,8 @@ jobs:
           username: ${{ secrets.DO_USERNAME }}
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            # Navigate to project (adjust path if needed)
-            cd ~/sport_calender
+            # Navigate to project
+            cd /var/www/sport_calendar
 
             # 1. Reset & Pull
             git reset --hard HEAD
@@ -67,10 +67,5 @@ jobs:
             export FOOTBALL_API_KEY=${{ secrets.FOOTBALL_API_KEY }}
             node src/scripts/verify_leagues.js --fresh
 
-            # 5. Restart Application (Assuming PM2 or similar, or just re-running start)
-            # User instructions didn't specify restart command, so we stick to the sync requirement.
-            # If standard npm start inside screen/pm2, usually restart is needed.
-            # Adding a generic restart if PM2 is used, purely as a best practice safeguard.
-            if command -v pm2 &> /dev/null; then
-                pm2 restart all || pm2 start src/index.js --name "sport-calendar"
-            fi
+            # 5. Restart Application
+            pm2 restart matchday-frontend || pm2 start src/index.js --name "matchday-frontend"
