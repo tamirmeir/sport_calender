@@ -148,6 +148,28 @@ body {
     align-self: center !important;
   }
   
+  /* Hide filters section on mobile when empty */
+  .filters-section {
+    display: none !important;
+  }
+  
+  /* Hide fixtures section empty state background on mobile */
+  .fixtures-section {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  .fixtures-grid {
+    background: transparent !important;
+  }
+  
+  .empty-state {
+    background: transparent !important;
+    border: none !important;
+    padding: 20px !important;
+  }
+  
   /* Shorter tabs */
   .tab-btn {
     padding: 8px 12px !important;
