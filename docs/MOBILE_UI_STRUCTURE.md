@@ -16,7 +16,7 @@ This document describes the UI elements and containers displayed on the main app
 │  │  Dive into your football...    │    │
 │  └─────────────────────────────────┘    │
 └─────────────────────────────────────────┘
-           ↓ 4px gap ↓
+           ↓ 8px gap ↓
 ┌─────────────────────────────────────────┐
 │         EXPLORER SECTION                │
 │  ┌─────────────────────────────────┐    │
@@ -178,7 +178,7 @@ Explorer Section:
   - margin-top: calc(76px + env(safe-area-inset-top))
 
 Tabs Nav:
-  - margin: 4px 12px 0 12px
+  - margin: 8px 12px 0 12px
 
 Cards Grid:
   - margin-top: 4px
