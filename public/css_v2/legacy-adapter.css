@@ -351,14 +351,30 @@ input[type="search"]:focus {
   text-overflow: ellipsis;
 }
 
-/* Tab icon and text */
-.tab-icon {
-  display: inline;
-  margin-right: 8px;
+/* Tab content - icon on right */
+.tab-btn {
+  justify-content: space-between;
 }
 
 .tab-text {
-  display: inline;
+  flex: 1;
+  text-align: left;
+}
+
+.tab-icon {
+  font-size: 1.2rem;
+  margin-left: 12px;
+}
+
+/* Hide step indicator on mobile */
+@media (max-width: 768px) {
+  .navigation-header #stepIndicator {
+    display: none;
+  }
+  
+  .navigation-header {
+    justify-content: flex-start;
+  }
 }
 
 /* Desktop: Horizontal tabs */
@@ -370,6 +386,16 @@ input[type="search"]:focus {
   .tab-btn {
     flex: 1;
     width: auto;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .tab-text {
+    text-align: center;
+  }
+  
+  .tab-icon {
+    margin-left: 8px;
   }
 }
 
