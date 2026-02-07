@@ -440,6 +440,14 @@
           "world"
         ],
         "description": "CAF Champions League"
+      },
+      "knockout": {
+        "qualificationCutoff": 2,
+        "format": "groups",
+        "groups": 4,
+        "teamsPerGroup": 4,
+        "totalTeamsAdvancing": 8,
+        "description": "Top 2 from each group advance to quarter-finals (8 total)"
       }
     },
     "13": {
@@ -594,6 +602,11 @@
           "world"
         ],
         "description": "CONCACAF Champions League"
+      },
+      "knockout": {
+        "qualificationCutoff": null,
+        "format": "knockout_only",
+        "description": "Single elimination tournament - no group stage"
       }
     },
     "17": {
@@ -741,6 +754,14 @@
           "world"
         ],
         "description": "CAF Confederation Cup"
+      },
+      "knockout": {
+        "qualificationCutoff": 2,
+        "format": "groups",
+        "groups": 4,
+        "teamsPerGroup": 4,
+        "totalTeamsAdvancing": 8,
+        "description": "Top 2 from each group advance to quarter-finals (8 total)"
       }
     },
     "22": {

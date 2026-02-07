@@ -75,7 +75,29 @@ const EXPECTED_FORMATS = {
         zones: 2,
         teamsPerZone: 12,
         description: '2 zones (West & East) with 12 teams each, top 8 from each advance (16 total)'
+    },
+    
+    // CAF Competitions (Group Stage format)
+    12: {  // CAF Champions League
+        name: 'CAF Champions League',
+        expectedTeamsInStandings: 16,
+        qualificationCutoff: 2,  // Top 2 per group
+        format: 'groups',
+        groups: 4,
+        teamsPerGroup: 4,
+        description: '4 groups of 4 teams, top 2 from each group advance to QF (8 total)'
+    },
+    20: {  // CAF Confederation Cup
+        name: 'CAF Confederation Cup',
+        expectedTeamsInStandings: 16,
+        qualificationCutoff: 2,  // Top 2 per group
+        format: 'groups',
+        groups: 4,
+        teamsPerGroup: 4,
+        description: '4 groups of 4 teams, top 2 from each group advance to QF (8 total)'
     }
+    
+    // Note: CONCACAF Champions League (ID: 16) is knockout-only, no group stage to validate
 };
 
 // API configuration
