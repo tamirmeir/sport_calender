@@ -640,6 +640,15 @@
           "world"
         ],
         "description": "AFC Champions League"
+      },
+      "knockout": {
+        "qualificationCutoff": 8,
+        "format": "regional_zones",
+        "zones": 2,
+        "teamsPerZone": 12,
+        "teamsAdvancingPerZone": 8,
+        "totalTeamsAdvancing": 16,
+        "description": "Top 8 from each zone (West & East) advance to knockout (16 total)"
       }
     },
     "18": {

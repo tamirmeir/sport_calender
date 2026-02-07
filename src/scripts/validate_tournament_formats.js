@@ -64,6 +64,17 @@ const EXPECTED_FORMATS = {
         groups: 8,
         teamsPerGroup: 4,
         description: '8 groups of 4 teams, top 2 from each group advance (16 total)'
+    },
+    
+    // AFC Competitions (Regional Zones format)
+    17: {  // AFC Champions League Elite
+        name: 'AFC Champions League Elite',
+        expectedTeamsInStandings: 24,
+        qualificationCutoff: 8,  // Top 8 per zone
+        format: 'regional_zones',
+        zones: 2,
+        teamsPerZone: 12,
+        description: '2 zones (West & East) with 12 teams each, top 8 from each advance (16 total)'
     }
 };
 
@@ -113,10 +124,19 @@ function detectFormat(standings) {
     
     // Check if it's grouped (array of arrays) or flat (single array)
     if (Array.isArray(standings[0])) {
+        const groupCount = standings.length;
+        const teamsInFirstGroup = standings[0].length;
+        
         // If there's only 1 "group" with many teams, it's actually league phase
-        if (standings.length === 1 && standings[0].length > 10) {
+        if (groupCount === 1 && teamsInFirstGroup > 10) {
             return 'league_phase';
         }
+        
+        // 2 zones with 10+ teams each = regional zones (AFC format)
+        if (groupCount === 2 && teamsInFirstGroup >= 10) {
+            return 'regional_zones';
+        }
+        
         // Multiple groups with 4-6 teams each = traditional group format
         return 'groups';
     }
@@ -174,6 +194,27 @@ async function validateTournament(leagueId, expected, season) {
             warnings.push({
                 type: 'TEAMS_PER_GROUP_MISMATCH',
                 message: `Expected ${expected.teamsPerGroup} teams per group, found ${teamsInFirstGroup}`,
+                severity: 'high'
+            });
+        }
+    }
+    
+    // For regional zones format (AFC), check zones and teams per zone
+    if (expected.format === 'regional_zones' && actualFormat === 'regional_zones') {
+        const zoneCount = standings.length;
+        if (zoneCount !== expected.zones) {
+            warnings.push({
+                type: 'ZONE_COUNT_MISMATCH',
+                message: `Expected ${expected.zones} zones, found ${zoneCount}`,
+                severity: 'high'
+            });
+        }
+        
+        const teamsInFirstZone = Array.isArray(standings[0]) ? standings[0].length : 0;
+        if (teamsInFirstZone !== expected.teamsPerZone) {
+            warnings.push({
+                type: 'TEAMS_PER_ZONE_MISMATCH',
+                message: `Expected ${expected.teamsPerZone} teams per zone, found ${teamsInFirstZone}`,
                 severity: 'high'
             });
         }
