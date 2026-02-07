@@ -1229,13 +1229,14 @@ class FootballApi {
         try {
             // Fetch teams, current standings, and previous season standings (for defending champion)
             const prevSeason = parseInt(season) - 1;
-            const [teamsData, standingsData, prevStandingsData] = await Promise.all([
+            const [teamsData, standingsData, prevStandingsData, upcomingFixtures] = await Promise.all([
                 this.getTeams(leagueId, season),
                 this.getStandings(leagueId, season),
-                this.getStandings(leagueId, prevSeason).catch(() => []) // Don't fail if no prev season
+                this.getStandings(leagueId, prevSeason).catch(() => []), // Don't fail if no prev season
+                this.getFixturesByLeague(leagueId, season, 100, null, 'NS,TBD,PST').catch(() => []) // Get upcoming matches
             ]);
             
-            console.log(`[API] Got ${teamsData?.length || 0} teams, ${standingsData?.length || 0} standings entries`);
+            console.log(`[API] Got ${teamsData?.length || 0} teams, ${standingsData?.length || 0} standings entries, ${upcomingFixtures?.length || 0} upcoming fixtures`);
 
             // Find defending league champion (rank 1 from previous season's Championship/final group)
             let defendingChampionId = null;
@@ -1297,28 +1298,46 @@ class FootballApi {
                 });
             }
 
+            // 🔴 FIX: Build a set of team IDs that have upcoming matches (still active)
+            const activeTeamIds = new Set();
+            if (upcomingFixtures && upcomingFixtures.length > 0) {
+                upcomingFixtures.forEach(fixture => {
+                    if (fixture.teams?.home?.id) activeTeamIds.add(fixture.teams.home.id);
+                    if (fixture.teams?.away?.id) activeTeamIds.add(fixture.teams.away.id);
+                });
+                console.log(`[API] Found ${activeTeamIds.size} active teams with upcoming matches`);
+            }
+
             // Merge teams with standings data
             const mergedTeams = teamsData.map(item => {
                 const team = item.team || {};
                 const standing = standingsMap.get(team.id) || null;
+                const isActive = activeTeamIds.size === 0 || activeTeamIds.has(team.id); // If no fixtures data, show all
+                
                 return {
                     ...item,
                     standing: standing,
                     isDefendingChampion: team.id === defendingChampionId,  // 👑 League champion
-                    isCupWinner: team.id === cupWinnerId                   // 🏆 Cup winner
+                    isCupWinner: team.id === cupWinnerId,                  // 🏆 Cup winner
+                    isActive: isActive,                                     // ⚽ Still in competition
+                    isEliminated: !isActive && upcomingFixtures.length > 0  // ❌ Knocked out
                 };
             });
 
+            // 🔴 FIX: Filter out eliminated teams (only show active teams)
+            const filteredTeams = mergedTeams.filter(team => team.isActive);
+            console.log(`[API] Filtered from ${mergedTeams.length} to ${filteredTeams.length} active teams`);
+
             // Sort by rank (teams with standings first, then others)
-            mergedTeams.sort((a, b) => {
+            filteredTeams.sort((a, b) => {
                 const rankA = a.standing?.rank ?? 999;
                 const rankB = b.standing?.rank ?? 999;
                 return rankA - rankB;
             });
 
-            setCache(cacheKey, mergedTeams, 'fixtures');
-            console.log(`[API] Merged ${mergedTeams.length} teams with standings for league ${leagueId}`);
-            return mergedTeams;
+            setCache(cacheKey, filteredTeams, 'fixtures');
+            console.log(`[API] Returning ${filteredTeams.length} active teams (filtered from ${mergedTeams.length} total) for league ${leagueId}`);
+            return filteredTeams;
         } catch (error) {
             console.error(`[API] Error fetching teams with standings:`, error.message);
             // Fallback to just teams without standings
