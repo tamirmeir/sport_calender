@@ -133,13 +133,19 @@ body {
   
   /* Add padding to content to account for fixed header - minimal gap */
   .search-section {
-    margin-top: 70px !important;
+    margin-top: 58px !important;
     padding-top: 0 !important;
   }
   
   .tabs-nav {
-    margin-top: 0 !important;
-    margin-bottom: 6px !important;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
+  
+  /* Shorter tabs */
+  .tab-btn {
+    padding: 8px 12px !important;
+    min-height: auto !important;
   }
   
   .header-content {
