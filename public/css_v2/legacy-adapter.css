@@ -20,7 +20,7 @@ body {
 .container {
   max-width: 100%;
   margin: 0;
-  padding: 16px;
+  padding: 0 8px 16px 8px; /* No top padding on mobile */
   background-color: var(--color-bg-primary);
   border-radius: 0;
   box-shadow: none;
@@ -131,21 +131,32 @@ body {
     margin: 0 !important;
   }
   
-  /* Add padding to content to account for fixed header - minimal gap */
+  /* Add padding to content to account for fixed header - same gap as header to frame */
   .search-section {
-    margin-top: 58px !important;
-    padding-top: 0 !important;
+    margin-top: 52px !important;
+    padding: 4px 0 0 0 !important;
   }
   
   .tabs-nav {
-    margin-top: 4px !important;
-    margin-bottom: 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   
   /* Shorter tabs */
   .tab-btn {
     padding: 8px 12px !important;
     min-height: auto !important;
+  }
+  
+  /* Remove any extra spacing from explorer section */
+  .explorer-section {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  
+  .explorer-step {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
   }
   
   .header-content {
