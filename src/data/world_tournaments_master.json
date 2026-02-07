@@ -3062,8 +3062,8 @@
       "tier": "national",
       "logo": "https://media.api-sports.io/football/leagues/384.png",
       "status": {
-        "current": "finished",
-        "season": "2025",
+        "current": "active",
+        "season": "2026",
         "startDate": "2026-02-05",
         "endDate": "2026-02-05",
         "currentMatchday": 1,
@@ -3075,14 +3075,14 @@
         "month": 2
       },
       "winner": {
-        "hasWinner": true,
-        "season": "2025",
-        "team": "Maccabi Tel Aviv",
-        "teamId": 604,
-        "teamLogo": "https://media.api-sports.io/football/teams/604.png",
-        "confirmedDate": "2026-02-06T17:38:59.073Z",
-        "detectedBy": "automated-bulk-detection",
-        "confidence": "high"
+        "hasWinner": false,
+        "season": "2026",
+        "team": null,
+        "teamId": null,
+        "teamLogo": null,
+        "confirmedDate": null,
+        "detectedBy": null,
+        "confidence": null
       },
       "api": {
         "leagueId": 384,
