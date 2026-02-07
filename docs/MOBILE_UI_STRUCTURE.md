@@ -175,7 +175,7 @@ This document describes the UI elements, containers, colors, and styling display
 | **Gap** | `10px` (default) / `4px` (country-mode) |
 | **Width** | `100%` |
 | **Padding** | `8px` |
-| **Margin Top** | `4px` |
+| **Margin Top** | `8px` |
 | **Background** | Transparent |
 | **Max Height** | None (scrollable) |
 | **Overflow Y** | `visible` |

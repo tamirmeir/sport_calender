@@ -148,6 +148,7 @@ body {
   .cards-grid {
     width: 100% !important;
     padding: 8px !important;
+    margin-top: 8px !important;
     box-sizing: border-box !important;
   }
   
