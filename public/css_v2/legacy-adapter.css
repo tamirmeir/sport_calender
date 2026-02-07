@@ -20,7 +20,7 @@ body {
 .container {
   max-width: 100%;
   margin: 0;
-  padding: 0 8px 16px 8px; /* No top padding on mobile */
+  padding: 0 4px 16px 4px; /* Minimal padding on mobile */
   background-color: var(--color-bg-primary);
   border-radius: 0;
   box-shadow: none;
@@ -144,7 +144,7 @@ body {
   }
   
   .tabs-nav {
-    margin: 6px 8px 4px 8px !important;
+    margin: 6px 8px 0 8px !important;
     padding: 0 !important;
     align-items: center !important;
   }
@@ -164,16 +164,21 @@ body {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   
   .fixtures-grid {
     background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   
   .empty-state {
     background: transparent !important;
     border: none !important;
-    padding: 20px !important;
+    padding: 8px !important;
+    margin: 0 !important;
   }
   
   /* Shorter tabs */
@@ -184,13 +189,19 @@ body {
   
   /* Remove any extra spacing from explorer section */
   .explorer-section {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   
   .explorer-step {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Remove gap between tabs and content */
+  .cards-grid {
+    margin-top: 4px !important;
     padding-top: 0 !important;
-    margin-top: 0 !important;
   }
   
   .header-content {
@@ -631,13 +642,12 @@ input[type="search"]:focus {
   }
   
   .explorer-step {
-    padding-top: 0;
+    padding: 0 !important;
   }
   
   .search-section {
-    padding: 8px !important;
-    padding-top: 0 !important;
-    margin-bottom: 8px !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
   }
   
   /* Hide any filter inputs on mobile */
