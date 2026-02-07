@@ -299,22 +299,31 @@ button, .btn, .btn-primary {
   overflow-y: visible !important;
 }
 
-/* Smaller cards */
-.grid-card {
-  padding: 10px 8px !important;
-  font-size: 0.85rem !important;
-}
+/* Smaller cards for mobile */
+@media (max-width: 768px) {
+  .grid-card {
+    padding: 6px 4px !important;
+    font-size: 0.7rem !important;
+    min-height: auto !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
 
-.grid-card img {
-  width: 28px !important;
-  height: 28px !important;
-}
+  .grid-card img {
+    width: 24px !important;
+    height: 24px !important;
+  }
 
-.grid-card span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
+  .grid-card span,
+  .grid-card .league-name,
+  .grid-card .country-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+  }
 }
 
 /* Subscriptions grid - 2 columns */
