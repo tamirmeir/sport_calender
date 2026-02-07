@@ -375,6 +375,12 @@ input[type="search"]:focus {
   .navigation-header {
     justify-content: flex-start;
   }
+  
+  /* Hide table headers on mobile */
+  .teams-table thead,
+  .fixtures-table thead {
+    display: none;
+  }
 }
 
 /* Desktop: Horizontal tabs */
