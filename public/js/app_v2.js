@@ -3059,37 +3059,8 @@ async function loadFavorites() {
 }
 
 function renderQuickFavorites(favs) {
-    const container = document.getElementById('quickFavoritesContainer');
-    const wrapper = container ? container.closest('.quick-select') : null;
-
-    if (container && wrapper) {
-        if (favs.length === 0) {
-            wrapper.style.display = 'none';
-            wrapper.classList.remove('active');
-            container.innerHTML = '';
-        } else {
-            wrapper.style.display = 'block';
-            wrapper.classList.add('active');
-
-            // Add Header if missing
-            if (!wrapper.querySelector('h3')) {
-                const h3 = document.createElement('h3');
-                h3.textContent = 'Your Subscriptions';
-                wrapper.insertBefore(h3, container);
-            }
-
-            // Store full favorites data globally for edit modal
-            window.userFavoritesData = favs;
-            
-            // Render Elegant Chips - click to edit subscription
-            container.innerHTML = favs.map(f => `
-                <div class="fav-chip" onclick="openEditSubscription(${f.team_id})" title="Click to edit subscription for ${f.team_name}">
-                    <img src="${f.team_logo || '/favicon.svg'}" alt="${f.team_name}">
-                    <span>${f.team_name}</span>
-                </div>
-            `).join('');
-        }
-    }
+    // Just store the data globally - teams are displayed in My Teams tab
+    window.userFavoritesData = favs;
 }
 
 function renderFavoritesList(favs) {
