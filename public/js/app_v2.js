@@ -479,13 +479,42 @@ window.showMyTeamsTab = function() {
     if (backBtn) backBtn.style.visibility = 'hidden';
     
     if (!token) {
-        // User not logged in - show login invite
+        // User not logged in - show beautiful welcome screen
         countriesGrid.innerHTML = `
-            <div class="login-invite-card">
-                <div class="login-invite-icon">⭐</div>
-                <h3>Track Your Favorite Teams</h3>
-                <p>Login to subscribe to teams and quickly access their matches!</p>
-                <button class="login-invite-btn" onclick="openAuthModal('login')">Login / Sign Up</button>
+            <div class="welcome-screen">
+                <div class="welcome-icon">⚽</div>
+                <h2 class="welcome-title">Welcome to Match Calendar!</h2>
+                <p class="welcome-subtitle">Never miss a game again</p>
+                
+                <div class="welcome-features">
+                    <div class="welcome-feature">
+                        <span class="feature-icon">⭐</span>
+                        <div class="feature-text">
+                            <strong>Subscribe to Your Teams</strong>
+                            <span>Follow your favorite clubs & national teams</span>
+                        </div>
+                    </div>
+                    <div class="welcome-feature">
+                        <span class="feature-icon">🔔</span>
+                        <div class="feature-text">
+                            <strong>Stay Updated</strong>
+                            <span>Get notified when schedules change</span>
+                        </div>
+                    </div>
+                    <div class="welcome-feature">
+                        <span class="feature-icon">📅</span>
+                        <div class="feature-text">
+                            <strong>Auto-Sync Calendar</strong>
+                            <span>Matches appear in your phone calendar</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="welcome-btn" onclick="openAuthModal('login')">
+                    Get Started - It's Free!
+                </button>
+                
+                <p class="welcome-note">Or browse teams using the tabs below</p>
             </div>
         `;
         return;
