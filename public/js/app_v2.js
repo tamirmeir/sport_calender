@@ -1811,8 +1811,8 @@ async function loadTeams(leagueId) {
                 if (hasStandings && standing) {
                     const teamTooltipText = buildTeamTooltip(team, venue);
                     const statsTooltipText = buildStatsTooltip(standing);
-                    // Escape quotes for data attribute
-                    const infoData = JSON.stringify({
+                    // Escape for HTML attribute - encode as base64 to avoid quote issues
+                    const infoDataObj = {
                         name: team.name,
                         logo: team.logo,
                         rank: standing.rank,
@@ -1827,7 +1827,8 @@ async function loadTeams(leagueId) {
                         city: venue.city,
                         capacity: venue.capacity,
                         founded: team.founded
-                    }).replace(/'/g, "&#39;");
+                    };
+                    const infoData = btoa(encodeURIComponent(JSON.stringify(infoDataObj)));
                     
                     // Badges: 👑 = League Champion (shown in league), 🏆 = Cup Winner (shown in cup)
                     // Important: Show each badge only in its relevant competition!
@@ -3041,7 +3042,8 @@ window.closeTeamInfoModal = function(event) {
 // Show team info popup (mobile bottom sheet)
 window.showTeamInfoPopup = function(dataStr) {
     try {
-        const data = JSON.parse(dataStr.replace(/&#39;/g, "'"));
+        // Decode from base64
+        const data = JSON.parse(decodeURIComponent(atob(dataStr)));
         
         // Format form as colored dots
         const formDots = (data.form || '').split('').map(char => {
