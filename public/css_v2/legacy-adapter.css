@@ -381,6 +381,11 @@ input[type="search"]:focus {
   .fixtures-table thead {
     display: none;
   }
+  
+  /* Hide country search input on mobile */
+  #countrySearch {
+    display: none;
+  }
 }
 
 /* Desktop: Horizontal tabs */
