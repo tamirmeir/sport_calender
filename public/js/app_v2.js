@@ -1274,23 +1274,19 @@ async function renderStructuredContinent(defs, region) {
     console.log('[CONTINENT HUB] Loaded tournament data:', Object.keys(tournamentData).length, 'tournaments');
 
     // 1. Create Tabs (matching main tabs-nav style)
-    // Extract short region name (e.g., "UEFA" from "Europe (UEFA)")
-    const shortRegion = regionName.match(/\(([^)]+)\)/)?.[1] || regionName.split(' ')[0];
-    const continentName = regionName.split(' ')[0]; // e.g., "Europe", "South"
-    
     const tabsDiv = document.createElement('div');
     tabsDiv.className = 'tabs-nav sub-tabs';
     tabsDiv.innerHTML = `
         <button class="tab-btn active" onclick="switchContinentTab(this, 'tab-countries')">
-            <span class="tab-text">${continentName} Countries</span>
+            <span class="tab-text">Find Match By Country</span>
             <span class="tab-icon">🏳️</span>
         </button>
         <button class="tab-btn" onclick="switchContinentTab(this, 'tab-clubs')">
-            <span class="tab-text">${shortRegion} Club League / Cup</span>
+            <span class="tab-text">Club Competition</span>
             <span class="tab-icon">🏆</span>
         </button>
         <button class="tab-btn" onclick="switchContinentTab(this, 'tab-national')">
-            <span class="tab-text">${shortRegion} National Tournaments</span>
+            <span class="tab-text">National Tournaments</span>
             <span class="tab-icon">🌍</span>
         </button>
     `;
