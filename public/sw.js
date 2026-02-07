@@ -1,13 +1,22 @@
-const CACHE_NAME = 'sport-calendar-v4';
-const DYNAMIC_CACHE = 'sc-dynamic-v4';
+const CACHE_NAME = 'sport-calendar-v5-mobile';
+const DYNAMIC_CACHE = 'sc-dynamic-v5';
 const IMAGE_CACHE = 'sc-images-v1';
 
 const ASSETS = [
     '/',
     '/index.html',
+    // Modern Design System
+    '/css_v2/modern-design-system.css',
+    '/css_v2/mobile-nav.css',
+    '/css_v2/legacy-adapter.css',
     '/css_v2/styles.css',
     '/css/auth.css',
+    // JavaScript
+    '/js/theme-manager.js',
+    '/js/mobile-enhancements.js',
+    '/js/mobile-nav.js',
     '/js/app_v2.js',
+    // Assets
     '/favicon.svg',
     '/manifest.json'
 ];
