@@ -111,8 +111,8 @@ body {
   .header {
     display: block !important;
     text-align: center;
-    padding: 4px 16px 4px;
-    padding-top: calc(4px + env(safe-area-inset-top));
+    padding: 6px 16px 4px;
+    padding-top: calc(6px + env(safe-area-inset-top));
     margin-bottom: 0 !important;
     position: fixed;
     top: 0;
@@ -122,29 +122,29 @@ body {
   }
   
   .header h1 {
-    font-size: 1.05rem !important;
-    margin: 0 !important;
-    line-height: 1.1 !important;
+    font-size: 1.1rem !important;
+    margin: 0 0 2px 0 !important;
+    line-height: 1.2 !important;
   }
   
   .header p {
-    font-size: 0.7rem !important;
+    font-size: 0.75rem !important;
     margin: 0 !important;
-    line-height: 1.1 !important;
+    line-height: 1.2 !important;
   }
   
   .header .sub-header {
     display: none !important;
   }
   
-  /* Content starts right after header with minimal gap */
+  /* Content starts right after header with NO gap */
   .search-section {
-    margin-top: calc(40px + env(safe-area-inset-top) + 2px) !important;
+    margin-top: calc(76px + env(safe-area-inset-top)) !important;
     padding: 0 !important;
   }
   
   .tabs-nav {
-    margin: 4px 8px 0 8px !important;
+    margin: 4px 12px 0 12px !important;
     padding: 0 !important;
     align-items: center !important;
   }
@@ -207,25 +207,21 @@ body {
   .header-content {
     display: block;
     width: 100%;
-    padding: 0 !important;
   }
   
-  /* Move auth controls - make them very compact */
+  /* Move auth controls below header */
   .auth-controls {
     position: relative !important;
     top: auto !important;
     right: auto !important;
     display: flex;
     justify-content: center;
-    margin: 0 !important;
-    padding: 0 !important;
-    height: auto !important;
+    margin-bottom: 6px;
   }
   
-  .auth-controls button {
-    min-height: 32px !important;
-    padding: 4px 12px !important;
-    font-size: 0.8rem !important;
+  /* Hide help button inside header, show fixed at bottom */
+  .header .help-fab {
+    display: none;
   }
   
   /* Hide header action buttons on mobile - we have the subscriptions tab now */
