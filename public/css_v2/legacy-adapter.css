@@ -111,8 +111,8 @@ body {
   .header {
     display: block !important;
     text-align: center;
-    padding: 6px 16px 4px;
-    padding-top: calc(6px + env(safe-area-inset-top));
+    padding: 4px 16px 4px;
+    padding-top: calc(4px + env(safe-area-inset-top));
     margin-bottom: 0 !important;
     position: fixed;
     top: 0;
@@ -122,18 +122,24 @@ body {
   }
   
   .header h1 {
-    font-size: 1.2rem !important;
-    margin-bottom: 2px !important;
+    font-size: 1.1rem !important;
+    margin: 0 0 2px 0 !important;
+    line-height: 1.2 !important;
   }
   
   .header p {
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
     margin: 0 !important;
+    line-height: 1.2 !important;
   }
   
-  /* Add padding to content to account for fixed header - no gap */
+  .header .sub-header {
+    display: none !important;
+  }
+  
+  /* Content starts right after header with 4px gap */
   .search-section {
-    margin-top: 48px !important;
+    margin-top: calc(44px + env(safe-area-inset-top) + 4px) !important;
     padding: 0 !important;
   }
   
