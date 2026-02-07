@@ -479,39 +479,114 @@ input[type="search"]:focus {
 .login-invite-card {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
   border: 2px dashed #3b82f6;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 32px 20px;
   text-align: center;
-  margin-bottom: 16px;
+  margin: 20px 0;
+}
+
+.login-invite-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
 }
 
 .login-invite-card h3 {
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
   color: #1e40af;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .login-invite-card p {
-  margin: 0 0 16px 0;
-  color: #3b82f6;
-  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+  color: #475569;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-.login-invite-card button {
-  background: #3b82f6;
+.login-invite-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.login-invite-card button:hover {
-  background: #2563eb;
+.login-invite-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* Subscriptions Grid */
+.subscriptions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subscription-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.subscription-card:hover {
+  background: #f8fafc;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  transform: translateX(4px);
+}
+
+.subscription-card img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.subscription-card .sub-team-name {
+  flex: 1;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.subscription-card .sub-edit-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.subscription-card .sub-edit-btn:hover {
+  background: #f1f5f9;
+}
+
+/* Loading state */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #64748b;
 }
 
 /* Desktop: center text */

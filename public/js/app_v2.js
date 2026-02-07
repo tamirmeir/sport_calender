@@ -454,27 +454,122 @@ function showGlobalSelection() {
     });
 }
 
-// Show Subscriptions Tab - or login invite if not logged in
+// Show Subscriptions Tab - display user's subscribed teams inline
 window.showSubscriptionsTab = function() {
     const token = localStorage.getItem('token');
+    const countriesGrid = document.getElementById('countriesGrid');
     
-    if (token) {
-        // User is logged in - open favorites modal
-        openAuthModal('favorites');
-    } else {
+    // Update tab states
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('tabSubscriptions').classList.add('active');
+    
+    // Update step indicator
+    const stepIndicator = document.getElementById('stepIndicator');
+    if (stepIndicator) stepIndicator.textContent = 'Your Subscribed Teams';
+    
+    // Hide search input
+    const searchInput = document.getElementById('countrySearch');
+    if (searchInput) searchInput.style.display = 'none';
+    
+    if (!token) {
         // User not logged in - show login invite
-        const countriesGrid = document.getElementById('countriesGrid');
         countriesGrid.innerHTML = `
             <div class="login-invite-card">
-                <h3>⭐ Track Your Favorite Teams</h3>
-                <p>Login to subscribe to teams and sync matches to your calendar automatically!</p>
-                <button onclick="openAuthModal('login')">Login / Sign Up</button>
+                <div class="login-invite-icon">⭐</div>
+                <h3>Track Your Favorite Teams</h3>
+                <p>Login to subscribe to teams and get their matches synced to your calendar automatically!</p>
+                <button class="login-invite-btn" onclick="openAuthModal('login')">Login / Sign Up</button>
             </div>
         `;
+        return;
+    }
+    
+    // User is logged in - show their subscribed teams
+    const favs = window.userFavoritesData || [];
+    
+    if (favs.length === 0) {
+        countriesGrid.innerHTML = `
+            <div class="login-invite-card">
+                <div class="login-invite-icon">📭</div>
+                <h3>No Subscriptions Yet</h3>
+                <p>Browse teams and click the ⭐ star to subscribe to your favorite teams!</p>
+                <button class="login-invite-btn" onclick="showCountrySelection()">Browse Teams</button>
+            </div>
+        `;
+        return;
+    }
+    
+    // Render subscribed teams as clickable cards
+    countriesGrid.innerHTML = `
+        <div class="subscriptions-grid">
+            ${favs.map(f => `
+                <div class="subscription-card" onclick="loadTeamMatches(${f.team_id}, '${f.team_name.replace(/'/g, "\\'")}', '${f.team_logo || '/favicon.svg'}', ${f.is_national || false})">
+                    <img src="${f.team_logo || '/favicon.svg'}" alt="${f.team_name}" onerror="this.src='/favicon.svg'">
+                    <span class="sub-team-name">${f.team_name}</span>
+                    <button class="sub-edit-btn" onclick="event.stopPropagation(); openEditSubscription(${f.team_id})" title="Edit subscription">⚙️</button>
+                </div>
+            `).join('')}
+        </div>
+    `;
+};
+
+// Load matches for a subscribed team
+window.loadTeamMatches = async function(teamId, teamName, teamLogo, isNational) {
+    currentState.team = teamId;
+    currentState.isNationalView = isNational;
+    
+    // Show back button
+    const backBtn = document.getElementById('mainBackBtn');
+    if (backBtn) {
+        backBtn.style.visibility = 'visible';
+        backBtn.onclick = () => showSubscriptionsTab();
+    }
+    
+    // Update step indicator
+    const stepIndicator = document.getElementById('stepIndicator');
+    if (stepIndicator) stepIndicator.textContent = teamName;
+    
+    // Show loading
+    const countriesGrid = document.getElementById('countriesGrid');
+    countriesGrid.innerHTML = `
+        <div class="loading-state">
+            <img src="${teamLogo}" alt="${teamName}" style="width: 60px; height: 60px; margin-bottom: 12px;">
+            <p>Loading matches for ${teamName}...</p>
+        </div>
+    `;
+    
+    try {
+        // Fetch team fixtures
+        const res = await fetch(`/api/fixtures/team/${teamId}?next=20`);
+        const data = await res.json();
         
-        // Update tab states
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.getElementById('tabSubscriptions').classList.add('active');
+        if (data.fixtures && data.fixtures.length > 0) {
+            allFixtures = data.fixtures;
+            displayFixtures(data.fixtures);
+            
+            // Show fixtures section, hide countries grid
+            document.getElementById('stepCountry').classList.add('hidden');
+            document.querySelector('.fixtures-section').scrollIntoView({ behavior: 'smooth' });
+        } else {
+            countriesGrid.innerHTML = `
+                <div class="login-invite-card">
+                    <div class="login-invite-icon">📅</div>
+                    <h3>No Upcoming Matches</h3>
+                    <p>No scheduled matches found for ${teamName}</p>
+                    <button class="login-invite-btn" onclick="showSubscriptionsTab()">Back to Subscriptions</button>
+                </div>
+            `;
+        }
+    } catch (e) {
+        console.error('Error loading team matches:', e);
+        countriesGrid.innerHTML = `
+            <div class="login-invite-card">
+                <div class="login-invite-icon">❌</div>
+                <h3>Error Loading Matches</h3>
+                <p>${e.message}</p>
+                <button class="login-invite-btn" onclick="showSubscriptionsTab()">Back</button>
+            </div>
+        `;
     }
 };
 
@@ -3977,33 +4072,15 @@ function updateStarButton(teamId, isFavorited) {
 
 function updateAuthUI(user) {
     const c = document.getElementById('authControls');
-    const fAction = document.getElementById('favoritesHeaderAction'); // Center button container
 
     if (user) {
-        // Main Auth Controls (Top Right) -> Only Logout now (name removed)
+        // Main Auth Controls - Only Logout button
         if(c) {
             c.innerHTML = `
                 <div style="display:flex; flex-direction: column; align-items: center; gap:5px;">
                     <button class="auth-btn" onclick="logout()" style="background:rgba(239, 68, 68, 0.4)">Logout</button>
                 </div>`;
         }
-        
-        // Subscriptions Button (Center, under sub-header)
-        if(fAction) {
-            fAction.innerHTML = `
-                <div style="display:flex; gap:10px; justify-content:center;">
-                    <button class="auth-btn" style="background: rgba(255, 255, 255, 0.25); border: 2px solid rgba(255,255,255,0.6); padding: 8px 20px; font-size: 0.95rem;" 
-                            onclick="openAuthModal('favorites')">
-                        ⭐ Subscriptions
-                    </button>
-                    <button class="auth-btn" style="background: rgba(255, 255, 255, 0.25); border: 2px solid rgba(255,255,255,0.6); padding: 8px 20px; font-size: 0.95rem;" 
-                            onclick="openManageCalendar()">
-                        🗓 My Calendar
-                    </button>
-                </div>
-            `;
-        }
-
     } else {
         // Logged Out State
         if(c) {
@@ -4012,8 +4089,6 @@ function updateAuthUI(user) {
                     <button class="auth-btn" onclick="openAuthModal('login')" title="Login to see your favorite teams">Login</button>
                 </div>`;
         }
-        // If not logged in, maybe show a "Login to Favorites" CTA or nothing? 
-        if(fAction) fAction.innerHTML = ''; 
     }
     
     // Update subscriptions tab state
