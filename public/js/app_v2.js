@@ -510,70 +510,15 @@ window.showMyTeamsTab = function() {
                 <div class="subscription-card" onclick="loadTeamMatches(${f.team_id}, '${f.team_name.replace(/'/g, "\\'")}', '${f.team_logo || '/favicon.svg'}', ${f.is_national || false})">
                     <img src="${f.team_logo || '/favicon.svg'}" alt="${f.team_name}" onerror="this.src='/favicon.svg'">
                     <span class="sub-team-name">${f.team_name}</span>
-                    <button class="sub-edit-btn" onclick="event.stopPropagation(); openEditSubscription(${f.team_id})" title="Edit subscription">⚙️</button>
                 </div>
             `).join('')}
         </div>
     `;
 };
 
-// Show Subscriptions Tab - display user's subscribed teams inline (alias for backward compatibility)
+// Show Subscriptions Tab - alias for showMyTeamsTab
 window.showSubscriptionsTab = function() {
-    const token = localStorage.getItem('token');
-    const countriesGrid = document.getElementById('countriesGrid');
-    
-    // Update tab states
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('tabSubscriptions').classList.add('active');
-    
-    // Update step indicator
-    const stepIndicator = document.getElementById('stepIndicator');
-    if (stepIndicator) stepIndicator.textContent = 'Your Subscribed Teams';
-    
-    // Hide search input
-    const searchInput = document.getElementById('countrySearch');
-    if (searchInput) searchInput.style.display = 'none';
-    
-    if (!token) {
-        // User not logged in - show login invite
-        countriesGrid.innerHTML = `
-            <div class="login-invite-card">
-                <div class="login-invite-icon">⭐</div>
-                <h3>Track Your Favorite Teams</h3>
-                <p>Login to subscribe to teams and get their matches synced to your calendar automatically!</p>
-                <button class="login-invite-btn" onclick="openAuthModal('login')">Login / Sign Up</button>
-            </div>
-        `;
-        return;
-    }
-    
-    // User is logged in - show their subscribed teams
-    const favs = window.userFavoritesData || [];
-    
-    if (favs.length === 0) {
-        countriesGrid.innerHTML = `
-            <div class="login-invite-card">
-                <div class="login-invite-icon">📭</div>
-                <h3>No Subscriptions Yet</h3>
-                <p>Browse teams and click the ⭐ star to subscribe to your favorite teams!</p>
-                <button class="login-invite-btn" onclick="showCountrySelection()">Browse Teams</button>
-            </div>
-        `;
-        return;
-    }
-    
-    // Render subscribed teams as clickable cards
-    countriesGrid.innerHTML = `
-        <div class="subscriptions-grid">
-            ${favs.map(f => `
-                <div class="subscription-card" onclick="loadTeamMatches(${f.team_id}, '${f.team_name.replace(/'/g, "\\'")}', '${f.team_logo || '/favicon.svg'}', ${f.is_national || false})">
-                    <img src="${f.team_logo || '/favicon.svg'}" alt="${f.team_name}" onerror="this.src='/favicon.svg'">
-                    <span class="sub-team-name">${f.team_name}</span>
-                    <button class="sub-edit-btn" onclick="event.stopPropagation(); openEditSubscription(${f.team_id})" title="Edit subscription">⚙️</button>
-                </div>
-            `).join('')}
-        </div>
-    `;
+    showMyTeamsTab();
 };
 
 // Load matches for a subscribed team
