@@ -140,6 +140,12 @@ body {
   .tabs-nav {
     margin: 8px 8px 4px 8px !important;
     padding: 0 !important;
+    align-items: center !important;
+  }
+  
+  .tab-btn {
+    width: 90% !important;
+    align-self: center !important;
   }
   
   /* Shorter tabs */
