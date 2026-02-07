@@ -107,11 +107,31 @@
         </section>
 
 
-        <!-- Footer -->
-        <footer class="footer" style="text-align: center;">
+        <!-- Desktop Footer -->
+        <footer class="footer desktop-footer" style="text-align: center;">
             <p style="font-size: 1.2rem; margin-bottom: 5px; animation: float 3s ease-in-out infinite; letter-spacing: 8px;">🐬 🐠 🐙 🦈 🐚</p>
             <p>© 2<span style="font-size: 0.7rem;">⚽</span>26 | Made By TM 🐬</p>
         </footer>
+        
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-bottom-nav">
+            <button class="nav-item" onclick="scrollToTop()">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" onclick="showSubscriptionsTab()">
+                <span class="nav-icon">⭐</span>
+                <span class="nav-label">Favorites</span>
+            </button>
+            <button class="nav-item" onclick="openHelpModal()">
+                <span class="nav-icon">❓</span>
+                <span class="nav-label">Help</span>
+            </button>
+            <button class="nav-item" onclick="openManageCalendar()">
+                <span class="nav-icon">🗓</span>
+                <span class="nav-label">Calendar</span>
+            </button>
+        </nav>
     </div>
 
     <!-- Auth Modal -->

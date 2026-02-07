@@ -4099,6 +4099,13 @@ function updateAuthUI(user) {
 window.openHelpModal = () => document.getElementById('helpModal').classList.add('active');
 window.closeHelpModal = () => document.getElementById('helpModal').classList.remove('active');
 
+// Scroll to top (for mobile bottom nav)
+window.scrollToTop = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Also reset to initial state
+    showCountrySelection();
+};
+
 // Diagnostic Panel (Ctrl+Shift+D to open)
 window.openDiagnostics = async function() {
     const modal = document.createElement('div');
