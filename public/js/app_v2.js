@@ -487,10 +487,7 @@ window.showMyTeamsTab = function() {
     if (backBtn) backBtn.style.visibility = 'hidden';
     
     if (!token) {
-        // User not logged in - hide tabs and show full welcome screen
-        const tabs = document.getElementById('modeTabs');
-        if (tabs) tabs.style.display = 'none';
-        
+        // User not logged in - show welcome screen (tabs stay visible)
         countriesGrid.innerHTML = `
             <div class="welcome-screen">
                 <div class="welcome-icon">⚽</div>
@@ -525,14 +522,7 @@ window.showMyTeamsTab = function() {
                     Get Started - It's Free!
                 </button>
                 
-                <div class="welcome-browse">
-                    <p class="welcome-note">Or browse without account:</p>
-                    <div class="welcome-browse-btns">
-                        <button onclick="showCountrySelection()">🏳️ Countries</button>
-                        <button onclick="showContinentSelection()">🌍 Continents</button>
-                        <button onclick="showGlobalSelection()">🏆 Global</button>
-                    </div>
-                </div>
+                <p class="welcome-note">Use tabs above to browse without account</p>
             </div>
         `;
         return;

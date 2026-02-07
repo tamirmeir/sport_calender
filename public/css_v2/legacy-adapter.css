@@ -539,14 +539,14 @@ input[type="search"]:focus {
   border-color: #d97706 !important;
 }
 
-/* Welcome Screen - Full page welcome for new users */
+/* Welcome Screen - Fill content area */
 .welcome-screen {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  border-radius: 20px;
-  padding: 40px 24px;
+  border-radius: 16px;
+  padding: 30px 20px;
   text-align: center;
   margin: 0;
-  min-height: calc(100vh - 200px);
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -555,10 +555,10 @@ input[type="search"]:focus {
 
 @media (max-width: 768px) {
   .welcome-screen {
-    min-height: calc(100vh - 180px);
-    border-radius: 0;
-    margin: -8px -12px;
-    padding: 30px 20px;
+    min-height: calc(100vh - 350px);
+    border-radius: 12px;
+    margin: 0;
+    padding: 24px 16px;
   }
 }
 
