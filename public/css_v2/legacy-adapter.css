@@ -171,21 +171,19 @@ body::before {
   }
   
   .tabs-nav {
-    margin: 8px 0 0 0 !important;
-    padding: 0 !important;
-    align-items: center !important;
-    width: 100% !important;
+    margin: 8px 8px 0 8px !important;
+    padding: 12px !important;
+    align-items: stretch !important;
+    width: calc(100% - 16px) !important;
+    gap: 4px !important;
   }
   
   .tab-btn {
     width: 100% !important;
     margin: 0 !important;
-    border-radius: 0 !important;
-  }
-  
-  .tab-btn {
-    width: 90% !important;
-    align-self: center !important;
+    padding: 12px 16px 12px 20px !important;
+    min-height: 44px !important;
+    border-radius: 10px !important;
   }
   
   /* Hide filters section on mobile when empty */
@@ -215,10 +213,11 @@ body::before {
     margin: 0 !important;
   }
   
-  /* Shorter tabs */
+  /* Tabs - consistent 8px grid */
   .tab-btn {
-    padding: 8px 12px !important;
-    min-height: auto !important;
+    padding: 12px 16px 12px 20px !important;
+    min-height: 48px !important;
+    font-size: 0.875rem !important;
   }
   
   /* Remove any extra spacing from explorer section */
@@ -575,58 +574,75 @@ input[type="search"]:focus {
 }
 
 /* ========================================
-   TABS - Vertical on Mobile
+   TABS - Professional Vertical Navigation
    ======================================== */
 
 .tabs-nav {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 20px;
-  padding: 6px;
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-lg);
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 16px;
+  /* Glassmorphism Background */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   width: 100%;
 }
 
 .tab-btn {
+  position: relative;
   width: 100%;
   min-height: 48px;
-  padding: 14px 20px;
-  background: white;
-  border-radius: var(--radius-md);
+  padding: 16px 20px 16px 24px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
   text-align: left;
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
-  box-shadow: var(--shadow-sm);
-  border: none;
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
-  font-size: 0.875rem;
+  justify-content: space-between;
+  font-size: 0.9rem;
   font-weight: 500;
   font-family: inherit;
+  color: #475569;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Tab content - icon on right */
-.tab-btn {
-  justify-content: space-between;
+/* Vertical line indicator - left side */
+.tab-btn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 0;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 0 4px 4px 0;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tab-text {
   flex: 1;
   text-align: left;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .tab-icon {
-  font-size: 1.2rem;
-  margin-left: 12px;
+  font-size: 1.3rem;
+  margin-left: 16px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
 }
 
 /* Hide step indicator on mobile */
@@ -675,10 +691,10 @@ input[type="search"]:focus {
     padding-top: 0;
   }
   
-  /* Add small margin around tabs on mobile */
+  /* Glassmorphism tabs on mobile */
   .tabs-nav {
-    margin: 8px 12px 12px 12px;
-    padding-top: 0;
+    margin: 8px 8px 16px 8px !important;
+    padding: 12px !important;
   }
   
   .explorer-step {
@@ -739,20 +755,42 @@ input[type="search"]:focus {
   }
 }
 
+/* Hover state */
 .tab-btn:hover {
-  background: #f1f5f9;
+  background: rgba(59, 130, 246, 0.08);
+  color: #1e40af;
   transform: translateX(4px);
 }
 
+.tab-btn:hover::before {
+  height: 24px;
+}
+
+.tab-btn:hover .tab-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Active state */
 .tab-btn.active {
-  background: var(--color-primary);
-  color: white;
-  box-shadow: var(--shadow-md);
-  transform: translateX(4px);
+  background: rgba(59, 130, 246, 0.12);
+  color: #1d4ed8;
+  font-weight: 600;
 }
 
+.tab-btn.active::before {
+  height: 32px;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+.tab-btn.active .tab-icon {
+  opacity: 1;
+}
+
+/* Press state */
 .tab-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.98) translateX(2px);
+  background: rgba(59, 130, 246, 0.15);
 }
 
 /* My Teams Tab - Same styling as other tabs */
