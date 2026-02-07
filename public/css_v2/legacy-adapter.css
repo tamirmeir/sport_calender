@@ -292,21 +292,66 @@ button, .btn, .btn-primary {
 
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-top: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Smaller cards */
+.grid-card {
+  padding: 10px 8px !important;
+  font-size: 0.85rem !important;
+}
+
+.grid-card img {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.grid-card span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Subscriptions grid - 2 columns */
+.subscriptions-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 10px;
+}
+
+.subscription-card {
+  padding: 12px !important;
+}
+
+.subscription-card img {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.subscription-card .sub-team-name {
+  font-size: 0.9rem !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (min-width: 640px) {
   .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  
+  .subscriptions-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
 @media (min-width: 1024px) {
   .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
