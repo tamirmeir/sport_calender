@@ -8,8 +8,15 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/favicon.svg">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <!-- Modern Design System -->
+    <link rel="stylesheet" href="/css_v2/modern-design-system.css">
+    <link rel="stylesheet" href="/css_v2/mobile-nav.css">
+    <link rel="stylesheet" href="/css_v2/legacy-adapter.css">
     <link rel="stylesheet" href="/css_v2/styles.css">
     <link rel="stylesheet" href="/css/auth.css">
+    
+    <!-- Theme Manager - Load early for no flash -->
+    <script src="/js/theme-manager.js"></script>
 </head>
 <body>
     <div class="container">
@@ -275,6 +282,8 @@
         </div>
     </div>
 
+    <script src="/js/mobile-enhancements.js"></script>
+    <script src="/js/mobile-nav.js"></script>
     <script src="/js/app_v2.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
