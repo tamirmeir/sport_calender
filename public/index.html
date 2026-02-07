@@ -34,45 +34,36 @@
             </div>
         </header>
 
-        <!-- Search Section -->
-        <section class="search-section">
-            <!-- Navigation Header -->
-            <div class="navigation-header">
-                <button id="mainBackBtn" class="back-btn" style="visibility: hidden;">← Back</button>
-                <span id="stepIndicator" style="font-weight: bold; color: #666; font-family: Monospace;">Step 1: Select Country</span>
-            </div>
-
-            <!-- Explorer Section -->
-            <div class="explorer-section">
-                
-                <!-- Step 1: Select Country (Replaces old Step 1 & 2) -->
-                <div class="explorer-step" id="stepCountry">
-                    <!-- Tabs for Mode Selection -->
-                    <div id="modeTabs" class="tabs-nav">
-                         <button class="tab-btn tab-myteams" id="tabMyTeams" onclick="showMyTeamsTab()"><span class="tab-text">My Teams</span><span class="tab-icon">⭐</span></button>
-                         <button class="tab-btn" id="tabCountry" onclick="showCountrySelection()"><span class="tab-text">Find Match By Country</span><span class="tab-icon">🏳️</span></button>
-                         <button class="tab-btn" id="tabContinent" onclick="showContinentSelection()"><span class="tab-text">Find Match By Continent</span><span class="tab-icon">🌍</span></button>
-                         <button class="tab-btn" id="tabGlobal" onclick="showGlobalSelection()"><span class="tab-text">Global Competitions</span><span class="tab-icon">🏆</span></button>
-                    </div>
-
-                    <div id="countriesGrid" class="cards-grid"></div>
-                </div>
-
-                <!-- Step 2: Select League -->
-                <div class="explorer-step hidden" id="stepLeague">
-                    <div id="leaguesGrid" class="cards-grid"></div>
-                </div>
-
-                <!-- Step 3: Select Team -->
-                <div class="explorer-step hidden" id="stepTeam">
-                    <div id="teamsGrid" class="cards-grid"></div>
-                </div>
-            </div>
+        <!-- Explorer Section -->
+        <div class="explorer-section">
             
-            <!-- Hidden inputs to keep existing logic working simpler -->
-            <input type="hidden" id="teamId">
-            <input type="hidden" id="nextFixtures" value="10">
-        </section>
+            <!-- Step 1: Select Country (Replaces old Step 1 & 2) -->
+            <div class="explorer-step" id="stepCountry">
+                <!-- Tabs for Mode Selection -->
+                <div id="modeTabs" class="tabs-nav">
+                     <button class="tab-btn tab-myteams" id="tabMyTeams" onclick="showMyTeamsTab()"><span class="tab-text">My Teams</span><span class="tab-icon">⭐</span></button>
+                     <button class="tab-btn" id="tabCountry" onclick="showCountrySelection()"><span class="tab-text">Find Match By Country</span><span class="tab-icon">🏳️</span></button>
+                     <button class="tab-btn" id="tabContinent" onclick="showContinentSelection()"><span class="tab-text">Find Match By Continent</span><span class="tab-icon">🌍</span></button>
+                     <button class="tab-btn" id="tabGlobal" onclick="showGlobalSelection()"><span class="tab-text">Global Competitions</span><span class="tab-icon">🏆</span></button>
+                </div>
+
+                <div id="countriesGrid" class="cards-grid"></div>
+            </div>
+
+            <!-- Step 2: Select League -->
+            <div class="explorer-step hidden" id="stepLeague">
+                <div id="leaguesGrid" class="cards-grid"></div>
+            </div>
+
+            <!-- Step 3: Select Team -->
+            <div class="explorer-step hidden" id="stepTeam">
+                <div id="teamsGrid" class="cards-grid"></div>
+            </div>
+        </div>
+        
+        <!-- Hidden inputs to keep existing logic working simpler -->
+        <input type="hidden" id="teamId">
+        <input type="hidden" id="nextFixtures" value="10">
 
         <!-- Legacy elements hidden -->
         <div style="display: none;">

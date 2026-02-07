@@ -101,8 +101,8 @@ const removeAllBtn = document.getElementById('removeAllBtn');
 // --- Initialization ---
 
 // Navigation Helper
-const navBackBtn = document.getElementById('mainBackBtn');
-const navStepLabel = document.getElementById('stepIndicator');
+const navBackBtn = null;
+const navStepLabel = null;
 
 // --- Manual Continent Mapping ---
 // Since API doesn't provide this, we map major football nations to confederations manually.
