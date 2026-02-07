@@ -113,6 +113,19 @@
           "world"
         ],
         "description": "UEFA Champions League"
+      },
+      "knockout": {
+        "qualificationCutoff": 24,
+        "directQualification": 8,
+        "playoffRange": {
+          "start": 9,
+          "end": 24
+        },
+        "eliminatedRange": {
+          "start": 25,
+          "end": 36
+        },
+        "description": "Top 8 direct to R16, 9-24 playoff, 25-36 eliminated"
       }
     },
     "3": {
@@ -159,6 +172,19 @@
           "world"
         ],
         "description": "UEFA Europa League"
+      },
+      "knockout": {
+        "qualificationCutoff": 24,
+        "directQualification": 8,
+        "playoffRange": {
+          "start": 9,
+          "end": 24
+        },
+        "eliminatedRange": {
+          "start": 25,
+          "end": 36
+        },
+        "description": "Top 8 direct to R16, 9-24 playoff, 25-36 eliminated"
       }
     },
     "4": {
@@ -7129,6 +7155,19 @@
           "world"
         ],
         "description": "UEFA Europa Conference League"
+      },
+      "knockout": {
+        "qualificationCutoff": 24,
+        "directQualification": 8,
+        "playoffRange": {
+          "start": 9,
+          "end": 24
+        },
+        "eliminatedRange": {
+          "start": 25,
+          "end": 36
+        },
+        "description": "Top 8 direct to R16, 9-24 playoff, 25-36 eliminated"
       }
     },
     "857": {
