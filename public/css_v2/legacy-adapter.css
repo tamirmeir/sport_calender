@@ -111,13 +111,26 @@ body {
   .header {
     display: block !important;
     text-align: center;
-    padding: 20px 16px 24px;
-    padding-top: calc(16px + env(safe-area-inset-top));
+    padding: 16px 16px 16px;
+    padding-top: calc(12px + env(safe-area-inset-top));
+    margin-bottom: 8px !important;
   }
   
   .header-content {
     display: block;
     width: 100%;
+  }
+  
+  .header h1 {
+    margin-bottom: 6px !important;
+  }
+  
+  .header p {
+    margin: 4px 0 !important;
+  }
+  
+  .header .sub-header {
+    display: none;
   }
   
   /* Move auth controls below header */
@@ -127,7 +140,7 @@ body {
     right: auto !important;
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   
   /* Hide help button inside header, show fixed at bottom */
@@ -380,22 +393,14 @@ input[type="search"]:focus {
     display: none;
   }
   
+  /* Hide navigation header on mobile - use back button in bottom nav or swipe */
   .navigation-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    top: env(safe-area-inset-top);
-    background: white;
-    padding: 8px 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    z-index: 1000;
-    justify-content: flex-start;
+    display: none !important;
   }
   
-  /* Add padding to content to account for fixed nav */
+  /* No extra padding needed since nav is hidden */
   .explorer-section {
-    padding-top: 50px;
+    padding-top: 0;
   }
   
   /* Reduce space above tabs on mobile */
@@ -409,8 +414,14 @@ input[type="search"]:focus {
   }
   
   .search-section {
-    padding: 10px !important;
-    padding-top: 5px !important;
+    padding: 8px !important;
+    padding-top: 0 !important;
+    margin-bottom: 8px !important;
+  }
+  
+  /* Hide any filter inputs on mobile */
+  .filter-input {
+    display: none !important;
   }
   
   /* Style back button on mobile */
