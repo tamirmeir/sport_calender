@@ -144,14 +144,16 @@ function updateEmptyStateMessage() {
     
     if (!currentState.country) {
         // Step 1
-        if (mode === 'country') {
+        if (mode === 'myteams') {
+            message = '⭐ Login to subscribe to your favorite teams';
+        } else if (mode === 'country') {
             message = '👆 Select a country above to get started';
         } else if (mode === 'continent') {
             message = '👆 Select a continent above to explore';
         } else if (mode === 'global') {
             message = '👆 Select a competition above to view teams';
         } else {
-            message = '👆 Select a country or continent to get started';
+            message = '👆 Select a tab above to get started';
         }
     } else if (!currentState.league) {
         // Step 2 - Country/Region selected
@@ -468,11 +470,15 @@ function showGlobalSelection() {
 
 // Show My Teams Tab - display user's subscribed teams inline
 window.showMyTeamsTab = function() {
+    currentState.mode = 'myteams';
     const token = localStorage.getItem('token');
     const countriesGrid = document.getElementById('countriesGrid');
     
     // Update tab states
     updateTabState('myteams');
+    
+    // Update empty state message
+    updateEmptyStateMessage();
     
     // Update step indicator
     const stepIndicator = document.getElementById('stepIndicator');
