@@ -131,10 +131,10 @@ body {
     margin: 0 !important;
   }
   
-  /* Add padding to content to account for fixed header - same gap as header to frame */
+  /* Add padding to content to account for fixed header - no gap */
   .search-section {
-    margin-top: 52px !important;
-    padding: 4px 0 0 0 !important;
+    margin-top: 48px !important;
+    padding: 0 !important;
   }
   
   .tabs-nav {
