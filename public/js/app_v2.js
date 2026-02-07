@@ -454,6 +454,43 @@ function showGlobalSelection() {
     });
 }
 
+// Show Subscriptions Tab - or login invite if not logged in
+window.showSubscriptionsTab = function() {
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+        // User is logged in - open favorites modal
+        openAuthModal('favorites');
+    } else {
+        // User not logged in - show login invite
+        const countriesGrid = document.getElementById('countriesGrid');
+        countriesGrid.innerHTML = `
+            <div class="login-invite-card">
+                <h3>⭐ Track Your Favorite Teams</h3>
+                <p>Login to subscribe to teams and sync matches to your calendar automatically!</p>
+                <button onclick="openAuthModal('login')">Login / Sign Up</button>
+            </div>
+        `;
+        
+        // Update tab states
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('tabSubscriptions').classList.add('active');
+    }
+};
+
+// Update subscriptions tab on auth change
+function updateSubscriptionsTabState() {
+    const token = localStorage.getItem('token');
+    const subTab = document.getElementById('tabSubscriptions');
+    if (subTab) {
+        if (token) {
+            subTab.querySelector('.tab-text').textContent = 'Your Subscriptions';
+        } else {
+            subTab.querySelector('.tab-text').textContent = 'Login to Subscribe';
+        }
+    }
+}
+
 async function showCountrySelection() {
     currentState.mode = 'country'; // Set Mode
     currentState.country = null;
@@ -3106,6 +3143,18 @@ window.showTeamInfoPopup = function(dataStr) {
                     🏟️ ${data.venue}${data.city ? ` • ${data.city}` : ''}${data.capacity ? ` • ${data.capacity.toLocaleString()} מושבים` : ''}
                 </div>
                 ` : ''}
+                <button onclick="closeTeamInfoPopup()" style="
+                    width:100%; 
+                    padding:14px; 
+                    margin-top:12px;
+                    background:#f1f5f9; 
+                    border:none; 
+                    border-radius:12px; 
+                    font-size:1rem; 
+                    font-weight:600;
+                    color:#64748b;
+                    cursor:pointer;
+                ">סגור</button>
             </div>
         `;
         
@@ -3966,6 +4015,9 @@ function updateAuthUI(user) {
         // If not logged in, maybe show a "Login to Favorites" CTA or nothing? 
         if(fAction) fAction.innerHTML = ''; 
     }
+    
+    // Update subscriptions tab state
+    updateSubscriptionsTabState();
 }
 
 // Help Modal Functions

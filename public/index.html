@@ -54,6 +54,13 @@
                 <!-- Step 1: Select Country (Replaces old Step 1 & 2) -->
                 <div class="explorer-step" id="stepCountry">
                     <!-- Tabs for Mode Selection -->
+                    <!-- Subscriptions Tab (shows login invite if not logged in) -->
+                    <div id="subscriptionsTab" class="subscriptions-tab-container">
+                        <button class="tab-btn tab-subscriptions" id="tabSubscriptions" onclick="showSubscriptionsTab()">
+                            <span class="tab-text">Your Subscriptions</span><span class="tab-icon">⭐</span>
+                        </button>
+                    </div>
+                    
                     <div id="modeTabs" class="tabs-nav">
                          <button class="tab-btn" id="tabCountry" onclick="showCountrySelection()"><span class="tab-text">Find Match By Country</span><span class="tab-icon">🏳️</span></button>
                          <button class="tab-btn" id="tabContinent" onclick="showContinentSelection()"><span class="tab-text">Find Match By Continent</span><span class="tab-icon">🌍</span></button>
