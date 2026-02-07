@@ -398,6 +398,21 @@ input[type="search"]:focus {
     padding-top: 50px;
   }
   
+  /* Reduce space above tabs on mobile */
+  .tabs-nav {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  .explorer-step {
+    padding-top: 0;
+  }
+  
+  .search-section {
+    padding: 10px !important;
+    padding-top: 5px !important;
+  }
+  
   /* Style back button on mobile */
   .navigation-header .back-btn {
     background: #3b82f6;
