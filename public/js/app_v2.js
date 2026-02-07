@@ -798,14 +798,18 @@ async function loadCountryHub() {
     try {
         leaguesGrid.innerHTML = '';
 
-        // 1. Create Tabs
+        // 1. Create Tabs (matching main tabs-nav style)
         const tabsDiv = document.createElement('div');
-        tabsDiv.className = 'tabs-nav';
-        tabsDiv.style.justifyContent = 'flex-start';
-        tabsDiv.style.marginBottom = '20px';
+        tabsDiv.className = 'tabs-nav sub-tabs';
         tabsDiv.innerHTML = `
-            <button class="tab-btn active" onclick="switchCountryTab(this, 'tab-domestic')">Domestic Competitions</button>
-            <button class="tab-btn" onclick="switchCountryTab(this, 'tab-national')">National Team</button>
+            <button class="tab-btn active" onclick="switchCountryTab(this, 'tab-domestic')">
+                <span class="tab-text">Domestic Competitions</span>
+                <span class="tab-icon">🏆</span>
+            </button>
+            <button class="tab-btn" onclick="switchCountryTab(this, 'tab-national')">
+                <span class="tab-text">${country} National Team</span>
+                <span class="tab-icon">🇺🇳</span>
+            </button>
         `;
         leaguesGrid.appendChild(tabsDiv);
 
@@ -1269,15 +1273,26 @@ async function renderStructuredContinent(defs, region) {
     const tournamentData = await loadTournamentData();
     console.log('[CONTINENT HUB] Loaded tournament data:', Object.keys(tournamentData).length, 'tournaments');
 
-    // 1. Create Tabs
+    // 1. Create Tabs (matching main tabs-nav style)
+    // Extract short region name (e.g., "UEFA" from "Europe (UEFA)")
+    const shortRegion = regionName.match(/\(([^)]+)\)/)?.[1] || regionName.split(' ')[0];
+    const continentName = regionName.split(' ')[0]; // e.g., "Europe", "South"
+    
     const tabsDiv = document.createElement('div');
-    tabsDiv.className = 'tabs-nav';
-    tabsDiv.style.justifyContent = 'flex-start';
-    tabsDiv.style.marginBottom = '20px';
+    tabsDiv.className = 'tabs-nav sub-tabs';
     tabsDiv.innerHTML = `
-        <button class="tab-btn active" onclick="switchContinentTab(this, 'tab-countries')">Countries</button>
-        <button class="tab-btn" onclick="switchContinentTab(this, 'tab-clubs')">Club Competitions</button>
-        <button class="tab-btn" onclick="switchContinentTab(this, 'tab-national')">National Tournaments</button>
+        <button class="tab-btn active" onclick="switchContinentTab(this, 'tab-countries')">
+            <span class="tab-text">${continentName} Countries</span>
+            <span class="tab-icon">🏳️</span>
+        </button>
+        <button class="tab-btn" onclick="switchContinentTab(this, 'tab-clubs')">
+            <span class="tab-text">${shortRegion} Club League / Cup</span>
+            <span class="tab-icon">🏆</span>
+        </button>
+        <button class="tab-btn" onclick="switchContinentTab(this, 'tab-national')">
+            <span class="tab-text">${shortRegion} National Tournaments</span>
+            <span class="tab-icon">🌍</span>
+        </button>
     `;
     leaguesGrid.appendChild(tabsDiv);
 

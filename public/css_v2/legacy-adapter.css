@@ -718,6 +718,12 @@ input[type="search"]:focus {
   width: 100%;
 }
 
+/* Sub-tabs (Country Hub / Continent Hub) - same styling */
+.tabs-nav.sub-tabs {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
 .tab-btn {
   position: relative;
   width: 100%;
