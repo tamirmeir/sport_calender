@@ -458,11 +458,7 @@ input[type="search"]:focus {
   transform: scale(0.98);
 }
 
-/* Subscriptions Tab - Special styling */
-.subscriptions-tab-container {
-  margin-bottom: 16px;
-}
-
+/* Subscriptions Tab - Special styling (first tab) */
 .tab-subscriptions {
   background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
   border: 2px solid #f59e0b !important;
