@@ -387,6 +387,13 @@
           "world"
         ],
         "description": "CONMEBOL Sudamericana"
+      },
+      "knockout": {
+        "qualificationCutoff": 2,
+        "description": "Top 2 from each group + 8 Libertadores dropouts = 24 teams in knockout",
+        "totalTeamsAdvancing": 16,
+        "groupStageTeams": 32,
+        "groups": 8
       }
     },
     "12": {
@@ -482,6 +489,13 @@
           "world"
         ],
         "description": "CONMEBOL Libertadores"
+      },
+      "knockout": {
+        "qualificationCutoff": 2,
+        "description": "Top 2 from each group advance to R16 (16 teams total), positions 3-4 eliminated",
+        "totalTeamsAdvancing": 16,
+        "groupStageTeams": 32,
+        "groups": 8
       }
     },
     "15": {
