@@ -1233,7 +1233,7 @@ class FootballApi {
                 this.getTeams(leagueId, season),
                 this.getStandings(leagueId, season),
                 this.getStandings(leagueId, prevSeason).catch(() => []), // Don't fail if no prev season
-                this.getFixturesByLeague(leagueId, season, 100, null, 'NS,TBD,PST').catch(() => []) // Get upcoming matches
+                this.getFixturesByLeague(leagueId, season, 100).catch(() => []) // Get next 100 upcoming matches
             ]);
             
             console.log(`[API] Got ${teamsData?.length || 0} teams, ${standingsData?.length || 0} standings entries, ${upcomingFixtures?.length || 0} upcoming fixtures`);
@@ -1298,7 +1298,8 @@ class FootballApi {
                 });
             }
 
-            // 🔴 FIX: Build a set of team IDs that have upcoming matches (still active)
+            // 🔴 FIX: Build a set of team IDs that are still active in the competition
+            // Method 1: Teams with upcoming matches
             const activeTeamIds = new Set();
             if (upcomingFixtures && upcomingFixtures.length > 0) {
                 upcomingFixtures.forEach(fixture => {
@@ -1307,12 +1308,30 @@ class FootballApi {
                 });
                 console.log(`[API] Found ${activeTeamIds.size} active teams with upcoming matches`);
             }
+            
+            // Method 2: If no fixtures, use standings (teams in current standings = active)
+            const hasStandings = standingsMap.size > 0;
+            const useStandingsForFiltering = activeTeamIds.size === 0 && hasStandings;
+            
+            if (useStandingsForFiltering) {
+                console.log(`[API] No upcoming fixtures, using standings for filtering (${standingsMap.size} teams in standings)`);
+            }
 
             // Merge teams with standings data
             const mergedTeams = teamsData.map(item => {
                 const team = item.team || {};
                 const standing = standingsMap.get(team.id) || null;
-                const isActive = activeTeamIds.size === 0 || activeTeamIds.has(team.id); // If no fixtures data, show all
+                
+                // Determine if team is active:
+                // 1. If we have upcoming fixtures -> team must be in upcoming fixtures
+                // 2. If no fixtures but have standings -> team must be in standings
+                // 3. If no data at all -> show all (fallback)
+                let isActive = true;
+                if (activeTeamIds.size > 0) {
+                    isActive = activeTeamIds.has(team.id);
+                } else if (useStandingsForFiltering) {
+                    isActive = standing !== null;
+                }
                 
                 return {
                     ...item,
@@ -1320,13 +1339,13 @@ class FootballApi {
                     isDefendingChampion: team.id === defendingChampionId,  // 👑 League champion
                     isCupWinner: team.id === cupWinnerId,                  // 🏆 Cup winner
                     isActive: isActive,                                     // ⚽ Still in competition
-                    isEliminated: !isActive && upcomingFixtures.length > 0  // ❌ Knocked out
+                    isEliminated: !isActive                                 // ❌ Knocked out
                 };
             });
 
             // 🔴 FIX: Filter out eliminated teams (only show active teams)
             const filteredTeams = mergedTeams.filter(team => team.isActive);
-            console.log(`[API] Filtered from ${mergedTeams.length} to ${filteredTeams.length} active teams`);
+            console.log(`[API] Filtered from ${mergedTeams.length} to ${filteredTeams.length} active teams (method: ${useStandingsForFiltering ? 'standings' : activeTeamIds.size > 0 ? 'fixtures' : 'show-all'})`);
 
             // Sort by rank (teams with standings first, then others)
             filteredTeams.sort((a, b) => {
