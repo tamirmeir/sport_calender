@@ -1148,6 +1148,7 @@ async function loadContinentHub() {
 
     stepCountry.classList.add('hidden');
     stepLeague.classList.remove('hidden');
+    updateMobileBackButton();
 
     // Hide Tabs in Step 2 (Hub)
     const tabs = document.getElementById('modeTabs');
@@ -2281,6 +2282,7 @@ window.resetToCountry = function() {
 window.resetToLeagues = function() {
     stepTeam.classList.add('hidden');
     stepLeague.classList.remove('hidden');
+    updateMobileBackButton();
 
     // Update Navigation for Step 3
     // We need to restore the correct Hub title
