@@ -458,7 +458,24 @@ input[type="search"]:focus {
   transform: scale(0.98);
 }
 
-/* Subscriptions Tab - Special styling (first tab) */
+/* My Teams Tab - Special styling */
+.tab-myteams {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+  border: 2px solid #f59e0b !important;
+  color: #92400e !important;
+}
+
+.tab-myteams:hover {
+  background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%) !important;
+}
+
+.tab-myteams.active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: white !important;
+  border-color: #d97706 !important;
+}
+
+/* Legacy Subscriptions Tab styling */
 .tab-subscriptions {
   background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
   border: 2px solid #f59e0b !important;
