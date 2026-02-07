@@ -353,7 +353,10 @@ function showContinentSelection() {
     
     // Show mode tabs
     const tabs = document.getElementById('modeTabs');
-    if (tabs) tabs.classList.remove('hidden');
+    if (tabs) {
+        tabs.classList.remove('hidden');
+        tabs.style.display = '';
+    }
     
     // Update empty state message
     updateEmptyStateMessage();
@@ -410,7 +413,10 @@ function showGlobalSelection() {
     
     // Show mode tabs
     const tabs = document.getElementById('modeTabs');
-    if (tabs) tabs.classList.remove('hidden');
+    if (tabs) {
+        tabs.classList.remove('hidden');
+        tabs.style.display = '';
+    }
     
     // Update empty state message
     updateEmptyStateMessage();
@@ -481,7 +487,10 @@ window.showMyTeamsTab = function() {
     if (backBtn) backBtn.style.visibility = 'hidden';
     
     if (!token) {
-        // User not logged in - show beautiful welcome screen
+        // User not logged in - hide tabs and show full welcome screen
+        const tabs = document.getElementById('modeTabs');
+        if (tabs) tabs.style.display = 'none';
+        
         countriesGrid.innerHTML = `
             <div class="welcome-screen">
                 <div class="welcome-icon">⚽</div>
@@ -516,7 +525,14 @@ window.showMyTeamsTab = function() {
                     Get Started - It's Free!
                 </button>
                 
-                <p class="welcome-note">Or browse teams using the tabs below</p>
+                <div class="welcome-browse">
+                    <p class="welcome-note">Or browse without account:</p>
+                    <div class="welcome-browse-btns">
+                        <button onclick="showCountrySelection()">🏳️ Countries</button>
+                        <button onclick="showContinentSelection()">🌍 Continents</button>
+                        <button onclick="showGlobalSelection()">🏆 Global</button>
+                    </div>
+                </div>
             </div>
         `;
         return;
@@ -645,7 +661,10 @@ async function showCountrySelection() {
     
     // Show mode tabs
     const tabs = document.getElementById('modeTabs');
-    if (tabs) tabs.classList.remove('hidden');
+    if (tabs) {
+        tabs.classList.remove('hidden');
+        tabs.style.display = '';
+    }
     
     // Update empty state message
     updateEmptyStateMessage();

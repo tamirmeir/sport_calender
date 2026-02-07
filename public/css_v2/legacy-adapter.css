@@ -644,9 +644,36 @@ input[type="search"]:focus {
 }
 
 .welcome-note {
-  margin-top: 20px;
+  margin-top: 0;
+  margin-bottom: 12px;
   font-size: 0.85rem;
   color: #64748b;
+}
+
+.welcome-browse {
+  margin-top: 24px;
+}
+
+.welcome-browse-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.welcome-browse-btns button {
+  background: white;
+  border: 1px solid #cbd5e1;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.welcome-browse-btns button:hover {
+  background: #f1f5f9;
+  border-color: #3b82f6;
 }
 
 /* Login invite card (smaller version for other places) */
