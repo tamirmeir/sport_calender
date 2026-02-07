@@ -343,6 +343,7 @@ function showContinentSelection() {
     currentState.country = null;
     currentState.league = null;
     currentState.team = null;
+    navigationHistory = []; // Clear history when going to root tab
     
     updateNavigation(1, "Select Continent", null); // Root level
     updateTabState('continent');
@@ -403,6 +404,7 @@ function showGlobalSelection() {
     currentState.country = null;
     currentState.league = null;
     currentState.team = null;
+    navigationHistory = []; // Clear history when going to root tab
     
     updateNavigation(1, "Global Competitions", null);
     updateTabState('global');
@@ -471,6 +473,7 @@ function showGlobalSelection() {
 // Show My Teams Tab - display user's subscribed teams inline
 window.showMyTeamsTab = function() {
     currentState.mode = 'myteams';
+    navigationHistory = []; // Clear history when going to root tab
     const token = localStorage.getItem('token');
     const countriesGrid = document.getElementById('countriesGrid');
     
@@ -644,6 +647,7 @@ async function showCountrySelection() {
     currentState.mode = 'country'; // Set Mode
     currentState.country = null;
     currentState.league = null;
+    navigationHistory = []; // Clear history when going to root tab
     currentState.team = null;
     
     updateNavigation(1, "Select Country", null); // Root level
@@ -737,6 +741,7 @@ function renderCountries(list, regions = []) {
 }
 
 function selectCountry(country, flag, regionFilter = null) {
+    pushNavHistory(); // Save current state before navigating
     currentState.country = country;
     currentState.flag = flag; 
     currentState.regionFilter = regionFilter; // Store special filter
@@ -1535,6 +1540,7 @@ async function loadLeagues() {
 }
 
 async function selectLeague(leagueId, leagueName, isCompetitionContext = false, leagueType = 'League') {
+    pushNavHistory(); // Save current state before navigating
     currentState.league = leagueId; // Can be 'NATIONAL' or an Integer ID
     currentState.leagueName = leagueName;
     currentState.leagueType = leagueType;
@@ -4137,39 +4143,66 @@ window.scrollToTop = function() {
     showMyTeamsTab();
 };
 
-// Mobile back button logic
+// Navigation history stack
+let navigationHistory = [];
+
+// Push current state to history
+function pushNavHistory() {
+    navigationHistory.push({
+        mode: currentState.mode,
+        country: currentState.country,
+        league: currentState.league,
+        stepCountryHidden: stepCountry.classList.contains('hidden'),
+        stepLeagueHidden: stepLeague.classList.contains('hidden'),
+        stepTeamHidden: stepTeam.classList.contains('hidden')
+    });
+    updateMobileBackButton();
+}
+
+// Mobile back button logic - use history stack
 window.mobileGoBack = function() {
-    // Determine where to go back based on current state
-    if (!stepLeague.classList.contains('hidden') || !stepTeam.classList.contains('hidden')) {
-        // We're in a sub-step, go back to main tabs
-        if (currentState.mode === 'continent') {
-            showContinentSelection();
-        } else if (currentState.mode === 'global') {
+    if (navigationHistory.length > 0) {
+        const prev = navigationHistory.pop();
+        
+        // Restore previous state
+        if (prev.mode === 'myteams') {
+            showMyTeamsTab();
+        } else if (prev.mode === 'continent') {
+            if (prev.stepLeagueHidden && prev.stepTeamHidden) {
+                showContinentSelection();
+            } else {
+                // Go back to continent list
+                showContinentSelection();
+            }
+        } else if (prev.mode === 'global') {
             showGlobalSelection();
+        } else if (prev.mode === 'country') {
+            if (prev.stepLeagueHidden && prev.stepTeamHidden) {
+                showCountrySelection();
+            } else {
+                // Go back to country list
+                showCountrySelection();
+            }
         } else {
-            showCountrySelection();
+            showMyTeamsTab();
         }
     } else {
-        // We're at the main level, go to My Teams
+        // No history, go to My Teams
         showMyTeamsTab();
     }
     updateMobileBackButton();
 };
 
-// Show/hide mobile back button based on navigation depth
+// Show/hide mobile back button based on navigation history
 function updateMobileBackButton() {
     const btn = document.getElementById('mobileBackBtn');
     if (!btn) return;
     
-    // Show back button only when NOT at root level (main tabs view)
-    const isAtRoot = !stepLeague.classList.contains('hidden') === false && 
-                     !stepTeam.classList.contains('hidden') === false &&
-                     stepCountry.classList.contains('hidden') === false;
+    // Show back button if we have history OR if we're in a sub-step
+    const inSubStep = !stepLeague.classList.contains('hidden') || !stepTeam.classList.contains('hidden');
+    const hasHistory = navigationHistory.length > 0;
     
-    // Simpler logic: show when we're deeper than the initial view
-    const showBack = !stepLeague.classList.contains('hidden') || !stepTeam.classList.contains('hidden');
-    
-    if (showBack) {
+    if (inSubStep || hasHistory) {
         btn.classList.remove('hidden');
     } else {
         btn.classList.add('hidden');
