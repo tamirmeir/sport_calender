@@ -177,22 +177,26 @@ function updateEmptyStateMessage() {
 let cachedCountries = []; // Store countries to avoid re-fetching on mode switch
 
 async function loadCountries() {
-    // STARTUP: Default to Country Mode
-    showCountrySelection();
+    // STARTUP: Default to My Teams tab
+    showMyTeamsTab();
 }
 
 function updateTabState(activeMode) {
+    const tabMyTeams = document.getElementById('tabMyTeams');
     const tabContinent = document.getElementById('tabContinent');
     const tabGlobal = document.getElementById('tabGlobal');
     const tabCountry = document.getElementById('tabCountry');
     
-    // Clear all
+    // Clear all main navigation tabs
+    if(tabMyTeams) tabMyTeams.classList.remove('active');
     if(tabContinent) tabContinent.classList.remove('active');
     if(tabGlobal) tabGlobal.classList.remove('active');
     if(tabCountry) tabCountry.classList.remove('active');
 
     // Set active
-    if (activeMode === 'continent' && tabContinent) {
+    if (activeMode === 'myteams' && tabMyTeams) {
+        tabMyTeams.classList.add('active');
+    } else if (activeMode === 'continent' && tabContinent) {
         tabContinent.classList.add('active');
     } else if (activeMode === 'global' && tabGlobal) {
         tabGlobal.classList.add('active');
@@ -460,8 +464,7 @@ window.showMyTeamsTab = function() {
     const countriesGrid = document.getElementById('countriesGrid');
     
     // Update tab states
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('tabMyTeams')?.classList.add('active');
+    updateTabState('myteams');
     
     // Update step indicator
     const stepIndicator = document.getElementById('stepIndicator');
