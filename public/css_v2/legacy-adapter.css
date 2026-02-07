@@ -381,7 +381,31 @@ input[type="search"]:focus {
   }
   
   .navigation-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    top: env(safe-area-inset-top);
+    background: white;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
     justify-content: flex-start;
+  }
+  
+  /* Add padding to content to account for fixed nav */
+  .explorer-section {
+    padding-top: 50px;
+  }
+  
+  /* Style back button on mobile */
+  .navigation-header .back-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
   }
   
   /* Hide table headers on mobile */
