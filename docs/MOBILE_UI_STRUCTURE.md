@@ -1,7 +1,7 @@
 # Mobile UI Structure - Main App Screen
 
 ## Overview
-This document describes the UI elements and containers displayed on the main app screen when the app starts on mobile devices.
+This document describes the UI elements, containers, colors, and styling displayed on the main app screen when the app starts on mobile devices.
 
 ---
 
@@ -20,198 +20,382 @@ This document describes the UI elements and containers displayed on the main app
 ┌─────────────────────────────────────────┐
 │         EXPLORER SECTION                │
 │  ┌─────────────────────────────────┐    │
-│  │          TABS NAV               │    │
+│  │          TABS NAV               │    │  ← Gray background container
 │  │  ┌─────────────────────────┐    │    │
-│  │  │ My Teams            ⭐  │    │    │  ← Default active tab
+│  │  │ My Teams            ⭐  │    │    │  ← White background, active = blue
 │  │  └─────────────────────────┘    │    │
 │  │  ┌─────────────────────────┐    │    │
-│  │  │ Find Match By Country 🏳️│    │    │
+│  │  │ Find Match By Country 🏳️│    │    │  ← White background
 │  │  └─────────────────────────┘    │    │
 │  │  ┌─────────────────────────┐    │    │
-│  │  │ Find Match By Continent🌍│    │    │
+│  │  │ Find Match By Continent🌍│    │    │  ← White background
 │  │  └─────────────────────────┘    │    │
 │  │  ┌─────────────────────────┐    │    │
-│  │  │ Global Competitions  🏆 │    │    │
+│  │  │ Global Competitions  🏆 │    │    │  ← White background
 │  │  └─────────────────────────┘    │    │
 │  └─────────────────────────────────┘    │
 │                                         │
 │  ┌─────────────────────────────────┐    │
-│  │        COUNTRIES GRID           │    │  ← Content area (cards-grid)
+│  │        COUNTRIES GRID           │    │  ← Transparent background
 │  │   (or Welcome Screen if         │    │
 │  │    My Teams tab & not logged in)│    │
 │  │                                 │    │
-│  │   [Card] [Card] [Card]          │    │  ← 3 columns for countries
-│  │   [Card] [Card] [Card]          │    │     2 columns for others
+│  │   [Card] [Card] [Card]          │    │  ← Glass effect cards
+│  │   [Card] [Card] [Card]          │    │
 │  │   ...                           │    │
 │  └─────────────────────────────────┘    │
 └─────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────┐
-│         FIXTURES SECTION                │  ← Shows after team selection
+│         FIXTURES SECTION                │  ← Transparent on mobile
 │  (Empty state initially)                │
 └─────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────┐
-│      MOBILE BOTTOM NAV (fixed)          │  ← position: fixed, bottom: 0
+│      MOBILE BOTTOM NAV (fixed)          │  ← White background, top border
 │  🏠 Home  ⭐ Favorites  ❓ Help  🗓 Cal │
 └─────────────────────────────────────────┘
 ```
 
 ---
 
-## HTML Structure
+## Detailed Element Specifications
 
-```html
-<body>
-  <!-- Mobile Back Button (floating, hidden by default) -->
-  <button id="mobileBackBtn" class="hidden">←</button>
-  
-  <div class="container">
-    
-    <!-- 1. HEADER (fixed on mobile) -->
-    <header class="header">
-      <button class="help-fab">?</button>
-      <div class="auth-controls" id="authControls">
-        <!-- Login/Logout button -->
-      </div>
-      <div class="header-content">
-        <h1>⚽ Match Calendar 🗓️</h1>
-        <p>Dive into your football schedule 🌊</p>
-      </div>
-    </header>
+### 1. HEADER `.header`
 
-    <!-- 2. EXPLORER SECTION -->
-    <div class="explorer-section">
-      
-      <!-- Step 1: Country/Mode Selection -->
-      <div class="explorer-step" id="stepCountry">
-        
-        <!-- Tabs -->
-        <div id="modeTabs" class="tabs-nav">
-          <button id="tabMyTeams">My Teams ⭐</button>
-          <button id="tabCountry">Find Match By Country 🏳️</button>
-          <button id="tabContinent">Find Match By Continent 🌍</button>
-          <button id="tabGlobal">Global Competitions 🏆</button>
-        </div>
-        
-        <!-- Content Grid -->
-        <div id="countriesGrid" class="cards-grid">
-          <!-- Cards rendered dynamically -->
-        </div>
-      </div>
-      
-      <!-- Step 2: League Selection (hidden initially) -->
-      <div class="explorer-step hidden" id="stepLeague">
-        <div id="leaguesGrid" class="cards-grid"></div>
-      </div>
-      
-      <!-- Step 3: Team Selection (hidden initially) -->
-      <div class="explorer-step hidden" id="stepTeam">
-        <div id="teamsGrid" class="cards-grid"></div>
-      </div>
-    </div>
-    
-    <!-- Hidden inputs -->
-    <input type="hidden" id="teamId">
-    <input type="hidden" id="nextFixtures" value="10">
+| Property | Value |
+|----------|-------|
+| **Position** | `fixed` (top: 0, left: 0, right: 0) |
+| **Z-Index** | `500` |
+| **Background** | `linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(29, 78, 216, 0.98) 100%)` |
+| **Background Color (simplified)** | Blue gradient (`#2563eb` to `#1d4ed8`) |
+| **Text Color** | `white` |
+| **Padding** | `6px 16px 4px` |
+| **Padding Top (with safe area)** | `calc(6px + env(safe-area-inset-top))` |
+| **Border** | None |
+| **Border Radius** | `0` (full width) |
+| **Box Shadow** | `var(--shadow-lg)` |
+| **Backdrop Filter** | `blur(20px) saturate(180%)` |
 
-    <!-- 3. FIXTURES SECTION -->
-    <section class="fixtures-section">
-      <div id="fixturesContainer" class="fixtures-grid">
-        <div class="empty-state">
-          <p>👆 Select a tab above to get started</p>
-        </div>
-      </div>
-    </section>
+#### Header Children:
 
-    <!-- 4. DESKTOP FOOTER (hidden on mobile) -->
-    <footer class="footer desktop-footer">...</footer>
-    
-    <!-- 5. MOBILE BOTTOM NAV (visible on mobile only) -->
-    <nav class="mobile-bottom-nav">
-      <button class="nav-item" onclick="scrollToTop()">🏠 Home</button>
-      <button class="nav-item" onclick="openAuthModal('favorites')">⭐ Favorites</button>
-      <button class="nav-item" onclick="openHelpModal()">❓ Help</button>
-      <button class="nav-item" onclick="openManageCalendar()">🗓 Calendar</button>
-    </nav>
-  </div>
-</body>
-```
+| Element | Class/ID | Styling |
+|---------|----------|---------|
+| Help Button | `.help-fab` | Hidden on mobile |
+| Auth Controls | `#authControls` | `position: relative`, centered |
+| Title H1 | `.header h1` | `font-size: 1.1rem`, `color: white`, `margin: 0 0 2px 0` |
+| Subtitle P | `.header p` | `font-size: 0.75rem`, `color: rgba(255,255,255,0.95)` |
+| Sub-header | `.header .sub-header` | `display: none` on mobile |
 
 ---
 
-## CSS Classes & Their Purpose
+### 2. EXPLORER SECTION `.explorer-section`
 
-### Layout Containers
-
-| Class | Purpose | Mobile Behavior |
-|-------|---------|-----------------|
-| `.container` | Main app wrapper | `padding: 0 4px`, `padding-bottom: 80px` (for bottom nav) |
-| `.header` | Top header | `position: fixed`, blue gradient background |
-| `.explorer-section` | Main content area | `margin-top: 76px + safe-area` to clear fixed header |
-| `.tabs-nav` | Tabs container | `flex-direction: column`, vertical layout |
-| `.cards-grid` | Grid for cards | 2 or 3 columns depending on mode |
-| `.fixtures-section` | Match fixtures area | Transparent background on mobile |
-| `.mobile-bottom-nav` | Bottom navigation | `position: fixed`, `bottom: 0` |
-
-### Key Elements
-
-| ID | Element | Description |
-|----|---------|-------------|
-| `#mobileBackBtn` | Floating back button | Shows when navigating deeper |
-| `#authControls` | Login/Logout area | Inside header |
-| `#modeTabs` | Tab buttons container | 4 vertical tabs |
-| `#tabMyTeams` | My Teams tab | Default active tab |
-| `#countriesGrid` | Main content grid | Shows cards/welcome screen |
-| `#fixturesContainer` | Fixtures display | Shows after team selection |
+| Property | Value |
+|----------|-------|
+| **Margin Top** | `calc(76px + env(safe-area-inset-top))` |
+| **Padding** | `0` |
+| **Width** | `100%` |
+| **Background** | Transparent (inherits from body) |
+| **Border** | None |
 
 ---
 
-## Spacing Values (Mobile)
+### 3. TABS NAVIGATION `.tabs-nav`
 
-```
-Header:
-  - padding: 6px 16px 4px
-  - padding-top: calc(6px + env(safe-area-inset-top))
-
-Explorer Section:
-  - margin-top: calc(76px + env(safe-area-inset-top))
-
-Tabs Nav:
-  - margin: 8px 12px 0 12px
-
-Cards Grid:
-  - margin-top: 4px
-  - gap: 4px (country mode) / 10px (other modes)
-
-Bottom Nav:
-  - padding-bottom: calc(8px + env(safe-area-inset-bottom))
-```
+| Property | Value |
+|----------|-------|
+| **Display** | `flex` |
+| **Flex Direction** | `column` (vertical on mobile) |
+| **Gap** | `6px` |
+| **Margin** | `8px 0 0 0` |
+| **Padding** | `6px` |
+| **Width** | `100%` |
+| **Background** | `var(--color-bg-secondary)` → `#f1f5f9` (light gray) |
+| **Border Radius** | `var(--radius-lg)` → `12px` |
+| **Border** | None |
+| **Overflow** | `hidden` |
 
 ---
 
-## Content States
+### 4. TAB BUTTON `.tab-btn`
 
-### My Teams Tab (Not Logged In)
-Shows a welcome screen with:
-- Welcome message
-- Feature highlights (Subscribe, Stay Updated, Auto-Sync)
-- "Get Started" login button
+#### Default State:
 
-### My Teams Tab (Logged In, No Teams)
-Shows:
-- "No teams subscribed" message
-- Invitation to subscribe
+| Property | Value |
+|----------|-------|
+| **Width** | `100%` |
+| **Min Height** | `48px` (but overridden to `auto` on mobile) |
+| **Padding** | `8px 12px` |
+| **Background** | `white` (`#ffffff`) |
+| **Border** | None |
+| **Border Radius** | `0` (on mobile, full width) |
+| **Box Shadow** | `var(--shadow-sm)` |
+| **Text Color** | `var(--color-text-secondary)` → `#64748b` |
+| **Font Size** | `0.875rem` |
+| **Font Weight** | `500` |
+| **Display** | `flex` |
+| **Justify Content** | `space-between` |
+| **Align Items** | `center` |
+| **Cursor** | `pointer` |
+| **Transition** | `all var(--transition-fast)` → `0.15s` |
 
-### My Teams Tab (Logged In, Has Teams)
-Shows:
-- Grid of subscribed team cards (2 columns)
+#### Hover State `.tab-btn:hover`:
 
-### Country/Continent/Global Tabs
-Shows:
-- Grid of country/continent/competition cards
-- Country: 3 columns
-- Continent/Global: 2 columns
+| Property | Value |
+|----------|-------|
+| **Background** | `#f1f5f9` (light gray) |
+| **Transform** | `translateX(4px)` |
+
+#### Active State `.tab-btn.active`:
+
+| Property | Value |
+|----------|-------|
+| **Background** | `var(--color-primary)` → `#3b82f6` (blue) |
+| **Text Color** | `white` |
+| **Box Shadow** | `var(--shadow-md)` |
+| **Transform** | `translateX(4px)` |
+
+#### Tab Content:
+
+| Element | Class | Styling |
+|---------|-------|---------|
+| Text | `.tab-text` | `flex: 1`, `text-align: left` |
+| Icon | `.tab-icon` | `font-size: 1.2rem`, `margin-left: 12px` |
+
+---
+
+### 5. CARDS GRID `.cards-grid`
+
+| Property | Value |
+|----------|-------|
+| **Display** | `grid` |
+| **Grid Columns (default)** | `repeat(2, 1fr)` (2 columns) |
+| **Grid Columns (country-mode)** | `repeat(3, 1fr)` (3 columns) |
+| **Gap** | `10px` (default) / `4px` (country-mode) |
+| **Width** | `100%` |
+| **Padding** | `8px` |
+| **Margin Top** | `4px` |
+| **Background** | Transparent |
+| **Max Height** | None (scrollable) |
+| **Overflow Y** | `visible` |
+
+---
+
+### 6. GRID CARD `.grid-card`
+
+| Property | Value |
+|----------|-------|
+| **Display** | `flex` |
+| **Flex Direction** | `column` |
+| **Align Items** | `center` |
+| **Justify Content** | `center` |
+| **Gap** | `6px` |
+| **Padding** | `10px 8px` (default) / `4px 2px` (country-mode) |
+| **Min Height** | `70px` (default) / `50px` (country-mode) |
+| **Background** | `var(--glass-bg)` → `rgba(255,255,255,0.7)` |
+| **Backdrop Filter** | `blur(16px) saturate(180%)` |
+| **Border** | `1px solid var(--glass-border)` → `rgba(255,255,255,0.2)` |
+| **Border Radius** | `var(--radius-lg)` → `12px` |
+| **Box Shadow** | `var(--shadow-md)` |
+| **Cursor** | `pointer` |
+| **Transition** | `all var(--transition-base)` → `0.2s` |
+
+#### Hover State `.grid-card:hover`:
+
+| Property | Value |
+|----------|-------|
+| **Transform** | `translateY(-3px)` |
+| **Box Shadow** | `var(--shadow-xl)` |
+| **Border Color** | `var(--color-primary-light)` |
+
+#### Card Image:
+
+| Property | Value |
+|----------|-------|
+| **Width** | `32px` (default) / `20px` (country-mode) |
+| **Height** | `32px` (default) / `20px` (country-mode) |
+
+#### Card Text:
+
+| Property | Value |
+|----------|-------|
+| **Font Size** | `0.75rem` (default) / `0.55rem` (country-mode) |
+| **Text Overflow** | `ellipsis` |
+| **White Space** | `nowrap` |
+| **Text Align** | `center` |
+
+---
+
+### 7. WELCOME SCREEN `.welcome-screen`
+
+| Property | Value |
+|----------|-------|
+| **Grid Column** | `1 / -1` (spans all columns) |
+| **Background** | `linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)` (light blue) |
+| **Border Radius** | `16px` (12px on mobile) |
+| **Padding** | `30px 20px` (24px 16px on mobile) |
+| **Min Height** | `400px` (`calc(100vh - 350px)` on mobile) |
+| **Display** | `flex` |
+| **Flex Direction** | `column` |
+| **Justify Content** | `center` |
+| **Align Items** | `center` |
+| **Text Align** | `center` |
+
+#### Welcome Screen Children:
+
+| Element | Class | Styling |
+|---------|-------|---------|
+| Icon | `.welcome-icon` | `font-size: 4rem`, bounce animation |
+| Title | `.welcome-title` | `font-size: 1.6rem`, `color: #1e3a8a`, `font-weight: 700` |
+| Subtitle | `.welcome-subtitle` | `font-size: 1.1rem`, `color: #3b82f6` |
+| Features | `.welcome-features` | `flex column`, `gap: 16px`, `max-width: 320px` |
+| Feature Card | `.welcome-feature` | `background: white`, `padding: 14px 16px`, `border-radius: 12px` |
+| Button | `.welcome-btn` | `background: linear-gradient(#3b82f6, #1d4ed8)`, `border-radius: 30px` |
+
+---
+
+### 8. FIXTURES SECTION `.fixtures-section`
+
+| Property | Value (Mobile) |
+|----------|----------------|
+| **Background** | `transparent` |
+| **Border** | None |
+| **Box Shadow** | None |
+| **Margin** | `0` |
+| **Padding** | `0` |
+
+---
+
+### 9. FIXTURES GRID `.fixtures-grid`
+
+| Property | Value (Mobile) |
+|----------|----------------|
+| **Background** | `transparent` |
+| **Margin** | `0` |
+| **Padding** | `0` |
+
+---
+
+### 10. EMPTY STATE `.empty-state`
+
+| Property | Value (Mobile) |
+|----------|----------------|
+| **Background** | `transparent` |
+| **Border** | None |
+| **Padding** | `8px` |
+| **Margin** | `0` |
+| **Text** | `👆 Select a tab above to get started` |
+
+---
+
+### 11. MOBILE BOTTOM NAV `.mobile-bottom-nav`
+
+| Property | Value |
+|----------|-------|
+| **Display** | `flex` (hidden on desktop) |
+| **Position** | `fixed` |
+| **Bottom** | `0` |
+| **Left/Right** | `0` |
+| **Background** | `white` (`#ffffff`) |
+| **Border Top** | `1px solid #e2e8f0` |
+| **Box Shadow** | `0 -2px 10px rgba(0,0,0,0.1)` |
+| **Padding** | `8px 0` |
+| **Padding Bottom** | `calc(8px + env(safe-area-inset-bottom))` |
+| **Z-Index** | `1000` |
+| **Justify Content** | `space-around` |
+
+#### Nav Item `.nav-item`:
+
+| Property | Value |
+|----------|-------|
+| **Display** | `flex` |
+| **Flex Direction** | `column` |
+| **Align Items** | `center` |
+| **Gap** | `4px` |
+| **Background** | None |
+| **Border** | None |
+| **Padding** | `8px 16px` |
+| **Color** | `#64748b` |
+| **Cursor** | `pointer` |
+
+| Child | Class | Styling |
+|-------|-------|---------|
+| Icon | `.nav-icon` | `font-size: 1.4rem` |
+| Label | `.nav-label` | `font-size: 0.7rem`, `font-weight: 500` |
+
+---
+
+### 12. MOBILE BACK BUTTON `#mobileBackBtn`
+
+| Property | Value |
+|----------|-------|
+| **Display** | `flex` (when visible) / `none` (when hidden) |
+| **Position** | `fixed` |
+| **Top** | `calc(16px + env(safe-area-inset-top))` |
+| **Left** | `16px` |
+| **Z-Index** | `9999` |
+| **Background** | `#3b82f6` (blue) |
+| **Color** | `white` |
+| **Border** | None |
+| **Border Radius** | `50%` (circle) |
+| **Width** | `48px` |
+| **Height** | `48px` |
+| **Box Shadow** | `0 4px 12px rgba(59, 130, 246, 0.4)` |
+| **Font Size** | `1.4rem` |
+| **Content** | `←` |
+
+---
+
+## Color Palette Summary
+
+| Color Name | Hex Value | Usage |
+|------------|-----------|-------|
+| Primary Blue | `#3b82f6` | Active tabs, buttons, links |
+| Primary Blue Dark | `#2563eb` / `#1d4ed8` | Header gradient, hover states |
+| White | `#ffffff` | Tab backgrounds, cards, bottom nav |
+| Light Gray | `#f1f5f9` | Tabs container background, hover states |
+| Text Primary | `#1e293b` | Main text |
+| Text Secondary | `#64748b` | Inactive tabs, labels, icons |
+| Border | `#e2e8f0` | Borders, dividers |
+| Light Blue BG | `#eff6ff` / `#dbeafe` | Welcome screen gradient |
+| Success Green | `#22c55e` | Win indicators |
+| Warning Yellow | `#f59e0b` | Draw indicators |
+| Error Red | `#ef4444` | Loss indicators |
+
+---
+
+## CSS Variables Reference
+
+```css
+--color-primary: #3b82f6;
+--color-primary-hover: #2563eb;
+--color-primary-light: rgba(59, 130, 246, 0.1);
+
+--color-bg-primary: #ffffff;
+--color-bg-secondary: #f1f5f9;
+--color-surface: #ffffff;
+
+--color-text-primary: #1e293b;
+--color-text-secondary: #64748b;
+
+--color-border: #e2e8f0;
+
+--glass-bg: rgba(255, 255, 255, 0.7);
+--glass-border: rgba(255, 255, 255, 0.2);
+
+--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+--shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+--shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+--shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+
+--radius-md: 8px;
+--radius-lg: 12px;
+--radius-xl: 16px;
+
+--transition-fast: 0.15s ease;
+--transition-base: 0.2s ease;
+```
 
 ---
 
@@ -219,10 +403,12 @@ Shows:
 
 | Element | z-index |
 |---------|---------|
-| Header | 500 |
 | Mobile Back Button | 9999 |
 | Mobile Bottom Nav | 1000 |
-| Modals/Popups | 1000+ |
+| Team Info Popup | 1000 |
+| Popup Overlay | 999 |
+| Header | 500 |
+| Help FAB | 100 |
 
 ---
 
