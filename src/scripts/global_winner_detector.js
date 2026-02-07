@@ -157,10 +157,29 @@ class GlobalWinnerDetector {
         const fixtures = await footballApi.getFixturesByLeague(leagueId, season, null, 10, 'FT');
         if (!fixtures || fixtures.length === 0) return null;
         
-        // Get the last finished fixture (likely the final)
+        // 🔴 FIX: Check that last match is actually a Final, not just the last match!
         const lastFixture = fixtures[fixtures.length - 1];
-        const teams = lastFixture.teams;
+        const round = lastFixture.league?.round?.toLowerCase() || '';
         
+        // Valid final rounds
+        const validFinalRounds = ['final', 'finale', 'grand final', '決勝', '3rd place', 'third place'];
+        const isFinalRound = validFinalRounds.some(keyword => round.includes(keyword));
+        
+        if (!isFinalRound) {
+            console.log(`⚠️ Last match is "${round}" - not a Final! Skipping detection.`);
+            return null;
+        }
+        
+        // Also check that enough time has passed (at least 3 days since match)
+        const matchDate = new Date(lastFixture.fixture.date);
+        const daysSinceMatch = Math.floor((Date.now() - matchDate.getTime()) / (1000 * 60 * 60 * 24));
+        
+        if (daysSinceMatch < 3) {
+            console.log(`⚠️ Match was only ${daysSinceMatch} days ago - waiting for confirmation`);
+            return null;
+        }
+        
+        const teams = lastFixture.teams;
         if (teams.home.winner) return teams.home;
         if (teams.away.winner) return teams.away;
         

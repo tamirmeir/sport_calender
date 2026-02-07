@@ -175,12 +175,34 @@ async function checkFixtures(leagueId, leagueName, country, season = CURRENT_SEA
             return null;
         }
         
-        // Find the winner (most recent final or highest score)
-        const sortedMatches = finishedMatches.sort((a, b) => 
+        // 🔴 FIX: Only accept Final rounds, not Quarter-finals or Semi-finals!
+        const validFinalRounds = ['final', 'finale', 'grand final', '決勝', '3rd place', 'third place'];
+        const finalMatches = finishedMatches.filter(f => {
+            const round = (f.league?.round || '').toLowerCase();
+            return validFinalRounds.some(keyword => round.includes(keyword));
+        });
+        
+        if (finalMatches.length === 0) {
+            // No final match found - tournament not finished yet
+            return null;
+        }
+        
+        // Find the most recent final
+        const sortedMatches = finalMatches.sort((a, b) => 
             new Date(b.fixture.date) - new Date(a.fixture.date)
         );
         
         const finalMatch = sortedMatches[0];
+        
+        // Also check that enough time has passed (at least 3 days)
+        const matchDate = new Date(finalMatch.fixture.date);
+        const daysSinceMatch = Math.floor((Date.now() - matchDate.getTime()) / (1000 * 60 * 60 * 24));
+        
+        if (daysSinceMatch < 3) {
+            // Too soon - wait for confirmation
+            return null;
+        }
+        
         const homeGoals = finalMatch.goals.home;
         const awayGoals = finalMatch.goals.away;
         
