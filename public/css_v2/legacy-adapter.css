@@ -51,7 +51,8 @@ body {
   text-align: center;
   margin-bottom: 24px;
   position: relative;
-  padding: 32px 20px;
+  padding: 32px 16px;
+  padding-top: calc(32px + env(safe-area-inset-top));
   background: linear-gradient(135deg, 
     rgba(37, 99, 235, 0.95) 0%,
     rgba(29, 78, 216, 0.98) 100%
@@ -61,6 +62,85 @@ body {
   color: white;
   border-radius: 0;
   box-shadow: var(--shadow-lg);
+  overflow: visible;
+}
+
+/* Header content - prevent text overflow */
+.header-content {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.header-content p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Auth controls in header - mobile fix */
+.auth-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  top: calc(12px + env(safe-area-inset-top));
+  z-index: 10;
+}
+
+/* Header action buttons (Subscriptions, My Calendar) */
+#favoritesHeaderAction {
+  margin-top: 12px;
+}
+
+#favoritesHeaderAction > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+#favoritesHeaderAction .auth-btn {
+  padding: 8px 14px !important;
+  font-size: 0.85rem !important;
+  min-width: auto;
+  white-space: nowrap;
+}
+
+/* Mobile header fixes */
+@media (max-width: 768px) {
+  .header {
+    display: block !important;
+    text-align: center;
+    padding: 20px 16px 24px;
+    padding-top: calc(50px + env(safe-area-inset-top));
+  }
+  
+  .header-content {
+    display: block;
+    width: 100%;
+  }
+  
+  .auth-controls {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    top: calc(10px + env(safe-area-inset-top)) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  #favoritesHeaderAction .auth-btn {
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .header h1 {
+    font-size: 1.4rem;
+  }
+  
+  .header p {
+    font-size: 0.9rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -68,13 +148,6 @@ body {
     border-radius: 0 0 16px 16px;
     margin-bottom: 30px;
   }
-}
-
-[data-theme="dark"] .header {
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.9) 0%,
-    rgba(37, 99, 235, 0.95) 100%
-  );
 }
 
 .header h1 {
@@ -239,25 +312,25 @@ input[type="search"]:focus {
 }
 
 /* ========================================
-   TABS - Touch Optimized
+   TABS - Fixed Width, No Scroll
    ======================================== */
 
 .tabs-nav {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 20px;
   padding: 6px;
   background: var(--color-bg-secondary);
   border-radius: var(--radius-lg);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden; /* No scroll */
+  width: 100%;
 }
 
 .tab-btn {
   flex: 1;
-  min-width: 80px;
+  min-width: 0; /* Allow shrinking */
   min-height: 44px;
-  padding: 10px 16px;
+  padding: 10px 8px;
   background: transparent;
   border: none;
   border-radius: var(--radius-md);
@@ -268,6 +341,62 @@ input[type="search"]:focus {
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Tab icon and text separation */
+.tab-icon {
+  display: inline;
+}
+
+.tab-text {
+  display: inline;
+}
+
+/* Mobile: Smaller text for tabs to fit */
+@media (max-width: 480px) {
+  .tabs-nav {
+    gap: 4px;
+  }
+  
+  .tab-btn {
+    padding: 10px 6px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .tabs-nav {
+    gap: 3px;
+    padding: 4px;
+  }
+  
+  .tab-btn {
+    padding: 8px 4px;
+    font-size: 0.75rem;
+    min-height: 40px;
+  }
+  
+  /* Hide "By " prefix on small screens */
+  #modeTabs .tab-text {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 340px) {
+  /* Very small screens - hide text, show only icons */
+  #modeTabs .tab-text {
+    display: none;
+  }
+  
+  #modeTabs .tab-icon {
+    font-size: 1.2rem;
+  }
+  
+  #modeTabs .tab-btn {
+    padding: 10px 12px;
+  }
 }
 
 .tab-btn:hover {
@@ -703,146 +832,415 @@ button:focus,
 }
 
 /* ========================================
-   MOBILE TABLE FIXES - Responsive Tables
+   TABLES - NO HORIZONTAL SCROLL
    ======================================== */
 
-/* Table container with horizontal scroll */
+/* Table container - NO horizontal scroll */
 .table-container,
 .teams-table-container,
 .standings-container {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin: 0 -16px;
-  padding: 0 16px;
+  overflow-x: hidden !important;
+  overflow: hidden !important;
+}
+
+/* All tables - fit within container */
+.teams-table,
+.fixtures-table,
+.group-table,
+.playoff-standings-table {
+  width: 100%;
+  table-layout: fixed;
+  overflow: hidden;
 }
 
 /* Teams table responsive */
 .teams-table {
   width: 100%;
-  min-width: 100%;
   table-layout: auto;
 }
 
-/* Mobile specific table fixes */
-@media (max-width: 480px) {
-  /* Make table scroll horizontally */
-  .teams-table {
-    min-width: 500px; /* Force minimum width to enable scroll */
-  }
-  
-  /* Smaller padding for mobile */
-  .teams-table th,
-  .teams-table td {
-    padding: 8px 4px !important;
-    font-size: 0.8rem !important;
-  }
-  
-  /* Rank column - smaller */
-  .teams-table th:first-child,
-  .teams-table td:first-child {
-    width: 30px;
-    padding: 8px 4px !important;
-  }
-  
-  /* Subscribe/Star column */
-  .teams-table th:nth-child(2),
-  .teams-table td:nth-child(2) {
-    width: 35px;
-    padding: 4px !important;
-  }
-  
-  /* Logo column */
-  .teams-table th:nth-child(3),
-  .teams-table td:nth-child(3) {
-    width: 32px;
-    padding: 4px !important;
-  }
-  
-  /* Team name - allow wrapping */
-  .teams-table th:nth-child(4),
-  .teams-table td:nth-child(4) {
-    min-width: 100px;
-    max-width: 120px;
-    white-space: normal;
-    word-break: break-word;
-  }
-  
-  /* Stats columns - compact */
-  .teams-table th:nth-child(n+5),
-  .teams-table td:nth-child(n+5) {
-    width: 35px;
-    text-align: center;
-    padding: 8px 2px !important;
-  }
-  
-  /* FORM column - smaller circles */
-  .teams-table td:last-child {
-    min-width: 80px;
-  }
-  
-  .teams-table td:last-child span[style*="border-radius"] {
-    width: 14px !important;
-    height: 14px !important;
-    font-size: 9px !important;
-    line-height: 14px !important;
-    margin: 0 1px !important;
-  }
-  
-  /* Smaller team logos */
-  .teams-table img {
-    width: 20px !important;
-    height: 20px !important;
-  }
+/* Scroll hint removed - no horizontal scroll */
+.table-scroll-hint {
+  display: none !important;
 }
 
-/* Very small screens */
-@media (max-width: 360px) {
+/* ========================================
+   MOBILE: Hide columns, show info button
+   ======================================== */
+
+@media (max-width: 640px) {
+  /* TEAMS TABLE - Mobile simplified */
+  .teams-table {
+    font-size: 0.85rem;
+  }
+  
   .teams-table th,
   .teams-table td {
-    padding: 6px 2px !important;
-    font-size: 0.75rem !important;
+    padding: 10px 6px !important;
   }
   
-  .teams-table td:last-child span[style*="border-radius"] {
-    width: 12px !important;
-    height: 12px !important;
-    font-size: 8px !important;
-    line-height: 12px !important;
+  /* Hide GP, GD columns on mobile - show via info popup */
+  .teams-table .col-gp,
+  .teams-table .col-gd,
+  .teams-table th.col-gp,
+  .teams-table th.col-gd {
+    display: none !important;
   }
   
+  /* Hide FORM column on mobile - show via info popup */
+  .teams-table .col-form,
+  .teams-table th.col-form {
+    display: none !important;
+  }
+  
+  /* Show info button on mobile */
+  .teams-table .col-info {
+    display: table-cell !important;
+    width: 40px;
+    text-align: center;
+  }
+  
+  /* Make team name take more space */
+  .teams-table .col-team {
+    max-width: none;
+  }
+  
+  /* Smaller logos */
   .teams-table img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  
+  /* Points column - bold and visible */
+  .teams-table .col-pts {
+    font-weight: 700;
+    font-size: 0.9rem;
+    min-width: 40px;
+  }
+  
+  /* FIXTURES TABLE - Mobile simplified */
+  .fixtures-table {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+  
+  .fixtures-table th,
+  .fixtures-table td {
+    padding: 8px 4px !important;
+  }
+  
+  /* Compact date column */
+  .fixtures-table .col-date,
+  .fixtures-table td:nth-child(2) {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  
+  /* Team columns - more compact */
+  .fixtures-table .team-col {
+    gap: 4px !important;
+    font-size: 0.75rem;
+  }
+  
+  .fixtures-table .team-col img {
     width: 18px !important;
     height: 18px !important;
   }
-}
-
-/* Scroll hint for tables */
-.table-scroll-hint {
-  display: none;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  padding: 8px;
-}
-
-@media (max-width: 480px) {
-  .table-scroll-hint {
-    display: block;
+  
+  .fixtures-table .team-col span {
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Hide star buttons on mobile fixtures */
+  .fixtures-table .fav-star {
+    display: none;
+  }
+  
+  /* VS column smaller */
+  .fixtures-table .vs-col {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    padding: 0 2px !important;
+  }
+  
+  /* GROUP TABLES - Mobile */
+  .group-table {
+    font-size: 0.75rem !important;
+  }
+  
+  .group-table th,
+  .group-table td {
+    padding: 6px 3px !important;
+  }
+  
+  /* Hide W/D/L on mobile - just show P, GD, Pts */
+  .group-table th:nth-child(4),
+  .group-table th:nth-child(5),
+  .group-table th:nth-child(6),
+  .group-table td:nth-child(4),
+  .group-table td:nth-child(5),
+  .group-table td:nth-child(6) {
+    display: none !important;
+  }
+  
+  .group-table .team-cell span {
+    max-width: 80px;
+    font-size: 0.75rem !important;
+  }
+  
+  .group-table .team-cell img {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  
+  /* PLAYOFF TABLES - Mobile */
+  .playoff-standings-table {
+    font-size: 0.8rem;
+  }
+  
+  .playoff-standings-table th,
+  .playoff-standings-table td {
+    padding: 8px 4px !important;
+  }
+  
+  /* Hide W/D/L/GF/GA on mobile - just show P, GD, Pts */
+  .playoff-standings-table th:nth-child(4),
+  .playoff-standings-table th:nth-child(5),
+  .playoff-standings-table th:nth-child(6),
+  .playoff-standings-table th:nth-child(7),
+  .playoff-standings-table th:nth-child(8),
+  .playoff-standings-table td:nth-child(4),
+  .playoff-standings-table td:nth-child(5),
+  .playoff-standings-table td:nth-child(6),
+  .playoff-standings-table td:nth-child(7),
+  .playoff-standings-table td:nth-child(8) {
+    display: none !important;
   }
 }
 
-/* Fix container overflow */
+/* Desktop: Hide info button, show all columns */
+@media (min-width: 641px) {
+  .teams-table .col-info,
+  .teams-table th.col-info {
+    display: none !important;
+  }
+  
+  .teams-table .col-gp,
+  .teams-table .col-gd,
+  .teams-table .col-form,
+  .teams-table th.col-gp,
+  .teams-table th.col-gd,
+  .teams-table th.col-form {
+    display: table-cell !important;
+  }
+}
+
+/* ========================================
+   INFO POPUP - Team Details Modal
+   ======================================== */
+
+.team-info-popup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.team-info-popup.show {
+  transform: translateY(0);
+}
+
+.team-info-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.team-info-popup-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.team-info-popup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.team-info-popup-header img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.team-info-popup-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.team-info-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #f1f5f9;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-info-popup-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.team-info-popup-stat {
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.team-info-popup-stat .label {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.team-info-popup-stat .value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.team-info-popup-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.team-info-popup-form .form-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+}
+
+.team-info-popup-form .form-dot.W { background: #22c55e; }
+.team-info-popup-form .form-dot.D { background: #f59e0b; }
+.team-info-popup-form .form-dot.L { background: #ef4444; }
+
+/* Fix container overflow - NO horizontal scroll anywhere */
 .step-content,
 .teams-section,
-.standings-wrapper {
-  overflow-x: hidden;
+.standings-wrapper,
+.explorer-section,
+.explorer-step {
+  overflow-x: hidden !important;
   width: 100%;
+  max-width: 100%;
 }
 
 /* Card content overflow fix */
 .card-content,
 .tournament-content {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden !important;
+}
+
+/* Body - prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+.container {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ========================================
+   DESKTOP ONLY / MOBILE ONLY CLASSES
+   ======================================== */
+
+@media (max-width: 640px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   INFO BUTTON MOBILE
+   ======================================== */
+
+.info-btn-mobile {
+  display: none;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f1f5f9;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.info-btn-mobile:hover,
+.info-btn-mobile:active {
+  background: #e2e8f0;
+}
+
+@media (max-width: 640px) {
+  .info-btn-mobile {
+    display: inline-flex;
+  }
+  
+  /* Hide competition info button on cards - doesn't work well on mobile */
+  .league-card .info-btn,
+  .tournament-card .info-btn,
+  .country-competition-card .info-btn {
+    display: none !important;
+  }
 }

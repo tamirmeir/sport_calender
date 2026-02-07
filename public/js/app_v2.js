@@ -1623,33 +1623,31 @@ async function loadTeams(leagueId) {
             // Helper for ambiguous "W" suffix (e.g. "Chelsea W" vs just "W")
             const displayNameIsWomen = (str) => str.endsWith(' W') || str.endsWith(' Ladies');
             
-            // Generate Table Header - SIMPLE layout with standings shown via hover tooltip
+            // Generate Table Header - Mobile-optimized with info button
             const isNationalContext = currentState.league === 'NATIONAL';
             const tableHeader = hasStandings ? `
                 <thead>
                     <tr>
-                        <th style="width: 45px;">#</th>
-                        <th style="width: 70px;">Subscribe</th>
-                        <th style="width: 50px;">Logo</th>
-                        <th>Team</th>
-                        <th class="desktop-only">City</th>
-                        <th style="width: 40px;">GP</th>
-                        <th style="width: 40px;">GD</th>
-                        <th style="width: 50px;">Pts</th>
-                        <th style="width: 110px;">Form</th>
+                        <th class="col-rank" style="width: 35px;">#</th>
+                        <th class="col-subscribe" style="width: 40px;">⭐</th>
+                        <th class="col-team">Team</th>
+                        <th class="col-gp" style="width: 35px;">GP</th>
+                        <th class="col-gd" style="width: 35px;">GD</th>
+                        <th class="col-pts" style="width: 40px;">Pts</th>
+                        <th class="col-form" style="width: 100px;">Form</th>
+                        <th class="col-info" style="width: 40px;">ℹ️</th>
                     </tr>
                 </thead>
             ` : `
                 <thead>
                     <tr>
-                        <th style="width: 70px;">Subscribe</th>
-                        <th style="width: 50px;">Logo</th>
-                        <th>Team Name</th>
+                        <th class="col-subscribe" style="width: 40px;">⭐</th>
+                        <th class="col-team">Team</th>
                         ${isNationalContext ? '<th>Type</th>' : ''}
-                        <th>Founded</th>
-                        <th>Venue</th>
-                        <th>City</th>
-                        <th>Capacity</th>
+                        <th class="desktop-only">Founded</th>
+                        <th class="desktop-only">Venue</th>
+                        <th class="desktop-only">City</th>
+                        <th class="desktop-only">Capacity</th>
                     </tr>
                 </thead>
             `;
@@ -1885,26 +1883,27 @@ async function loadTeams(leagueId) {
                     
                     return `
                         <tr class="${rowClass}" style="cursor:pointer; ${rowStyle}" onclick="selectTeam(${team.id}, ${isNational})">
-                            <td style="${getRankStyle(standing.rank, totalTeams)}">${standing.rank}</td>
-                            <td onclick="event.stopPropagation();">
+                            <td class="col-rank" style="${getRankStyle(standing.rank, totalTeams)}">${standing.rank}</td>
+                            <td class="col-subscribe" onclick="event.stopPropagation();">
                                 <button class="${starClass}" data-team='${teamData}' onclick="event.stopPropagation(); toggleFavoriteFromTable(this)" title="${isFavorited ? 'Edit subscription' : 'Subscribe'}">
                                     ${starSymbol}
                                 </button>
                             </td>
-                            <td>
-                                <img src="${team.logo}" alt="${team.name}" onerror="this.src='/favicon.svg'">
+                            <td class="col-team team-info">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <img src="${team.logo}" alt="" style="width:24px;height:24px;object-fit:contain;" onerror="this.src='/favicon.svg'">
+                                    <span class="team-name-text" data-tooltip="${teamTooltipText}">${team.name}${badge}</span>
+                                </div>
                             </td>
-                            <td class="team-info team-name-cell">
-                                <span class="team-name-text" data-tooltip="${teamTooltipText}">${team.name}${badge}</span>
-                                <button class="info-btn" onclick="event.stopPropagation(); showTeamInfo('${infoData}')" title="More info">ℹ</button>
-                            </td>
-                            <td class="desktop-only" style="color: #64748b;">${venue.city || '-'}</td>
-                            <td>${standing.played || 0}</td>
-                            <td style="color: ${gdColor}; font-weight: 500;">${gdText}</td>
-                            <td class="pts-cell" data-tooltip="${statsTooltipText}">
+                            <td class="col-gp">${standing.played || 0}</td>
+                            <td class="col-gd" style="color: ${gdColor}; font-weight: 500;">${gdText}</td>
+                            <td class="col-pts" data-tooltip="${statsTooltipText}">
                                 <span style="font-weight: bold; font-size:1.1em;">${standing.points || 0}</span>
                             </td>
-                            <td style="white-space: nowrap;">${formatForm(standing.form)}</td>
+                            <td class="col-form" style="white-space: nowrap;">${formatForm(standing.form)}</td>
+                            <td class="col-info" onclick="event.stopPropagation();">
+                                <button class="info-btn-mobile" onclick="event.stopPropagation(); showTeamInfoPopup('${infoData}')" title="More info">ℹ️</button>
+                            </td>
                         </tr>
                         ${separator}
                     `;
@@ -1916,20 +1915,22 @@ async function loadTeams(leagueId) {
                 
                 return `
                     <tr style="cursor:pointer;" onclick="selectTeam(${team.id}, ${isNational})">
-                        <td onclick="event.stopPropagation();">
+                        <td class="col-subscribe" onclick="event.stopPropagation();">
                             <button class="${starClass}" data-team='${teamData}' onclick="event.stopPropagation(); toggleFavoriteFromTable(this)" title="${isFavorited ? 'Edit subscription' : 'Subscribe'}">
                                 ${starSymbol}
                             </button>
                         </td>
-                        <td>
-                            <img src="${team.logo}" alt="${team.name}" onerror="this.src='/favicon.svg'">
+                        <td class="col-team team-info">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <img src="${team.logo}" alt="" style="width:24px;height:24px;object-fit:contain;" onerror="this.src='/favicon.svg'">
+                                <span style="font-weight: 600;">${team.name}${cupBadge}</span>
+                            </div>
                         </td>
-                        <td class="team-info" style="font-weight: 600;">${team.name}${cupBadge}</td>
                         ${isNationalContext ? `<td>${badgeHtml}</td>` : ''}
-                        <td>${team.founded || '-'}</td>
-                        <td>${venue.name || '-'}</td>
-                        <td>${venue.city || '-'}</td>
-                        <td>${venue.capacity ? venue.capacity.toLocaleString() : '-'}</td>
+                        <td class="desktop-only">${team.founded || '-'}</td>
+                        <td class="desktop-only">${venue.name || '-'}</td>
+                        <td class="desktop-only">${venue.city || '-'}</td>
+                        <td class="desktop-only">${venue.capacity ? venue.capacity.toLocaleString() : '-'}</td>
                     </tr>
                 `;
             }).join('');
@@ -1965,7 +1966,6 @@ async function loadTeams(leagueId) {
                         </tbody>
                     </table>
                 </div>
-                <div class="table-scroll-hint">← גלול לצדדים לראות עוד עמודות →</div>
             `;
             
             // Setup Quick Filter for teams (UPDATED for Table)
@@ -2333,18 +2333,18 @@ function renderFixtures(isResultsMode = false) {
         </div>
     `;
 
-    // Table Header
+    // Table Header - Mobile simplified (no League/Venue)
     const tableHeader = `
         <thead>
             <tr>
                 <th class="checkbox-col">✅</th>
-                <th>Date</th>
-                ${isResultsMode ? '<th>Score</th>' : '<th>Time</th>'}
-                <th style="text-align:right">Home</th>
+                <th class="col-date">Date</th>
+                ${isResultsMode ? '<th class="col-score">Score</th>' : '<th class="col-time">Time</th>'}
+                <th class="col-home" style="text-align:right">Home</th>
                 <th style="width: 20px;"></th>
-                <th style="text-align:left">Away</th>
-                <th>League</th>
-                <th>Venue</th>
+                <th class="col-away" style="text-align:left">Away</th>
+                <th class="col-league desktop-only">League</th>
+                <th class="col-venue desktop-only">Venue</th>
             </tr>
         </thead>
     `;
@@ -2449,8 +2449,8 @@ function createFixtureRow(fixture, isResultsMode = false) {
                     </button>
                 </div>
             </td>
-            <td>${fixture.league.name}</td>
-            <td>${fixture.fixture.venue?.name || 'TBA'}</td>
+            <td class="desktop-only">${fixture.league.name}</td>
+            <td class="desktop-only">${fixture.fixture.venue?.name || 'TBA'}</td>
         </tr>
     `;
 }
@@ -3036,6 +3036,95 @@ window.closeTeamInfoModal = function(event) {
         modal.remove();
         document.body.style.overflow = '';
     }
+};
+
+// Show team info popup (mobile bottom sheet)
+window.showTeamInfoPopup = function(dataStr) {
+    try {
+        const data = JSON.parse(dataStr.replace(/&#39;/g, "'"));
+        
+        // Format form as colored dots
+        const formDots = (data.form || '').split('').map(char => {
+            const colorClass = char.toUpperCase();
+            return `<span class="form-dot ${colorClass}">${colorClass}</span>`;
+        }).join('');
+        
+        // GD formatting
+        const gd = data.gd || 0;
+        const gdText = gd > 0 ? `+${gd}` : gd;
+        const gdColor = gd > 0 ? '#22c55e' : gd < 0 ? '#ef4444' : '#64748b';
+        
+        // Create popup HTML
+        const popupHtml = `
+            <div class="team-info-popup-overlay show" onclick="closeTeamInfoPopup()"></div>
+            <div class="team-info-popup show">
+                <button class="team-info-popup-close" onclick="closeTeamInfoPopup()">×</button>
+                <div class="team-info-popup-header">
+                    <img src="${data.logo}" alt="" onerror="this.style.display='none'">
+                    <h3>${data.name}</h3>
+                </div>
+                <div class="team-info-popup-stats">
+                    <div class="team-info-popup-stat">
+                        <div class="label">מקום</div>
+                        <div class="value">#${data.rank}</div>
+                    </div>
+                    <div class="team-info-popup-stat">
+                        <div class="label">נקודות</div>
+                        <div class="value">${data.points}</div>
+                    </div>
+                    <div class="team-info-popup-stat">
+                        <div class="label">משחקים</div>
+                        <div class="value">${data.played}</div>
+                    </div>
+                    <div class="team-info-popup-stat">
+                        <div class="label">ניצ׳</div>
+                        <div class="value">${data.won}</div>
+                    </div>
+                    <div class="team-info-popup-stat">
+                        <div class="label">תיקו</div>
+                        <div class="value">${data.draw}</div>
+                    </div>
+                    <div class="team-info-popup-stat">
+                        <div class="label">הפסד</div>
+                        <div class="value">${data.lost}</div>
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:space-around; padding:12px 0; border-top:1px solid #e2e8f0;">
+                    <div style="text-align:center;">
+                        <div style="font-size:0.75rem; color:#64748b;">יחס שערים</div>
+                        <div style="font-size:1.2rem; font-weight:700; color:${gdColor};">${gdText}</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="font-size:0.75rem; color:#64748b; margin-bottom:6px;">פורמה</div>
+                        <div class="team-info-popup-form">${formDots || '—'}</div>
+                    </div>
+                </div>
+                ${data.venue ? `
+                <div style="padding:12px 0; border-top:1px solid #e2e8f0; font-size:0.85rem; color:#64748b;">
+                    🏟️ ${data.venue}${data.city ? ` • ${data.city}` : ''}${data.capacity ? ` • ${data.capacity.toLocaleString()} מושבים` : ''}
+                </div>
+                ` : ''}
+            </div>
+        `;
+        
+        // Remove existing popup if any
+        closeTeamInfoPopup();
+        
+        // Add popup to page
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
+        document.body.style.overflow = 'hidden';
+    } catch (e) {
+        console.error('Error showing team info popup:', e);
+    }
+};
+
+// Close team info popup
+window.closeTeamInfoPopup = function() {
+    const overlay = document.querySelector('.team-info-popup-overlay');
+    const popup = document.querySelector('.team-info-popup');
+    if (overlay) overlay.remove();
+    if (popup) popup.remove();
+    document.body.style.overflow = '';
 };
 
 // Fetch team competitions with caching

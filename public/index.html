@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="/css_v2/styles.css">
     <link rel="stylesheet" href="/css/auth.css">
     
-    <!-- Theme Manager - Load early for no flash -->
-    <script src="/js/theme-manager.js"></script>
+    <!-- Dark mode removed - light only -->
 </head>
 <body>
     <div class="container">
@@ -56,9 +55,9 @@
                 <div class="explorer-step" id="stepCountry">
                     <!-- Tabs for Mode Selection -->
                     <div id="modeTabs" class="tabs-nav">
-                         <button class="tab-btn" id="tabCountry" onclick="showCountrySelection()">🏳️ By Country</button>
-                         <button class="tab-btn" id="tabContinent" onclick="showContinentSelection()">🌍 By Continent</button>
-                         <button class="tab-btn" id="tabGlobal" onclick="showGlobalSelection()">🏆 Global</button>
+                         <button class="tab-btn" id="tabCountry" onclick="showCountrySelection()"><span class="tab-icon">🏳️</span> <span class="tab-text">By Country</span></button>
+                         <button class="tab-btn" id="tabContinent" onclick="showContinentSelection()"><span class="tab-icon">🌍</span> <span class="tab-text">By Continent</span></button>
+                         <button class="tab-btn" id="tabGlobal" onclick="showGlobalSelection()"><span class="tab-icon">🏆</span> <span class="tab-text">Global</span></button>
                     </div>
 
                     <input type="text" id="countrySearch" placeholder="Search country..." class="filter-input">
