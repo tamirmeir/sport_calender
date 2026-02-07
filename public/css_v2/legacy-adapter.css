@@ -111,8 +111,8 @@ body {
   .header {
     display: block !important;
     text-align: center;
-    padding: 12px 16px 12px;
-    padding-top: calc(10px + env(safe-area-inset-top));
+    padding: 8px 16px 8px;
+    padding-top: calc(8px + env(safe-area-inset-top));
     margin-bottom: 0 !important;
     position: fixed;
     top: 0;
@@ -121,9 +121,25 @@ body {
     z-index: 500;
   }
   
-  /* Add padding to content to account for fixed header */
+  .header h1 {
+    font-size: 1.3rem !important;
+    margin-bottom: 4px !important;
+  }
+  
+  .header p {
+    font-size: 0.85rem !important;
+    margin: 2px 0 !important;
+  }
+  
+  /* Add padding to content to account for fixed header - minimal gap */
   .search-section {
-    margin-top: 120px !important;
+    margin-top: 85px !important;
+    padding-top: 0 !important;
+  }
+  
+  .tabs-nav {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
   }
   
   .header-content {
