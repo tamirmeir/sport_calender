@@ -574,23 +574,50 @@ input[type="search"]:focus {
 }
 
 /* ========================================
-   TABS - Professional Vertical Navigation
+   TABS - Deep Glassmorphism Navigation
    ======================================== */
+
+/* Background Glow Orbs for Depth */
+.bg-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-glow-1 {
+  top: 10%;
+  left: -5%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+}
+
+.bg-glow-2 {
+  top: 40%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%);
+}
 
 .tabs-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 24px;
-  padding: 16px;
-  /* Glassmorphism Background */
-  background: rgba(255, 255, 255, 0.7);
+  padding: 12px;
+  /* Deep Glassmorphism - more transparency */
+  background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  /* Multi-layered shadows for depth: outer + inset highlight */
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 15px rgba(255, 255, 255, 0.5),
+    0 1px 1px rgba(0, 0, 0, 0.05);
+  overflow: visible;
   width: 100%;
 }
 
@@ -598,7 +625,7 @@ input[type="search"]:focus {
   position: relative;
   width: 100%;
   min-height: 48px;
-  padding: 16px 20px 16px 24px;
+  padding: 12px 16px 12px 24px;
   background: transparent;
   border: none;
   border-radius: 12px;
@@ -606,29 +633,31 @@ input[type="search"]:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
   font-family: inherit;
   color: #475569;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Bouncy luxurious transition */
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Vertical line indicator - left side */
+/* Vertical Blue Line with Gradient & Glow */
 .tab-btn::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 6px;
   top: 50%;
   transform: translateY(-50%);
   width: 4px;
   height: 0;
-  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-  border-radius: 0 4px 4px 0;
-  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(59, 130, 246, 0);
 }
 
 .tab-text {
@@ -642,7 +671,7 @@ input[type="search"]:focus {
   font-size: 1.3rem;
   margin-left: 16px;
   opacity: 0.7;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Hide step indicator on mobile */
@@ -755,42 +784,46 @@ input[type="search"]:focus {
   }
 }
 
-/* Hover state */
+/* Hover State - initial growth and slide */
 .tab-btn:hover {
   background: rgba(59, 130, 246, 0.08);
   color: #1e40af;
-  transform: translateX(4px);
+  transform: translateX(6px);
 }
 
 .tab-btn:hover::before {
   height: 24px;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
 .tab-btn:hover .tab-icon {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
-/* Active state */
+/* Active State - full height indicator with deep glow */
 .tab-btn.active {
   background: rgba(59, 130, 246, 0.12);
   color: #1d4ed8;
   font-weight: 600;
+  transform: translateX(4px);
 }
 
 .tab-btn.active::before {
   height: 32px;
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
 }
 
 .tab-btn.active .tab-icon {
   opacity: 1;
+  transform: scale(1.05);
 }
 
-/* Press state */
+/* Press State - subtle feedback */
 .tab-btn:active {
-  transform: scale(0.98) translateX(2px);
+  transform: scale(0.98) translateX(3px);
   background: rgba(59, 130, 246, 0.15);
+  transition: all 0.1s ease;
 }
 
 /* My Teams Tab - Same styling as other tabs */
