@@ -78,19 +78,9 @@
         <!-- Legacy elements hidden -->
         <div style="display: none;">
              <button id="searchBtn">Search</button>
-             <div class="filters-section"> <!-- filters removed --> </div>
+             <button id="downloadAllBtn" class="btn btn-success hidden">🗓 Add All (Import)</button>
+             <button id="removeAllBtn" class="btn btn-danger hidden">🗑️ Remove All</button>
         </div>
-
-        <section class="filters-section" style="justify-content: flex-end;">
-            <div style="display: flex; gap: 10px;">
-                <button id="downloadAllBtn" class="btn btn-success hidden" style="display: none;" title="Download .ics file to import into Google/Apple/Outlook Calendar">
-                    🗓 Add All (Import)
-                </button>
-                <button id="removeAllBtn" class="btn btn-danger hidden" style="display: none; background-color: #dc3545; border-color: #dc3545;" title="Download cancellation .ics file">
-                    🗑️ Remove All
-                </button>
-            </div>
-        </section>
 
         <!-- Fixtures Grid -->
         <section class="fixtures-section">
