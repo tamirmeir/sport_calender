@@ -1957,12 +1957,15 @@ async function loadTeams(leagueId) {
             teamsGrid.innerHTML = `
                 ${vacationBanner}
                 ${zoneBanner}
-                <table class="teams-table">
-                    ${tableHeader}
-                    <tbody>
-                        ${rows}
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table class="teams-table">
+                        ${tableHeader}
+                        <tbody>
+                            ${rows}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-scroll-hint">← גלול לצדדים לראות עוד עמודות →</div>
             `;
             
             // Setup Quick Filter for teams (UPDATED for Table)
@@ -2351,12 +2354,14 @@ function renderFixtures(isResultsMode = false) {
 
     fixturesContainer.innerHTML = `
         ${controlsHtml}
-        <table class="fixtures-table">
-            ${tableHeader}
-            <tbody>
-                ${tableRows}
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table class="fixtures-table">
+                ${tableHeader}
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+        </div>
     `;
 }
 
@@ -4697,37 +4702,39 @@ window.showTournamentGroups = async function(leagueId, leagueName, format) {
             groupsHtml += `
                 <div class="group-card">
                     <div class="group-header">${group.name}</div>
-                    <table class="group-table">
-                        <thead>
-                            <tr>
-                                <th style="width:30px;">#</th>
-                                <th>Team</th>
-                                <th>P</th>
-                                <th>W</th>
-                                <th>D</th>
-                                <th>L</th>
-                                <th>GD</th>
-                                <th>Pts</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${group.teams.map((team, idx) => `
-                                <tr class="${idx < 2 ? 'qualify' : idx >= group.teams.length - 1 ? 'eliminate' : ''}">
-                                    <td>${idx + 1}</td>
-                                    <td class="team-cell">
-                                        <img src="${team.logo}" alt="" onerror="this.style.display='none'">
-                                        <span>${team.name}</span>
-                                    </td>
-                                    <td>${team.played || 0}</td>
-                                    <td>${team.win || 0}</td>
-                                    <td>${team.draw || 0}</td>
-                                    <td>${team.lose || 0}</td>
-                                    <td>${team.goalsDiff || 0}</td>
-                                    <td class="pts">${team.points || 0}</td>
+                    <div class="table-container" style="margin:0;">
+                        <table class="group-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:30px;">#</th>
+                                    <th>Team</th>
+                                    <th>P</th>
+                                    <th>W</th>
+                                    <th>D</th>
+                                    <th>L</th>
+                                    <th>GD</th>
+                                    <th>Pts</th>
                                 </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                ${group.teams.map((team, idx) => `
+                                    <tr class="${idx < 2 ? 'qualify' : idx >= group.teams.length - 1 ? 'eliminate' : ''}">
+                                        <td>${idx + 1}</td>
+                                        <td class="team-cell">
+                                            <img src="${team.logo}" alt="" onerror="this.style.display='none'">
+                                            <span>${team.name}</span>
+                                        </td>
+                                        <td>${team.played || 0}</td>
+                                        <td>${team.win || 0}</td>
+                                        <td>${team.draw || 0}</td>
+                                        <td>${team.lose || 0}</td>
+                                        <td>${team.goalsDiff || 0}</td>
+                                        <td class="pts">${team.points || 0}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             `;
         });
@@ -4933,48 +4940,50 @@ window.showPlayoffTables = async function(leagueId, leagueName) {
 
 function buildPlayoffTable(teams, type) {
     return `
-        <table class="playoff-standings-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Team</th>
-                    <th>P</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>GF</th>
-                    <th>GA</th>
-                    <th>GD</th>
-                    <th>Pts</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${teams.map((team, idx) => {
-                    let rowClass = '';
-                    if (type === 'championship' && idx === 0) rowClass = 'champion';
-                    else if (type === 'championship' && idx < 3) rowClass = 'europe';
-                    else if (type === 'relegation' && idx >= teams.length - 2) rowClass = 'relegated';
-                    
-                    return `
-                        <tr class="${rowClass}">
-                            <td>${idx + 1}</td>
-                            <td class="team-cell">
-                                <img src="${team.logo}" alt="" onerror="this.style.display='none'">
-                                <span>${team.name}</span>
-                            </td>
-                            <td>${team.played || 0}</td>
-                            <td>${team.win || 0}</td>
-                            <td>${team.draw || 0}</td>
-                            <td>${team.lose || 0}</td>
-                            <td>${team.goalsFor || 0}</td>
-                            <td>${team.goalsAgainst || 0}</td>
-                            <td>${team.goalsDiff || 0}</td>
-                            <td class="pts">${team.points || 0}</td>
-                        </tr>
-                    `;
-                }).join('')}
-            </tbody>
-        </table>
+        <div class="table-container" style="margin:0;">
+            <table class="playoff-standings-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Team</th>
+                        <th>P</th>
+                        <th>W</th>
+                        <th>D</th>
+                        <th>L</th>
+                        <th>GF</th>
+                        <th>GA</th>
+                        <th>GD</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${teams.map((team, idx) => {
+                        let rowClass = '';
+                        if (type === 'championship' && idx === 0) rowClass = 'champion';
+                        else if (type === 'championship' && idx < 3) rowClass = 'europe';
+                        else if (type === 'relegation' && idx >= teams.length - 2) rowClass = 'relegated';
+                        
+                        return `
+                            <tr class="${rowClass}">
+                                <td>${idx + 1}</td>
+                                <td class="team-cell">
+                                    <img src="${team.logo}" alt="" onerror="this.style.display='none'">
+                                    <span>${team.name}</span>
+                                </td>
+                                <td>${team.played || 0}</td>
+                                <td>${team.win || 0}</td>
+                                <td>${team.draw || 0}</td>
+                                <td>${team.lose || 0}</td>
+                                <td>${team.goalsFor || 0}</td>
+                                <td>${team.goalsAgainst || 0}</td>
+                                <td>${team.goalsDiff || 0}</td>
+                                <td class="pts">${team.points || 0}</td>
+                            </tr>
+                        `;
+                    }).join('')}
+                </tbody>
+            </table>
+        </div>
     `;
 }
 

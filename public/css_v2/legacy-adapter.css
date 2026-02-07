@@ -701,3 +701,148 @@ button:focus,
 *:focus:not(:focus-visible) {
   outline: none;
 }
+
+/* ========================================
+   MOBILE TABLE FIXES - Responsive Tables
+   ======================================== */
+
+/* Table container with horizontal scroll */
+.table-container,
+.teams-table-container,
+.standings-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -16px;
+  padding: 0 16px;
+}
+
+/* Teams table responsive */
+.teams-table {
+  width: 100%;
+  min-width: 100%;
+  table-layout: auto;
+}
+
+/* Mobile specific table fixes */
+@media (max-width: 480px) {
+  /* Make table scroll horizontally */
+  .teams-table {
+    min-width: 500px; /* Force minimum width to enable scroll */
+  }
+  
+  /* Smaller padding for mobile */
+  .teams-table th,
+  .teams-table td {
+    padding: 8px 4px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Rank column - smaller */
+  .teams-table th:first-child,
+  .teams-table td:first-child {
+    width: 30px;
+    padding: 8px 4px !important;
+  }
+  
+  /* Subscribe/Star column */
+  .teams-table th:nth-child(2),
+  .teams-table td:nth-child(2) {
+    width: 35px;
+    padding: 4px !important;
+  }
+  
+  /* Logo column */
+  .teams-table th:nth-child(3),
+  .teams-table td:nth-child(3) {
+    width: 32px;
+    padding: 4px !important;
+  }
+  
+  /* Team name - allow wrapping */
+  .teams-table th:nth-child(4),
+  .teams-table td:nth-child(4) {
+    min-width: 100px;
+    max-width: 120px;
+    white-space: normal;
+    word-break: break-word;
+  }
+  
+  /* Stats columns - compact */
+  .teams-table th:nth-child(n+5),
+  .teams-table td:nth-child(n+5) {
+    width: 35px;
+    text-align: center;
+    padding: 8px 2px !important;
+  }
+  
+  /* FORM column - smaller circles */
+  .teams-table td:last-child {
+    min-width: 80px;
+  }
+  
+  .teams-table td:last-child span[style*="border-radius"] {
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 9px !important;
+    line-height: 14px !important;
+    margin: 0 1px !important;
+  }
+  
+  /* Smaller team logos */
+  .teams-table img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .teams-table th,
+  .teams-table td {
+    padding: 6px 2px !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .teams-table td:last-child span[style*="border-radius"] {
+    width: 12px !important;
+    height: 12px !important;
+    font-size: 8px !important;
+    line-height: 12px !important;
+  }
+  
+  .teams-table img {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+/* Scroll hint for tables */
+.table-scroll-hint {
+  display: none;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  padding: 8px;
+}
+
+@media (max-width: 480px) {
+  .table-scroll-hint {
+    display: block;
+  }
+}
+
+/* Fix container overflow */
+.step-content,
+.teams-section,
+.standings-wrapper {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Card content overflow fix */
+.card-content,
+.tournament-content {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
