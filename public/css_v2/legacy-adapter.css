@@ -287,14 +287,16 @@ button, .btn, .btn-primary {
 }
 
 /* ========================================
-   CARDS GRID - Responsive
+   CARDS GRID - Responsive (overrides styles.css)
    ======================================== */
 
 .cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 8px !important;
   margin-top: 12px;
+  max-height: none !important;
+  overflow-y: visible !important;
 }
 
 /* Smaller cards */
