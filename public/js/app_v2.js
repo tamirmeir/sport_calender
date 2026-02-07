@@ -345,6 +345,10 @@ function showContinentSelection() {
     currentState.team = null;
     navigationHistory = []; // Clear history when going to root tab
     
+    // Remove country-mode class for 2-column layout
+    const grid = document.getElementById('countriesGrid');
+    if (grid) grid.classList.remove('country-mode');
+    
     updateNavigation(1, "Select Continent", null); // Root level
     updateTabState('continent');
     
@@ -405,6 +409,10 @@ function showGlobalSelection() {
     currentState.league = null;
     currentState.team = null;
     navigationHistory = []; // Clear history when going to root tab
+    
+    // Remove country-mode class for 2-column layout
+    const grid = document.getElementById('countriesGrid');
+    if (grid) grid.classList.remove('country-mode');
     
     updateNavigation(1, "Global Competitions", null);
     updateTabState('global');
@@ -476,6 +484,9 @@ window.showMyTeamsTab = function() {
     navigationHistory = []; // Clear history when going to root tab
     const token = localStorage.getItem('token');
     const countriesGrid = document.getElementById('countriesGrid');
+    
+    // Remove country-mode class for 2-column layout
+    if (countriesGrid) countriesGrid.classList.remove('country-mode');
     
     // Update tab states
     updateTabState('myteams');
@@ -648,6 +659,10 @@ async function showCountrySelection() {
     currentState.country = null;
     currentState.league = null;
     navigationHistory = []; // Clear history when going to root tab
+    
+    // Add country-mode class for 3-column layout
+    const grid = document.getElementById('countriesGrid');
+    if (grid) grid.classList.add('country-mode');
     currentState.team = null;
     
     updateNavigation(1, "Select Country", null); // Root level

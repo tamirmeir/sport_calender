@@ -292,26 +292,36 @@ button, .btn, .btn-primary {
 
 .cards-grid {
   display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 8px !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 10px !important;
   margin-top: 12px;
   max-height: none !important;
   overflow-y: visible !important;
 }
 
-/* Smaller cards for mobile */
+/* Country mode - 3 columns on mobile */
+.cards-grid.country-mode {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 6px !important;
+}
+
+/* All cards same size */
 @media (max-width: 768px) {
+  /* Default cards (continent/global) - 2 columns */
   .grid-card {
-    padding: 6px 4px !important;
-    font-size: 0.7rem !important;
-    min-height: auto !important;
+    padding: 10px 8px !important;
+    font-size: 0.8rem !important;
+    min-height: 70px !important;
+    display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
   }
 
   .grid-card img {
-    width: 24px !important;
-    height: 24px !important;
+    width: 32px !important;
+    height: 32px !important;
   }
 
   .grid-card span,
@@ -321,8 +331,42 @@ button, .btn, .btn-primary {
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 100%;
-    font-size: 0.65rem !important;
+    text-align: center;
+    font-size: 0.75rem !important;
     line-height: 1.2 !important;
+  }
+  
+  /* Country mode cards - smaller for 3 columns */
+  .country-mode .grid-card {
+    padding: 6px 4px !important;
+    font-size: 0.7rem !important;
+    min-height: 60px !important;
+  }
+
+  .country-mode .grid-card img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .country-mode .grid-card span {
+    font-size: 0.6rem !important;
+  }
+  
+  /* Gold/winner cards - same size as others */
+  .grid-card .card-content {
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  
+  .grid-card .card-content span {
+    font-size: inherit !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
   }
 }
 
